@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soma Agent — Agent in the Shell｜會說話、有記憶、還會彼此聊天的桌面 AI 夥伴</title>
+<meta name="description" content="Soma Agent 是住在你桌面的 AI 夥伴：有個性、有記憶，兩個角色還能自己對談，你看戲也能插話。外觀、大腦（LLM）、語音、功能全客製：自帶你的 AI（BYOK）或月費代管，Live2D／VRM 雙引擎，中日韓英神經語音。首波支援 macOS。群募進行中。">
+<meta name="theme-color" content="#F2F4F7">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Soma Agent — Agent in the Shell">
+<meta property="og:description" content="自帶你的 AI，Soma Agent 給它臉孔、聲音與記憶。外觀・大腦・語音・功能，每一層都由你決定。">
+<meta property="og:image" content="assets/char-mint.png">
+<meta name="twitter:card" content="summary_large_image">
+<!-- hreflang（TODO: 部署後換成正式網域絕對網址） -->
+<link rel="alternate" hreflang="zh-Hant" href="./">
+<link rel="alternate" hreflang="zh-Hans" href="./cn/">
+<link rel="alternate" hreflang="en" href="./en/">
+<link rel="alternate" hreflang="ja" href="./ja/">
+<link rel="alternate" hreflang="ko" href="./ko/">
+<link rel="alternate" hreflang="x-default" href="./en/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Six+Caps&family=Michroma&family=Orbitron:wght@600;800&family=Chakra+Petch:wght@300;400;500;700&family=DotGothic16&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
+<!-- Paddle.js Overlay Checkout（v2）。token / priceId 見頁尾 SOMA.paddle 設定 -->
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<style>
+  :root{
+    /* ===== P-3 白域科技 tokens ===== */
+    --bg:#F2F4F7; --panel:#FFFFFF; --ink:#14161D; --muted:#5A6172; --dim:#9AA2B3; --line:#D8DCE4;
+    --acc:#0091AD; --acc-soft:#E3F4F8; --amber:#E0771C; --amber-soft:#FBEEDF;
+    /* 暗域（terminal 對比區） */
+    --d-bg:#14161D; --d-panel:#1B1E28; --d-line:#2A2E3A; --d-fg:#F2F3F7; --d-muted:#A6ACBD; --d-dim:#6A7183; --d-acc:#66E0F2; --d-green:#46F06A;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:78px;}
+  body{background:var(--bg);font-family:'Noto Sans TC',sans-serif;color:var(--ink);line-height:1.7;overflow-x:hidden;}
+  body::after{content:"";position:fixed;inset:0;background:repeating-linear-gradient(0deg,rgba(20,22,29,.015) 0 1px,transparent 1px 3px);pointer-events:none;z-index:98;}
+  img{max-width:100%;}
+  a{color:inherit;}
+
+  /* ===== 型別系統 ===== */
+  .f-mich{font-family:'Michroma',sans-serif;}
+  .f-orb{font-family:'Orbitron',sans-serif;}
+  .f-chakra{font-family:'Chakra Petch',sans-serif;}
+  .f-dot{font-family:'DotGothic16',monospace;}
+  .num{font-family:'Chakra Petch',sans-serif;font-weight:700;}
+  h1,h2,h3{font-family:'Noto Sans TC',sans-serif;}
+
+  .sec-head{margin-bottom:52px;}
+  .sec-no{font-family:'DotGothic16',monospace;font-size:11px;letter-spacing:.2em;color:var(--dim);margin-bottom:12px;}
+  .sec-en{font-family:'Michroma',sans-serif;font-size:15px;letter-spacing:.34em;color:var(--acc);margin-bottom:14px;}
+  .sec-en .u{animation:blink 1.05s steps(1) infinite;}
+  .sec-title{font-weight:900;font-size:40px;line-height:1.25;margin:0 0 10px;letter-spacing:.02em;}
+  .sec-sub{color:var(--muted);font-size:16px;margin:0;}
+  .dark .sec-title{color:var(--d-fg);}
+  .dark .sec-sub{color:var(--d-muted);}
+  .dark .sec-en{color:var(--d-acc);}
+  .dark .sec-no{color:var(--d-dim);}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ===== 面板 / 卡片（方角 + 細線，GITS 紀律） ===== */
+  .card{background:var(--panel);border:1px solid var(--line);padding:30px 28px;position:relative;}
+  .dark .card{background:var(--d-panel);border-color:var(--d-line);}
+  .hud{position:relative;}
+  .hud::before,.hud::after{content:"";position:absolute;width:14px;height:14px;border:1.5px solid var(--acc);pointer-events:none;}
+  .hud::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+  .hud::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+  .hud-amber::before,.hud-amber::after{border-color:var(--amber);}
+  .corner-mark{position:absolute;font-family:'DotGothic16',monospace;font-size:9.5px;letter-spacing:.16em;color:var(--dim);pointer-events:none;}
+  .dark .corner-mark{color:var(--d-dim);}
+
+  /* ===== 按鈕（方形 terminal 風） ===== */
+  .cta{cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-family:'Chakra Petch','Noto Sans TC',sans-serif;font-weight:700;letter-spacing:.14em;transition:all .18s ease;text-decoration:none;display:inline-block;text-align:center;}
+  .cta:hover{color:var(--ink);border-color:var(--ink);}
+  .cta-primary{border-color:var(--acc);color:#fff;background:var(--acc);position:relative;}
+  .cta-primary::before,.cta-primary::after{content:"";position:absolute;width:10px;height:10px;border:1.5px solid var(--acc);transition:all .18s ease;}
+  .cta-primary::before{top:-4px;left:-4px;border-right:none;border-bottom:none;}
+  .cta-primary::after{bottom:-4px;right:-4px;border-left:none;border-top:none;}
+  .cta-primary:hover{background:#00738a;border-color:#00738a;color:#fff;box-shadow:0 10px 30px -12px rgba(0,145,173,.7);}
+  .cta-ghost{border:1px solid var(--ink);color:var(--ink);background:transparent;}
+  .cta-ghost:hover{background:var(--ink);color:#fff;}
+  .cta-amber{border-color:var(--amber);color:#fff;background:var(--amber);}
+  .cta-amber:hover{background:#c46312;border-color:#c46312;color:#fff;}
+  .dark .cta{background:transparent;border-color:var(--d-line);color:var(--d-muted);}
+  .dark .cta:hover{color:var(--d-fg);border-color:var(--d-fg);}
+  .dark .cta-primary{background:var(--d-acc);border-color:var(--d-acc);color:#0B2A30;}
+  .dark .cta-primary:hover{background:#8beaf7;border-color:#8beaf7;color:#0B2A30;}
+
+  .navlink{text-decoration:none;font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.06em;}
+  .navlink:hover{color:var(--acc);}
+  .lang a{text-decoration:none;font-family:'Chakra Petch',sans-serif;font-size:11px;letter-spacing:.08em;color:var(--dim);padding:2px 5px;}
+  .lang a:hover{color:var(--acc);}
+  .lang a.on{color:var(--ink);border-bottom:2px solid var(--acc);}
+
+  /* ===== Hero 切殻大字 ===== */
+  .shell-word{font-family:'Six Caps',sans-serif;font-size:clamp(96px,13vw,190px);line-height:.84;letter-spacing:.06em;color:var(--ink);
+    -webkit-mask-image:linear-gradient(180deg,#000 0 34%,transparent 34% 37.5%,#000 37.5% 66%,transparent 66% 68.5%,#000 68.5% 100%);
+            mask-image:linear-gradient(180deg,#000 0 34%,transparent 34% 37.5%,#000 37.5% 66%,transparent 66% 68.5%,#000 68.5% 100%);}
+  .shell-word i{font-style:normal;color:var(--acc);}
+  .sig{font-family:'Chakra Petch',sans-serif;font-weight:300;font-size:13px;letter-spacing:.58em;text-indent:.58em;color:var(--muted);}
+  .sig .cur{display:inline-block;width:.5em;height:.14em;background:var(--amber);vertical-align:baseline;margin-left:7px;animation:blink 1.05s steps(1) infinite;}
+  .kana{font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.32em;color:var(--dim);}
+  .bootlog{font-family:'DotGothic16',monospace;font-size:10px;color:var(--dim);line-height:1.9;letter-spacing:.06em;}
+
+  /* ===== keyframes（沿用原站） ===== */
+  @keyframes somaBreathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-10px) scale(1.012)}}
+  @keyframes somaFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  @keyframes somaShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+  /* ===== reveal on scroll ===== */
+  [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+  [data-reveal].in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    [data-reveal]{opacity:1;transform:none;transition:none;}
+    *{animation:none !important;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ===== 四支柱 index ===== */
+  .pillar-row{display:grid;grid-template-columns:96px 1fr 340px;gap:28px;align-items:baseline;padding:38px 0 34px;border-top:1px solid var(--line);position:relative;text-decoration:none;}
+  .pillar-row:last-of-type{border-bottom:1px solid var(--line);}
+  .pillar-row::after{content:"";position:absolute;top:-1px;left:0;width:96px;height:1px;background:var(--acc);opacity:0;transition:.3s;}
+  .pillar-row:hover::after{opacity:1;}
+  .pillar-row .no{font-family:'DotGothic16',monospace;font-size:12px;color:var(--dim);letter-spacing:.18em;}
+  .pillar-row .en{font-family:'Michroma',sans-serif;font-size:clamp(26px,4vw,42px);color:var(--ink);letter-spacing:.03em;}
+  .pillar-row .en b{color:var(--acc);font-weight:400;}
+  .pillar-row .jp{font-weight:700;font-size:12.5px;letter-spacing:.14em;color:var(--muted);margin-top:10px;}
+  .pillar-row .desc{font-size:13.5px;line-height:2;color:var(--muted);}
+  .pillar-row .desc b{color:var(--ink);font-weight:700;}
+
+  /* ===== pillar tag（卡片上的支柱代號） ===== */
+  .ptag{font-family:'Michroma',sans-serif;font-size:10px;letter-spacing:.22em;color:var(--acc);display:inline-block;margin-bottom:14px;}
+  .dark .ptag{color:var(--d-acc);}
+
+  /* ===== feature card hover ===== */
+  .feature-card{transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;}
+  .feature-card:hover{transform:translateY(-4px);border-color:var(--acc);box-shadow:0 20px 40px -28px rgba(0,145,173,.5);}
+
+  /* ===== duo stage ===== */
+  .duo-stage .duo-actor{transition:transform .5s ease,filter .5s ease,opacity .5s ease;}
+  .duo-stage .duo-bubble{transition:opacity .4s ease,transform .4s ease;}
+  .duo-stage[data-speaker="a"] .actor-a{transform:scale(1.03);filter:none;opacity:1;}
+  .duo-stage[data-speaker="a"] .actor-b{transform:scale(.94);filter:saturate(.8) brightness(.9);opacity:.75;}
+  .duo-stage[data-speaker="a"] .bubble-a{opacity:1;transform:translateY(0);}
+  .duo-stage[data-speaker="a"] .bubble-b{opacity:.3;transform:translateY(4px);}
+  .duo-stage[data-speaker="b"] .actor-b{transform:scale(1.03);filter:none;opacity:1;}
+  .duo-stage[data-speaker="b"] .actor-a{transform:scale(.94);filter:saturate(.8) brightness(.9);opacity:.75;}
+  .duo-stage[data-speaker="b"] .bubble-b{opacity:1;transform:translateY(0);}
+  .duo-stage[data-speaker="b"] .bubble-a{opacity:.3;transform:translateY(4px);}
+  .mode-pill{cursor:pointer;border:1px solid var(--d-line);background:transparent;color:var(--d-muted);font-weight:700;font-size:13px;letter-spacing:.1em;padding:10px 18px;font-family:'Chakra Petch','Noto Sans TC',sans-serif;transition:all .2s ease;}
+  .mode-pill[aria-pressed="true"]{background:var(--d-acc);color:#0B2A30;border-color:var(--d-acc);}
+
+  /* ===== char picker ===== */
+  .char-btn{position:relative;width:78px;height:78px;border:1px solid var(--line);padding:0;cursor:pointer;overflow:hidden;background:var(--bg);}
+  .char-ring{position:absolute;inset:0;border:2px solid var(--acc);pointer-events:none;}
+  .chip{background:var(--bg);border:1px solid var(--line);padding:8px 14px;font-size:12.5px;font-weight:700;letter-spacing:.06em;font-family:'Chakra Petch','Noto Sans TC',sans-serif;}
+
+  /* ===== toast ===== */
+  #toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-weight:700;font-size:14.5px;padding:14px 22px;border:1px solid var(--acc);box-shadow:0 20px 50px -16px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:200;max-width:88vw;text-align:center;font-family:'Chakra Petch','Noto Sans TC',sans-serif;letter-spacing:.06em;}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* ===== responsive ===== */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr !important;}
+    .hero-art{min-height:420px !important;}
+    .pain-grid,.feat-grid,.tech-grid,.stretch-grid,.plat-grid{grid-template-columns:1fr !important;}
+    .meter-grid,.char-grid,.demo-grid,.duo-grid,.price2{grid-template-columns:1fr !important;}
+    .price3{grid-template-columns:1fr !important;}
+    .pillar-row{grid-template-columns:1fr;gap:10px;}
+    .nav-links{display:none !important;}
+  }
+  @media (max-width:600px){
+    .sec-title{font-size:30px !important;}
+    section{padding-left:18px !important;padding-right:18px !important;}
+    .duo-actor img{width:150px !important;}
+  }
+</style>
+</head>
+<body>
+<div data-soma-root>
+
+  <!-- ============ NAV ============ -->
+  <header style="position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:rgba(242,244,247,.88);border-bottom:1px solid var(--line);">
+    <nav style="max-width:1240px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px;">
+      <a href="#top" class="f-orb" style="text-decoration:none;font-weight:800;font-size:19px;letter-spacing:.22em;color:var(--ink);">SOMA<span style="color:var(--acc);animation:blink 1.05s steps(1) infinite;">_</span></a>
+      <div class="nav-links" style="display:flex;align-items:center;gap:22px;">
+        <a class="navlink" href="#features">功能</a>
+        <a class="navlink" href="#duo">雙角色對話</a>
+        <a class="navlink" href="#chars">角色</a>
+        <a class="navlink" href="#demo">Demo</a>
+        <a class="navlink" href="#tech">技術協力</a>
+        <a class="navlink" href="#platform">平台</a>
+        <a class="navlink" href="#pricing">支持方案</a>
+        <a class="navlink" href="#faq">FAQ</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div class="lang" style="display:flex;gap:2px;">
+          <a class="on" href="./" lang="zh-Hant">繁</a><a href="cn/" lang="zh-Hans">简</a><a href="en/" lang="en">EN</a><a href="ja/" lang="ja">日</a><a href="ko/" lang="ko">한</a>
+        </div>
+        <a class="cta cta-primary" href="#pricing" style="font-size:13px;padding:10px 22px;">支持 →</a>
+      </div>
+    </nav>
+  </header>
+
+  <span id="top"></span>
+
+  <!-- ============ HERO ============ -->
+  <section data-hero style="position:relative;background:var(--bg);overflow:hidden;padding:64px 24px 72px;">
+    <div class="corner-mark" style="top:20px;right:26px;">SA-01 / PERSONAL UNIT</div>
+    <div class="bootlog" style="position:absolute;top:20px;left:26px;">&gt; boot soma.core ... OK<br>&gt; load shell ......... OK<br>&gt; link agent ......... OK</div>
+
+    <div class="hero-grid" style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.08fr 1fr;gap:54px;align-items:center;position:relative;z-index:2;padding-top:34px;">
+      <!-- LEFT -->
+      <div>
+        <div data-reveal class="f-chakra" style="display:inline-flex;align-items:center;gap:9px;border:1px solid var(--acc);color:var(--acc);font-weight:700;font-size:11.5px;letter-spacing:.22em;padding:8px 16px;">
+          <span style="width:6px;height:6px;background:var(--acc);display:inline-block;animation:blink 1.4s steps(1) infinite;"></span>
+          SOMA AGENT ・ 群募進行中
+        </div>
+        <div data-reveal data-delay="60" style="margin:26px 0 8px;">
+          <div class="shell-word">S<i>O</i>MA</div>
+        </div>
+        <div data-reveal data-delay="100" style="margin-bottom:6px;"><span class="sig">AGENT IN THE SHELL<span class="cur"></span></span></div>
+        <div data-reveal data-delay="130" class="kana" style="margin-bottom:26px;">殻の中のエージェント ／ ソマ・エージェント</div>
+
+        <h1 data-reveal data-delay="160" style="font-weight:900;font-size:34px;line-height:1.35;letter-spacing:.01em;margin:0 0 12px;">會說話、記得你，還會<span style="color:var(--acc);">彼此聊天</span>的桌面夥伴</h1>
+        <p data-reveal data-delay="200" style="color:var(--ink);font-weight:700;font-size:15.5px;margin:0 0 14px;">打造你個人專屬的 AI 桌面助理 ── 外觀・大腦・語音・功能，每一層都由你決定。</p>
+        <p data-reveal data-delay="240" style="color:var(--muted);font-size:16.5px;max-width:520px;margin:0 0 28px;">自帶你的 AI，Soma Agent 給它臉孔、聲音與記憶。兩個角色能在你桌面自己對談，你看戲，也能隨時插話。Live2D／VRM 雙引擎，中日韓英神經語音。</p>
+        <div data-reveal data-delay="280" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:16px;">
+          <a class="cta cta-primary" href="#pricing" style="font-size:15px;padding:15px 34px;">立即支持（群募）→</a>
+          <a class="cta cta-ghost" href="#demo" style="font-size:14px;padding:14px 26px;">▶ 看 DEMO</a>
+        </div>
+        <div data-reveal data-delay="310" class="f-chakra" style="display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:12px;letter-spacing:.08em;font-weight:500;margin-bottom:30px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="1"/><path d="M8 21h8M12 17v4"/></svg>
+          首波支援 macOS（Intel x64・Apple Silicon M 系列）
+        </div>
+        <div data-reveal data-delay="340" style="max-width:470px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;font-weight:700;margin-bottom:8px;">
+            <span class="f-chakra" style="color:var(--acc);letter-spacing:.06em;">已募 <span class="num" data-pct style="font-size:17px;">0</span>%</span>
+            <span style="color:var(--muted);">目標 <span data-goal>NT$0</span> ・ 剩 <strong class="num" style="color:var(--ink);" data-cd-d>--</strong> 天</span>
+          </div>
+          <div style="height:8px;background:#E2E6EC;overflow:hidden;">
+            <div data-pct-fill style="height:100%;background:linear-gradient(90deg,var(--acc),#33B8CE,var(--amber));background-size:200% 100%;animation:somaShimmer 2.4s linear infinite;transition:width 1.6s cubic-bezier(.16,1,.3,1);width:0;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT：暗域展示艙 -->
+      <div class="hero-art hud" data-reveal data-delay="220" style="position:relative;background:radial-gradient(120% 130% at 50% -10%,#1d2530 0%,var(--d-bg) 58%);min-height:540px;overflow:hidden;border:1px solid var(--d-line);">
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 2px,transparent 2px 4px);pointer-events:none;z-index:4;"></div>
+        <div class="corner-mark" style="top:12px;left:16px;color:var(--d-dim);">SHELL PREVIEW / LIVE2D</div>
+        <img data-depth="0.25" src="assets/char-mint.png" alt="Soma 示範角色" style="position:absolute;right:-14px;bottom:0;width:300px;filter:drop-shadow(0 22px 30px rgba(0,0,0,.5));animation:somaBreathe 5s ease-in-out infinite;z-index:2;">
+        <!-- portrait demo card -->
+        <div data-depth="0.6" style="position:absolute;left:30px;top:52px;width:186px;overflow:hidden;background:#0d0f15;border:1px solid var(--d-line);z-index:3;">
+          <div style="position:relative;aspect-ratio:9/16;display:flex;align-items:center;justify-content:center;background:radial-gradient(80% 60% at 50% 30%,#232a36,#0d0f15);">
+            <img src="assets/char-mint.png" alt="" aria-hidden="true" style="position:absolute;right:-30%;bottom:0;height:78%;opacity:.4;">
+            <button class="cta" type="button" data-demo aria-label="播放 Demo" style="position:relative;z-index:2;width:52px;height:52px;border:1px solid var(--d-acc);background:rgba(102,224,242,.12);color:var(--d-acc);font-size:18px;">▶</button>
+            <div class="f-dot" style="position:absolute;left:10px;bottom:10px;right:10px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.5);padding:5px 10px;">
+              <span style="width:6px;height:6px;background:var(--amber);animation:blink 1.2s steps(1) infinite;"></span>
+              <span style="font-size:9.5px;color:#fff;letter-spacing:.1em;">DEMO / 9:16</span>
+            </div>
+          </div>
+        </div>
+        <!-- floating chips -->
+        <div data-depth="0.85" class="f-chakra" style="position:absolute;right:26px;top:40px;background:var(--d-panel);border:1px solid var(--d-line);padding:12px 16px;z-index:3;animation:somaFloat 4.6s ease-in-out infinite;">
+          <div style="font-size:10px;color:var(--d-dim);letter-spacing:.14em;">VOICE / 中・日・韓・英</div>
+          <div style="font-weight:700;font-size:13.5px;margin-top:3px;color:var(--d-fg);">神經語音</div>
+        </div>
+        <div data-depth="0.7" class="f-chakra" style="position:absolute;left:34px;bottom:36px;background:var(--d-panel);border:1px solid var(--d-line);padding:12px 16px;z-index:3;animation:somaFloat 5.2s ease-in-out infinite 1s;">
+          <div style="font-size:10px;color:var(--d-dim);letter-spacing:.14em;">SIGNATURE</div>
+          <div style="font-weight:700;font-size:13.5px;margin-top:3px;color:var(--d-acc);">兩隻自己聊</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CUSTOMIZE_ 四支柱 ============ -->
+  <section id="customize" style="padding:88px 24px;background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div class="sec-head" data-reveal>
+        <div class="sec-no">SEC.01 / 全項目、あなた仕様。</div>
+        <div class="sec-en">CUSTOMIZE<span class="u">_</span></div>
+        <h2 class="sec-title">每一層，都由你決定</h2>
+        <p class="sec-sub">完全客製化的個人 AI 桌面助理——外觀、大腦、語音、功能，四層全部可換、可帶、可組。</p>
+      </div>
+
+      <a class="pillar-row" data-reveal href="#chars">
+        <span class="no">01 / 外殻</span>
+        <span><span class="en">SHELL<b>.</b></span><div class="jp">外觀 ── 你的角色，住在你的桌面</div></span>
+        <span class="desc"><b>Live2D／VRM 軀殼自由換裝。</b>挑一具現成的殼，或帶你自己的模型進來——換衣、髮色、飾品、表情動作全可調。</span>
+      </a>
+      <a class="pillar-row" data-reveal href="#tech">
+        <span class="no">02 / 霊魂</span>
+        <span><span class="en">GHOST<b>.</b></span><div class="jp">大腦 ── LLM 你選，Key 你帶</div></span>
+        <span class="desc"><b>BYOK，大腦完全歸你。</b>Claude、ChatGPT、Gemini 或本地模型，模型、人格、記憶都在你手上——本機直連，對話不經過任何人。</span>
+      </a>
+      <a class="pillar-row" data-reveal href="#tech">
+        <span class="no">03 / 音声</span>
+        <span><span class="en">VOICE<b>.</b></span><div class="jp">語音 ── 聽得懂，也說得出</div></span>
+        <span class="desc"><b>聲線自選。</b>中日韓英神經語音＋語音輸入，角色對嘴、即時表情，挑一把你喜歡的聲音。</span>
+      </a>
+      <a class="pillar-row" data-reveal href="#features">
+        <span class="no">04 / 機能</span>
+        <span><span class="en">MODULE<b>.</b></span><div class="jp">功能 ── 模組自由裝配</div></span>
+        <span class="desc"><b>雙角色對話、長期記憶、桌面自動化。</b>機能像義體零件一樣裝上拆下，組出只屬於你的那一台。</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ PAIN → SOLUTION ============ -->
+  <section class="dark" style="background:var(--d-bg);padding:88px 24px;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 2px,transparent 2px 4px);pointer-events:none;"></div>
+    <div style="max-width:1080px;margin:0 auto;position:relative;">
+      <div class="sec-head" data-reveal style="text-align:center;">
+        <div class="sec-no">SEC.02 / SYSTEM ALERT</div>
+        <div class="sec-en">PROBLEM<span class="u">_</span></div>
+        <h2 class="sec-title">聊天框，其實有點冷</h2>
+        <p class="sec-sub">Soma 把「工具」變成「夥伴」。</p>
+      </div>
+      <div class="pain-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        <div class="card" data-reveal>
+          <div class="f-dot" style="font-size:11px;color:var(--amber);letter-spacing:.18em;margin-bottom:14px;">ERR.01</div>
+          <p style="font-size:17px;font-weight:700;margin:0 0 16px;color:var(--d-fg);">「對著冷冰冰的聊天框，好孤單。」</p>
+          <div style="height:1px;background:var(--d-line);margin:0 0 16px;"></div>
+          <p style="margin:0;color:var(--d-acc);font-weight:700;font-size:14.5px;">→ 有表情、會發聲、記得你、還能彼此聊天的桌面夥伴。</p>
+        </div>
+        <div class="card" data-reveal data-delay="120">
+          <div class="f-dot" style="font-size:11px;color:var(--amber);letter-spacing:.18em;margin-bottom:14px;">ERR.02</div>
+          <p style="font-size:17px;font-weight:700;margin:0 0 16px;color:var(--d-fg);">「想動口，不想一直動手。」</p>
+          <div style="height:1px;background:var(--d-line);margin:0 0 16px;"></div>
+          <p style="margin:0;color:var(--d-acc);font-weight:700;font-size:14.5px;">→ 說一句話，幫你整理檔案、開網頁、開 App、Spotify 點歌。</p>
+        </div>
+        <div class="card" data-reveal data-delay="240">
+          <div class="f-dot" style="font-size:11px;color:var(--amber);letter-spacing:.18em;margin-bottom:14px;">ERR.03</div>
+          <p style="font-size:17px;font-weight:700;margin:0 0 16px;color:var(--d-fg);">「擔心隱私，也怕費用無底洞。」</p>
+          <div style="height:1px;background:var(--d-line);margin:0 0 16px;"></div>
+          <p style="margin:0;color:var(--d-acc);font-weight:700;font-size:14.5px;">→ BYOK 自帶金鑰、本機直連；或月費代管含額度，你決定。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section id="features" style="padding:92px 24px;background:var(--bg);">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div class="sec-head" data-reveal style="text-align:center;">
+        <div class="sec-no">SEC.03 / CORE FEATURES</div>
+        <div class="sec-en">FEATURES<span class="u">_</span></div>
+        <h2 class="sec-title">她能為你做的事</h2>
+      </div>
+      <div class="feat-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+
+        <div class="card feature-card" data-reveal>
+          <span class="ptag">VOICE.</span>
+          <div style="width:46px;height:46px;border:1px solid var(--line);background:var(--acc-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0091AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10a7 7 0 0 1-14 0"/><path d="M12 17v4"/></svg></div>
+          <h3 style="font-weight:900;font-size:19px;margin:0 0 8px;">真人感語音對話</h3>
+          <p style="margin:0;color:var(--muted);font-size:14.5px;">Azure 神經語音，中／日／韓／英聲線，搭配角色對嘴與即時表情；全域熱鍵按住即可語音輸入。</p>
+        </div>
+
+        <div class="card feature-card" data-reveal data-delay="80">
+          <span class="ptag">GHOST.</span>
+          <div style="width:46px;height:46px;border:1px solid var(--line);background:var(--acc-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0091AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a4 4 0 0 0-4 4 4 4 0 0 0-1 7.9V18a3 3 0 0 0 6 0 3 3 0 0 0 6 0v-3.1A4 4 0 0 0 16 7a4 4 0 0 0-4-4z"/></svg></div>
+          <h3 style="font-weight:900;font-size:19px;margin:0 0 8px;">長期記憶</h3>
+          <p style="margin:0;color:var(--muted);font-size:14.5px;">三層記憶：長期事實＋對話摘要＋最近視窗。自動萃取、可檢視刪除，每個角色各自記得你。</p>
+        </div>
+
+        <div class="card feature-card" data-reveal data-delay="160">
+          <span class="ptag">GHOST.</span>
+          <div style="width:46px;height:46px;border:1px solid var(--line);background:var(--amber-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E0771C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.6"/><path d="M3.5 20c0-3 2.6-4.8 5.5-4.8S14.5 17 14.5 20"/><path d="M15 15.4c2.4.2 4.5 1.8 4.5 4.6"/></svg></div>
+          <h3 style="font-weight:900;font-size:19px;margin:0 0 8px;">多角色・各自靈魂</h3>
+          <p style="margin:0;color:var(--muted);font-size:14.5px;">每個角色獨立人設（身份／風格／專業）＋獨立記憶＋獨立形象聲線，切換一鍵載入。</p>
+        </div>
+
+        <div class="card feature-card" data-reveal>
+          <span class="ptag">SHELL.</span>
+          <div style="width:46px;height:46px;border:1px solid var(--line);background:var(--acc-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0091AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.4 14.5 16 10 4 22"/><path d="m3.5 6 3-3 4 4-3 3z"/><path d="m14 6 3-3 4 4-3 3z"/></svg></div>
+          <h3 style="font-weight:900;font-size:19px;margin:0 0 8px;">形象自由・Live2D ＋ VRM</h3>
+          <p style="margin:0;color:var(--muted);font-size:14.5px;">2D 與 3D 雙引擎，可匯入自己的 Live2D／VRM 模型；換衣、髮色、飾品、6 色主題、表情動作全可調。</p>
+        </div>
+
+        <div class="card feature-card" data-reveal data-delay="80">
+          <span class="ptag">MODULE.</span>
+          <div style="width:46px;height:46px;border:1px solid var(--line);background:var(--amber-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E0771C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-3 7h5l-3 7"/><circle cx="12" cy="12" r="10"/></svg></div>
+          <h3 style="font-weight:900;font-size:19px;margin:0 0 8px;">能動手幫你</h3>
+          <p style="margin:0;color:var(--muted);font-size:14.5px;">跨軟體自動化：整理檔案、依日期批次複製、開 App／網頁、Spotify 點歌——會改動的動作先確認。</p>
+        </div>
+
+        <div class="card feature-card" data-reveal data-delay="160">
+          <span class="ptag">GHOST.</span>
+          <div style="width:46px;height:46px;border:1px solid var(--line);background:var(--acc-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0091AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3 style="font-weight:900;font-size:19px;margin:0 0 8px;">隱私優先・BYOK 或代管</h3>
+          <p style="margin:0;color:var(--muted);font-size:14.5px;">BYOK 自帶金鑰、本機直連無中間 server；不想設定就月費代管含 AI 額度。每個角色可各自選模型。</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ⭐ DUAL-CHARACTER CONVERSATION ============ -->
+  <section id="duo" class="dark" style="position:relative;padding:92px 24px;background:var(--d-bg);overflow:hidden;">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 2px,transparent 2px 4px);pointer-events:none;"></div>
+    <div class="corner-mark" style="top:20px;left:26px;">DUO PROTOCOL / ACTIVE</div>
+    <div class="corner-mark" style="bottom:16px;right:26px;">二人同時展開中</div>
+    <div style="max-width:1080px;margin:0 auto;position:relative;">
+      <div class="sec-head" data-reveal style="text-align:center;">
+        <div class="sec-no">SEC.04 / SIGNATURE</div>
+        <div class="sec-en">DUO TALK<span class="u">_</span></div>
+        <h2 class="sec-title">讓兩個 AI，在你桌面對談</h2>
+        <p class="sec-sub" style="max-width:600px;margin:0 auto;">兩個角色一起出現，會自己你來我往，也能隨時拉你進來。像聽一檔屬於你的 AI podcast——你看戲，也能插話。</p>
+      </div>
+
+      <div class="duo-grid" data-reveal style="display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center;">
+        <!-- stage -->
+        <div class="duo-stage hud" data-speaker="a" style="position:relative;background:radial-gradient(80% 70% at 50% 90%,rgba(102,224,242,.12),rgba(255,255,255,.02) 70%);border:1px solid var(--d-line);padding:28px 24px 0;min-height:380px;display:flex;align-items:flex-end;justify-content:space-between;gap:8px;overflow:hidden;">
+          <!-- actor A -->
+          <div class="duo-actor actor-a" style="position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+            <div class="duo-bubble bubble-a" style="background:var(--d-acc);color:#0B2A30;font-weight:700;font-size:13px;padding:10px 14px;max-width:180px;margin-bottom:14px;">欸欸，今天的主題是「最佳工作歌單」吧？我先開場囉～</div>
+            <img src="assets/char-mint.png" alt="角色 A・サクラ" style="width:190px;display:block;filter:drop-shadow(0 18px 26px rgba(0,0,0,.5));">
+          </div>
+          <!-- actor B（鏡像面向中央） -->
+          <div class="duo-actor actor-b" style="position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+            <div class="duo-bubble bubble-b" style="background:var(--d-fg);color:var(--ink);font-weight:700;font-size:13px;padding:10px 14px;max-width:180px;margin-bottom:14px;">哼，又是你先講⋯⋯好啦，那我負責吐槽你選的歌。</div>
+            <img src="assets/char-goth.png" alt="角色 B・ユメ" style="width:190px;display:block;transform:scaleX(-1);filter:drop-shadow(0 18px 26px rgba(0,0,0,.5));">
+          </div>
+        </div>
+
+        <!-- controls + points -->
+        <div>
+          <div style="display:flex;gap:10px;margin-bottom:10px;">
+            <button class="mode-pill" type="button" data-mode="podcast" aria-pressed="true">PODCAST 模式</button>
+            <button class="mode-pill" type="button" data-mode="three" aria-pressed="false">三方模式</button>
+          </div>
+          <p data-mode-desc style="color:var(--d-muted);font-size:14.5px;margin:0 0 24px;min-height:44px;">兩隻就你給的主題自己對談，你在旁邊看／聽，像聽一檔 AI podcast。</p>
+
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;gap:12px;align-items:flex-start;"><span class="f-dot" style="flex:none;color:var(--d-green);">&gt;&gt;</span><div><strong style="color:var(--d-fg);">流暢不冷場</strong><div style="color:var(--d-muted);font-size:13.5px;">邊講邊預生成下一句，句間幾乎無空檔。</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;"><span class="f-dot" style="flex:none;color:var(--d-green);">&gt;&gt;</span><div><strong style="color:var(--d-fg);">語音不打架</strong><div style="color:var(--d-muted);font-size:13.5px;">一隻講完才換另一隻，序列化發言。</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;"><span class="f-dot" style="flex:none;color:var(--d-green);">&gt;&gt;</span><div><strong style="color:var(--d-fg);">完整操控</strong><div style="color:var(--d-muted);font-size:13.5px;">可調位置／大小／角度，進行中暫停、續播、調語速；開講後工具列自動淡出。</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;"><span class="f-dot" style="flex:none;color:var(--d-green);">&gt;&gt;</span><div><strong style="color:var(--d-fg);">可混搭・成本可控</strong><div style="color:var(--d-muted);font-size:13.5px;">一隻 Live2D ＋ 一隻 VRM 同框也行；內建輪數上限。</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CHARACTER SWITCHER（SHELL） ============ -->
+  <section id="chars" style="padding:92px 24px;background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div style="max-width:1080px;margin:0 auto;">
+      <div class="sec-head" data-reveal style="text-align:center;">
+        <div class="sec-no">SEC.05 / SHELL SELECT</div>
+        <div class="sec-en">SHELL<span class="u">_</span></div>
+        <h2 class="sec-title">挑一個，或全都養</h2>
+        <p class="sec-sub">點下方頭像切換，看看不同角色的外觀與個性。</p>
+        <div class="f-chakra" style="display:inline-flex;align-items:flex-start;gap:10px;margin-top:18px;background:var(--bg);border:1px solid var(--line);padding:12px 18px;text-align:left;max-width:560px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0091AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <span style="font-size:13px;color:var(--muted);line-height:1.7;">目前角色為<strong style="color:var(--ink);">開發測試示範</strong>使用；正式版將視募資金額，<strong style="color:var(--acc);">依比例增加正式用角色</strong>。</span>
+        </div>
+      </div>
+
+      <div class="char-grid hud" data-reveal style="display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center;background:var(--bg);border:1px solid var(--line);padding:40px;">
+        <div style="position:relative;display:flex;align-items:flex-end;justify-content:center;min-height:420px;background:radial-gradient(70% 60% at 50% 80%,var(--acc-soft),var(--bg) 75%);border:1px solid var(--line);overflow:hidden;">
+          <div class="corner-mark" style="top:10px;left:12px;">UNIT PREVIEW</div>
+          <img data-char-img src="assets/char-mint.png" alt="サクラ" style="position:relative;width:300px;display:block;filter:drop-shadow(0 26px 34px rgba(0,0,0,.18));animation:somaBreathe 5s ease-in-out infinite;">
+        </div>
+        <div>
+          <div data-char-role class="f-chakra" style="display:inline-block;background:var(--acc-soft);color:var(--acc);font-weight:700;font-size:12px;letter-spacing:.1em;padding:6px 14px;">戰術系・元氣擔當</div>
+          <h3 data-char-name style="font-weight:900;font-size:38px;margin:14px 0 2px;">サクラ</h3>
+          <div data-char-zh class="f-mich" style="color:var(--dim);font-size:14px;letter-spacing:.14em;margin-bottom:16px;">Sakura</div>
+          <p data-char-desc style="color:var(--muted);font-size:16px;margin:0 0 26px;">薄荷綠長髮、活潑直率。喜歡在你工作時碎念加油，行動派助理——叫她開網頁、點歌都秒回應。</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;">
+            <span class="chip">換衣服</span><span class="chip">髮色</span><span class="chip">飾品</span><span class="chip">聲線</span>
+          </div>
+          <div style="display:flex;gap:14px;" data-char-picker>
+            <button class="char-btn" type="button" data-idx="0" aria-label="選擇 サクラ">
+              <img src="assets/char-mint.png" alt="サクラ" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+              <span class="char-ring"></span>
+            </button>
+            <button class="char-btn" type="button" data-idx="1" aria-label="選擇 ユメ">
+              <img src="assets/char-goth.png" alt="ユメ" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+              <span class="char-ring" style="display:none;"></span>
+            </button>
+            <button class="char-btn" type="button" data-idx="2" aria-label="選擇 レイ">
+              <img src="assets/char-office.png" alt="レイ" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+              <span class="char-ring" style="display:none;"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DEMO ============ -->
+  <section id="demo" class="dark" style="padding:92px 24px;background:var(--d-bg);position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 2px,transparent 2px 4px);pointer-events:none;"></div>
+    <div class="demo-grid" style="max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr 320px;gap:56px;align-items:center;position:relative;">
+      <div data-reveal>
+        <div class="sec-no">SEC.06 / SEE IT IN ACTION</div>
+        <div class="sec-en">DEMO<span class="u">_</span></div>
+        <h2 class="sec-title">30 秒看懂 Soma Agent</h2>
+        <p class="sec-sub" style="margin:0 0 28px;max-width:380px;">直式短片，跟桌面上的她一模一樣的比例。看兩隻怎麼自己聊、開口說話、Spotify 點歌。</p>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">1</span><span style="font-size:14.5px;color:var(--d-fg);">「播周杰倫」→ 她開 Spotify 點歌</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">2</span><span style="font-size:14.5px;color:var(--d-fg);">兩隻就一個主題自己對談，你插一句就轉向你</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">3</span><span style="font-size:14.5px;color:var(--d-fg);">換一套衣服 → 表情動作即時跟著變</span></div>
+        </div>
+      </div>
+      <div data-reveal data-delay="120" style="position:relative;justify-self:center;">
+        <div class="hud" style="position:relative;width:300px;aspect-ratio:9/16;overflow:hidden;background:radial-gradient(70% 60% at 50% 24%,#232a36,#0d0f15);border:1px solid var(--d-line);">
+          <img src="assets/char-mint.png" alt="" aria-hidden="true" style="position:absolute;left:50%;bottom:0;transform:translateX(-50%);height:74%;opacity:.55;filter:drop-shadow(0 0 40px rgba(102,224,242,.35));">
+          <button class="cta" type="button" data-demo aria-label="播放 Demo" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:76px;height:76px;border:1px solid var(--d-acc);background:rgba(102,224,242,.12);color:var(--d-acc);font-size:26px;">▶</button>
+          <div class="f-dot" style="position:absolute;top:14px;left:14px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.5);padding:5px 11px;"><span style="width:6px;height:6px;background:var(--amber);animation:blink 1.2s steps(1) infinite;"></span><span style="font-size:10px;color:#fff;letter-spacing:.12em;">LIVE DEMO</span></div>
+          <div class="f-chakra" style="position:absolute;left:14px;right:14px;bottom:14px;background:rgba(0,0,0,.5);padding:9px 14px;font-size:11.5px;font-weight:700;text-align:center;color:var(--d-muted);letter-spacing:.06em;">9:16 直式・等你提供影片連結</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TECH PARTNERS（GHOST / VOICE / SHELL） ============ -->
+  <section id="tech" style="padding:88px 24px;background:var(--bg);">
+    <div style="max-width:1080px;margin:0 auto;">
+      <div class="sec-head" data-reveal style="text-align:center;">
+        <div class="sec-no">SEC.07 / POWERED BY</div>
+        <div class="sec-en">TECH<span class="u">_</span></div>
+        <h2 class="sec-title">技術協力</h2>
+        <p class="sec-sub" style="max-width:560px;margin:0 auto;">站在巨人的肩膀上。大腦、語音、外觀三層各自接最強引擎，你可自由切換、自帶金鑰。</p>
+      </div>
+
+      <div class="tech-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px;">
+
+        <!-- GHOST 語言模型 -->
+        <div class="card" data-reveal>
+          <span class="ptag">GHOST. ── 大腦</span>
+          <h3 style="font-weight:900;font-size:17px;margin:0 0 18px;">語言模型</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);">
+              <svg width="28" height="28" viewBox="0 0 40 40" fill="none" aria-label="Claude"><g stroke="#D97757" stroke-width="3.4" stroke-linecap="round"><line x1="20" y1="5" x2="20" y2="35"/><line x1="5" y1="20" x2="35" y2="20"/><line x1="9.4" y1="9.4" x2="30.6" y2="30.6"/><line x1="30.6" y1="9.4" x2="9.4" y2="30.6"/><line x1="13" y1="6.5" x2="27" y2="33.5"/><line x1="27" y1="6.5" x2="13" y2="33.5"/><line x1="6.5" y1="13" x2="33.5" y2="27"/><line x1="6.5" y1="27" x2="33.5" y2="13"/></g></svg>
+              <div><div style="font-weight:700;font-size:14.5px;">Claude</div><div class="f-chakra" style="font-size:11px;color:var(--dim);">Anthropic</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);">
+              <svg width="28" height="28" viewBox="0 0 40 40" aria-label="ChatGPT"><path fill="#10A37F" d="M28.6 16.8a7.1 7.1 0 0 0-.6-5.8 7.2 7.2 0 0 0-7.7-3.4 7.1 7.1 0 0 0-5.3-2.4 7.2 7.2 0 0 0-6.8 4.9 7.1 7.1 0 0 0-4.7 3.4 7.2 7.2 0 0 0 .9 8.4 7.1 7.1 0 0 0 .6 5.8 7.2 7.2 0 0 0 7.7 3.4 7.1 7.1 0 0 0 5.3 2.4 7.2 7.2 0 0 0 6.8-4.9 7.1 7.1 0 0 0 4.7-3.4 7.2 7.2 0 0 0-.9-8.4Zm-9.4 13.1a5.3 5.3 0 0 1-3.4-1.2l4.5-2.6a.7.7 0 0 0 .4-.6v-6.4l1.9 1.1v5.3a3.9 3.9 0 0 1-3.4 4.4Zm-11.5-4.9a5.3 5.3 0 0 1-.6-3.5l4.5 2.6a.7.7 0 0 0 .7 0l5.6-3.2v2.2l-4.6 2.7a3.9 3.9 0 0 1-5.6-.8Zm-1.2-9.7a5.3 5.3 0 0 1 2.8-2.3v5.4a.7.7 0 0 0 .4.6l5.5 3.2-1.9 1.1-4.6-2.6a3.9 3.9 0 0 1-2.2-5.4Zm15.9 3.7-5.6-3.2 1.9-1.1 4.6 2.6a3.9 3.9 0 0 1-.6 7.1v-5.4a.7.7 0 0 0-.3-.6ZM23 12.7l-4.5-2.6a.7.7 0 0 0-.7 0l-5.6 3.2v-2.2l4.6-2.6a3.9 3.9 0 0 1 5.8 4ZM11.2 22l-1.9-1.1v-5.3a3.9 3.9 0 0 1 6.4-3l-4.5 2.6a.7.7 0 0 0-.4.6Zm1-2.3 2.5-1.5 2.5 1.5v2.9l-2.5 1.4-2.5-1.4Z"/></svg>
+              <div><div style="font-weight:700;font-size:14.5px;">ChatGPT</div><div class="f-chakra" style="font-size:11px;color:var(--dim);">OpenAI</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);">
+              <svg width="28" height="28" viewBox="0 0 40 40" aria-label="Gemini"><defs><linearGradient id="gem" x1="0" y1="0" x2="40" y2="40"><stop offset="0" stop-color="#4A8CFF"/><stop offset="0.5" stop-color="#9B72F2"/><stop offset="1" stop-color="#D96570"/></linearGradient></defs><path fill="url(#gem)" d="M20 2c.7 9.4 8.6 17.3 18 18-9.4.7-17.3 8.6-18 18-.7-9.4-8.6-17.3-18-18C11.4 19.3 19.3 11.4 20 2Z"/></svg>
+              <div><div style="font-weight:700;font-size:14.5px;">Gemini</div><div class="f-chakra" style="font-size:11px;color:var(--dim);">Google</div></div>
+            </div>
+            <div style="padding:10px 14px;background:var(--acc-soft);border:1px solid rgba(0,145,173,.25);font-size:12.5px;color:#1c5e6b;line-height:1.7;">也支援本地模型（Ollama・LM Studio），自帶金鑰用量無上限。</div>
+          </div>
+        </div>
+
+        <!-- VOICE 語音模型 -->
+        <div class="card" data-reveal data-delay="100">
+          <span class="ptag">VOICE. ── 語音</span>
+          <h3 style="font-weight:900;font-size:17px;margin:0 0 18px;">語音模型</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);">
+              <svg width="28" height="28" viewBox="0 0 40 40" aria-label="Azure"><defs><linearGradient id="az" x1="10" y1="6" x2="22" y2="34"><stop offset="0" stop-color="#3CCBF4"/><stop offset="1" stop-color="#2073C4"/></linearGradient></defs><path fill="url(#az)" d="M14.8 9.4a1.4 1.4 0 0 1 1.3-.9h1.6L7.5 31a1 1 0 0 0 .9 1.4h6.3a1.4 1.4 0 0 0 1.3-1l1.9-5.6 6.6 6.2a1.4 1.4 0 0 0 1 .4h5.6l-7.4-6.9-10.6.1Z"/><path fill="url(#az)" d="M17.8 7h6.9a1.4 1.4 0 0 1 1.3 1l7.4 22.9a1 1 0 0 1-1 1.3h-5.2a1.4 1.4 0 0 1-1.3-1L19.6 8.3A1.4 1.4 0 0 1 17.8 7Z" opacity=".7"/></svg>
+              <div><div style="font-weight:700;font-size:14.5px;">Azure 神經語音</div><div class="f-chakra" style="font-size:11px;color:var(--dim);">Microsoft</div></div>
+            </div>
+            <div style="padding:14px;background:var(--acc-soft);border:1px solid rgba(0,145,173,.25);">
+              <div style="font-size:13px;font-weight:700;color:var(--acc);margin-bottom:4px;">中・日・韓・英 神經語音</div>
+              <div style="font-size:12.5px;color:#1c5e6b;line-height:1.7;">自然發聲＋角色對嘴、即時表情。聲線可自訂、自帶金鑰計費。</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHELL 外觀模型 -->
+        <div class="card" data-reveal data-delay="200">
+          <span class="ptag">SHELL. ── 外觀</span>
+          <h3 style="font-weight:900;font-size:17px;margin:0 0 18px;">外觀模型</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--bg);border:1px solid var(--line);">
+              <div style="width:28px;height:28px;background:#00A0E9;display:flex;align-items:center;justify-content:center;flex:none;"><span class="f-chakra" style="color:#fff;font-weight:700;font-size:12px;line-height:1;">L2</span></div>
+              <div><div style="font-weight:700;font-size:14.5px;">Live2D</div><div class="f-chakra" style="font-size:11px;color:var(--dim);">2D 即時動態</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--bg);border:1px solid var(--line);">
+              <div style="width:28px;height:28px;background:#0DC4C4;display:flex;align-items:center;justify-content:center;flex:none;"><span class="f-chakra" style="color:#fff;font-weight:700;font-size:13px;line-height:1;">V</span></div>
+              <div><div style="font-weight:700;font-size:14.5px;">VRM ／ VRoid</div><div class="f-chakra" style="font-size:11px;color:var(--dim);">3D 角色・pixiv</div></div>
+            </div>
+            <div style="padding:12px 14px;background:var(--amber-soft);border:1px solid rgba(224,119,28,.25);">
+              <div style="font-size:12.5px;color:#8a5220;line-height:1.7;">換衣服、髮色、飾品、表情動作——2D／3D 兩套引擎自由選，可匯入自己的模型。</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <p data-reveal class="f-chakra" style="text-align:center;color:var(--dim);font-size:11.5px;margin:26px 0 0;letter-spacing:.04em;">各商標屬其各自所有者所有，本產品與上述公司無隸屬或代言關係。</p>
+    </div>
+  </section>
+
+  <!-- ============ PLATFORM ROADMAP ============ -->
+  <section id="platform" style="padding:88px 24px;background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div style="max-width:1080px;margin:0 auto;">
+      <div class="sec-head" data-reveal style="text-align:center;">
+        <div class="sec-no">SEC.08 / PLATFORM ROADMAP</div>
+        <div class="sec-en">ROADMAP<span class="u">_</span></div>
+        <h2 class="sec-title">平台藍圖</h2>
+        <p class="sec-sub" style="max-width:560px;margin:0 auto;">先在 macOS 把體驗做到最好，再一步步擴展到更多平台。</p>
+      </div>
+
+      <div class="plat-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch;">
+
+        <!-- 階段一 -->
+        <div class="card hud" data-reveal style="border-color:var(--acc);display:flex;flex-direction:column;">
+          <div class="f-chakra" style="position:absolute;top:-12px;left:22px;background:var(--acc);color:#fff;font-weight:700;font-size:11px;letter-spacing:.14em;padding:5px 14px;">首波發行・NOW</div>
+          <div class="f-dot" style="font-size:11px;color:var(--acc);letter-spacing:.18em;margin-top:8px;">PHASE 1</div>
+          <h3 style="font-weight:900;font-size:20px;margin:8px 0 12px;">macOS 桌面版</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+            <span class="f-chakra" style="background:var(--acc-soft);color:var(--acc);font-weight:700;font-size:12px;padding:6px 12px;">Intel x64 晶片</span>
+            <span class="f-chakra" style="background:var(--acc-soft);color:var(--acc);font-weight:700;font-size:12px;padding:6px 12px;">Apple Silicon（M 系列）</span>
+          </div>
+          <p style="margin:0;color:var(--muted);font-size:14px;flex:1;">透明置頂、可拖曳的原生桌寵，Intel 與 M 系列雙晶片皆相容。下載即裝、立即啟用。</p>
+        </div>
+
+        <!-- 階段二 -->
+        <div class="card" data-reveal data-delay="100" style="display:flex;flex-direction:column;">
+          <div class="f-dot" style="font-size:11px;color:var(--dim);letter-spacing:.18em;">PHASE 2</div>
+          <h3 style="font-weight:900;font-size:20px;margin:8px 0 12px;">Mac App Store 上架</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+            <span class="f-chakra" style="background:var(--bg);border:1px solid var(--line);color:var(--muted);font-weight:700;font-size:12px;padding:6px 12px;">規劃中</span>
+          </div>
+          <p style="margin:0;color:var(--muted);font-size:14px;flex:1;">上架 Mac App Store，一鍵安裝與自動更新，購買與下載更省心。</p>
+        </div>
+
+        <!-- 階段三 -->
+        <div class="card" data-reveal data-delay="200" style="display:flex;flex-direction:column;">
+          <div class="f-dot" style="font-size:11px;color:var(--dim);letter-spacing:.18em;">PHASE 3</div>
+          <h3 style="font-weight:900;font-size:20px;margin:8px 0 12px;">Windows ＆ Linux</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+            <span class="f-chakra" style="background:var(--bg);border:1px solid var(--line);color:var(--muted);font-weight:700;font-size:12px;padding:6px 12px;">規劃中</span>
+          </div>
+          <p style="margin:0;color:var(--muted);font-size:14px;flex:1;">擴展到 Windows 與 Linux，讓更多平台的使用者都能把夥伴帶上桌面。</p>
+        </div>
+
+      </div>
+      <p data-reveal class="f-chakra" style="text-align:center;color:var(--dim);font-size:11.5px;margin:24px 0 0;letter-spacing:.04em;">藍圖時程可能依開發與募資進度調整。</p>
+    </div>
+  </section>
+
+  <!-- ============ PRICING / CROWDFUNDING ============ -->
+  <section id="pricing" style="padding:92px 24px;background:var(--bg);">
+    <div style="max-width:1080px;margin:0 auto;">
+
+      <!-- meter：暗域 terminal 儀表板 -->
+      <div class="dark hud" data-reveal style="background:var(--d-bg);border:1px solid var(--d-line);color:var(--d-fg);padding:40px 44px;margin-bottom:52px;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 2px,transparent 2px 4px);pointer-events:none;"></div>
+        <div class="corner-mark" style="top:12px;right:16px;">FUNDING MONITOR</div>
+        <div class="meter-grid" style="display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:center;position:relative;">
+          <div>
+            <div class="f-chakra" style="display:inline-flex;align-items:center;gap:8px;border:1px solid var(--d-acc);color:var(--d-acc);font-weight:700;font-size:11px;letter-spacing:.2em;padding:6px 14px;margin-bottom:18px;"><span style="width:6px;height:6px;background:var(--d-acc);animation:blink 1.4s steps(1) infinite;"></span>募資進行中</div>
+            <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;">
+              <span class="num" data-raised style="font-weight:700;font-size:50px;color:var(--d-acc);line-height:1;">NT$0</span>
+              <span style="color:var(--d-muted);font-size:14.5px;">／ 目標 <span data-goal>NT$0</span></span>
+            </div>
+            <div style="height:12px;background:rgba(255,255,255,.08);overflow:hidden;margin:18px 0 12px;position:relative;">
+              <div data-pct-fill style="height:100%;background:linear-gradient(90deg,var(--d-acc),#9beef9,var(--amber));background-size:200% 100%;animation:somaShimmer 2.4s linear infinite;transition:width 1.6s cubic-bezier(.16,1,.3,1);width:0;"></div>
+            </div>
+            <div style="display:flex;gap:28px;font-size:14px;">
+              <div><span class="num" data-pct style="font-size:21px;color:var(--d-fg);">0</span>% <span style="color:var(--d-muted);">達成</span></div>
+              <div><span class="num" data-backers style="font-size:21px;color:var(--d-fg);">0</span> <span style="color:var(--d-muted);">位支持者</span></div>
+            </div>
+          </div>
+          <div style="text-align:center;background:rgba(255,255,255,.03);border:1px solid var(--d-line);padding:24px;">
+            <div class="f-chakra" style="color:var(--d-muted);font-size:12px;font-weight:700;letter-spacing:.2em;margin-bottom:14px;">早鳥倒數</div>
+            <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
+              <div style="background:rgba(0,0,0,.3);border:1px solid var(--d-line);padding:12px 14px;min-width:60px;"><div class="num" data-cd-d style="font-size:28px;color:var(--d-acc);">--</div><div class="f-chakra" style="font-size:10.5px;color:var(--d-muted);">天</div></div>
+              <div style="background:rgba(0,0,0,.3);border:1px solid var(--d-line);padding:12px 14px;min-width:60px;"><div class="num" data-cd-h style="font-size:28px;color:var(--d-acc);">--</div><div class="f-chakra" style="font-size:10.5px;color:var(--d-muted);">時</div></div>
+              <div style="background:rgba(0,0,0,.3);border:1px solid var(--d-line);padding:12px 14px;min-width:60px;"><div class="num" data-cd-m style="font-size:28px;color:var(--d-acc);">--</div><div class="f-chakra" style="font-size:10.5px;color:var(--d-muted);">分</div></div>
+              <div style="background:rgba(0,0,0,.3);border:1px solid var(--d-line);padding:12px 14px;min-width:60px;"><div class="num" data-cd-s style="font-size:28px;color:var(--amber);">--</div><div class="f-chakra" style="font-size:10.5px;color:var(--d-muted);">秒</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-head" data-reveal style="text-align:center;margin-bottom:36px;">
+        <div class="sec-no">SEC.09 / SUPPORT</div>
+        <div class="sec-en">SUPPORT<span class="u">_</span></div>
+        <h2 class="sec-title">兩種支持方式</h2>
+        <p class="sec-sub">群募主打 <strong style="color:var(--ink);">限量買斷</strong>（一次擁有・BYOK）；想輕鬆代管就選 <strong style="color:var(--ink);">早鳥訂閱</strong>（含 AI 額度・鎖價）。</p>
+      </div>
+
+      <!-- BLOCK A: 限量買斷 -->
+      <div data-reveal style="display:flex;align-items:center;gap:12px;margin:0 0 18px;flex-wrap:wrap;">
+        <span style="font-weight:900;font-size:22px;">群募主打・限量買斷</span>
+        <span class="f-chakra" style="background:var(--ink);color:var(--d-acc);font-weight:700;font-size:11px;letter-spacing:.1em;padding:5px 12px;">BYOK・自帶金鑰・一次擁有</span>
+      </div>
+
+      <!-- batch hunger -->
+      <div class="card hud-amber hud" data-reveal style="padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:260px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;font-weight:700;margin-bottom:8px;">
+            <span class="f-chakra" style="color:var(--amber);letter-spacing:.06em;">第 1 批・限量 <span data-batch-total>100</span> 份</span>
+            <span style="color:var(--muted);">已被支持 <strong class="num" data-batch-claimed style="color:var(--ink);font-size:15px;">0</strong> ／ 剩 <strong class="num" data-batch-left style="color:var(--amber);font-size:15px;">0</strong> 份</span>
+          </div>
+          <div style="height:8px;background:#EDE4D8;overflow:hidden;"><div data-batch-fill style="width:0;height:100%;background:linear-gradient(90deg,#F0993F,var(--amber));transition:width 1.4s cubic-bezier(.16,1,.3,1);"></div></div>
+        </div>
+        <div style="font-size:13px;color:var(--muted);max-width:300px;line-height:1.7;">本批<strong style="color:var(--ink);">賣完即停售</strong>；下一批會搭配<strong style="color:var(--acc);">全新限定外觀</strong>重新開放——每批都是不同收藏款。</div>
+      </div>
+
+      <div class="price3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch;margin-bottom:56px;">
+        <!-- 買斷・基礎 -->
+        <div class="card" data-reveal style="display:flex;flex-direction:column;padding:28px 24px;">
+          <div class="f-chakra" style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.1em;">入門收藏</div>
+          <h3 style="font-weight:900;font-size:20px;margin:8px 0 4px;">限量買斷・基礎</h3>
+          <div style="margin:6px 0 14px;"><span class="num" style="font-size:36px;">NT$599</span><span style="color:var(--muted);font-size:13px;"> 一次付清</span></div>
+          <ul style="list-style:none;padding:0;margin:0 0 20px;color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:9px;flex:1;">
+            <li style="color:var(--acc);">✓ 永久使用・含後續更新</li>
+            <li>✓ 純對話功能</li>
+            <li>✓ 外掛自己的 LLM／語音（BYOK）</li>
+            <li>✓ 自帶金鑰＝AI 用量無上限</li>
+            <li style="color:var(--amber);">★ 每批限量 100 份</li>
+          </ul>
+          <button class="cta cta-ghost" type="button" data-sku="buyout_basic" style="padding:12px;font-size:14px;">支持・基礎買斷</button>
+        </div>
+
+        <!-- 買斷・進階 highlighted：暗域卡 -->
+        <div class="dark card hud" data-reveal data-delay="100" style="background:var(--d-bg);border-color:var(--d-acc);color:var(--d-fg);display:flex;flex-direction:column;padding:30px 24px;position:relative;">
+          <div class="f-chakra" style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--d-acc);color:#0B2A30;font-weight:700;font-size:11px;letter-spacing:.1em;padding:5px 16px;white-space:nowrap;">最受歡迎・收藏款</div>
+          <div class="f-chakra" style="font-size:12px;font-weight:700;color:var(--d-acc);letter-spacing:.1em;">本批限定外觀</div>
+          <h3 style="font-weight:900;font-size:20px;margin:8px 0 4px;">限量買斷・進階</h3>
+          <div style="margin:6px 0 14px;"><span class="num" style="font-size:36px;color:var(--d-acc);">NT$899</span><span style="color:var(--d-muted);font-size:13px;"> 一次付清</span></div>
+          <ul style="list-style:none;padding:0;margin:0 0 20px;color:var(--d-fg);font-size:14px;display:flex;flex-direction:column;gap:9px;flex:1;">
+            <li style="color:var(--d-acc);">✓ 永久使用・含後續更新</li>
+            <li>✓ 全部對話 + <strong>雙角色對話</strong> + tool use</li>
+            <li>✓ BYOK・AI 用量無上限</li>
+            <li style="color:var(--amber);">★ 本批限定外觀 ×2（收藏款）</li>
+            <li style="color:var(--amber);">★ 限量 100 份</li>
+          </ul>
+          <button class="cta cta-primary" type="button" data-sku="buyout_pro" style="padding:14px;font-size:14px;">立即買斷 →</button>
+        </div>
+
+        <!-- 創始收藏家 -->
+        <div class="card hud-amber hud" data-reveal data-delay="200" style="border-color:var(--amber);display:flex;flex-direction:column;padding:28px 24px;">
+          <div class="f-chakra" style="font-size:12px;font-weight:700;color:var(--amber);letter-spacing:.1em;">鐵粉・最高規格</div>
+          <h3 style="font-weight:900;font-size:20px;margin:8px 0 4px;">創始收藏家</h3>
+          <div style="margin:6px 0 14px;"><span class="num" style="font-size:36px;">NT$1,680</span></div>
+          <ul style="list-style:none;padding:0;margin:0 0 20px;color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:9px;flex:1;">
+            <li>✓ 進階買斷全部內容</li>
+            <li style="color:var(--amber);">★ 永久解鎖<strong>每一批</strong>限定外觀</li>
+            <li style="color:var(--acc);">★ 名字進產品感謝名單</li>
+            <li style="color:var(--acc);">★ Discord 創始者專屬身分</li>
+            <li style="color:var(--amber);">★ 全程限量 50 名</li>
+          </ul>
+          <button class="cta cta-amber" type="button" data-sku="founder" style="padding:12px;font-size:14px;">成為創始收藏家</button>
+        </div>
+      </div>
+
+      <!-- BLOCK B: 早鳥訂閱 -->
+      <div data-reveal style="display:flex;align-items:center;gap:12px;margin:0 0 18px;flex-wrap:wrap;">
+        <span style="font-weight:900;font-size:22px;">早鳥訂閱・代管含額度</span>
+        <span class="f-chakra" style="background:var(--acc-soft);color:var(--acc);font-weight:700;font-size:11px;letter-spacing:.1em;padding:5px 12px;">免設定・我們出 AI 額度・早鳥價永久鎖定</span>
+      </div>
+
+      <div class="price2" style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;align-items:stretch;">
+        <div class="card" data-reveal style="display:flex;flex-direction:column;padding:30px 28px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div class="f-chakra" style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.1em;">嚐鮮・最低門檻</div>
+            <span class="f-chakra" style="background:var(--amber-soft);color:var(--amber);font-weight:700;font-size:10.5px;padding:4px 10px;letter-spacing:.06em;">早鳥鎖價</span>
+          </div>
+          <h3 style="font-weight:900;font-size:22px;margin:8px 0 4px;">基礎・早鳥年訂</h3>
+          <div style="margin:6px 0 4px;"><span class="num" style="font-size:38px;">NT$2,490</span><span style="color:var(--muted);font-size:14px;"> / 年</span></div>
+          <div style="color:var(--dim);font-size:13px;margin-bottom:16px;">原價 NT$2,990・約 NT$208／月・<span style="text-decoration:line-through;">月費 NT$299</span></div>
+          <ul style="list-style:none;padding:0;margin:0 0 22px;color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:9px;flex:1;">
+            <li>✓ 每月 500 則對話</li>
+            <li>✓ 語音合成 1 萬字／月</li>
+            <li>✓ 2 個可自訂外觀</li>
+            <li>✓ 超量用加購點數續用</li>
+            <li style="color:var(--acc);">✓ 早鳥價永久鎖定・續訂同價</li>
+          </ul>
+          <button class="cta cta-ghost" type="button" data-sku="sub_basic_year" style="padding:13px;font-size:14px;">早鳥訂閱・基礎</button>
+        </div>
+
+        <div class="card hud" data-reveal data-delay="100" style="border-color:var(--acc);background:var(--acc-soft);display:flex;flex-direction:column;padding:30px 28px;position:relative;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div class="f-chakra" style="font-size:12px;font-weight:700;color:var(--acc);letter-spacing:.1em;">推薦・功能全開</div>
+            <span class="f-chakra" style="background:var(--acc);color:#fff;font-weight:700;font-size:10.5px;padding:4px 10px;letter-spacing:.06em;">早鳥鎖價</span>
+          </div>
+          <h3 style="font-weight:900;font-size:22px;margin:8px 0 4px;">進階・早鳥年訂</h3>
+          <div style="margin:6px 0 4px;"><span class="num" style="font-size:38px;color:var(--acc);">NT$4,990</span><span style="color:var(--muted);font-size:14px;"> / 年</span></div>
+          <div style="color:#3d7580;font-size:13px;margin-bottom:16px;">原價 NT$5,990・約 NT$416／月・<span style="text-decoration:line-through;">月費 NT$599</span></div>
+          <ul style="list-style:none;padding:0;margin:0 0 22px;color:#1c5e6b;font-size:14px;display:flex;flex-direction:column;gap:9px;flex:1;">
+            <li>✓ 每月 1000 則對話</li>
+            <li>✓ 語音合成 3 萬字／月</li>
+            <li style="color:var(--acc);">✓ <strong>雙角色對話</strong> + tool use（開網頁／App／點歌）</li>
+            <li>✓ 每月新增 1 個官方模型</li>
+            <li style="color:var(--acc);">✓ 早鳥價永久鎖定・續訂同價</li>
+          </ul>
+          <button class="cta cta-primary" type="button" data-sku="sub_pro_year" style="padding:13px;font-size:14px;">早鳥訂閱・進階 →</button>
+        </div>
+      </div>
+      <p data-reveal style="text-align:center;color:var(--muted);font-size:13px;margin:18px 0 0;">不想綁年約？也可月費起訂（基礎 NT$299／進階 NT$599），超量隨時用加購點數續用。</p>
+
+      <!-- stretch goals -->
+      <div class="card" data-reveal style="margin-top:46px;border-style:dashed;padding:30px 34px;">
+        <div class="f-dot" style="font-size:11px;color:var(--dim);letter-spacing:.2em;margin-bottom:6px;">STRETCH GOALS</div>
+        <h3 style="font-weight:900;font-size:20px;margin:0 0 20px;">解鎖目標</h3>
+        <div class="stretch-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+          <div style="padding:18px;background:var(--acc-soft);border:1px solid rgba(0,145,173,.3);">
+            <div class="num" style="color:var(--acc);font-size:14px;">NT$200,000 ✓</div>
+            <div style="font-size:13.5px;margin-top:6px;font-weight:700;">基本目標達成・正式版啟動</div>
+          </div>
+          <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">
+            <div class="num" style="color:var(--muted);font-size:14px;">NT$350,000</div>
+            <div style="font-size:13.5px;margin-top:6px;font-weight:700;color:var(--muted);">解鎖 韓語聲線</div>
+          </div>
+          <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">
+            <div class="num" style="color:var(--muted);font-size:14px;">NT$500,000</div>
+            <div style="font-size:13.5px;margin-top:6px;font-weight:700;color:var(--muted);">解鎖 全新角色</div>
+          </div>
+          <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">
+            <div class="num" style="color:var(--muted);font-size:14px;">NT$800,000</div>
+            <div style="font-size:13.5px;margin-top:6px;font-weight:700;color:var(--muted);">一鍵語音輸入 正式版</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq" style="padding:92px 24px;background:var(--panel);border-top:1px solid var(--line);">
+    <div style="max-width:760px;margin:0 auto;">
+      <div class="sec-head" data-reveal style="text-align:center;">
+        <div class="sec-no">SEC.10 / Q&amp;A</div>
+        <div class="sec-en">FAQ<span class="u">_</span></div>
+        <h2 class="sec-title">常見問題</h2>
+      </div>
+      <div data-faq style="display:flex;flex-direction:column;gap:12px;"></div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER CTA ============ -->
+  <section class="dark" style="position:relative;padding:100px 24px;background:var(--d-bg);overflow:hidden;text-align:center;">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 2px,transparent 2px 4px);pointer-events:none;"></div>
+    <div class="corner-mark" style="top:20px;left:26px;">FINAL CALL</div>
+    <div class="corner-mark" style="top:20px;right:26px;">ソマ・エージェント</div>
+    <div style="max-width:720px;margin:0 auto;position:relative;z-index:2;">
+      <div class="f-dot" style="font-size:13px;letter-spacing:.2em;color:var(--d-green);margin-bottom:22px;">&gt; assemble your agent<span style="display:inline-block;width:.5em;height:1em;background:currentColor;vertical-align:-.1em;margin-left:6px;animation:blink 1.05s steps(1) infinite;"></span></div>
+      <h2 style="font-weight:900;font-size:42px;margin:0 0 14px;color:var(--d-fg);">讓你的桌面，多一個夥伴</h2>
+      <p style="font-size:17px;margin:0 0 32px;color:var(--d-muted);">早鳥限量名額正在減少，現在支持最划算。</p>
+      <a class="cta cta-primary" href="#pricing" style="font-size:16px;padding:17px 42px;">立即支持（群募）→</a>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="dark" style="background:#0e1015;color:var(--d-muted);padding:38px 24px;border-top:1px solid var(--d-line);">
+    <div style="max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="f-orb" style="font-weight:800;font-size:16px;letter-spacing:.22em;color:var(--d-fg);">SOMA<span style="color:var(--d-acc);">_</span></span>
+        <span class="f-chakra" style="font-size:11px;letter-spacing:.2em;color:var(--d-dim);">AGENT IN THE SHELL</span>
+      </div>
+      <div class="lang" style="display:flex;gap:2px;">
+        <a class="on" href="./" lang="zh-Hant" style="color:var(--d-fg);">繁</a><a href="cn/" lang="zh-Hans" style="color:var(--d-dim);">简</a><a href="en/" lang="en" style="color:var(--d-dim);">EN</a><a href="ja/" lang="ja" style="color:var(--d-dim);">日</a><a href="ko/" lang="ko" style="color:var(--d-dim);">한</a>
+      </div>
+      <div style="font-size:12.5px;">展示模型與正式版功能可能有差異</div>
+      <!-- TODO: 換成正式聯絡信箱與年份 -->
+      <div class="f-chakra" style="font-size:12px;letter-spacing:.04em;">© 2026 Soma ・ hello@soma.app</div>
+    </div>
+  </footer>
+
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   Soma 行銷站 · 設定區（上線前調整這裡）
+   ============================================================ */
+const SOMA = {
+  paddle: {
+    environment: 'sandbox',          // 'sandbox' | 'production'
+    token: '',                       // TODO: 填入 Paddle client-side token（先 sandbox）
+    prices: {                        // TODO: 填入各方案 Paddle price ID
+      buyout_basic:   '',            // 限量買斷・基礎 NT$599
+      buyout_pro:     '',            // 限量買斷・進階 NT$899
+      founder:        '',            // 創始收藏家 NT$1,680
+      sub_basic_year: '',            // 基礎・早鳥年訂 NT$2,490
+      sub_pro_year:   '',            // 進階・早鳥年訂 NT$4,990
+    },
+  },
+  // ⚠️ 募資數字＝示意。上線前接後端 API / CMS 餵真實值，切勿用假數字對外。
+  campaign: {
+    goal: 200000,
+    raised: 0,                       // 真實已募金額
+    backers: 0,                      // 真實支持者數
+    countdownDays: 18,               // 早鳥倒數天數
+    batch: { total: 100, claimed: 0 } // 第 1 批限量 / 已售
+  },
+  paddleLocale: 'zh-Hant',
+};
+
+/* ============================================================ */
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const fmtNT = n => 'NT$' + Number(n).toLocaleString('en-US');
+const pad = n => String(n).padStart(2, '0');
+
+/* ---- 角色資料 ---- */
+const CHARS = [
+  { name:'サクラ', zh:'Sakura', role:'戰術系・元氣擔當', img:'assets/char-mint.png',
+    desc:'薄荷綠長髮、活潑直率。喜歡在你工作時碎念加油，行動派助理——叫她開網頁、點歌都秒回應。' },
+  { name:'ユメ', zh:'Yume', role:'暗系・哥德蘿莉', img:'assets/char-goth.png',
+    desc:'粉黑哥德風、慵懶又毒舌。話不多但記性超好，適合喜歡安靜陪伴與一點點反差萌的你。' },
+  { name:'レイ', zh:'Rei', role:'知性・職場祕書', img:'assets/char-office.png',
+    desc:'俐落 OL 造型、條理分明。幫你整理待辦、唸出行程、用最有效率的語氣回應每一句。' },
+];
+
+/* ---- FAQ 資料 ---- */
+const FAQS = [
+  { q:'需要自己準備 API key 嗎？', a:'看你選哪種。買斷採 BYOK（Bring Your Own Key）：你填入自己的 AI 與語音金鑰，金鑰只保存在你電腦本機、不經我們的伺服器，隱私與費用都由你掌握。若選月費代管，則由我們出 AI 額度，免設定、開箱即用。' },
+  { q:'支援哪些作業系統？我的電腦跑得動嗎？', a:'首波發行支援 macOS，且同時相容 Intel（x64）與 Apple Silicon（M 系列）晶片，以透明置頂、可拖曳的桌寵形式運作。後續藍圖：第二階段上架 Mac App Store（一鍵安裝、自動更新）；第三階段支援 Windows 與 Linux。時程可能依開發與募資進度調整。' },
+  { q:'什麼是「雙角色對話」？', a:'Soma 的招牌功能：兩個 AI 角色一起出現在桌面，會自己你來我往（Podcast 模式你旁觀），也能隨時打字插話（三方模式）。發言序列化不打架、句間預生成幾乎無空檔，還能一隻 Live2D 一隻 VRM 同框，內建輪數上限讓成本可控。' },
+  { q:'買斷和訂閱差在哪？該選哪個？', a:'買斷＝一次付清、永久擁有，AI 與語音走你自己的金鑰（BYOK），用量無上限、費用直接付給服務商；適合想長期擁有、會自備 key 的人。訂閱＝我們代管，含每月 AI 額度（基礎 500 則／進階 1000 則）與語音字數，免設定、開箱即用；超量再用加購點數續用。' },
+  { q:'買斷是限量的嗎？賣完怎麼辦？', a:'是。買斷採限量批次，每批 100 份，賣完即停售；之後會再開放新一批，且進階買斷每批都搭配「不同的限定外觀」，是會增值的收藏款。創始收藏家方案（限量 50 名）則可永久解鎖每一批的限定外觀。' },
+  { q:'訂閱的早鳥價之後會漲嗎？額度用完怎麼辦？', a:'早鳥年訂價格永久鎖定，只要持續續訂就一直是早鳥價（基礎 NT$2,490／進階 NT$4,990，皆省約 2 個月）。也可月費起訂（基礎 NT$299／進階 NT$599）。額度用完可購買加購點數續用（對話 +300 則、語音 +3 萬字）；買斷因為 BYOK，AI 用量沒有上限。' },
+];
+
+/* ---- UI 訊息 ---- */
+const MSG = {
+  checkoutSoon: '結帳即將開放，敬請期待',
+  checkoutFail: '結帳暫時無法開啟，請稍後再試',
+  demoSoon: 'Demo 影片準備中，敬請期待',
+  modePodcast: '兩隻就你給的主題自己對談，你在旁邊看／聽，像聽一檔 AI podcast。',
+  modeThree: '你隨時打字插話，下一個角色就轉過來回應你，真正三方互動。',
+};
+
+/* ---- toast ---- */
+let toastTimer;
+function toast(msg){
+  const el = $('#toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+/* ---- Paddle checkout ---- */
+function initPaddle(){
+  if (!window.Paddle || !SOMA.paddle.token) return false;
+  try {
+    if (SOMA.paddle.environment === 'sandbox') Paddle.Environment.set('sandbox');
+    Paddle.Initialize({ token: SOMA.paddle.token });
+    return true;
+  } catch (e) { console.warn('[Soma] Paddle init failed', e); return false; }
+}
+const paddleReady = initPaddle();
+
+function openCheckout(sku){
+  const priceId = SOMA.paddle.prices[sku];
+  if (!paddleReady || !priceId){
+    toast(MSG.checkoutSoon);   // 尚未設定 Paddle token / price ID
+    return;
+  }
+  try {
+    Paddle.Checkout.open({
+      items: [{ priceId, quantity: 1 }],
+      settings: { successUrl: location.origin + '/success.html', theme: 'light', locale: SOMA.paddleLocale },
+    });
+  } catch (e) {
+    console.warn('[Soma] checkout error', e);
+    toast(MSG.checkoutFail);
+  }
+}
+$$('[data-sku]').forEach(btn => btn.addEventListener('click', () => openCheckout(btn.dataset.sku)));
+
+/* ---- Demo 影片佔位 ---- */
+$$('[data-demo]').forEach(btn => btn.addEventListener('click', () => toast(MSG.demoSoon)));
+
+/* ---- 募資數字 / 目標 ---- */
+$$('[data-goal]').forEach(el => el.textContent = fmtNT(SOMA.campaign.goal));
+
+(function batchMeter(){
+  const { total, claimed } = SOMA.campaign.batch;
+  const left = Math.max(0, total - claimed);
+  const pct = total ? Math.round(claimed / total * 100) : 0;
+  const set = (sel, v) => { const e = $(sel); if (e) e.textContent = v; };
+  set('[data-batch-total]', total); set('[data-batch-claimed]', claimed); set('[data-batch-left]', left);
+  requestAnimationFrame(() => { const f = $('[data-batch-fill]'); if (f) f.style.width = pct + '%'; });
+})();
+
+/* ---- 募資進度補間動畫 ---- */
+function animateRaised(){
+  const goal = SOMA.campaign.goal, target = SOMA.campaign.raised;
+  const backers = SOMA.campaign.backers;
+  const raisedEls = $$('[data-raised]'), pctEls = $$('[data-pct]'), fillEls = $$('[data-pct-fill]'), backerEls = $$('[data-backers]');
+  const start = performance.now(), dur = 1700;
+  function step(t){
+    const k = Math.min(1, (t - start) / dur);
+    const e = 1 - Math.pow(1 - k, 3);
+    const raised = Math.round(target * e);
+    const pct = goal ? Math.round(raised / goal * 100) : 0;
+    raisedEls.forEach(el => el.textContent = fmtNT(raised));
+    pctEls.forEach(el => el.textContent = pct);
+    fillEls.forEach(el => el.style.width = Math.min(100, pct) + '%');
+    backerEls.forEach(el => el.textContent = Math.round(backers * e));
+    if (k < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/* ---- 倒數 ---- */
+(function countdown(){
+  const days = SOMA.campaign.countdownDays;
+  const targetTs = Date.now() + days*86400000 + 9*3600000 + 23*60000 + 41000;
+  const map = { d:$$('[data-cd-d]'), h:$$('[data-cd-h]'), m:$$('[data-cd-m]'), s:$$('[data-cd-s]') };
+  function tick(){
+    let diff = Math.max(0, targetTs - Date.now());
+    const d = Math.floor(diff/86400000); diff -= d*86400000;
+    const h = Math.floor(diff/3600000);  diff -= h*3600000;
+    const m = Math.floor(diff/60000);    diff -= m*60000;
+    const s = Math.floor(diff/1000);
+    map.d.forEach(e=>e.textContent=pad(d)); map.h.forEach(e=>e.textContent=pad(h));
+    map.m.forEach(e=>e.textContent=pad(m)); map.s.forEach(e=>e.textContent=pad(s));
+  }
+  tick(); setInterval(tick, 1000);
+})();
+
+/* ---- 角色切換 ---- */
+(function characters(){
+  const img = $('[data-char-img]'), role = $('[data-char-role]'), name = $('[data-char-name]'),
+        zh = $('[data-char-zh]'), desc = $('[data-char-desc]');
+  const rings = $$('[data-char-picker] .char-ring');
+  function pick(i){
+    const c = CHARS[i];
+    img.src = c.img; img.alt = c.name;
+    role.textContent = c.role; name.textContent = c.name; zh.textContent = c.zh; desc.textContent = c.desc;
+    rings.forEach((r, idx) => r.style.display = idx === i ? 'block' : 'none');
+  }
+  $$('[data-char-picker] .char-btn').forEach(btn => btn.addEventListener('click', () => pick(+btn.dataset.idx)));
+  pick(0);
+})();
+
+/* ---- 雙角色對話：輪流發言 + 模式切換 ---- */
+(function duo(){
+  const stage = $('.duo-stage');
+  if (stage){
+    let spk = 'a';
+    setInterval(() => { spk = spk === 'a' ? 'b' : 'a'; stage.setAttribute('data-speaker', spk); }, 2600);
+  }
+  const desc = $('[data-mode-desc]');
+  const texts = { podcast: MSG.modePodcast, three: MSG.modeThree };
+  $$('[data-mode]').forEach(btn => btn.addEventListener('click', () => {
+    $$('[data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    if (desc) desc.textContent = texts[btn.dataset.mode];
+  }));
+})();
+
+/* ---- FAQ 手風琴 ---- */
+(function faq(){
+  const wrap = $('[data-faq]');
+  FAQS.forEach((f, i) => {
+    const item = document.createElement('div');
+    item.setAttribute('data-reveal','');
+    item.style.cssText = 'background:#F2F4F7;border:1px solid #D8DCE4;overflow:hidden;';
+    item.innerHTML = `
+      <button type="button" class="faq-q" aria-expanded="${i===0}" style="width:100%;text-align:left;border:none;background:none;cursor:pointer;padding:20px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Noto Sans TC',sans-serif;font-weight:700;font-size:16.5px;color:#14161D;">
+        <span>${f.q}</span>
+        <span class="faq-sign" style="flex:none;width:26px;height:26px;border:1px solid #0091AD;color:#0091AD;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;font-family:'Chakra Petch',sans-serif;">${i===0?'−':'+'}</span>
+      </button>
+      <div class="faq-a" style="max-height:${i===0?'400px':'0'};overflow:hidden;transition:max-height .35s ease;">
+        <div style="padding:0 22px 22px;color:#5A6172;font-size:14.5px;line-height:1.8;">${f.a}</div>
+      </div>`;
+    wrap.appendChild(item);
+  });
+  const items = $$('[data-faq] > div');
+  items.forEach((item, i) => {
+    const btn = $('.faq-q', item), ans = $('.faq-a', item), sign = $('.faq-sign', item);
+    btn.addEventListener('click', () => {
+      const open = ans.style.maxHeight !== '0px' && ans.style.maxHeight !== '';
+      items.forEach(other => {
+        const a = $('.faq-a', other), s = $('.faq-sign', other), b = $('.faq-q', other);
+        a.style.maxHeight = '0'; s.textContent = '+'; b.setAttribute('aria-expanded','false');
+      });
+      if (!open){ ans.style.maxHeight = ans.scrollHeight + 'px'; sign.textContent = '−'; btn.setAttribute('aria-expanded','true'); }
+    });
+  });
+})();
+
+/* ---- reveal on scroll ---- */
+(function reveal(){
+  const els = $$('[data-reveal]');
+  els.forEach(el => { const d = parseFloat(el.getAttribute('data-delay')) || 0; el.style.transitionDelay = d + 'ms'; });
+  if (!('IntersectionObserver' in window)){ els.forEach(el => el.classList.add('in')); return; }
+  const io = new IntersectionObserver((ents) => {
+    ents.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
+})();
+
+/* ---- Hero 視差 ---- */
+(function parallax(){
+  if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const hero = $('[data-hero]'); if (!hero) return;
+  const layers = $$('[data-depth]', hero);
+  hero.addEventListener('mousemove', (ev) => {
+    const r = hero.getBoundingClientRect();
+    const cx = (ev.clientX - r.left) / r.width - 0.5;
+    const cy = (ev.clientY - r.top) / r.height - 0.5;
+    layers.forEach(l => { const dp = parseFloat(l.getAttribute('data-depth')) || 0; l.style.transform = `translate(${cx*dp*42}px, ${cy*dp*42}px)`; });
+  });
+})();
+
+/* ---- 啟動募資補間（DOM 就緒後） ---- */
+animateRaised();
+</script>
+</body>
+</html>

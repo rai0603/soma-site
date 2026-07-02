@@ -1,0 +1,8 @@
+node_modules
+dist
+.DS_Store
+*.local
+
+# 設計交付參考（Lumi 原型，本機可讀、不進公開 repo）
+docs/_design_src/
+docs/*.zip

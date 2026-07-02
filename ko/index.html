@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soma Agent — Agent in the Shell｜말하고, 기억하고, 둘이서 수다까지 떠는 데스크톱 AI 파트너</title>
+<meta name="description" content="Soma Agent는 당신의 데스크톱에 사는 AI 파트너입니다. 개성과 기억을 지녔고, 두 캐릭터가 서로 대화까지 나눕니다—구경만 해도, 끼어들어도 좋아요. 외형·두뇌(LLM)·음성·기능 전부 커스터마이즈: 내 AI를 직접 연결(BYOK)하거나 월 구독 매니지드 중 선택. Live2D/VRM 듀얼 엔진, 한·중·일·영 뉴럴 보이스. 1차 지원 macOS. 크라우드펀딩 진행 중.">
+<meta name="theme-color" content="#F2F4F7">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Soma Agent — Agent in the Shell">
+<meta property="og:description" content="당신의 AI를 데려오세요. Soma Agent가 얼굴과 목소리, 기억을 입혀 드립니다. 외형・두뇌・음성・기능, 모든 레이어를 당신이 결정합니다.">
+<meta property="og:image" content="../assets/char-mint.png">
+<meta name="twitter:card" content="summary_large_image">
+<!-- hreflang（TODO: 部署後換成正式網域絕對網址） -->
+<link rel="alternate" hreflang="zh-Hant" href="../">
+<link rel="alternate" hreflang="zh-Hans" href="../cn/">
+<link rel="alternate" hreflang="en" href="../en/">
+<link rel="alternate" hreflang="ja" href="../ja/">
+<link rel="alternate" hreflang="ko" href="./">
+<link rel="alternate" hreflang="x-default" href="../en/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Six+Caps&family=Michroma&family=Orbitron:wght@600;800&family=Chakra+Petch:wght@300;400;500;700&family=DotGothic16&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
+<!-- Paddle.js Overlay Checkout（v2）。token / priceId 見頁尾 SOMA.paddle 設定 -->
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<style>
+  :root{
+    /* ===== P-3 白域科技 tokens ===== */
+    --bg:#F2F4F7; --panel:#FFFFFF; --ink:#14161D; --muted:#5A6172; --dim:#9AA2B3; --line:#D8DCE4;
+    --acc:#0091AD; --acc-soft:#E3F4F8; --amber:#E0771C; --amber-soft:#FBEEDF;
+    /* 暗域（terminal 對比區） */
+    --d-bg:#14161D; --d-panel:#1B1E28; --d-line:#2A2E3A; --d-fg:#F2F3F7; --d-muted:#A6ACBD; --d-dim:#6A7183; --d-acc:#66E0F2; --d-green:#46F06A;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:78px;}
+  body{background:var(--bg);font-family:'Noto Sans KR',sans-serif;color:var(--ink);line-height:1.7;overflow-x:hidden;}
+  body::after{content:"";position:fixed;inset:0;background:repeating-linear-gradient(0deg,rgba(20,22,29,.015) 0 1px,transparent 1px 3px);pointer-events:none;z-index:98;}
+  img{max-width:100%;}
+  a{color:inherit;}
+
+  /* ===== 型別系統 ===== */
+  .f-mich{font-family:'Michroma',sans-serif;}
+  .f-orb{font-family:'Orbitron',sans-serif;}
+  .f-chakra{font-family:'Chakra Petch',sans-serif;}
+  .f-dot{font-family:'DotGothic16',monospace;}
+  .num{font-family:'Chakra Petch',sans-serif;font-weight:700;}
+  h1,h2,h3{font-family:'Noto Sans KR',sans-serif;}
+
+  .sec-head{margin-bottom:52px;}
+  .sec-no{font-family:'DotGothic16',monospace;font-size:11px;letter-spacing:.2em;color:var(--dim);margin-bottom:12px;}
+  .sec-en{font-family:'Michroma',sans-serif;font-size:15px;letter-spacing:.34em;color:var(--acc);margin-bottom:14px;}
+  .sec-en .u{animation:blink 1.05s steps(1) infinite;}
+  .sec-title{font-weight:900;font-size:40px;line-height:1.25;margin:0 0 10px;letter-spacing:.02em;}
+  .sec-sub{color:var(--muted);font-size:16px;margin:0;}
+  .dark .sec-title{color:var(--d-fg);}
+  .dark .sec-sub{color:var(--d-muted);}
+  .dark .sec-en{color:var(--d-acc);}
+  .dark .sec-no{color:var(--d-dim);}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ===== 面板 / 卡片（方角 + 細線，GITS 紀律） ===== */
+  .card{background:var(--panel);border:1px solid var(--line);padding:30px 28px;position:relative;}
+  .dark .card{background:var(--d-panel);border-color:var(--d-line);}
+  .hud{position:relative;}
+  .hud::before,.hud::after{content:"";position:absolute;width:14px;height:14px;border:1.5px solid var(--acc);pointer-events:none;}
+  .hud::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+  .hud::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+  .hud-amber::before,.hud-amber::after{border-color:var(--amber);}
+  .corner-mark{position:absolute;font-family:'DotGothic16',monospace;font-size:9.5px;letter-spacing:.16em;color:var(--dim);pointer-events:none;}
+  .dark .corner-mark{color:var(--d-dim);}
+
+  /* ===== 按鈕（方形 terminal 風） ===== */
+  .cta{cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-family:'Chakra Petch','Noto Sans KR',sans-serif;font-weight:700;letter-spacing:.14em;transition:all .18s ease;text-decoration:none;display:inline-block;text-align:center;}
+  .cta:hover{color:var(--ink);border-color:var(--ink);}
+  .cta-primary{border-color:var(--acc);color:#fff;background:var(--acc);position:relative;}
+  .cta-primary::before,.cta-primary::after{content:"";position:absolute;width:10px;height:10px;border:1.5px solid var(--acc);transition:all .18s ease;}
+  .cta-primary::before{top:-4px;left:-4px;border-right:none;border-bottom:none;}
+  .cta-primary::after{bottom:-4px;right:-4px;border-left:none;border-top:none;}
+  .cta-primary:hover{background:#00738a;border-color:#00738a;color:#fff;box-shadow:0 10px 30px -12px rgba(0,145,173,.7);}
+  .cta-ghost{border:1px solid var(--ink);color:var(--ink);background:transparent;}
+  .cta-ghost:hover{background:var(--ink);color:#fff;}
+  .cta-amber{border-color:var(--amber);color:#fff;background:var(--amber);}
+  .cta-amber:hover{background:#c46312;border-color:#c46312;color:#fff;}
+  .dark .cta{background:transparent;border-color:var(--d-line);color:var(--d-muted);}
+  .dark .cta:hover{color:var(--d-fg);border-color:var(--d-fg);}
+  .dark .cta-primary{background:var(--d-acc);border-color:var(--d-acc);color:#0B2A30;}
+  .dark .cta-primary:hover{background:#8beaf7;border-color:#8beaf7;color:#0B2A30;}
+
+  .navlink{text-decoration:none;font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.06em;}
+  .navlink:hover{color:var(--acc);}
+  .lang a{text-decoration:none;font-family:'Chakra Petch',sans-serif;font-size:11px;letter-spacing:.08em;color:var(--dim);padding:2px 5px;}
+  .lang a:hover{color:var(--acc);}
+  .lang a.on{color:var(--ink);border-bottom:2px solid var(--acc);}
+
+  /* ===== Hero 切殻大字 ===== */
+  .shell-word{font-family:'Six Caps',sans-serif;font-size:clamp(96px,13vw,190px);line-height:.84;letter-spacing:.06em;color:var(--ink);
+    -webkit-mask-image:linear-gradient(180deg,#000 0 34%,transparent 34% 37.5%,#000 37.5% 66%,transparent 66% 68.5%,#000 68.5% 100%);
+            mask-image:linear-gradient(180deg,#000 0 34%,transparent 34% 37.5%,#000 37.5% 66%,transparent 66% 68.5%,#000 68.5% 100%);}
+  .shell-word i{font-style:normal;color:var(--acc);}
+  .sig{font-family:'Chakra Petch',sans-serif;font-weight:300;font-size:13px;letter-spacing:.58em;text-indent:.58em;color:var(--muted);}
+  .sig .cur{display:inline-block;width:.5em;height:.14em;background:var(--amber);vertical-align:baseline;margin-left:7px;animation:blink 1.05s steps(1) infinite;}
+  .kana{font-family:'Noto Sans JP',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.32em;color:var(--dim);}
+  .bootlog{font-family:'DotGothic16',monospace;font-size:10px;color:var(--dim);line-height:1.9;letter-spacing:.06em;}
+
+  /* ===== keyframes（沿用原站） ===== */
+  @keyframes somaBreathe{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-10px) scale(1.012)}}
+  @keyframes somaFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  @keyframes somaShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+  /* ===== reveal on scroll ===== */
+  [data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+  [data-reveal].in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){
+    [data-reveal]{opacity:1;transform:none;transition:none;}
+    *{animation:none !important;}
+    html{scroll-behavior:auto;}
+  }
+
+  /* ===== 四支柱 index ===== */
+  .pillar-row{display:grid;grid-template-columns:96px 1fr 340px;gap:28px;align-items:baseline;padding:38px 0 34px;border-top:1px solid var(--line);position:relative;text-decoration:none;}
+  .pillar-row:last-of-type{border-bottom:1px solid var(--line);}
+  .pillar-row::after{content:"";position:absolute;top:-1px;left:0;width:96px;height:1px;background:var(--acc);opacity:0;transition:.3s;}
+  .pillar-row:hover::after{opacity:1;}
+  .pillar-row .no{font-family:'DotGothic16',monospace;font-size:12px;color:var(--dim);letter-spacing:.18em;}
+  .pillar-row .en{font-family:'Michroma',sans-serif;font-size:clamp(26px,4vw,42px);color:var(--ink);letter-spacing:.03em;}
+  .pillar-row .en b{color:var(--acc);font-weight:400;}
+  .pillar-row .jp{font-weight:700;font-size:12.5px;letter-spacing:.14em;color:var(--muted);margin-top:10px;}
+  .pillar-row .desc{font-size:13.5px;line-height:2;color:var(--muted);}
+  .pillar-row .desc b{color:var(--ink);font-weight:700;}
+
+  /* ===== pillar tag（卡片上的支柱代號） ===== */
+  .ptag{font-family:'Michroma',sans-serif;font-size:10px;letter-spacing:.22em;color:var(--acc);display:inline-block;margin-bottom:14px;}
+  .dark .ptag{color:var(--d-acc);}
+
+  /* ===== feature card hover ===== */
+  .feature-card{transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;}
+  .feature-card:hover{transform:translateY(-4px);border-color:var(--acc);box-shadow:0 20px 40px -28px rgba(0,145,173,.5);}
+
+  /* ===== duo stage ===== */
+  .duo-stage .duo-actor{transition:transform .5s ease,filter .5s ease,opacity .5s ease;}
+  .duo-stage .duo-bubble{transition:opacity .4s ease,transform .4s ease;}
+  .duo-stage[data-speaker="a"] .actor-a{transform:scale(1.03);filter:none;opacity:1;}
+  .duo-stage[data-speaker="a"] .actor-b{transform:scale(.94);filter:saturate(.8) brightness(.9);opacity:.75;}
+  .duo-stage[data-speaker="a"] .bubble-a{opacity:1;transform:translateY(0);}
+  .duo-stage[data-speaker="a"] .bubble-b{opacity:.3;transform:translateY(4px);}
+  .duo-stage[data-speaker="b"] .actor-b{transform:scale(1.03);filter:none;opacity:1;}
+  .duo-stage[data-speaker="b"] .actor-a{transform:scale(.94);filter:saturate(.8) brightness(.9);opacity:.75;}
+  .duo-stage[data-speaker="b"] .bubble-b{opacity:1;transform:translateY(0);}
+  .duo-stage[data-speaker="b"] .bubble-a{opacity:.3;transform:translateY(4px);}
+  .mode-pill{cursor:pointer;border:1px solid var(--d-line);background:transparent;color:var(--d-muted);font-weight:700;font-size:13px;letter-spacing:.1em;padding:10px 18px;font-family:'Chakra Petch','Noto Sans KR',sans-serif;transition:all .2s ease;}
+  .mode-pill[aria-pressed="true"]{background:var(--d-acc);color:#0B2A30;border-color:var(--d-acc);}
+
+  /* ===== char picker ===== */
+  .char-btn{position:relative;width:78px;height:78px;border:1px solid var(--line);padding:0;cursor:pointer;overflow:hidden;background:var(--bg);}
+  .char-ring{position:absolute;inset:0;border:2px solid var(--acc);pointer-events:none;}
+  .chip{background:var(--bg);border:1px solid var(--line);padding:8px 14px;font-size:12.5px;font-weight:700;letter-spacing:.06em;font-family:'Chakra Petch','Noto Sans KR',sans-serif;}
+
+  /* ===== toast ===== */
+  #toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-weight:700;font-size:14.5px;padding:14px 22px;border:1px solid var(--acc);box-shadow:0 20px 50px -16px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;z-index:200;max-width:88vw;text-align:center;font-family:'Chakra Petch','Noto Sans KR',sans-serif;letter-spacing:.06em;}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  /* ===== responsive ===== */
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr !important;}
+    .hero-art{min-height:420px !important;}
+    .pain-grid,.feat-grid,.tech-grid,.stretch-grid,.plat-grid{grid-template-columns:1fr !important;}
+    .meter-grid,.char-grid,.demo-grid,.duo-grid,.price2{grid-template-columns:1fr !important;}
+    .price3{grid-template-columns:1fr !important;}
+    .pillar-row{grid-template-columns:1fr;gap:10px;}
+    .nav-links{display:none !important;}
+  }
+  @media (max-width:600px){
+    .sec-title{font-size:30px !important;}
+    section{padding-left:18px !important;padding-right:18px !important;}
+    .duo-actor img{width:150px !important;}
+  }
+</style>
+</head>
+<body>
+<div data-soma-root>
+
+  <!-- ============ NAV ============ -->
+  <header style="position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:rgba(242,244,247,.88);border-bottom:1px solid var(--line);">
+    <nav style="max-width:1240px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px;">
+      <a href="#top" class="f-orb" style="text-decoration:none;font-weight:800;font-size:19px;letter-spacing:.22em;color:var(--ink);">SOMA<span style="color:var(--acc);animation:blink 1.05s steps(1) infinite;">_</span></a>
+      <div class="nav-links" style="display:flex;align-items:center;gap:22px;">
+        <a class="navlink" href="#features">기능</a>
+        <a class="navlink" href="#duo">듀오 대화</a>
+        <a class="navlink" href="#chars">캐릭터</a>
+        <a class="navlink" href="#demo">데모</a>
+        <a class="navlink" href="#tech">기술 파트너</a>
+        <a class="navlink" href="#platform">플랫폼</a>
+        <a class="navlink" href="#pricing">후원 플랜</a>
+        <a class="navlink" href="#faq">FAQ</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div class="lang" style="display:flex;gap:2px;">
+          <a href="../" lang="zh-Hant">繁</a><a href="../cn/" lang="zh-Hans">简</a><a href="../en/" lang="en">EN</a><a href="../ja/" lang="ja">日</a><a class="on" href="./" lang="ko">한</a>
+        </div>
+        <a class="cta cta-primary" href="#pricing" style="font-size:13px;padding:10px 22px;">후원하기 →</a>
+      </div>
+    </nav>
+  </header>
+
+  <span id="top"></span>
+
+  <!-- ============ HERO ============ -->
+  <section data-hero style="position:relative;background:var(--bg);overflow:hidden;padding:64px 24px 72px;">
+    <div class="corner-mark" style="top:20px;right:26px;">SA-01 / PERSONAL UNIT</div>
+    <div class="bootlog" style="position:absolute;top:20px;left:26px;">&gt; boot soma.core ... OK<br>&gt; load shell ......... OK<br>&gt; link agent ......... OK</div>
+
+    <div class="hero-grid" style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.08fr 1fr;gap:54px;align-items:center;position:relative;z-index:2;padding-top:34px;">
+      <!-- LEFT -->
+      <div>
+        <div data-reveal class="f-chakra" style="display:inline-flex;align-items:center;gap:9px;border:1px solid var(--acc);color:var(--acc);font-weight:700;font-size:11.5px;letter-spacing:.22em;padding:8px 16px;">
+          <span style="width:6px;height:6px;background:var(--acc);display:inline-block;animation:blink 1.4s steps(1) infinite;"></span>
+          SOMA AGENT ・ 크라우드펀딩 진행 중
+        </div>
+        <div data-reveal data-delay="60" style="margin:26px 0 8px;">
+          <div class="shell-word">S<i>O</i>MA</div>
+        </div>
+        <div data-reveal data-delay="100" style="margin-bottom:6px;"><span class="sig">AGENT IN THE SHELL<span class="cur"></span></span></div>
+        <div data-reveal data-delay="130" class="kana" style="margin-bottom:26px;">殻の中のエージェント ／ ソマ・エージェント</div>
+
+        <h1 data-reveal data-delay="160" style="font-weight:900;font-size:34px;line-height:1.35;letter-spacing:.01em;margin:0 0 12px;">말하고, 당신을 기억하고, <span style="color:var(--acc);">둘이서 수다</span>까지 떠는 데스크톱 파트너</h1>
+        <p data-reveal data-delay="200" style="color:var(--ink);font-weight:700;font-size:15.5px;margin:0 0 14px;">나만의 AI 데스크톱 어시스턴트를 만드세요 ── 외형・두뇌・음성・기능, 모든 레이어를 당신이 결정합니다.</p>
+        <p data-reveal data-delay="240" style="color:var(--muted);font-size:16.5px;max-width:520px;margin:0 0 28px;">당신의 AI를 데려오면 Soma Agent가 얼굴과 목소리, 기억을 입혀 줍니다. 두 캐릭터가 데스크톱 위에서 스스로 대화를 나누고, 구경하다가 언제든 끼어들 수 있어요. Live2D/VRM 듀얼 엔진, 한·중·일·영 뉴럴 보이스.</p>
+        <div data-reveal data-delay="280" style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:16px;">
+          <a class="cta cta-primary" href="#pricing" style="font-size:15px;padding:15px 34px;">지금 후원하기(펀딩) →</a>
+          <a class="cta cta-ghost" href="#demo" style="font-size:14px;padding:14px 26px;">▶ 데모 보기</a>
+        </div>
+        <div data-reveal data-delay="310" class="f-chakra" style="display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:12px;letter-spacing:.08em;font-weight:500;margin-bottom:30px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="1"/><path d="M8 21h8M12 17v4"/></svg>
+          1차 지원: macOS(Intel x64・Apple Silicon M 시리즈)
+        </div>
+        <div data-reveal data-delay="340" style="max-width:470px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;font-weight:700;margin-bottom:8px;">
+            <span class="f-chakra" style="color:var(--acc);letter-spacing:.06em;">달성 <span class="num" data-pct style="font-size:17px;">0</span>%</span>
+            <span style="color:var(--muted);">목표 <span data-goal>NT$0</span> ・ 마감까지 <strong class="num" style="color:var(--ink);" data-cd-d>--</strong>일</span>
+          </div>
+          <div style="height:8px;background:#E2E6EC;overflow:hidden;">
+            <div data-pct-fill style="height:100%;background:linear-gradient(90deg,var(--acc),#33B8CE,var(--amber));background-size:200% 100%;animation:somaShimmer 2.4s linear infinite;transition:width 1.6s cubic-bezier(.16,1,.3,1);width:0;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT：暗域展示艙 -->
+      <div class="hero-art hud" data-reveal data-delay="220" style="position:relative;background:radial-gradient(120% 130% at 50% -10%,#1d2530 0%,var(--d-bg) 58%);min-height:540px;overflow:hidden;border:1px solid var(--d-line);">
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 2px,transparent 2px 4px);pointer-events:none;z-index:4;"></div>
+        <div class="corner-mark" style="top:12px;left:16px;color:var(--d-dim);">SHELL PREVIEW / LIVE2D</div>
+        <img data-depth="0.25" src="../assets/char-mint.png" alt="Soma 데모 캐릭터" style="position:absolute;right:-14px;bottom:0;width:300px;filter:drop-shadow(0 22px 30px rgba(0,0,0,.5));animation:somaBreathe 5s ease-in-out infinite;z-index:2;">
+        <!-- portrait demo card -->
+        <div data-depth="0.6" style="position:absolute;left:30px;top:52px;width:186px;overflow:hidden;background:#0d0f15;border:1px solid var(--d-line);z-index:3;">
+          <div style="position:relative;aspect-ratio:9/16;display:flex;align-items:center;justify-content:center;background:radial-gradient(80% 60% at 50% 30%,#232a36,#0d0f15);">
+            <img src="../assets/char-mint.png" alt="" aria-hidden="true" style="position:absolute;right:-30%;bottom:0;height:78%;opacity:.4;">
+            <button class="cta" type="button" data-demo aria-label="데모 재생" style="position:relative;z-index:2;width:52px;height:52px;border:1px solid var(--d-acc);background:rgba(102,224,242,.12);color:var(--d-acc);font-size:18px;">▶</button>
+            <div class="f-dot" style="position:absolute;left:10px;bottom:10px;right:10px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.5);padding:5px 10px;">
+              <span style="width:6px;height:6px;background:var(--amber);animation:blink 1.2s steps(1) infinite;"></span>
+              <span style="font-size:9.5px;color:#fff;letter-spacing:.1em;">DEMO / 9:16</span>
+            </div>
+          </div>
+        </div>
+        <!-- floating chips -->
+        <div data-depth="0.85" class="f-chakra" style="position:absolute;right:26px;top:40px;background:var(--d-panel);border:1px solid var(--d-line);padding:12px 16px;z-index:3;animation:somaFloat 4.6s ease-in-out infinite;">
+          <div style="font-size:10px;color:var(--d-dim);letter-spacing:.14em;">VOICE / 한・중・일・영</div>
+          <div style="font-weight:700;font-size:13.5px;margin-top:3px;color:var(--d-fg);">뉴럴 보이스</div>
+        </div>
+        <div data-depth="0.7" class="f-chakra" style="position:absolute;left:34px;bottom:36px;background:var(--d-panel);border:1px solid var(--d-line);padding:12px 16px;z-index:3;animation:somaFloat 5.2s ease-in-out infinite 1s;">
+          <div style="font-size:10px;color:var(--d-dim);letter-spacing:.14em;">SIGNATURE</div>
+          <div style="font-weight:700;font-size:13.5px;margin-top:3px;color:var(--d-acc);">둘이서 알아서 수다</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CUSTOMIZE_ 四支柱 ============ -->
+  <section id="customize" style="padding:88px 24px;background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div class="sec-head" data-reveal>
+        <div class="sec-no">SEC.01 / 全項目、あなた仕様。</div>
+        <div class="sec-en">CUSTOMIZE<span class="u">_</span></div>
+        <h2 class="sec-title">모든 레이어, 당신이 결정합니다</h2>
+        <p class="sec-sub">완전 커스터마이즈 가능한 개인 AI 데스크톱 어시스턴트——외형·두뇌·음성·기능, 네 레이어 전부 바꾸고, 가져오고, 조합할 수 있습니다.</p>
+      </div>
+
+      <a class="pillar-row" data-reveal href="#chars">
+        <span class="no">01 / 外殻</span>
+        <span><span class="en">SHELL<b>.</b></span><div class="jp">외형 ── 당신의 캐릭터가 데스크톱에 삽니다</div></span>
+        <span class="desc"><b>Live2D/VRM 셸을 자유롭게 갈아입히세요.</b> 기본 제공 셸을 고르거나 내 모델을 직접 가져오세요——의상, 머리색, 액세서리, 표정·모션까지 전부 조절 가능.</span>
+      </a>
+      <a class="pillar-row" data-reveal href="#tech">
+        <span class="no">02 / 霊魂</span>
+        <span><span class="en">GHOST<b>.</b></span><div class="jp">두뇌 ── LLM도 Key도 당신의 선택</div></span>
+        <span class="desc"><b>BYOK, 두뇌는 온전히 당신 것.</b> Claude, ChatGPT, Gemini 또는 로컬 모델——모델·인격·기억이 모두 당신 손안에. 로컬 직결이라 대화가 그 누구도 거치지 않습니다.</span>
+      </a>
+      <a class="pillar-row" data-reveal href="#tech">
+        <span class="no">03 / 音声</span>
+        <span><span class="en">VOICE<b>.</b></span><div class="jp">음성 ── 알아듣고, 말할 줄도 압니다</div></span>
+        <span class="desc"><b>목소리도 취향대로.</b> 한·중·일·영 뉴럴 보이스＋음성 입력, 립싱크와 실시간 표정까지——마음에 드는 목소리를 골라 주세요.</span>
+      </a>
+      <a class="pillar-row" data-reveal href="#features">
+        <span class="no">04 / 機能</span>
+        <span><span class="en">MODULE<b>.</b></span><div class="jp">기능 ── 모듈을 자유롭게 장착</div></span>
+        <span class="desc"><b>듀오 대화, 장기 기억, 데스크톱 자동화.</b> 기능을 의체 파츠처럼 붙였다 떼며, 오직 나만의 한 대를 조립하세요.</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ PAIN → SOLUTION ============ -->
+  <section class="dark" style="background:var(--d-bg);padding:88px 24px;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 2px,transparent 2px 4px);pointer-events:none;"></div>
+    <div style="max-width:1080px;margin:0 auto;position:relative;">
+      <div class="sec-head" data-reveal style="text-align:center;">
+        <div class="sec-no">SEC.02 / SYSTEM ALERT</div>
+        <div class="sec-en">PROBLEM<span class="u">_</span></div>
+        <h2 class="sec-title">채팅창은, 사실 좀 차갑죠</h2>
+        <p class="sec-sub">Soma는 '도구'를 '파트너'로 바꿉니다.</p>
+      </div>
+      <div class="pain-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        <div class="card" data-reveal>
+          <div class="f-dot" style="font-size:11px;color:var(--amber);letter-spacing:.18em;margin-bottom:14px;">ERR.01</div>
+          <p style="font-size:17px;font-weight:700;margin:0 0 16px;color:var(--d-fg);">"차가운 채팅창만 마주하고 있으면, 왠지 외로워요."</p>
+          <div style="height:1px;background:var(--d-line);margin:0 0 16px;"></div>
+          <p style="margin:0;color:var(--d-acc);font-weight:700;font-size:14.5px;">→ 표정이 있고, 목소리를 내고, 당신을 기억하고, 둘이서 수다까지 떠는 데스크톱 파트너.</p>
+        </div>
+        <div class="card" data-reveal data-delay="120">
+          <div class="f-dot" style="font-size:11px;color:var(--amber);letter-spacing:.18em;margin-bottom:14px;">ERR.02</div>
+          <p style="font-size:17px;font-weight:700;margin:0 0 16px;color:var(--d-fg);">"말로 시키고 싶지, 일일이 손대고 싶진 않아요."</p>
+          <div style="height:1px;background:var(--d-line);margin:0 0 16px;"></div>
+          <p style="margin:0;color:var(--d-acc);font-weight:700;font-size:14.5px;">→ 한마디면 파일 정리, 웹페이지·앱 열기, Spotify 선곡까지 해 드립니다.</p>
+        </div>
+        <div class="card" data-reveal data-delay="240">
+          <div class="f-dot" style="font-size:11px;color:var(--amber);letter-spacing:.18em;margin-bottom:14px;">ERR.03</div>
+          <p style="font-size:17px;font-weight:700;margin:0 0 16px;color:var(--d-fg);">"프라이버시도 걱정이고, 비용이 끝없이 나갈까 무섭기도 해요."</p>
+          <div style="height:1px;background:var(--d-line);margin:0 0 16px;"></div>
+          <p style="margin:0;color:var(--d-acc);font-weight:700;font-size:14.5px;">→ BYOK로 내 키 직접 연결·로컬 직결, 또는 크레딧 포함 월 구독 매니지드——선택은 당신 몫.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section id="features" style="padding:92px 24px;background:var(--bg);">
+    <div style="max-width:1180px;margin:0 auto;">
+      <div class="sec-head" data-reveal style="text-align:center;">
+        <div class="sec-no">SEC.03 / CORE FEATURES</div>
+        <div class="sec-en">FEATURES<span class="u">_</span></div>
+        <h2 class="sec-title">그녀가 당신을 위해 할 수 있는 일</h2>
+      </div>
+      <div class="feat-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;">
+
+        <div class="card feature-card" data-reveal>
+          <span class="ptag">VOICE.</span>
+          <div style="width:46px;height:46px;border:1px solid var(--line);background:var(--acc-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0091AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10a7 7 0 0 1-14 0"/><path d="M12 17v4"/></svg></div>
+          <h3 style="font-weight:900;font-size:19px;margin:0 0 8px;">진짜 사람 같은 음성 대화</h3>
+          <p style="margin:0;color:var(--muted);font-size:14.5px;">Azure 뉴럴 보이스, 한/중/일/영 목소리에 립싱크와 실시간 표정까지. 글로벌 단축키를 누르고 있는 동안 음성으로 입력할 수 있습니다.</p>
+        </div>
+
+        <div class="card feature-card" data-reveal data-delay="80">
+          <span class="ptag">GHOST.</span>
+          <div style="width:46px;height:46px;border:1px solid var(--line);background:var(--acc-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0091AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a4 4 0 0 0-4 4 4 4 0 0 0-1 7.9V18a3 3 0 0 0 6 0 3 3 0 0 0 6 0v-3.1A4 4 0 0 0 16 7a4 4 0 0 0-4-4z"/></svg></div>
+          <h3 style="font-weight:900;font-size:19px;margin:0 0 8px;">장기 기억</h3>
+          <p style="margin:0;color:var(--muted);font-size:14.5px;">3층 구조 기억: 장기 팩트＋대화 요약＋최근 컨텍스트. 자동으로 추출하고, 열람·삭제도 가능——캐릭터마다 각자 당신을 기억합니다.</p>
+        </div>
+
+        <div class="card feature-card" data-reveal data-delay="160">
+          <span class="ptag">GHOST.</span>
+          <div style="width:46px;height:46px;border:1px solid var(--line);background:var(--amber-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E0771C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9" r="2.6"/><path d="M3.5 20c0-3 2.6-4.8 5.5-4.8S14.5 17 14.5 20"/><path d="M15 15.4c2.4.2 4.5 1.8 4.5 4.6"/></svg></div>
+          <h3 style="font-weight:900;font-size:19px;margin:0 0 8px;">멀티 캐릭터・각자의 영혼</h3>
+          <p style="margin:0;color:var(--muted);font-size:14.5px;">캐릭터마다 독립된 인격(정체성/말투/전문 분야)＋독립 기억＋독립 외형·목소리. 전환은 원클릭 로드.</p>
+        </div>
+
+        <div class="card feature-card" data-reveal>
+          <span class="ptag">SHELL.</span>
+          <div style="width:46px;height:46px;border:1px solid var(--line);background:var(--acc-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0091AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.4 14.5 16 10 4 22"/><path d="m3.5 6 3-3 4 4-3 3z"/><path d="m14 6 3-3 4 4-3 3z"/></svg></div>
+          <h3 style="font-weight:900;font-size:19px;margin:0 0 8px;">외형 자유・Live2D ＋ VRM</h3>
+          <p style="margin:0;color:var(--muted);font-size:14.5px;">2D·3D 듀얼 엔진, 내 Live2D/VRM 모델도 불러올 수 있습니다. 의상, 머리색, 액세서리, 6가지 컬러 테마, 표정·모션 전부 조절 가능.</p>
+        </div>
+
+        <div class="card feature-card" data-reveal data-delay="80">
+          <span class="ptag">MODULE.</span>
+          <div style="width:46px;height:46px;border:1px solid var(--line);background:var(--amber-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#E0771C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-3 7h5l-3 7"/><circle cx="12" cy="12" r="10"/></svg></div>
+          <h3 style="font-weight:900;font-size:19px;margin:0 0 8px;">손도 빌려 드립니다</h3>
+          <p style="margin:0;color:var(--muted);font-size:14.5px;">앱을 넘나드는 자동화: 파일 정리, 날짜별 일괄 복사, 앱/웹 열기, Spotify 선곡——무언가를 변경하는 작업은 먼저 확인부터 합니다.</p>
+        </div>
+
+        <div class="card feature-card" data-reveal data-delay="160">
+          <span class="ptag">GHOST.</span>
+          <div style="width:46px;height:46px;border:1px solid var(--line);background:var(--acc-soft);display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0091AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3 style="font-weight:900;font-size:19px;margin:0 0 8px;">프라이버시 우선・BYOK 또는 매니지드</h3>
+          <p style="margin:0;color:var(--muted);font-size:14.5px;">BYOK로 내 키 직접 연결, 중간 서버 없는 로컬 직결. 설정이 번거롭다면 AI 크레딧 포함 월 구독으로. 캐릭터별로 모델도 따로 고를 수 있습니다.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ⭐ DUAL-CHARACTER CONVERSATION ============ -->
+  <section id="duo" class="dark" style="position:relative;padding:92px 24px;background:var(--d-bg);overflow:hidden;">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 2px,transparent 2px 4px);pointer-events:none;"></div>
+    <div class="corner-mark" style="top:20px;left:26px;">DUO PROTOCOL / ACTIVE</div>
+    <div class="corner-mark" style="bottom:16px;right:26px;">二人同時展開中</div>
+    <div style="max-width:1080px;margin:0 auto;position:relative;">
+      <div class="sec-head" data-reveal style="text-align:center;">
+        <div class="sec-no">SEC.04 / SIGNATURE</div>
+        <div class="sec-en">DUO TALK<span class="u">_</span></div>
+        <h2 class="sec-title">두 AI가, 당신의 데스크톱에서 대화합니다</h2>
+        <p class="sec-sub" style="max-width:600px;margin:0 auto;">두 캐릭터가 함께 등장해 알아서 주거니 받거니, 언제든 당신을 대화에 끌어들이기도 합니다. 나만을 위한 AI 팟캐스트를 듣는 기분——구경만 해도, 끼어들어도 좋아요.</p>
+      </div>
+
+      <div class="duo-grid" data-reveal style="display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center;">
+        <!-- stage -->
+        <div class="duo-stage hud" data-speaker="a" style="position:relative;background:radial-gradient(80% 70% at 50% 90%,rgba(102,224,242,.12),rgba(255,255,255,.02) 70%);border:1px solid var(--d-line);padding:28px 24px 0;min-height:380px;display:flex;align-items:flex-end;justify-content:space-between;gap:8px;overflow:hidden;">
+          <!-- actor A -->
+          <div class="duo-actor actor-a" style="position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+            <div class="duo-bubble bubble-a" style="background:var(--d-acc);color:#0B2A30;font-weight:700;font-size:13px;padding:10px 14px;max-width:180px;margin-bottom:14px;">있잖아, 오늘 주제는 '최고의 작업용 플레이리스트' 맞지? 내가 먼저 시작할게~</div>
+            <img src="../assets/char-mint.png" alt="캐릭터 A・サクラ" style="width:190px;display:block;filter:drop-shadow(0 18px 26px rgba(0,0,0,.5));">
+          </div>
+          <!-- actor B（鏡像面向中央） -->
+          <div class="duo-actor actor-b" style="position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;">
+            <div class="duo-bubble bubble-b" style="background:var(--d-fg);color:var(--ink);font-weight:700;font-size:13px;padding:10px 14px;max-width:180px;margin-bottom:14px;">흥, 또 네가 먼저야…… 좋아, 그럼 난 네 선곡에 태클 담당 할게.</div>
+            <img src="../assets/char-goth.png" alt="캐릭터 B・ユメ" style="width:190px;display:block;transform:scaleX(-1);filter:drop-shadow(0 18px 26px rgba(0,0,0,.5));">
+          </div>
+        </div>
+
+        <!-- controls + points -->
+        <div>
+          <div style="display:flex;gap:10px;margin-bottom:10px;">
+            <button class="mode-pill" type="button" data-mode="podcast" aria-pressed="true">PODCAST 모드</button>
+            <button class="mode-pill" type="button" data-mode="three" aria-pressed="false">3자 모드</button>
+          </div>
+          <p data-mode-desc style="color:var(--d-muted);font-size:14.5px;margin:0 0 24px;min-height:44px;">주제를 던져 주면 둘이 알아서 대화를 이어 가고, 당신은 옆에서 보고 들으면 됩니다. AI 팟캐스트 한 편처럼.</p>
+
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;gap:12px;align-items:flex-start;"><span class="f-dot" style="flex:none;color:var(--d-green);">&gt;&gt;</span><div><strong style="color:var(--d-fg);">끊김 없이 매끄럽게</strong><div style="color:var(--d-muted);font-size:13.5px;">말하는 동안 다음 문장을 미리 생성해, 문장 사이 공백이 거의 없습니다.</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;"><span class="f-dot" style="flex:none;color:var(--d-green);">&gt;&gt;</span><div><strong style="color:var(--d-fg);">목소리가 겹치지 않게</strong><div style="color:var(--d-muted);font-size:13.5px;">한 명이 말을 끝내야 다음 차례——발언을 순차 처리합니다.</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;"><span class="f-dot" style="flex:none;color:var(--d-green);">&gt;&gt;</span><div><strong style="color:var(--d-fg);">완전한 컨트롤</strong><div style="color:var(--d-muted);font-size:13.5px;">위치/크기/각도 조절, 진행 중 일시정지·이어 듣기·말속도 조절까지. 대화가 시작되면 툴바는 자동으로 사라집니다.</div></div></div>
+            <div style="display:flex;gap:12px;align-items:flex-start;"><span class="f-dot" style="flex:none;color:var(--d-green);">&gt;&gt;</span><div><strong style="color:var(--d-fg);">믹스 매치・비용 관리</strong><div style="color:var(--d-muted);font-size:13.5px;">Live2D 하나＋VRM 하나가 한 화면에 있어도 OK. 턴 수 상한 내장.</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CHARACTER SWITCHER（SHELL） ============ -->
+  <section id="chars" style="padding:92px 24px;background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div style="max-width:1080px;margin:0 auto;">
+      <div class="sec-head" data-reveal style="text-align:center;">
+        <div class="sec-no">SEC.05 / SHELL SELECT</div>
+        <div class="sec-en">SHELL<span class="u">_</span></div>
+        <h2 class="sec-title">하나만 고르거나, 전부 키우거나</h2>
+        <p class="sec-sub">아래 아바타를 눌러 캐릭터별 외형과 개성을 살펴보세요.</p>
+        <div class="f-chakra" style="display:inline-flex;align-items:flex-start;gap:10px;margin-top:18px;background:var(--bg);border:1px solid var(--line);padding:12px 18px;text-align:left;max-width:560px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0091AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <span style="font-size:13px;color:var(--muted);line-height:1.7;">현재 캐릭터는 <strong style="color:var(--ink);">개발 테스트 데모</strong>용입니다. 정식 버전에서는 모금액에 따라 <strong style="color:var(--acc);">정식 캐릭터를 비율대로 추가</strong>합니다.</span>
+        </div>
+      </div>
+
+      <div class="char-grid hud" data-reveal style="display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center;background:var(--bg);border:1px solid var(--line);padding:40px;">
+        <div style="position:relative;display:flex;align-items:flex-end;justify-content:center;min-height:420px;background:radial-gradient(70% 60% at 50% 80%,var(--acc-soft),var(--bg) 75%);border:1px solid var(--line);overflow:hidden;">
+          <div class="corner-mark" style="top:10px;left:12px;">UNIT PREVIEW</div>
+          <img data-char-img src="../assets/char-mint.png" alt="サクラ" style="position:relative;width:300px;display:block;filter:drop-shadow(0 26px 34px rgba(0,0,0,.18));animation:somaBreathe 5s ease-in-out infinite;">
+        </div>
+        <div>
+          <div data-char-role class="f-chakra" style="display:inline-block;background:var(--acc-soft);color:var(--acc);font-weight:700;font-size:12px;letter-spacing:.1em;padding:6px 14px;">전술계・에너지 담당</div>
+          <h3 data-char-name style="font-weight:900;font-size:38px;margin:14px 0 2px;">サクラ</h3>
+          <div data-char-zh class="f-mich" style="color:var(--dim);font-size:14px;letter-spacing:.14em;margin-bottom:16px;">Sakura</div>
+          <p data-char-desc style="color:var(--muted);font-size:16px;margin:0 0 26px;">민트색 긴 머리에 발랄하고 직설적인 성격. 당신이 일할 때 옆에서 응원 겸 잔소리하기를 좋아하는 행동파 어시스턴트——웹 열기, 선곡 부탁도 바로바로 반응해요.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;">
+            <span class="chip">의상 교체</span><span class="chip">머리색</span><span class="chip">액세서리</span><span class="chip">보이스</span>
+          </div>
+          <div style="display:flex;gap:14px;" data-char-picker>
+            <button class="char-btn" type="button" data-idx="0" aria-label="サクラ 선택">
+              <img src="../assets/char-mint.png" alt="サクラ" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+              <span class="char-ring"></span>
+            </button>
+            <button class="char-btn" type="button" data-idx="1" aria-label="ユメ 선택">
+              <img src="../assets/char-goth.png" alt="ユメ" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+              <span class="char-ring" style="display:none;"></span>
+            </button>
+            <button class="char-btn" type="button" data-idx="2" aria-label="レイ 선택">
+              <img src="../assets/char-office.png" alt="レイ" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
+              <span class="char-ring" style="display:none;"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DEMO ============ -->
+  <section id="demo" class="dark" style="padding:92px 24px;background:var(--d-bg);position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 2px,transparent 2px 4px);pointer-events:none;"></div>
+    <div class="demo-grid" style="max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr 320px;gap:56px;align-items:center;position:relative;">
+      <div data-reveal>
+        <div class="sec-no">SEC.06 / SEE IT IN ACTION</div>
+        <div class="sec-en">DEMO<span class="u">_</span></div>
+        <h2 class="sec-title">30초 만에 이해하는 Soma Agent</h2>
+        <p class="sec-sub" style="margin:0 0 28px;max-width:380px;">세로형 쇼트 클립——데스크톱 위 그녀와 완전히 같은 비율입니다. 둘이 알아서 수다 떠는 모습, 입을 열어 말하는 모습, Spotify 선곡까지 확인해 보세요.</p>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">1</span><span style="font-size:14.5px;color:var(--d-fg);">"아이유 틀어 줘" → 그녀가 Spotify를 열어 선곡</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">2</span><span style="font-size:14.5px;color:var(--d-fg);">둘이 한 주제로 알아서 대화하다가, 당신이 한마디 하면 바로 당신 쪽으로</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">3</span><span style="font-size:14.5px;color:var(--d-fg);">의상을 갈아입히면 → 표정과 모션이 실시간으로 함께 변화</span></div>
+        </div>
+      </div>
+      <div data-reveal data-delay="120" style="position:relative;justify-self:center;">
+        <div class="hud" style="position:relative;width:300px;aspect-ratio:9/16;overflow:hidden;background:radial-gradient(70% 60% at 50% 24%,#232a36,#0d0f15);border:1px solid var(--d-line);">
+          <img src="../assets/char-mint.png" alt="" aria-hidden="true" style="position:absolute;left:50%;bottom:0;transform:translateX(-50%);height:74%;opacity:.55;filter:drop-shadow(0 0 40px rgba(102,224,242,.35));">
+          <button class="cta" type="button" data-demo aria-label="데모 재생" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:76px;height:76px;border:1px solid var(--d-acc);background:rgba(102,224,242,.12);color:var(--d-acc);font-size:26px;">▶</button>
+          <div class="f-dot" style="position:absolute;top:14px;left:14px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.5);padding:5px 11px;"><span style="width:6px;height:6px;background:var(--amber);animation:blink 1.2s steps(1) infinite;"></span><span style="font-size:10px;color:#fff;letter-spacing:.12em;">LIVE DEMO</span></div>
+          <div class="f-chakra" style="position:absolute;left:14px;right:14px;bottom:14px;background:rgba(0,0,0,.5);padding:9px 14px;font-size:11.5px;font-weight:700;text-align:center;color:var(--d-muted);letter-spacing:.06em;">9:16 세로형・영상 링크 준비 중</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TECH PARTNERS（GHOST / VOICE / SHELL） ============ -->
+  <section id="tech" style="padding:88px 24px;background:var(--bg);">
+    <div style="max-width:1080px;margin:0 auto;">
+      <div class="sec-head" data-reveal style="text-align:center;">
+        <div class="sec-no">SEC.07 / POWERED BY</div>
+        <div class="sec-en">TECH<span class="u">_</span></div>
+        <h2 class="sec-title">기술 파트너</h2>
+        <p class="sec-sub" style="max-width:560px;margin:0 auto;">거인의 어깨 위에서. 두뇌·음성·외형 세 레이어마다 최강의 엔진을 연결——자유롭게 전환하고, 내 키를 가져올 수 있습니다.</p>
+      </div>
+
+      <div class="tech-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px;">
+
+        <!-- GHOST 語言模型 -->
+        <div class="card" data-reveal>
+          <span class="ptag">GHOST. ── 두뇌</span>
+          <h3 style="font-weight:900;font-size:17px;margin:0 0 18px;">언어 모델</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);">
+              <svg width="28" height="28" viewBox="0 0 40 40" fill="none" aria-label="Claude"><g stroke="#D97757" stroke-width="3.4" stroke-linecap="round"><line x1="20" y1="5" x2="20" y2="35"/><line x1="5" y1="20" x2="35" y2="20"/><line x1="9.4" y1="9.4" x2="30.6" y2="30.6"/><line x1="30.6" y1="9.4" x2="9.4" y2="30.6"/><line x1="13" y1="6.5" x2="27" y2="33.5"/><line x1="27" y1="6.5" x2="13" y2="33.5"/><line x1="6.5" y1="13" x2="33.5" y2="27"/><line x1="6.5" y1="27" x2="33.5" y2="13"/></g></svg>
+              <div><div style="font-weight:700;font-size:14.5px;">Claude</div><div class="f-chakra" style="font-size:11px;color:var(--dim);">Anthropic</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);">
+              <svg width="28" height="28" viewBox="0 0 40 40" aria-label="ChatGPT"><path fill="#10A37F" d="M28.6 16.8a7.1 7.1 0 0 0-.6-5.8 7.2 7.2 0 0 0-7.7-3.4 7.1 7.1 0 0 0-5.3-2.4 7.2 7.2 0 0 0-6.8 4.9 7.1 7.1 0 0 0-4.7 3.4 7.2 7.2 0 0 0 .9 8.4 7.1 7.1 0 0 0 .6 5.8 7.2 7.2 0 0 0 7.7 3.4 7.1 7.1 0 0 0 5.3 2.4 7.2 7.2 0 0 0 6.8-4.9 7.1 7.1 0 0 0 4.7-3.4 7.2 7.2 0 0 0-.9-8.4Zm-9.4 13.1a5.3 5.3 0 0 1-3.4-1.2l4.5-2.6a.7.7 0 0 0 .4-.6v-6.4l1.9 1.1v5.3a3.9 3.9 0 0 1-3.4 4.4Zm-11.5-4.9a5.3 5.3 0 0 1-.6-3.5l4.5 2.6a.7.7 0 0 0 .7 0l5.6-3.2v2.2l-4.6 2.7a3.9 3.9 0 0 1-5.6-.8Zm-1.2-9.7a5.3 5.3 0 0 1 2.8-2.3v5.4a.7.7 0 0 0 .4.6l5.5 3.2-1.9 1.1-4.6-2.6a3.9 3.9 0 0 1-2.2-5.4Zm15.9 3.7-5.6-3.2 1.9-1.1 4.6 2.6a3.9 3.9 0 0 1-.6 7.1v-5.4a.7.7 0 0 0-.3-.6ZM23 12.7l-4.5-2.6a.7.7 0 0 0-.7 0l-5.6 3.2v-2.2l4.6-2.6a3.9 3.9 0 0 1 5.8 4ZM11.2 22l-1.9-1.1v-5.3a3.9 3.9 0 0 1 6.4-3l-4.5 2.6a.7.7 0 0 0-.4.6Zm1-2.3 2.5-1.5 2.5 1.5v2.9l-2.5 1.4-2.5-1.4Z"/></svg>
+              <div><div style="font-weight:700;font-size:14.5px;">ChatGPT</div><div class="f-chakra" style="font-size:11px;color:var(--dim);">OpenAI</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);">
+              <svg width="28" height="28" viewBox="0 0 40 40" aria-label="Gemini"><defs><linearGradient id="gem" x1="0" y1="0" x2="40" y2="40"><stop offset="0" stop-color="#4A8CFF"/><stop offset="0.5" stop-color="#9B72F2"/><stop offset="1" stop-color="#D96570"/></linearGradient></defs><path fill="url(#gem)" d="M20 2c.7 9.4 8.6 17.3 18 18-9.4.7-17.3 8.6-18 18-.7-9.4-8.6-17.3-18-18C11.4 19.3 19.3 11.4 20 2Z"/></svg>
+              <div><div style="font-weight:700;font-size:14.5px;">Gemini</div><div class="f-chakra" style="font-size:11px;color:var(--dim);">Google</div></div>
+            </div>
+            <div style="padding:10px 14px;background:var(--acc-soft);border:1px solid rgba(0,145,173,.25);font-size:12.5px;color:#1c5e6b;line-height:1.7;">Ollama·LM Studio 같은 로컬 모델도 지원. 내 키를 가져오면 사용량 무제한.</div>
+          </div>
+        </div>
+
+        <!-- VOICE 語音模型 -->
+        <div class="card" data-reveal data-delay="100">
+          <span class="ptag">VOICE. ── 음성</span>
+          <h3 style="font-weight:900;font-size:17px;margin:0 0 18px;">음성 모델</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--bg);border:1px solid var(--line);">
+              <svg width="28" height="28" viewBox="0 0 40 40" aria-label="Azure"><defs><linearGradient id="az" x1="10" y1="6" x2="22" y2="34"><stop offset="0" stop-color="#3CCBF4"/><stop offset="1" stop-color="#2073C4"/></linearGradient></defs><path fill="url(#az)" d="M14.8 9.4a1.4 1.4 0 0 1 1.3-.9h1.6L7.5 31a1 1 0 0 0 .9 1.4h6.3a1.4 1.4 0 0 0 1.3-1l1.9-5.6 6.6 6.2a1.4 1.4 0 0 0 1 .4h5.6l-7.4-6.9-10.6.1Z"/><path fill="url(#az)" d="M17.8 7h6.9a1.4 1.4 0 0 1 1.3 1l7.4 22.9a1 1 0 0 1-1 1.3h-5.2a1.4 1.4 0 0 1-1.3-1L19.6 8.3A1.4 1.4 0 0 1 17.8 7Z" opacity=".7"/></svg>
+              <div><div style="font-weight:700;font-size:14.5px;">Azure 뉴럴 보이스</div><div class="f-chakra" style="font-size:11px;color:var(--dim);">Microsoft</div></div>
+            </div>
+            <div style="padding:14px;background:var(--acc-soft);border:1px solid rgba(0,145,173,.25);">
+              <div style="font-size:13px;font-weight:700;color:var(--acc);margin-bottom:4px;">한・중・일・영 뉴럴 보이스</div>
+              <div style="font-size:12.5px;color:#1c5e6b;line-height:1.7;">자연스러운 발화＋립싱크·실시간 표정. 목소리 커스터마이즈 가능, 내 키로 과금.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SHELL 外觀模型 -->
+        <div class="card" data-reveal data-delay="200">
+          <span class="ptag">SHELL. ── 외형</span>
+          <h3 style="font-weight:900;font-size:17px;margin:0 0 18px;">외형 모델</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--bg);border:1px solid var(--line);">
+              <div style="width:28px;height:28px;background:#00A0E9;display:flex;align-items:center;justify-content:center;flex:none;"><span class="f-chakra" style="color:#fff;font-weight:700;font-size:12px;line-height:1;">L2</span></div>
+              <div><div style="font-weight:700;font-size:14.5px;">Live2D</div><div class="f-chakra" style="font-size:11px;color:var(--dim);">2D 실시간 모션</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--bg);border:1px solid var(--line);">
+              <div style="width:28px;height:28px;background:#0DC4C4;display:flex;align-items:center;justify-content:center;flex:none;"><span class="f-chakra" style="color:#fff;font-weight:700;font-size:13px;line-height:1;">V</span></div>
+              <div><div style="font-weight:700;font-size:14.5px;">VRM ／ VRoid</div><div class="f-chakra" style="font-size:11px;color:var(--dim);">3D 캐릭터・pixiv</div></div>
+            </div>
+            <div style="padding:12px 14px;background:var(--amber-soft);border:1px solid rgba(224,119,28,.25);">
+              <div style="font-size:12.5px;color:#8a5220;line-height:1.7;">의상, 머리색, 액세서리, 표정·모션——2D/3D 두 엔진 중 자유롭게 선택하고, 내 모델도 불러올 수 있습니다.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <p data-reveal class="f-chakra" style="text-align:center;color:var(--dim);font-size:11.5px;margin:26px 0 0;letter-spacing:.04em;">각 상표는 해당 소유자의 자산이며, 본 제품은 위 기업과 제휴·보증 관계가 없습니다.</p>
+    </div>
+  </section>
+
+  <!-- ============ PLATFORM ROADMAP ============ -->
+  <section id="platform" style="padding:88px 24px;background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+    <div style="max-width:1080px;margin:0 auto;">
+      <div class="sec-head" data-reveal style="text-align:center;">
+        <div class="sec-no">SEC.08 / PLATFORM ROADMAP</div>
+        <div class="sec-en">ROADMAP<span class="u">_</span></div>
+        <h2 class="sec-title">플랫폼 로드맵</h2>
+        <p class="sec-sub" style="max-width:560px;margin:0 auto;">먼저 macOS에서 경험을 최고로 다듬은 뒤, 한 걸음씩 더 많은 플랫폼으로 확장합니다.</p>
+      </div>
+
+      <div class="plat-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch;">
+
+        <!-- 階段一 -->
+        <div class="card hud" data-reveal style="border-color:var(--acc);display:flex;flex-direction:column;">
+          <div class="f-chakra" style="position:absolute;top:-12px;left:22px;background:var(--acc);color:#fff;font-weight:700;font-size:11px;letter-spacing:.14em;padding:5px 14px;">1차 출시・NOW</div>
+          <div class="f-dot" style="font-size:11px;color:var(--acc);letter-spacing:.18em;margin-top:8px;">PHASE 1</div>
+          <h3 style="font-weight:900;font-size:20px;margin:8px 0 12px;">macOS 데스크톱</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+            <span class="f-chakra" style="background:var(--acc-soft);color:var(--acc);font-weight:700;font-size:12px;padding:6px 12px;">Intel x64 칩</span>
+            <span class="f-chakra" style="background:var(--acc-soft);color:var(--acc);font-weight:700;font-size:12px;padding:6px 12px;">Apple Silicon(M 시리즈)</span>
+          </div>
+          <p style="margin:0;color:var(--muted);font-size:14px;flex:1;">투명 최상위·드래그 가능한 네이티브 데스크톱 마스코트. Intel과 M 시리즈 듀얼 칩 모두 호환——다운로드 즉시 설치, 바로 활성화.</p>
+        </div>
+
+        <!-- 階段二 -->
+        <div class="card" data-reveal data-delay="100" style="display:flex;flex-direction:column;">
+          <div class="f-dot" style="font-size:11px;color:var(--dim);letter-spacing:.18em;">PHASE 2</div>
+          <h3 style="font-weight:900;font-size:20px;margin:8px 0 12px;">Mac App Store 출시</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+            <span class="f-chakra" style="background:var(--bg);border:1px solid var(--line);color:var(--muted);font-weight:700;font-size:12px;padding:6px 12px;">계획 중</span>
+          </div>
+          <p style="margin:0;color:var(--muted);font-size:14px;flex:1;">Mac App Store에 출시해 원클릭 설치와 자동 업데이트——구매도 다운로드도 한결 편해집니다.</p>
+        </div>
+
+        <!-- 階段三 -->
+        <div class="card" data-reveal data-delay="200" style="display:flex;flex-direction:column;">
+          <div class="f-dot" style="font-size:11px;color:var(--dim);letter-spacing:.18em;">PHASE 3</div>
+          <h3 style="font-weight:900;font-size:20px;margin:8px 0 12px;">Windows ＆ Linux</h3>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;">
+            <span class="f-chakra" style="background:var(--bg);border:1px solid var(--line);color:var(--muted);font-weight:700;font-size:12px;padding:6px 12px;">계획 중</span>
+          </div>
+          <p style="margin:0;color:var(--muted);font-size:14px;flex:1;">Windows와 Linux로 확장해, 더 많은 플랫폼의 사용자가 파트너를 데스크톱에 데려갈 수 있게 합니다.</p>
+        </div>
+
+      </div>
+      <p data-reveal class="f-chakra" style="text-align:center;color:var(--dim);font-size:11.5px;margin:24px 0 0;letter-spacing:.04em;">로드맵 일정은 개발 및 펀딩 진행 상황에 따라 조정될 수 있습니다.</p>
+    </div>
+  </section>
+
+  <!-- ============ PRICING / CROWDFUNDING ============ -->
+  <section id="pricing" style="padding:92px 24px;background:var(--bg);">
+    <div style="max-width:1080px;margin:0 auto;">
+
+      <!-- meter：暗域 terminal 儀表板 -->
+      <div class="dark hud" data-reveal style="background:var(--d-bg);border:1px solid var(--d-line);color:var(--d-fg);padding:40px 44px;margin-bottom:52px;position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 2px,transparent 2px 4px);pointer-events:none;"></div>
+        <div class="corner-mark" style="top:12px;right:16px;">FUNDING MONITOR</div>
+        <div class="meter-grid" style="display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:center;position:relative;">
+          <div>
+            <div class="f-chakra" style="display:inline-flex;align-items:center;gap:8px;border:1px solid var(--d-acc);color:var(--d-acc);font-weight:700;font-size:11px;letter-spacing:.2em;padding:6px 14px;margin-bottom:18px;"><span style="width:6px;height:6px;background:var(--d-acc);animation:blink 1.4s steps(1) infinite;"></span>펀딩 진행 중</div>
+            <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;">
+              <span class="num" data-raised style="font-weight:700;font-size:50px;color:var(--d-acc);line-height:1;">NT$0</span>
+              <span style="color:var(--d-muted);font-size:14.5px;">／ 목표 <span data-goal>NT$0</span></span>
+            </div>
+            <div style="height:12px;background:rgba(255,255,255,.08);overflow:hidden;margin:18px 0 12px;position:relative;">
+              <div data-pct-fill style="height:100%;background:linear-gradient(90deg,var(--d-acc),#9beef9,var(--amber));background-size:200% 100%;animation:somaShimmer 2.4s linear infinite;transition:width 1.6s cubic-bezier(.16,1,.3,1);width:0;"></div>
+            </div>
+            <div style="display:flex;gap:28px;font-size:14px;">
+              <div><span class="num" data-pct style="font-size:21px;color:var(--d-fg);">0</span>% <span style="color:var(--d-muted);">달성</span></div>
+              <div><span class="num" data-backers style="font-size:21px;color:var(--d-fg);">0</span> <span style="color:var(--d-muted);">명의 후원자</span></div>
+            </div>
+          </div>
+          <div style="text-align:center;background:rgba(255,255,255,.03);border:1px solid var(--d-line);padding:24px;">
+            <div class="f-chakra" style="color:var(--d-muted);font-size:12px;font-weight:700;letter-spacing:.2em;margin-bottom:14px;">얼리버드 카운트다운</div>
+            <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
+              <div style="background:rgba(0,0,0,.3);border:1px solid var(--d-line);padding:12px 14px;min-width:60px;"><div class="num" data-cd-d style="font-size:28px;color:var(--d-acc);">--</div><div class="f-chakra" style="font-size:10.5px;color:var(--d-muted);">일</div></div>
+              <div style="background:rgba(0,0,0,.3);border:1px solid var(--d-line);padding:12px 14px;min-width:60px;"><div class="num" data-cd-h style="font-size:28px;color:var(--d-acc);">--</div><div class="f-chakra" style="font-size:10.5px;color:var(--d-muted);">시간</div></div>
+              <div style="background:rgba(0,0,0,.3);border:1px solid var(--d-line);padding:12px 14px;min-width:60px;"><div class="num" data-cd-m style="font-size:28px;color:var(--d-acc);">--</div><div class="f-chakra" style="font-size:10.5px;color:var(--d-muted);">분</div></div>
+              <div style="background:rgba(0,0,0,.3);border:1px solid var(--d-line);padding:12px 14px;min-width:60px;"><div class="num" data-cd-s style="font-size:28px;color:var(--amber);">--</div><div class="f-chakra" style="font-size:10.5px;color:var(--d-muted);">초</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-head" data-reveal style="text-align:center;margin-bottom:36px;">
+        <div class="sec-no">SEC.09 / SUPPORT</div>
+        <div class="sec-en">SUPPORT<span class="u">_</span></div>
+        <h2 class="sec-title">두 가지 후원 방법</h2>
+        <p class="sec-sub">펀딩의 메인은 <strong style="color:var(--ink);">한정 수량 영구 소장판</strong>(한 번 결제로 평생 소장・BYOK). 편하게 매니지드를 원한다면 <strong style="color:var(--ink);">얼리버드 구독</strong>(AI 크레딧 포함・가격 고정)을 선택하세요.</p>
+      </div>
+
+      <!-- BLOCK A: 限量買斷 -->
+      <div data-reveal style="display:flex;align-items:center;gap:12px;margin:0 0 18px;flex-wrap:wrap;">
+        <span style="font-weight:900;font-size:22px;">펀딩 메인・한정 영구 소장판</span>
+        <span class="f-chakra" style="background:var(--ink);color:var(--d-acc);font-weight:700;font-size:11px;letter-spacing:.1em;padding:5px 12px;">BYOK・내 키 지참・한 번 결제로 평생 소장</span>
+      </div>
+
+      <!-- batch hunger -->
+      <div class="card hud-amber hud" data-reveal style="padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:260px;">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;font-weight:700;margin-bottom:8px;">
+            <span class="f-chakra" style="color:var(--amber);letter-spacing:.06em;">1차 배치・한정 <span data-batch-total>100</span>개</span>
+            <span style="color:var(--muted);">후원 완료 <strong class="num" data-batch-claimed style="color:var(--ink);font-size:15px;">0</strong> ／ 남은 수량 <strong class="num" data-batch-left style="color:var(--amber);font-size:15px;">0</strong>개</span>
+          </div>
+          <div style="height:8px;background:#EDE4D8;overflow:hidden;"><div data-batch-fill style="width:0;height:100%;background:linear-gradient(90deg,#F0993F,var(--amber));transition:width 1.4s cubic-bezier(.16,1,.3,1);"></div></div>
+        </div>
+        <div style="font-size:13px;color:var(--muted);max-width:300px;line-height:1.7;">이번 배치는 <strong style="color:var(--ink);">완판 시 판매 종료</strong>됩니다. 다음 배치는 <strong style="color:var(--acc);">완전히 새로운 한정 스킨</strong>과 함께 다시 열립니다——배치마다 서로 다른 컬렉터스 에디션.</div>
+      </div>
+
+      <div class="price3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch;margin-bottom:56px;">
+        <!-- 買斷・基礎 -->
+        <div class="card" data-reveal style="display:flex;flex-direction:column;padding:28px 24px;">
+          <div class="f-chakra" style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.1em;">입문 컬렉션</div>
+          <h3 style="font-weight:900;font-size:20px;margin:8px 0 4px;">한정 영구 소장・베이직</h3>
+          <div style="margin:6px 0 14px;"><span class="num" style="font-size:36px;">NT$599</span><span style="color:var(--muted);font-size:13px;"> 일시불</span></div>
+          <ul style="list-style:none;padding:0;margin:0 0 20px;color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:9px;flex:1;">
+            <li style="color:var(--acc);">✓ 평생 사용・이후 업데이트 포함</li>
+            <li>✓ 순수 대화 기능</li>
+            <li>✓ 내 LLM/음성 직접 연결(BYOK)</li>
+            <li>✓ 내 키 지참＝AI 사용량 무제한</li>
+            <li style="color:var(--amber);">★ 배치당 한정 100개</li>
+          </ul>
+          <button class="cta cta-ghost" type="button" data-sku="buyout_basic" style="padding:12px;font-size:14px;">후원・베이직 소장판</button>
+        </div>
+
+        <!-- 買斷・進階 highlighted：暗域卡 -->
+        <div class="dark card hud" data-reveal data-delay="100" style="background:var(--d-bg);border-color:var(--d-acc);color:var(--d-fg);display:flex;flex-direction:column;padding:30px 24px;position:relative;">
+          <div class="f-chakra" style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--d-acc);color:#0B2A30;font-weight:700;font-size:11px;letter-spacing:.1em;padding:5px 16px;white-space:nowrap;">가장 인기・컬렉터스 에디션</div>
+          <div class="f-chakra" style="font-size:12px;font-weight:700;color:var(--d-acc);letter-spacing:.1em;">이번 배치 한정 스킨</div>
+          <h3 style="font-weight:900;font-size:20px;margin:8px 0 4px;">한정 영구 소장・프로</h3>
+          <div style="margin:6px 0 14px;"><span class="num" style="font-size:36px;color:var(--d-acc);">NT$899</span><span style="color:var(--d-muted);font-size:13px;"> 일시불</span></div>
+          <ul style="list-style:none;padding:0;margin:0 0 20px;color:var(--d-fg);font-size:14px;display:flex;flex-direction:column;gap:9px;flex:1;">
+            <li style="color:var(--d-acc);">✓ 평생 사용・이후 업데이트 포함</li>
+            <li>✓ 전체 대화 + <strong>듀오 대화</strong> + tool use</li>
+            <li>✓ BYOK・AI 사용량 무제한</li>
+            <li style="color:var(--amber);">★ 이번 배치 한정 스킨 ×2(컬렉터스)</li>
+            <li style="color:var(--amber);">★ 한정 100개</li>
+          </ul>
+          <button class="cta cta-primary" type="button" data-sku="buyout_pro" style="padding:14px;font-size:14px;">지금 소장하기 →</button>
+        </div>
+
+        <!-- 創始收藏家 -->
+        <div class="card hud-amber hud" data-reveal data-delay="200" style="border-color:var(--amber);display:flex;flex-direction:column;padding:28px 24px;">
+          <div class="f-chakra" style="font-size:12px;font-weight:700;color:var(--amber);letter-spacing:.1em;">찐팬・최고 사양</div>
+          <h3 style="font-weight:900;font-size:20px;margin:8px 0 4px;">파운더 컬렉터</h3>
+          <div style="margin:6px 0 14px;"><span class="num" style="font-size:36px;">NT$1,680</span></div>
+          <ul style="list-style:none;padding:0;margin:0 0 20px;color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:9px;flex:1;">
+            <li>✓ 프로 소장판의 모든 구성</li>
+            <li style="color:var(--amber);">★ <strong>모든 배치</strong>의 한정 스킨 영구 해금</li>
+            <li style="color:var(--acc);">★ 제품 감사 명단에 이름 등재</li>
+            <li style="color:var(--acc);">★ Discord 파운더 전용 역할</li>
+            <li style="color:var(--amber);">★ 전 기간 한정 50명</li>
+          </ul>
+          <button class="cta cta-amber" type="button" data-sku="founder" style="padding:12px;font-size:14px;">파운더 컬렉터 되기</button>
+        </div>
+      </div>
+
+      <!-- BLOCK B: 早鳥訂閱 -->
+      <div data-reveal style="display:flex;align-items:center;gap:12px;margin:0 0 18px;flex-wrap:wrap;">
+        <span style="font-weight:900;font-size:22px;">얼리버드 구독・크레딧 포함 매니지드</span>
+        <span class="f-chakra" style="background:var(--acc-soft);color:var(--acc);font-weight:700;font-size:11px;letter-spacing:.1em;padding:5px 12px;">설정 불필요・AI 크레딧 제공・얼리버드 가격 평생 고정</span>
+      </div>
+
+      <div class="price2" style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;align-items:stretch;">
+        <div class="card" data-reveal style="display:flex;flex-direction:column;padding:30px 28px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div class="f-chakra" style="font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.1em;">라이트・최저 부담</div>
+            <span class="f-chakra" style="background:var(--amber-soft);color:var(--amber);font-weight:700;font-size:10.5px;padding:4px 10px;letter-spacing:.06em;">얼리버드 고정가</span>
+          </div>
+          <h3 style="font-weight:900;font-size:22px;margin:8px 0 4px;">베이직・얼리버드 연간</h3>
+          <div style="margin:6px 0 4px;"><span class="num" style="font-size:38px;">NT$2,490</span><span style="color:var(--muted);font-size:14px;"> / 년</span></div>
+          <div style="color:var(--dim);font-size:13px;margin-bottom:16px;">정가 NT$2,990・월 약 NT$208・<span style="text-decoration:line-through;">월 구독 NT$299</span></div>
+          <ul style="list-style:none;padding:0;margin:0 0 22px;color:var(--muted);font-size:14px;display:flex;flex-direction:column;gap:9px;flex:1;">
+            <li>✓ 매월 대화 500회</li>
+            <li>✓ 음성 합성 월 1만 자</li>
+            <li>✓ 커스터마이즈 가능 스킨 2종</li>
+            <li>✓ 초과분은 추가 크레딧으로 계속 사용</li>
+            <li style="color:var(--acc);">✓ 얼리버드 가격 평생 고정・갱신도 같은 가격</li>
+          </ul>
+          <button class="cta cta-ghost" type="button" data-sku="sub_basic_year" style="padding:13px;font-size:14px;">얼리버드 구독・베이직</button>
+        </div>
+
+        <div class="card hud" data-reveal data-delay="100" style="border-color:var(--acc);background:var(--acc-soft);display:flex;flex-direction:column;padding:30px 28px;position:relative;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div class="f-chakra" style="font-size:12px;font-weight:700;color:var(--acc);letter-spacing:.1em;">추천・기능 풀 오픈</div>
+            <span class="f-chakra" style="background:var(--acc);color:#fff;font-weight:700;font-size:10.5px;padding:4px 10px;letter-spacing:.06em;">얼리버드 고정가</span>
+          </div>
+          <h3 style="font-weight:900;font-size:22px;margin:8px 0 4px;">프로・얼리버드 연간</h3>
+          <div style="margin:6px 0 4px;"><span class="num" style="font-size:38px;color:var(--acc);">NT$4,990</span><span style="color:var(--muted);font-size:14px;"> / 년</span></div>
+          <div style="color:#3d7580;font-size:13px;margin-bottom:16px;">정가 NT$5,990・월 약 NT$416・<span style="text-decoration:line-through;">월 구독 NT$599</span></div>
+          <ul style="list-style:none;padding:0;margin:0 0 22px;color:#1c5e6b;font-size:14px;display:flex;flex-direction:column;gap:9px;flex:1;">
+            <li>✓ 매월 대화 1000회</li>
+            <li>✓ 음성 합성 월 3만 자</li>
+            <li style="color:var(--acc);">✓ <strong>듀오 대화</strong> + tool use(웹/앱 열기/선곡)</li>
+            <li>✓ 매월 공식 모델 1종 추가</li>
+            <li style="color:var(--acc);">✓ 얼리버드 가격 평생 고정・갱신도 같은 가격</li>
+          </ul>
+          <button class="cta cta-primary" type="button" data-sku="sub_pro_year" style="padding:13px;font-size:14px;">얼리버드 구독・프로 →</button>
+        </div>
+      </div>
+      <p data-reveal style="text-align:center;color:var(--muted);font-size:13px;margin:18px 0 0;">연간 약정이 부담된다면 월 구독(베이직 NT$299／프로 NT$599)으로 시작할 수 있고, 초과분은 언제든 추가 크레딧으로 이어 쓸 수 있습니다. ※ 모든 가격은 대만 달러(NT$) 기준입니다.</p>
+
+      <!-- stretch goals -->
+      <div class="card" data-reveal style="margin-top:46px;border-style:dashed;padding:30px 34px;">
+        <div class="f-dot" style="font-size:11px;color:var(--dim);letter-spacing:.2em;margin-bottom:6px;">STRETCH GOALS</div>
+        <h3 style="font-weight:900;font-size:20px;margin:0 0 20px;">스트레치 골</h3>
+        <div class="stretch-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+          <div style="padding:18px;background:var(--acc-soft);border:1px solid rgba(0,145,173,.3);">
+            <div class="num" style="color:var(--acc);font-size:14px;">NT$200,000 ✓</div>
+            <div style="font-size:13.5px;margin-top:6px;font-weight:700;">기본 목표 달성・정식 버전 개발 시작</div>
+          </div>
+          <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">
+            <div class="num" style="color:var(--muted);font-size:14px;">NT$350,000</div>
+            <div style="font-size:13.5px;margin-top:6px;font-weight:700;color:var(--muted);">한국어 보이스 해금</div>
+          </div>
+          <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">
+            <div class="num" style="color:var(--muted);font-size:14px;">NT$500,000</div>
+            <div style="font-size:13.5px;margin-top:6px;font-weight:700;color:var(--muted);">신규 캐릭터 해금</div>
+          </div>
+          <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">
+            <div class="num" style="color:var(--muted);font-size:14px;">NT$800,000</div>
+            <div style="font-size:13.5px;margin-top:6px;font-weight:700;color:var(--muted);">원터치 음성 입력 정식판</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq" style="padding:92px 24px;background:var(--panel);border-top:1px solid var(--line);">
+    <div style="max-width:760px;margin:0 auto;">
+      <div class="sec-head" data-reveal style="text-align:center;">
+        <div class="sec-no">SEC.10 / Q&amp;A</div>
+        <div class="sec-en">FAQ<span class="u">_</span></div>
+        <h2 class="sec-title">자주 묻는 질문</h2>
+      </div>
+      <div data-faq style="display:flex;flex-direction:column;gap:12px;"></div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER CTA ============ -->
+  <section class="dark" style="position:relative;padding:100px 24px;background:var(--d-bg);overflow:hidden;text-align:center;">
+    <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 2px,transparent 2px 4px);pointer-events:none;"></div>
+    <div class="corner-mark" style="top:20px;left:26px;">FINAL CALL</div>
+    <div class="corner-mark" style="top:20px;right:26px;">ソマ・エージェント</div>
+    <div style="max-width:720px;margin:0 auto;position:relative;z-index:2;">
+      <div class="f-dot" style="font-size:13px;letter-spacing:.2em;color:var(--d-green);margin-bottom:22px;">&gt; assemble your agent<span style="display:inline-block;width:.5em;height:1em;background:currentColor;vertical-align:-.1em;margin-left:6px;animation:blink 1.05s steps(1) infinite;"></span></div>
+      <h2 style="font-weight:900;font-size:42px;margin:0 0 14px;color:var(--d-fg);">당신의 데스크톱에, 파트너 하나를 더</h2>
+      <p style="font-size:17px;margin:0 0 32px;color:var(--d-muted);">얼리버드 한정 수량이 줄어들고 있어요. 지금 후원하는 게 가장 이득입니다.</p>
+      <a class="cta cta-primary" href="#pricing" style="font-size:16px;padding:17px 42px;">지금 후원하기(펀딩) →</a>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="dark" style="background:#0e1015;color:var(--d-muted);padding:38px 24px;border-top:1px solid var(--d-line);">
+    <div style="max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="f-orb" style="font-weight:800;font-size:16px;letter-spacing:.22em;color:var(--d-fg);">SOMA<span style="color:var(--d-acc);">_</span></span>
+        <span class="f-chakra" style="font-size:11px;letter-spacing:.2em;color:var(--d-dim);">AGENT IN THE SHELL</span>
+      </div>
+      <div class="lang" style="display:flex;gap:2px;">
+        <a href="../" lang="zh-Hant" style="color:var(--d-dim);">繁</a><a href="../cn/" lang="zh-Hans" style="color:var(--d-dim);">简</a><a href="../en/" lang="en" style="color:var(--d-dim);">EN</a><a href="../ja/" lang="ja" style="color:var(--d-dim);">日</a><a class="on" href="./" lang="ko" style="color:var(--d-fg);">한</a>
+      </div>
+      <div style="font-size:12.5px;">데모 모델과 정식 버전은 기능에 차이가 있을 수 있습니다</div>
+      <!-- TODO: 換成正式聯絡信箱與年份 -->
+      <div class="f-chakra" style="font-size:12px;letter-spacing:.04em;">© 2026 Soma ・ hello@soma.app</div>
+    </div>
+  </footer>
+
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   Soma 行銷站 · 設定區（上線前調整這裡）
+   ============================================================ */
+const SOMA = {
+  paddle: {
+    environment: 'sandbox',          // 'sandbox' | 'production'
+    token: '',                       // TODO: 填入 Paddle client-side token（先 sandbox）
+    prices: {                        // TODO: 填入各方案 Paddle price ID
+      buyout_basic:   '',            // 限量買斷・基礎 NT$599
+      buyout_pro:     '',            // 限量買斷・進階 NT$899
+      founder:        '',            // 創始收藏家 NT$1,680
+      sub_basic_year: '',            // 基礎・早鳥年訂 NT$2,490
+      sub_pro_year:   '',            // 進階・早鳥年訂 NT$4,990
+    },
+  },
+  // ⚠️ 募資數字＝示意。上線前接後端 API / CMS 餵真實值，切勿用假數字對外。
+  campaign: {
+    goal: 200000,
+    raised: 0,                       // 真實已募金額
+    backers: 0,                      // 真實支持者數
+    countdownDays: 18,               // 早鳥倒數天數
+    batch: { total: 100, claimed: 0 } // 第 1 批限量 / 已售
+  },
+  paddleLocale: 'ko',
+};
+
+/* ============================================================ */
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+const fmtNT = n => 'NT$' + Number(n).toLocaleString('en-US');
+const pad = n => String(n).padStart(2, '0');
+
+/* ---- 角色資料 ---- */
+const CHARS = [
+  { name:'サクラ', zh:'Sakura', role:'전술계・에너지 담당', img:'../assets/char-mint.png',
+    desc:'민트색 긴 머리에 발랄하고 직설적인 성격. 당신이 일할 때 옆에서 응원 겸 잔소리하기를 좋아하는 행동파 어시스턴트——웹 열기, 선곡 부탁도 바로바로 반응해요.' },
+  { name:'ユメ', zh:'Yume', role:'다크계・고딕 롤리타', img:'../assets/char-goth.png',
+    desc:'핑크×블랙 고딕 스타일, 나른하면서 독설가. 말수는 적지만 기억력은 최고——조용한 동행과 살짝의 갭 모에를 좋아하는 당신에게 딱이에요.' },
+  { name:'レイ', zh:'Rei', role:'지성파・오피스 비서', img:'../assets/char-office.png',
+    desc:'깔끔한 오피스 룩에 논리정연. 할 일을 정리해 주고, 일정을 읽어 주고, 가장 효율적인 톤으로 한마디 한마디에 답합니다.' },
+];
+
+/* ---- FAQ 資料 ---- */
+const FAQS = [
+  { q:'API 키를 직접 준비해야 하나요?', a:'선택한 플랜에 따라 다릅니다. 영구 소장판은 BYOK(Bring Your Own Key) 방식으로, 내 AI·음성 키를 직접 입력합니다. 키는 내 컴퓨터에만 저장되고 저희 서버를 거치지 않아 프라이버시도 비용도 온전히 당신이 관리합니다. 월 구독 매니지드를 선택하면 저희가 AI 크레딧을 제공하므로 설정 없이 바로 사용할 수 있습니다.' },
+  { q:'어떤 운영체제를 지원하나요? 제 컴퓨터에서 돌아갈까요?', a:'1차 출시는 macOS를 지원하며 Intel(x64)과 Apple Silicon(M 시리즈) 칩 모두 호환됩니다. 투명 최상위·드래그 가능한 데스크톱 마스코트 형태로 동작해요. 이후 로드맵: 2단계로 Mac App Store 출시(원클릭 설치·자동 업데이트), 3단계로 Windows와 Linux 지원. 일정은 개발 및 펀딩 진행 상황에 따라 조정될 수 있습니다.' },
+  { q:'\'듀오 대화\'가 뭔가요?', a:'Soma의 시그니처 기능입니다. 두 AI 캐릭터가 데스크톱에 함께 등장해 알아서 주거니 받거니 대화하고(Podcast 모드에서는 당신이 관람), 언제든 텍스트로 끼어들 수도 있습니다(3자 모드). 발언은 순차 처리라 겹치지 않고, 문장 사이 사전 생성으로 공백이 거의 없으며, Live2D 하나＋VRM 하나 같은 화면도 가능합니다. 턴 수 상한이 내장돼 비용도 관리됩니다.' },
+  { q:'영구 소장판과 구독은 뭐가 다른가요? 어느 쪽을 골라야 하죠?', a:'영구 소장판＝일시불 결제로 평생 소장. AI와 음성은 내 키(BYOK)로 연결해 사용량 무제한이며 비용은 서비스 제공사에 직접 지불합니다. 오래 소장하고 싶고 키를 직접 준비할 수 있는 분께 적합해요. 구독＝저희가 매니지드로 운영하며 월 AI 크레딧(베이직 500회/프로 1000회)과 음성 글자 수가 포함됩니다. 설정 없이 바로 사용하고, 초과분은 추가 크레딧으로 이어 쓰면 됩니다.' },
+  { q:'영구 소장판은 한정 수량인가요? 완판되면 어떻게 되나요?', a:'네. 영구 소장판은 한정 배치 방식으로 배치당 100개, 완판 시 판매를 종료합니다. 이후 새 배치가 다시 열리며, 프로 소장판은 배치마다 \'서로 다른 한정 스킨\'이 함께 제공되는, 가치가 쌓이는 컬렉터스 에디션입니다. 파운더 컬렉터 플랜(한정 50명)은 모든 배치의 한정 스킨을 영구 해금할 수 있습니다.' },
+  { q:'구독 얼리버드 가격은 나중에 오르나요? 크레딧을 다 쓰면요?', a:'얼리버드 연간 가격은 평생 고정입니다. 계속 갱신하는 한 언제나 얼리버드 가격이에요(베이직 NT$2,490/프로 NT$4,990, 모두 약 2개월치 할인). 월 구독(베이직 NT$299/프로 NT$599)으로 시작할 수도 있습니다. 크레딧을 다 쓰면 추가 크레딧(대화 +300회, 음성 +3만 자)을 구매해 이어 쓸 수 있고, 영구 소장판은 BYOK라 AI 사용량에 상한이 없습니다.' },
+];
+
+/* ---- UI 訊息 ---- */
+const MSG = {
+  checkoutSoon: '결제가 곧 오픈됩니다. 조금만 기다려 주세요',
+  checkoutFail: '지금은 결제를 열 수 없습니다. 잠시 후 다시 시도해 주세요',
+  demoSoon: '데모 영상을 준비 중입니다. 조금만 기다려 주세요',
+  modePodcast: '주제를 던져 주면 둘이 알아서 대화를 이어 가고, 당신은 옆에서 보고 들으면 됩니다. AI 팟캐스트 한 편처럼.',
+  modeThree: '언제든 텍스트로 끼어들면 다음 캐릭터가 당신을 향해 답합니다. 진짜 3자 인터랙션.',
+};
+
+/* ---- toast ---- */
+let toastTimer;
+function toast(msg){
+  const el = $('#toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+/* ---- Paddle checkout ---- */
+function initPaddle(){
+  if (!window.Paddle || !SOMA.paddle.token) return false;
+  try {
+    if (SOMA.paddle.environment === 'sandbox') Paddle.Environment.set('sandbox');
+    Paddle.Initialize({ token: SOMA.paddle.token });
+    return true;
+  } catch (e) { console.warn('[Soma] Paddle init failed', e); return false; }
+}
+const paddleReady = initPaddle();
+
+function openCheckout(sku){
+  const priceId = SOMA.paddle.prices[sku];
+  if (!paddleReady || !priceId){
+    toast(MSG.checkoutSoon);   // 尚未設定 Paddle token / price ID
+    return;
+  }
+  try {
+    Paddle.Checkout.open({
+      items: [{ priceId, quantity: 1 }],
+      settings: { successUrl: location.origin + '/ko/success.html', theme: 'light', locale: SOMA.paddleLocale },
+    });
+  } catch (e) {
+    console.warn('[Soma] checkout error', e);
+    toast(MSG.checkoutFail);
+  }
+}
+$$('[data-sku]').forEach(btn => btn.addEventListener('click', () => openCheckout(btn.dataset.sku)));
+
+/* ---- Demo 影片佔位 ---- */
+$$('[data-demo]').forEach(btn => btn.addEventListener('click', () => toast(MSG.demoSoon)));
+
+/* ---- 募資數字 / 目標 ---- */
+$$('[data-goal]').forEach(el => el.textContent = fmtNT(SOMA.campaign.goal));
+
+(function batchMeter(){
+  const { total, claimed } = SOMA.campaign.batch;
+  const left = Math.max(0, total - claimed);
+  const pct = total ? Math.round(claimed / total * 100) : 0;
+  const set = (sel, v) => { const e = $(sel); if (e) e.textContent = v; };
+  set('[data-batch-total]', total); set('[data-batch-claimed]', claimed); set('[data-batch-left]', left);
+  requestAnimationFrame(() => { const f = $('[data-batch-fill]'); if (f) f.style.width = pct + '%'; });
+})();
+
+/* ---- 募資進度補間動畫 ---- */
+function animateRaised(){
+  const goal = SOMA.campaign.goal, target = SOMA.campaign.raised;
+  const backers = SOMA.campaign.backers;
+  const raisedEls = $$('[data-raised]'), pctEls = $$('[data-pct]'), fillEls = $$('[data-pct-fill]'), backerEls = $$('[data-backers]');
+  const start = performance.now(), dur = 1700;
+  function step(t){
+    const k = Math.min(1, (t - start) / dur);
+    const e = 1 - Math.pow(1 - k, 3);
+    const raised = Math.round(target * e);
+    const pct = goal ? Math.round(raised / goal * 100) : 0;
+    raisedEls.forEach(el => el.textContent = fmtNT(raised));
+    pctEls.forEach(el => el.textContent = pct);
+    fillEls.forEach(el => el.style.width = Math.min(100, pct) + '%');
+    backerEls.forEach(el => el.textContent = Math.round(backers * e));
+    if (k < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/* ---- 倒數 ---- */
+(function countdown(){
+  const days = SOMA.campaign.countdownDays;
+  const targetTs = Date.now() + days*86400000 + 9*3600000 + 23*60000 + 41000;
+  const map = { d:$$('[data-cd-d]'), h:$$('[data-cd-h]'), m:$$('[data-cd-m]'), s:$$('[data-cd-s]') };
+  function tick(){
+    let diff = Math.max(0, targetTs - Date.now());
+    const d = Math.floor(diff/86400000); diff -= d*86400000;
+    const h = Math.floor(diff/3600000);  diff -= h*3600000;
+    const m = Math.floor(diff/60000);    diff -= m*60000;
+    const s = Math.floor(diff/1000);
+    map.d.forEach(e=>e.textContent=pad(d)); map.h.forEach(e=>e.textContent=pad(h));
+    map.m.forEach(e=>e.textContent=pad(m)); map.s.forEach(e=>e.textContent=pad(s));
+  }
+  tick(); setInterval(tick, 1000);
+})();
+
+/* ---- 角色切換 ---- */
+(function characters(){
+  const img = $('[data-char-img]'), role = $('[data-char-role]'), name = $('[data-char-name]'),
+        zh = $('[data-char-zh]'), desc = $('[data-char-desc]');
+  const rings = $$('[data-char-picker] .char-ring');
+  function pick(i){
+    const c = CHARS[i];
+    img.src = c.img; img.alt = c.name;
+    role.textContent = c.role; name.textContent = c.name; zh.textContent = c.zh; desc.textContent = c.desc;
+    rings.forEach((r, idx) => r.style.display = idx === i ? 'block' : 'none');
+  }
+  $$('[data-char-picker] .char-btn').forEach(btn => btn.addEventListener('click', () => pick(+btn.dataset.idx)));
+  pick(0);
+})();
+
+/* ---- 雙角色對話：輪流發言 + 模式切換 ---- */
+(function duo(){
+  const stage = $('.duo-stage');
+  if (stage){
+    let spk = 'a';
+    setInterval(() => { spk = spk === 'a' ? 'b' : 'a'; stage.setAttribute('data-speaker', spk); }, 2600);
+  }
+  const desc = $('[data-mode-desc]');
+  const texts = { podcast: MSG.modePodcast, three: MSG.modeThree };
+  $$('[data-mode]').forEach(btn => btn.addEventListener('click', () => {
+    $$('[data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    if (desc) desc.textContent = texts[btn.dataset.mode];
+  }));
+})();
+
+/* ---- FAQ 手風琴 ---- */
+(function faq(){
+  const wrap = $('[data-faq]');
+  FAQS.forEach((f, i) => {
+    const item = document.createElement('div');
+    item.setAttribute('data-reveal','');
+    item.style.cssText = 'background:#F2F4F7;border:1px solid #D8DCE4;overflow:hidden;';
+    item.innerHTML = `
+      <button type="button" class="faq-q" aria-expanded="${i===0}" style="width:100%;text-align:left;border:none;background:none;cursor:pointer;padding:20px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:16.5px;color:#14161D;">
+        <span>${f.q}</span>
+        <span class="faq-sign" style="flex:none;width:26px;height:26px;border:1px solid #0091AD;color:#0091AD;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;font-family:'Chakra Petch',sans-serif;">${i===0?'−':'+'}</span>
+      </button>
+      <div class="faq-a" style="max-height:${i===0?'400px':'0'};overflow:hidden;transition:max-height .35s ease;">
+        <div style="padding:0 22px 22px;color:#5A6172;font-size:14.5px;line-height:1.8;">${f.a}</div>
+      </div>`;
+    wrap.appendChild(item);
+  });
+  const items = $$('[data-faq] > div');
+  items.forEach((item, i) => {
+    const btn = $('.faq-q', item), ans = $('.faq-a', item), sign = $('.faq-sign', item);
+    btn.addEventListener('click', () => {
+      const open = ans.style.maxHeight !== '0px' && ans.style.maxHeight !== '';
+      items.forEach(other => {
+        const a = $('.faq-a', other), s = $('.faq-sign', other), b = $('.faq-q', other);
+        a.style.maxHeight = '0'; s.textContent = '+'; b.setAttribute('aria-expanded','false');
+      });
+      if (!open){ ans.style.maxHeight = ans.scrollHeight + 'px'; sign.textContent = '−'; btn.setAttribute('aria-expanded','true'); }
+    });
+  });
+})();
+
+/* ---- reveal on scroll ---- */
+(function reveal(){
+  const els = $$('[data-reveal]');
+  els.forEach(el => { const d = parseFloat(el.getAttribute('data-delay')) || 0; el.style.transitionDelay = d + 'ms'; });
+  if (!('IntersectionObserver' in window)){ els.forEach(el => el.classList.add('in')); return; }
+  const io = new IntersectionObserver((ents) => {
+    ents.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  els.forEach(el => io.observe(el));
+})();
+
+/* ---- Hero 視差 ---- */
+(function parallax(){
+  if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  const hero = $('[data-hero]'); if (!hero) return;
+  const layers = $$('[data-depth]', hero);
+  hero.addEventListener('mousemove', (ev) => {
+    const r = hero.getBoundingClientRect();
+    const cx = (ev.clientX - r.left) / r.width - 0.5;
+    const cy = (ev.clientY - r.top) / r.height - 0.5;
+    layers.forEach(l => { const dp = parseFloat(l.getAttribute('data-depth')) || 0; l.style.transform = `translate(${cx*dp*42}px, ${cy*dp*42}px)`; });
+  });
+})();
+
+/* ---- 啟動募資補間（DOM 就緒後） ---- */
+animateRaised();
+</script>
+</body>
+</html>

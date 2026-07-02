@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOMA_ — Agent in the Shell（品牌首頁 mock）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Six+Caps&family=Michroma&family=Chakra+Petch:wght@300;400;500;700&family=DotGothic16&family=Orbitron:wght@600;800&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0c;
+  --panel: #101116;
+  --line: #23262f;
+  --white: #f2f3f7;
+  --grey: #8b90a4;
+  --dim: #565c6e;
+  --teal: #7cf5d8;
+  --amber: #e6b357;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: "Noto Sans TC", -apple-system, sans-serif; background: var(--bg); color: var(--white); }
+body::after { content: ""; position: fixed; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px); pointer-events: none; z-index: 99; }
+
+/* ============ NAV ============ */
+nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 40px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: rgba(10,10,12,.88); backdrop-filter: blur(8px); z-index: 50; }
+.brand { font-family: "Orbitron", sans-serif; font-weight: 800; font-size: 20px; letter-spacing: .22em; }
+.brand .u { color: var(--teal); text-shadow: 0 0 14px rgba(60,255,205,.4); animation: blink 1.05s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+nav .links { display: flex; gap: 34px; font-family: "Chakra Petch", sans-serif; font-size: 12px; letter-spacing: .3em; color: var(--grey); }
+nav .links span { cursor: pointer; }
+nav .links span:hover { color: var(--teal); }
+
+/* ============ HERO ============ */
+.hero { min-height: 88vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; padding: 60px 20px; overflow: hidden; }
+.hero .corner { position: absolute; font-family: "DotGothic16", monospace; font-size: 10px; color: #3a3f4e; letter-spacing: .18em; }
+.hero .bootlog { position: absolute; top: 34px; left: 40px; font-family: "DotGothic16", monospace; font-size: 10px; color: rgba(124,245,216,.28); line-height: 1.9; }
+.hero .word { font-family: "Six Caps", sans-serif; font-size: clamp(120px, 24vw, 300px); line-height: .84; letter-spacing: .06em; color: var(--white);
+  -webkit-mask-image: linear-gradient(180deg,#000 0 34%,transparent 34% 37.5%,#000 37.5% 66%,transparent 66% 68.5%,#000 68.5% 100%);
+          mask-image: linear-gradient(180deg,#000 0 34%,transparent 34% 37.5%,#000 37.5% 66%,transparent 66% 68.5%,#000 68.5% 100%); }
+.hero .word i { font-style: normal; color: var(--teal); text-shadow: 0 0 30px rgba(60,255,205,.35); }
+.hero .sig { font-family: "Chakra Petch", sans-serif; font-weight: 300; font-size: clamp(11px, 1.4vw, 15px); letter-spacing: .62em; text-indent: .62em; color: #b9bdcc; margin-top: 26px; }
+.hero .sig .cur { display: inline-block; width: .5em; height: .14em; background: var(--amber); vertical-align: baseline; margin-left: 8px; animation: blink 1.05s steps(1) infinite; }
+.hero .kana { font-family: "Noto Sans JP", sans-serif; font-weight: 700; font-size: 11px; letter-spacing: .32em; color: var(--dim); margin-top: 10px; }
+.hero .pitch { margin-top: 46px; text-align: center; }
+.hero .pitch h2 { font-size: clamp(19px, 2.6vw, 27px); font-weight: 700; letter-spacing: .12em; }
+.hero .pitch p { font-family: "Chakra Petch", "Noto Sans TC", sans-serif; color: var(--grey); font-size: 13.5px; letter-spacing: .28em; text-indent: .28em; margin-top: 14px; }
+.hero .pitch p b { color: var(--teal); font-weight: 500; }
+.hero .cta { margin-top: 40px; display: flex; gap: 18px; }
+.btn { font-family: "Chakra Petch", sans-serif; font-size: 13px; letter-spacing: .24em; text-indent: .24em; padding: 15px 34px; cursor: pointer; border: 1px solid var(--line); color: var(--grey); background: transparent; position: relative; }
+.btn.primary { border-color: rgba(124,245,216,.5); color: var(--teal); }
+.btn.primary::before, .btn.primary::after { content: ""; position: absolute; width: 10px; height: 10px; border: 1.5px solid var(--teal); }
+.btn.primary::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.btn.primary::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+.btn.primary:hover { background: rgba(124,245,216,.07); box-shadow: 0 0 24px rgba(60,255,205,.15); }
+.btn:hover { color: var(--white); }
+
+/* ============ PILLARS ============ */
+.pillars { max-width: 1180px; margin: 0 auto; padding: 90px 40px 120px; }
+.sec-label { font-family: "Orbitron", sans-serif; font-weight: 800; font-size: 15px; letter-spacing: .34em; color: var(--grey); margin-bottom: 8px; }
+.sec-label .u { color: var(--teal); }
+.sec-jp { font-family: "Noto Sans JP", sans-serif; font-weight: 500; font-size: 11px; letter-spacing: .3em; color: var(--dim); margin-bottom: 54px; }
+.row { display: grid; grid-template-columns: 90px 1fr 340px; gap: 30px; align-items: baseline; padding: 44px 0 40px; border-top: 1px solid var(--line); position: relative; }
+.row:last-child { border-bottom: 1px solid var(--line); }
+.row .no { font-family: "DotGothic16", monospace; font-size: 13px; color: var(--dim); letter-spacing: .2em; }
+.row .head .en { font-family: "Michroma", sans-serif; font-size: clamp(30px, 4.6vw, 50px); color: var(--white); letter-spacing: .03em; }
+.row .head .en .accent { color: var(--teal); }
+.row .head .jp { font-family: "Noto Sans JP", "Noto Sans TC", sans-serif; font-weight: 700; font-size: 12.5px; letter-spacing: .2em; color: var(--grey); margin-top: 12px; }
+.row .desc { font-size: 13.5px; line-height: 2; color: var(--grey); }
+.row .desc b { color: var(--white); font-weight: 500; }
+.row::after { content: ""; position: absolute; top: -1px; left: 0; width: 96px; height: 1px; background: var(--teal); opacity: 0; transition: .3s; }
+.row:hover::after { opacity: 1; }
+.row:hover .head .en { text-shadow: 0 0 26px rgba(60,255,205,.18); }
+
+/* ============ STATEMENT ============ */
+.statement { text-align: center; padding: 40px 20px 130px; }
+.statement .line { font-family: "DotGothic16", monospace; font-size: 13px; letter-spacing: .2em; color: #46f06a; text-shadow: 0 0 10px rgba(70,240,106,.35); }
+.statement .line .p { color: #2f8f4d; margin-right: 8px; }
+.statement .line .cur { display: inline-block; width: .5em; height: 1em; background: currentColor; vertical-align: -.1em; margin-left: 6px; animation: blink 1.05s steps(1) infinite; }
+.statement h3 { font-size: 15px; font-weight: 400; letter-spacing: .4em; text-indent: .4em; color: var(--dim); margin-top: 26px; }
+
+@media (max-width: 860px) {
+  .row { grid-template-columns: 1fr; gap: 14px; }
+  nav .links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">SOMA<span class="u">_</span></div>
+  <div class="links"><span>SHELL</span><span>GHOST</span><span>VOICE</span><span>MODULE</span><span>ROADMAP</span><span style="color:var(--amber)">GET SOMA</span></div>
+</nav>
+
+<section class="hero">
+  <div class="bootlog">&gt; boot soma.core ... OK<br>&gt; load shell ......... OK<br>&gt; link agent ......... OK</div>
+  <div class="corner" style="top:34px;right:40px">SA-01 / PERSONAL UNIT</div>
+  <div class="corner" style="bottom:30px;left:40px">ソマ・エージェント</div>
+  <div class="corner" style="bottom:30px;right:40px">MACOS / APPLE SILICON &amp; INTEL</div>
+
+  <div class="word">S<i>O</i>MA</div>
+  <div class="sig">AGENT IN THE SHELL<span class="cur"></span></div>
+  <div class="kana">殻の中のエージェント</div>
+
+  <div class="pitch">
+    <h2>打造你個人專屬的 AI 桌面助理</h2>
+    <p>完全客製 — <b>外觀</b> ・ <b>大腦</b> ・ <b>語音</b> ・ <b>機能</b></p>
+  </div>
+
+  <div class="cta">
+    <button class="btn primary">GET SOMA_</button>
+    <button class="btn">WATCH DEMO</button>
+  </div>
+</section>
+
+<section class="pillars">
+  <div class="sec-label">CUSTOMIZE<span class="u">_</span></div>
+  <div class="sec-jp">全項目、あなた仕様。／ 每一層，都由你決定。</div>
+
+  <div class="row">
+    <div class="no">01 / 外殻</div>
+    <div class="head">
+      <div class="en">SHELL<span class="accent">.</span></div>
+      <div class="jp">外觀 ── 你的角色，住在你的桌面</div>
+    </div>
+    <div class="desc"><b>Live2D／VRM 軀殼自由換裝。</b>挑一具現成的殼，或帶你自己的模型進來——它就站在桌面上，等你開口。</div>
+  </div>
+
+  <div class="row">
+    <div class="no">02 / 霊魂</div>
+    <div class="head">
+      <div class="en">GHOST<span class="accent">.</span></div>
+      <div class="jp">大腦 ── LLM 你選，Key 你帶</div>
+    </div>
+    <div class="desc"><b>BYOK，大腦完全歸你。</b>接上你自己的 Claude API key，模型、人格、記憶都在你手上——沒有中間伺服器，對話不經過任何人。</div>
+  </div>
+
+  <div class="row">
+    <div class="no">03 / 音声</div>
+    <div class="head">
+      <div class="en">VOICE<span class="accent">.</span></div>
+      <div class="jp">語音 ── 聽得懂，也說得出</div>
+    </div>
+    <div class="desc"><b>聲線自選。</b>語音辨識＋語音合成，挑一把你喜歡的聲音——或是你訂製的那一把。</div>
+  </div>
+
+  <div class="row">
+    <div class="no">04 / 機能</div>
+    <div class="head">
+      <div class="en">MODULE<span class="accent">.</span></div>
+      <div class="jp">功能 ── 模組自由裝配</div>
+    </div>
+    <div class="desc"><b>雙角色對話、podcast 模式、長期記憶、桌面工具。</b>機能像義體零件一樣裝上拆下，組出只屬於你的那一台。</div>
+  </div>
+</section>
+
+<section class="statement">
+  <div class="line"><span class="p">&gt;</span>assemble your agent<span class="cur"></span></div>
+  <h3>殼由你選，靈由你定。</h3>
+</section>
+
+</body>
+</html>

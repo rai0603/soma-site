@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soma Agent — Logo 概念提案</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Zen+Maru+Gothic:wght@500;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#211A33; --cream:#FFF7EF; --muted:#5A5270; --faint:#9A93AD;
+  --accent:#16E0D0; --accent-deep:#16B5A3; --lilac:#B79CFF; --lilac-deep:#8A6BE8;
+  --pink:#FF6FA0; --yellow:#FFCE3D; --on-dark:#EBE9F2; --on-dark-muted:#C4BFD6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans TC',sans-serif;background:#F4F0FA;color:var(--ink);padding:48px 24px 96px}
+.wrap{max-width:1080px;margin:0 auto}
+h1{font-family:'Baloo 2',cursive;font-size:34px;letter-spacing:.5px}
+.sub{color:var(--muted);margin:8px 0 40px;font-size:15px}
+.concept{background:#fff;border-radius:24px;padding:32px;margin-bottom:36px;box-shadow:0 6px 24px rgba(33,26,51,.07)}
+.concept h2{font-family:'Zen Maru Gothic',sans-serif;font-size:21px;display:flex;align-items:center;gap:10px}
+.tag{font-size:12px;font-weight:700;background:var(--ink);color:var(--accent);border-radius:999px;padding:3px 12px;letter-spacing:1px}
+.concept p{color:var(--muted);font-size:14px;line-height:1.8;margin:10px 0 22px;max-width:720px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stage{border-radius:18px;display:flex;align-items:center;justify-content:center;min-height:220px;position:relative}
+.stage.light{background:var(--cream);border:1px solid #EDE5DA}
+.stage.dark{background:var(--ink)}
+.stage .label{position:absolute;top:10px;left:14px;font-size:11px;letter-spacing:1px;color:var(--faint)}
+.smallrow{display:flex;align-items:center;gap:22px;margin-top:16px;background:#F7F4FC;border-radius:14px;padding:14px 20px}
+.smallrow span{font-size:12px;color:var(--faint)}
+.lockup{display:flex;align-items:center;gap:14px}
+.lockup .word{font-family:'Baloo 2',cursive;font-weight:800;font-size:38px;letter-spacing:.5px;line-height:1}
+.lockup .slogan{font-size:10px;letter-spacing:3.5px;font-weight:700;margin-top:2px}
+.dark .word{color:var(--on-dark)} .light .word{color:var(--ink)}
+.dark .slogan{color:var(--accent)} .light .slogan{color:var(--accent-deep)}
+@media(max-width:760px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Soma Agent — Logo 概念提案</h1>
+<p class="sub">四個方向 × 亮/暗底 × 小尺寸（favicon / menu bar）測試。配色沿用行銷站 token：螢光青 #16E0D0、薰衣草紫 #B79CFF、墨紫 #211A33。</p>
+
+<!-- ============ Concept A ============ -->
+<div class="concept">
+<h2><span class="tag">A</span>Shell Orb — 殼中之靈</h2>
+<p>最直译「Agent in the Shell」：一圈未閉合的殼環（開口 = 開放、BYOK、可自由進出），裡面住著一隻發光小靈體。殼環用青→紫漸層呼應站上主視覺；小靈體的兩顆眼睛讓它在 16px 下仍保有「生命感」。這是桌寵產品最穩的方向。</p>
+<div class="row">
+  <div class="stage light"><span class="label">LIGHT</span>
+    <div class="lockup">
+      <svg width="96" height="96" viewBox="0 0 120 120">
+        <defs><linearGradient id="ga1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#16E0D0"/><stop offset="1" stop-color="#8A6BE8"/>
+        </linearGradient></defs>
+        <path d="M60 14 a46 46 0 1 1 -32.5 13.5" fill="none" stroke="url(#ga1)" stroke-width="11" stroke-linecap="round"/>
+        <path d="M60 42 c14 0 22 10 22 22 v16 c0 3 -3 4.5 -5.5 3 l-5 -3.5 c-1.5 -1 -3.5 -1 -5 0 l-3.5 2.5 c-1.8 1.3 -4.2 1.3 -6 0 l-3.5 -2.5 c-1.5 -1 -3.5 -1 -5 0 l-5 3.5 c-2.5 1.5 -5.5 0 -5.5 -3 v-16 c0 -12 8 -22 22 -22 z" fill="#211A33"/>
+        <circle cx="52" cy="62" r="4" fill="#16E0D0"/><circle cx="68" cy="62" r="4" fill="#16E0D0"/>
+      </svg>
+      <div><div class="word">Soma <span style="color:var(--lilac-deep)">Agent</span></div><div class="slogan">AGENT IN THE SHELL</div></div>
+    </div>
+  </div>
+  <div class="stage dark"><span class="label">DARK</span>
+    <div class="lockup">
+      <svg width="96" height="96" viewBox="0 0 120 120">
+        <path d="M60 14 a46 46 0 1 1 -32.5 13.5" fill="none" stroke="url(#ga1)" stroke-width="11" stroke-linecap="round"/>
+        <path d="M60 42 c14 0 22 10 22 22 v16 c0 3 -3 4.5 -5.5 3 l-5 -3.5 c-1.5 -1 -3.5 -1 -5 0 l-3.5 2.5 c-1.8 1.3 -4.2 1.3 -6 0 l-3.5 -2.5 c-1.5 -1 -3.5 -1 -5 0 l-5 3.5 c-2.5 1.5 -5.5 0 -5.5 -3 v-16 c0 -12 8 -22 22 -22 z" fill="#EBE9F2"/>
+        <circle cx="52" cy="62" r="4" fill="#16B5A3"/><circle cx="68" cy="62" r="4" fill="#16B5A3"/>
+      </svg>
+      <div><div class="word">Soma <span style="color:var(--lilac)">Agent</span></div><div class="slogan">AGENT IN THE SHELL</div></div>
+    </div>
+  </div>
+</div>
+<div class="smallrow"><span>小尺寸：</span>
+  <svg width="16" height="16" viewBox="0 0 120 120"><path d="M60 14 a46 46 0 1 1 -32.5 13.5" fill="none" stroke="url(#ga1)" stroke-width="14" stroke-linecap="round"/><circle cx="60" cy="66" r="20" fill="#211A33"/></svg>
+  <svg width="32" height="32" viewBox="0 0 120 120"><path d="M60 14 a46 46 0 1 1 -32.5 13.5" fill="none" stroke="url(#ga1)" stroke-width="12" stroke-linecap="round"/><path d="M60 42 c14 0 22 10 22 22 v16 c0 3 -3 4.5 -5.5 3 l-5 -3.5 c-1.5 -1 -3.5 -1 -5 0 l-3.5 2.5 c-1.8 1.3 -4.2 1.3 -6 0 l-3.5 -2.5 c-1.5 -1 -3.5 -1 -5 0 l-5 3.5 c-2.5 1.5 -5.5 0 -5.5 -3 v-16 c0 -12 8 -22 22 -22 z" fill="#211A33"/><circle cx="52" cy="62" r="5" fill="#16E0D0"/><circle cx="68" cy="62" r="5" fill="#16E0D0"/></svg>
+  <svg width="48" height="48" viewBox="0 0 120 120"><path d="M60 14 a46 46 0 1 1 -32.5 13.5" fill="none" stroke="url(#ga1)" stroke-width="11" stroke-linecap="round"/><path d="M60 42 c14 0 22 10 22 22 v16 c0 3 -3 4.5 -5.5 3 l-5 -3.5 c-1.5 -1 -3.5 -1 -5 0 l-3.5 2.5 c-1.8 1.3 -4.2 1.3 -6 0 l-3.5 -2.5 c-1.5 -1 -3.5 -1 -5 0 l-5 3.5 c-2.5 1.5 -5.5 0 -5.5 -3 v-16 c0 -12 8 -22 22 -22 z" fill="#211A33"/><circle cx="52" cy="62" r="4" fill="#16E0D0"/><circle cx="68" cy="62" r="4" fill="#16E0D0"/></svg>
+</div>
+</div>
+
+<!-- ============ Concept B ============ -->
+<div class="concept">
+<h2><span class="tag">B</span>Duo Bubbles — 雙靈對話</h2>
+<p>主打招牌功能「雙桌寵對話」：兩個對望的對話泡各住一隻小靈（青 × 紫），組合起來隱約是一個「S」。適合強調 podcast / 三方對話的差異化賣點；缺點是元素較多，favicon 尺寸要簡化成雙點版本。</p>
+<div class="row">
+  <div class="stage light"><span class="label">LIGHT</span>
+    <div class="lockup">
+      <svg width="96" height="96" viewBox="0 0 120 120">
+        <path d="M22 30 a20 20 0 0 1 20 -20 h24 a20 20 0 0 1 0 40 h-6 l-12 12 v-12 h-6 a20 20 0 0 1 -20 -20 z" fill="#16E0D0"/>
+        <circle cx="46" cy="30" r="4.5" fill="#211A33"/><circle cx="62" cy="30" r="4.5" fill="#211A33"/>
+        <path d="M98 90 a20 20 0 0 1 -20 20 h-24 a20 20 0 0 1 0 -40 h6 l12 -12 v12 h6 a20 20 0 0 1 20 20 z" fill="#B79CFF"/>
+        <circle cx="58" cy="90" r="4.5" fill="#211A33"/><circle cx="74" cy="90" r="4.5" fill="#211A33"/>
+      </svg>
+      <div><div class="word">Soma <span style="color:var(--lilac-deep)">Agent</span></div><div class="slogan">AGENT IN THE SHELL</div></div>
+    </div>
+  </div>
+  <div class="stage dark"><span class="label">DARK</span>
+    <div class="lockup">
+      <svg width="96" height="96" viewBox="0 0 120 120">
+        <path d="M22 30 a20 20 0 0 1 20 -20 h24 a20 20 0 0 1 0 40 h-6 l-12 12 v-12 h-6 a20 20 0 0 1 -20 -20 z" fill="#16E0D0"/>
+        <circle cx="46" cy="30" r="4.5" fill="#211A33"/><circle cx="62" cy="30" r="4.5" fill="#211A33"/>
+        <path d="M98 90 a20 20 0 0 1 -20 20 h-24 a20 20 0 0 1 0 -40 h6 l12 -12 v12 h6 a20 20 0 0 1 20 20 z" fill="#B79CFF"/>
+        <circle cx="58" cy="90" r="4.5" fill="#211A33"/><circle cx="74" cy="90" r="4.5" fill="#211A33"/>
+      </svg>
+      <div><div class="word">Soma <span style="color:var(--lilac)">Agent</span></div><div class="slogan">AGENT IN THE SHELL</div></div>
+    </div>
+  </div>
+</div>
+<div class="smallrow"><span>小尺寸：</span>
+  <svg width="16" height="16" viewBox="0 0 120 120"><rect x="10" y="10" width="64" height="44" rx="22" fill="#16E0D0"/><rect x="46" y="66" width="64" height="44" rx="22" fill="#B79CFF"/></svg>
+  <svg width="32" height="32" viewBox="0 0 120 120"><path d="M22 30 a20 20 0 0 1 20 -20 h24 a20 20 0 0 1 0 40 h-6 l-12 12 v-12 h-6 a20 20 0 0 1 -20 -20 z" fill="#16E0D0"/><circle cx="46" cy="30" r="5.5" fill="#211A33"/><circle cx="62" cy="30" r="5.5" fill="#211A33"/><path d="M98 90 a20 20 0 0 1 -20 20 h-24 a20 20 0 0 1 0 -40 h6 l12 -12 v12 h6 a20 20 0 0 1 20 20 z" fill="#B79CFF"/><circle cx="58" cy="90" r="5.5" fill="#211A33"/><circle cx="74" cy="90" r="5.5" fill="#211A33"/></svg>
+  <svg width="48" height="48" viewBox="0 0 120 120"><path d="M22 30 a20 20 0 0 1 20 -20 h24 a20 20 0 0 1 0 40 h-6 l-12 12 v-12 h-6 a20 20 0 0 1 -20 -20 z" fill="#16E0D0"/><circle cx="46" cy="30" r="4.5" fill="#211A33"/><circle cx="62" cy="30" r="4.5" fill="#211A33"/><path d="M98 90 a20 20 0 0 1 -20 20 h-24 a20 20 0 0 1 0 -40 h6 l12 -12 v12 h6 a20 20 0 0 1 20 20 z" fill="#B79CFF"/><circle cx="58" cy="90" r="4.5" fill="#211A33"/><circle cx="74" cy="90" r="4.5" fill="#211A33"/></svg>
+</div>
+</div>
+
+<!-- ============ Concept C ============ -->
+<div class="concept">
+<h2><span class="tag">C</span>Desktop Peek — 視窗探頭</h2>
+<p>強調「桌面」屬性：一個圓角視窗（macOS 紅黃綠燈號改成品牌三色點），小靈體從視窗底緣探出頭、雙手扒著邊框——就是 Soma 在你桌面上的日常姿態。最有故事感、最適合當 App icon；縮到 16px 時保留視窗 + 探頭剪影。</p>
+<div class="row">
+  <div class="stage light"><span class="label">LIGHT</span>
+    <div class="lockup">
+      <svg width="96" height="96" viewBox="0 0 120 120">
+        <rect x="10" y="18" width="100" height="76" rx="16" fill="none" stroke="#211A33" stroke-width="9"/>
+        <circle cx="30" cy="36" r="4" fill="#FF6FA0"/><circle cx="44" cy="36" r="4" fill="#FFCE3D"/><circle cx="58" cy="36" r="4" fill="#16E0D0"/>
+        <path d="M38 94 v-14 a22 22 0 0 1 44 0 v14 z" fill="#B79CFF"/>
+        <circle cx="52" cy="76" r="4.5" fill="#211A33"/><circle cx="68" cy="76" r="4.5" fill="#211A33"/>
+        <circle cx="36" cy="92" r="6" fill="#B79CFF"/><circle cx="84" cy="92" r="6" fill="#B79CFF"/>
+      </svg>
+      <div><div class="word">Soma <span style="color:var(--lilac-deep)">Agent</span></div><div class="slogan">AGENT IN THE SHELL</div></div>
+    </div>
+  </div>
+  <div class="stage dark"><span class="label">DARK</span>
+    <div class="lockup">
+      <svg width="96" height="96" viewBox="0 0 120 120">
+        <rect x="10" y="18" width="100" height="76" rx="16" fill="none" stroke="#EBE9F2" stroke-width="9"/>
+        <circle cx="30" cy="36" r="4" fill="#FF6FA0"/><circle cx="44" cy="36" r="4" fill="#FFCE3D"/><circle cx="58" cy="36" r="4" fill="#16E0D0"/>
+        <path d="M38 94 v-14 a22 22 0 0 1 44 0 v14 z" fill="#B79CFF"/>
+        <circle cx="52" cy="76" r="4.5" fill="#211A33"/><circle cx="68" cy="76" r="4.5" fill="#211A33"/>
+        <circle cx="36" cy="92" r="6" fill="#B79CFF"/><circle cx="84" cy="92" r="6" fill="#B79CFF"/>
+      </svg>
+      <div><div class="word">Soma <span style="color:var(--lilac)">Agent</span></div><div class="slogan">AGENT IN THE SHELL</div></div>
+    </div>
+  </div>
+</div>
+<div class="smallrow"><span>小尺寸：</span>
+  <svg width="16" height="16" viewBox="0 0 120 120"><rect x="8" y="14" width="104" height="84" rx="18" fill="none" stroke="#211A33" stroke-width="12"/><path d="M36 96 v-12 a24 24 0 0 1 48 0 v12 z" fill="#B79CFF"/></svg>
+  <svg width="32" height="32" viewBox="0 0 120 120"><rect x="10" y="18" width="100" height="76" rx="16" fill="none" stroke="#211A33" stroke-width="10"/><path d="M38 92 v-12 a22 22 0 0 1 44 0 v12 z" fill="#B79CFF"/><circle cx="52" cy="76" r="5.5" fill="#211A33"/><circle cx="68" cy="76" r="5.5" fill="#211A33"/></svg>
+  <svg width="48" height="48" viewBox="0 0 120 120"><rect x="10" y="18" width="100" height="76" rx="16" fill="none" stroke="#211A33" stroke-width="9"/><circle cx="30" cy="36" r="4" fill="#FF6FA0"/><circle cx="44" cy="36" r="4" fill="#FFCE3D"/><circle cx="58" cy="36" r="4" fill="#16E0D0"/><path d="M38 94 v-14 a22 22 0 0 1 44 0 v14 z" fill="#B79CFF"/><circle cx="52" cy="76" r="4.5" fill="#211A33"/><circle cx="68" cy="76" r="4.5" fill="#211A33"/></svg>
+</div>
+</div>
+
+<!-- ============ Concept D ============ -->
+<div class="concept">
+<h2><span class="tag">D</span>Orb Wordmark — 字標即圖標</h2>
+<p>純文字路線：Baloo 2 的圓潤「soma」，把第一個「o」換成殼環 + 核心光點（縮小版的「殼中之靈」）。好處是名稱記憶度最高、橫式排版最省空間；那顆「o」單獨抽出來就是 favicon。適合想走極簡、國際感的話選這個。</p>
+<div class="row">
+  <div class="stage light"><span class="label">LIGHT</span>
+    <svg width="320" height="90" viewBox="0 0 340 96">
+      <text x="0" y="70" font-family="'Baloo 2',cursive" font-weight="800" font-size="72" fill="#211A33">s</text>
+      <g transform="translate(42,14)">
+        <path d="M34 6 a28 28 0 1 1 -20 8" fill="none" stroke="url(#ga1)" stroke-width="10" stroke-linecap="round"/>
+        <circle cx="34" cy="34" r="9" fill="#211A33"/>
+      </g>
+      <text x="116" y="70" font-family="'Baloo 2',cursive" font-weight="800" font-size="72" fill="#211A33">ma</text>
+      <text x="0" y="92" font-family="'Noto Sans TC',sans-serif" font-weight="700" font-size="12" letter-spacing="6" fill="#16B5A3">AGENT IN THE SHELL</text>
+    </svg>
+  </div>
+  <div class="stage dark"><span class="label">DARK</span>
+    <svg width="320" height="90" viewBox="0 0 340 96">
+      <text x="0" y="70" font-family="'Baloo 2',cursive" font-weight="800" font-size="72" fill="#EBE9F2">s</text>
+      <g transform="translate(42,14)">
+        <path d="M34 6 a28 28 0 1 1 -20 8" fill="none" stroke="url(#ga1)" stroke-width="10" stroke-linecap="round"/>
+        <circle cx="34" cy="34" r="9" fill="#EBE9F2"/>
+      </g>
+      <text x="116" y="70" font-family="'Baloo 2',cursive" font-weight="800" font-size="72" fill="#EBE9F2">ma</text>
+      <text x="0" y="92" font-family="'Noto Sans TC',sans-serif" font-weight="700" font-size="12" letter-spacing="6" fill="#16E0D0">AGENT IN THE SHELL</text>
+    </svg>
+  </div>
+</div>
+<div class="smallrow"><span>小尺寸（抽出的 o）：</span>
+  <svg width="16" height="16" viewBox="0 0 68 68"><path d="M34 6 a28 28 0 1 1 -20 8" fill="none" stroke="url(#ga1)" stroke-width="12" stroke-linecap="round"/><circle cx="34" cy="34" r="11" fill="#211A33"/></svg>
+  <svg width="32" height="32" viewBox="0 0 68 68"><path d="M34 6 a28 28 0 1 1 -20 8" fill="none" stroke="url(#ga1)" stroke-width="10" stroke-linecap="round"/><circle cx="34" cy="34" r="9" fill="#211A33"/></svg>
+  <svg width="48" height="48" viewBox="0 0 68 68"><path d="M34 6 a28 28 0 1 1 -20 8" fill="none" stroke="url(#ga1)" stroke-width="10" stroke-linecap="round"/><circle cx="34" cy="34" r="9" fill="#211A33"/></svg>
+</div>
+</div>
+
+<p style="color:var(--faint);font-size:13px;line-height:1.9">備註：A 與 D 共用同一個「殼環＋核心」母題，可以組成一套系統（A 當 App icon、D 當網站 header 字標）。B 適合放在「雙角色對話」功能區當 section icon。C 若當 macOS App icon，需再做成 squircle 底版。</p>
+</div>
+</body>
+</html>

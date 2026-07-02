@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>支持成功 — Soma Agent</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F2F4F7">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Chakra+Petch:wght@400;700&family=DotGothic16&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#F2F4F7;--panel:#FFFFFF;--ink:#14161D;--muted:#5A6172;--dim:#9AA2B3;--line:#D8DCE4;--acc:#0091AD;--acc-soft:#E3F4F8;--amber:#E0771C;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans TC',sans-serif;color:var(--ink);background:var(--bg);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;line-height:1.7;}
+  body::after{content:"";position:fixed;inset:0;background:repeating-linear-gradient(0deg,rgba(20,22,29,.015) 0 1px,transparent 1px 3px);pointer-events:none;}
+  .card{max-width:560px;width:100%;background:var(--panel);border:1px solid var(--line);padding:48px 40px;text-align:center;position:relative;}
+  .card::before,.card::after{content:"";position:absolute;width:16px;height:16px;border:1.5px solid var(--acc);}
+  .card::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+  .card::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+  .brand{font-family:'Orbitron',sans-serif;font-weight:800;font-size:15px;letter-spacing:.22em;color:var(--ink);margin-bottom:26px;}
+  .brand i{font-style:normal;color:var(--acc);animation:blink 1.05s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .stat{font-family:'DotGothic16',monospace;font-size:11px;letter-spacing:.2em;color:var(--acc);margin-bottom:18px;}
+  .badge{width:78px;height:78px;border:1px solid var(--acc);background:var(--acc-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;}
+  h1{font-weight:900;font-size:28px;margin-bottom:14px;}
+  p{color:var(--muted);font-size:15.5px;margin-bottom:14px;}
+  .steps{text-align:left;background:var(--bg);border:1px solid var(--line);padding:22px 24px;margin:24px 0;display:flex;flex-direction:column;gap:14px;}
+  .step{display:flex;gap:12px;align-items:flex-start;}
+  .step .n{flex:none;width:26px;height:26px;border:1px solid var(--acc);color:var(--acc);font-family:'Chakra Petch',sans-serif;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:13px;}
+  .step .t{font-size:14px;color:var(--ink);}
+  .home{display:inline-block;margin-top:10px;text-decoration:none;background:var(--acc);color:#fff;font-family:'Chakra Petch','Noto Sans TC',sans-serif;font-weight:700;letter-spacing:.1em;padding:14px 34px;transition:background .18s ease;}
+  .home:hover{background:#00738a;}
+  .note{font-family:'Chakra Petch','Noto Sans TC',sans-serif;font-size:12px;color:var(--dim);margin-top:18px;letter-spacing:.04em;}
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">SOMA<i>_</i></div>
+    <div class="stat">&gt; payment .......... OK</div>
+    <div class="badge">
+      <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#0091AD" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></svg>
+    </div>
+    <h1>支持成功，謝謝你！</h1>
+    <p>你的訂單已成立。Soma Agent 會把<strong style="color:var(--ink);">啟用序號寄到你的付款信箱</strong>，請依下列步驟啟用。</p>
+
+    <div class="steps">
+      <div class="step"><span class="n">1</span><span class="t">收信查看來自 Soma Agent 的<strong>啟用序號</strong>（若沒看到，請檢查垃圾信件匣）。</span></div>
+      <div class="step"><span class="n">2</span><span class="t">下載並開啟 <strong>Soma Agent 桌面 App</strong>（macOS・Intel／Apple Silicon）。</span></div>
+      <div class="step"><span class="n">3</span><span class="t">在 App 的「啟用」欄位<strong>貼上序號</strong>，即可解鎖你的方案。</span></div>
+    </div>
+
+    <p style="font-size:14px;">沒收到序號或有任何問題？來信 <a href="mailto:hello@soma.app" style="color:var(--acc);font-weight:700;">hello@soma.app</a>，我們會盡快協助。</p>
+    <a class="home" href="/">回首頁</a>
+    <div class="note">※ 展示模型與正式版功能可能有差異。</div>
+  </div>
+</body>
+</html>

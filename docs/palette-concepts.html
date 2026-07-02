@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOMA_ — 配色系統提案（同一骨架 × 五種宇宙）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Six+Caps&family=Michroma&family=Chakra+Petch:wght@300;400;500;700&family=DotGothic16&family=Orbitron:wght@600;800&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Noto Sans TC", -apple-system, sans-serif; background: #101114; color: #e8eaf2; padding: 48px 28px 90px; }
+h1 { font-size: 24px; margin-bottom: 6px; }
+.sub { color: #9aa0b5; font-size: 14px; margin-bottom: 36px; max-width: 940px; line-height: 1.7; }
+.stack { display: grid; gap: 30px; max-width: 1180px; margin: 0 auto; }
+.card { border-radius: 18px; overflow: hidden; border: 1px solid #262a38; background: #1b1e28; }
+.tag { display: flex; justify-content: space-between; align-items: baseline; padding: 13px 18px; }
+.tag b { font-size: 15px; }
+.tag span { font-size: 12px; color: #8b90a4; }
+.note { padding: 0 18px 15px; font-size: 12.5px; color: #9aa0b5; line-height: 1.7; }
+.chips { display: flex; gap: 10px; padding: 0 18px 16px; flex-wrap: wrap; }
+.chip { display: flex; align-items: center; gap: 7px; font-family: "Chakra Petch", monospace; font-size: 10.5px; color: #8b90a4; background: #10131b; border: 1px solid #262a38; border-radius: 8px; padding: 6px 10px; }
+.chip i { width: 14px; height: 14px; border-radius: 4px; display: inline-block; border: 1px solid rgba(255,255,255,.15); }
+
+/* ====== 共用 mini-hero 骨架：只吃 CSS 變數 ====== */
+.mock { --glow: transparent; height: 400px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; background: var(--bg); }
+.mock::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, var(--scan) 0 1px, transparent 1px 3px); pointer-events: none; }
+.mock .navbar { position: absolute; top: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: center; padding: 16px 26px; border-bottom: 1px solid var(--line); }
+.mock .brand { font-family: "Orbitron", sans-serif; font-weight: 800; font-size: 14px; letter-spacing: .22em; color: var(--fg); }
+.mock .brand .u { color: var(--accent); text-shadow: 0 0 12px var(--glow); animation: blink 1.05s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.mock .navlinks { font-family: "Chakra Petch", sans-serif; font-size: 9.5px; letter-spacing: .28em; color: var(--muted); }
+.mock .navlinks em { font-style: normal; color: var(--accent2); }
+.mock .corner { position: absolute; font-family: "DotGothic16", monospace; font-size: 9px; color: var(--dim); letter-spacing: .16em; }
+.mock .word { font-family: "Six Caps", sans-serif; font-size: 128px; line-height: .84; letter-spacing: .06em; color: var(--fg); margin-top: 22px;
+  -webkit-mask-image: linear-gradient(180deg,#000 0 34%,transparent 34% 37.5%,#000 37.5% 66%,transparent 66% 68.5%,#000 68.5% 100%);
+          mask-image: linear-gradient(180deg,#000 0 34%,transparent 34% 37.5%,#000 37.5% 66%,transparent 66% 68.5%,#000 68.5% 100%); }
+.mock .word i { font-style: normal; color: var(--accent); text-shadow: 0 0 26px var(--glow); }
+.mock .sig { font-family: "Chakra Petch", sans-serif; font-weight: 300; font-size: 11px; letter-spacing: .6em; text-indent: .6em; color: var(--muted); margin-top: 18px; }
+.mock .sig .cur { display: inline-block; width: .5em; height: .14em; background: var(--accent2); vertical-align: baseline; margin-left: 7px; animation: blink 1.05s steps(1) infinite; }
+.mock .pillar { display: flex; align-items: baseline; gap: 18px; margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--line); width: 460px; position: relative; }
+.mock .pillar::before { content: ""; position: absolute; top: -1px; left: 0; width: 72px; height: 1px; background: var(--accent); }
+.mock .pillar .no { font-family: "DotGothic16", monospace; font-size: 10px; color: var(--dim); }
+.mock .pillar .en { font-family: "Michroma", sans-serif; font-size: 20px; color: var(--fg); }
+.mock .pillar .en b { color: var(--accent); font-weight: 400; }
+.mock .pillar .jp { font-family: "Noto Sans JP", sans-serif; font-weight: 500; font-size: 9.5px; letter-spacing: .2em; color: var(--muted); }
+
+/* ====== P-1 磷光暗域（現行基準） ====== */
+.p1 { --bg: #0a0a0c; --fg: #f2f3f7; --muted: #9ba1b3; --dim: #4a5061; --line: #23262f;
+      --accent: #7cf5d8; --accent2: #e6b357; --glow: rgba(60,255,205,.35); --scan: rgba(255,255,255,.012); }
+/* ====== P-2 深淵赤燈（反烏托邦 noir） ====== */
+.p2 { --bg: #080708; --fg: #eee9e7; --muted: #9c93a0; --dim: #4e4550; --line: #241f26;
+      --accent: #ff4655; --accent2: #b8c4d6; --glow: rgba(255,70,85,.4); --scan: rgba(255,255,255,.012); }
+.p2 .word { -webkit-mask-image: linear-gradient(180deg,#000 0 34%,transparent 34% 37.5%,#000 37.5% 66%,transparent 66% 68.5%,#000 68.5% 100%); }
+/* ====== P-3 白域科技（明亮實驗室） ====== */
+.p3 { --bg: #f2f4f7; --fg: #14161d; --muted: #5a6172; --dim: #9aa2b3; --line: #d8dce4;
+      --accent: #0091ad; --accent2: #e0771c; --glow: rgba(0,145,173,.22); --scan: rgba(20,22,29,.02); }
+/* ====== P-4 蒼穹烏托邦（solarpunk 晨光） ====== */
+.p4 { --bg: #f6f3ea; --fg: #1d2b25; --muted: #5c6e63; --dim: #a3ad9f; --line: #dcd8c8;
+      --accent: #1f9e63; --accent2: #d9a441; --glow: rgba(31,158,99,.2); --scan: rgba(29,43,37,.02); }
+.p4 .mockbg { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(217,164,65,.06) 0%, transparent 45%); }
+/* ====== P-5 火星殖民（赤鐵前哨） ====== */
+.p5 { --bg: #120b08; --fg: #f2e9e0; --muted: #a89486; --dim: #5c4a3e; --line: #2a1e17;
+      --accent: #ff6b35; --accent2: #7cd0c4; --glow: rgba(255,107,53,.38); --scan: rgba(255,235,220,.012); }
+.p5 .mockbg { position: absolute; inset: 0; background: radial-gradient(90% 60% at 50% 108%, rgba(193,68,14,.22) 0%, transparent 60%); }
+</style>
+</head>
+<body>
+<h1>SOMA_ — 配色系統提案</h1>
+<p class="sub">字體骨架（Six Caps 切殻字／Michroma／Orbitron／DotGothic16）與「針點色」紀律全部不變，只換色彩宇宙。每套都是同一個 mini hero，直接比氣質。產品主軸是「完全客製化」——這五套將來可以直接做成網站／App 的可切換主題，配色本身就是產品敘事。</p>
+
+<div class="stack">
+
+<!-- P-1 -->
+<div class="card">
+  <div class="mock p1">
+    <div class="navbar"><span class="brand">SOMA<span class="u">_</span></span><span class="navlinks">SHELL&nbsp;&nbsp;GHOST&nbsp;&nbsp;VOICE&nbsp;&nbsp;MODULE&nbsp;&nbsp;<em>GET SOMA</em></span></div>
+    <div class="corner" style="bottom:14px;left:26px">ソマ・エージェント</div>
+    <div class="corner" style="bottom:14px;right:26px">P-1 / PHOSPHOR</div>
+    <div class="word">S<i>O</i>MA</div>
+    <div class="sig">AGENT IN THE SHELL<span class="cur"></span></div>
+    <div class="pillar"><span class="no">02 / 霊魂</span><span class="en">GHOST<b>.</b></span><span class="jp">大腦 ── LLM 你選，Key 你帶</span></div>
+  </div>
+  <div class="tag"><b>P-1 · 磷光暗域（現行基準）</b><span>晦暗 × 終端磷光</span></div>
+  <p class="note">目前定案的基準色：近黑 + 磷光青 + 琥珀游標。駭客終端的私密感，跟攻殻官網最接近，BYOK 開發者受眾的直覺審美。當「本命」主題最穩。</p>
+  <div class="chips"><span class="chip"><i style="background:#0a0a0c"></i>bg #0A0A0C</span><span class="chip"><i style="background:#f2f3f7"></i>fg #F2F3F7</span><span class="chip"><i style="background:#7cf5d8"></i>accent #7CF5D8</span><span class="chip"><i style="background:#e6b357"></i>cursor #E6B357</span></div>
+</div>
+
+<!-- P-2 -->
+<div class="card">
+  <div class="mock p2">
+    <div class="navbar"><span class="brand">SOMA<span class="u">_</span></span><span class="navlinks">SHELL&nbsp;&nbsp;GHOST&nbsp;&nbsp;VOICE&nbsp;&nbsp;MODULE&nbsp;&nbsp;<em>GET SOMA</em></span></div>
+    <div class="corner" style="bottom:14px;left:26px">ソマ・エージェント</div>
+    <div class="corner" style="bottom:14px;right:26px">P-2 / ABYSS RED</div>
+    <div class="word">S<i>O</i>MA</div>
+    <div class="sig">AGENT IN THE SHELL<span class="cur"></span></div>
+    <div class="pillar"><span class="no">02 / 霊魂</span><span class="en">GHOST<b>.</b></span><span class="jp">大腦 ── LLM 你選，Key 你帶</span></div>
+  </div>
+  <div class="tag"><b>P-2 · 深淵赤燈（反烏托邦 noir）</b><span>晦暗 × 警示紅</span></div>
+  <p class="note">攻殻官網 hero 那一點紅色光暈放大成主 accent：義體警示燈的紅。冷鋼藍灰當第二色降溫，避免整站變恐怖片。五套裡最「電影感」、最狠的一套——適合預告片、限定版、或 Halloween 活動皮膚；當常駐主題會偏壓迫。</p>
+  <div class="chips"><span class="chip"><i style="background:#080708"></i>bg #080708</span><span class="chip"><i style="background:#eee9e7"></i>fg #EEE9E7</span><span class="chip"><i style="background:#ff4655"></i>accent #FF4655</span><span class="chip"><i style="background:#b8c4d6"></i>steel #B8C4D6</span></div>
+</div>
+
+<!-- P-3 -->
+<div class="card">
+  <div class="mock p3">
+    <div class="navbar"><span class="brand">SOMA<span class="u">_</span></span><span class="navlinks">SHELL&nbsp;&nbsp;GHOST&nbsp;&nbsp;VOICE&nbsp;&nbsp;MODULE&nbsp;&nbsp;<em>GET SOMA</em></span></div>
+    <div class="corner" style="bottom:14px;left:26px">ソマ・エージェント</div>
+    <div class="corner" style="bottom:14px;right:26px">P-3 / WHITE LAB</div>
+    <div class="word">S<i>O</i>MA</div>
+    <div class="sig">AGENT IN THE SHELL<span class="cur"></span></div>
+    <div class="pillar"><span class="no">02 / 霊魂</span><span class="en">GHOST<b>.</b></span><span class="jp">大腦 ── LLM 你選，Key 你帶</span></div>
+  </div>
+  <div class="tag"><b>P-3 · 白域科技（明亮實驗室）</b><span>明亮 × 精密儀器</span></div>
+  <p class="note">同一套骨架翻成亮色：霧白底 + 墨字 + 深青藍 accent（刻意壓暗保對比，不用螢光色）+ 橘做游標。義體出廠前的無塵室、Apple 發表會的乾淨。適合當網站亮色模式、Mac App Store 截圖底、以及正式文件——跟 P-1 天生一對（同結構的 light/dark twins）。</p>
+  <div class="chips"><span class="chip"><i style="background:#f2f4f7"></i>bg #F2F4F7</span><span class="chip"><i style="background:#14161d"></i>fg #14161D</span><span class="chip"><i style="background:#0091ad"></i>accent #0091AD</span><span class="chip"><i style="background:#e0771c"></i>cursor #E0771C</span></div>
+</div>
+
+<!-- P-4 -->
+<div class="card">
+  <div class="mock p4">
+    <div class="mockbg"></div>
+    <div class="navbar"><span class="brand">SOMA<span class="u">_</span></span><span class="navlinks">SHELL&nbsp;&nbsp;GHOST&nbsp;&nbsp;VOICE&nbsp;&nbsp;MODULE&nbsp;&nbsp;<em>GET SOMA</em></span></div>
+    <div class="corner" style="bottom:14px;left:26px">ソマ・エージェント</div>
+    <div class="corner" style="bottom:14px;right:26px">P-4 / UTOPIA DAWN</div>
+    <div class="word">S<i>O</i>MA</div>
+    <div class="sig">AGENT IN THE SHELL<span class="cur"></span></div>
+    <div class="pillar"><span class="no">02 / 霊魂</span><span class="en">GHOST<b>.</b></span><span class="jp">大腦 ── LLM 你選，Key 你帶</span></div>
+  </div>
+  <div class="tag"><b>P-4 · 蒼穹烏托邦（solarpunk 晨光）</b><span>烏托邦 × 有機暖白</span></div>
+  <p class="note">科技樂觀主義：象牙暖白底 + 深苔綠墨字 + 翡翠綠 accent + 晨光金游標，頂部一層極淡的金色晨光。AI 與人共生的「好結局未來」，五套裡唯一有溫度的。適合品牌故事頁、關於我們、或春季主題；跟「桌面夥伴」的陪伴敘事其實非常合。</p>
+  <div class="chips"><span class="chip"><i style="background:#f6f3ea"></i>bg #F6F3EA</span><span class="chip"><i style="background:#1d2b25"></i>fg #1D2B25</span><span class="chip"><i style="background:#1f9e63"></i>accent #1F9E63</span><span class="chip"><i style="background:#d9a441"></i>cursor #D9A441</span></div>
+</div>
+
+<!-- P-5 -->
+<div class="card">
+  <div class="mock p5">
+    <div class="mockbg"></div>
+    <div class="navbar"><span class="brand">SOMA<span class="u">_</span></span><span class="navlinks">SHELL&nbsp;&nbsp;GHOST&nbsp;&nbsp;VOICE&nbsp;&nbsp;MODULE&nbsp;&nbsp;<em>GET SOMA</em></span></div>
+    <div class="corner" style="bottom:14px;left:26px">ソマ・エージェント</div>
+    <div class="corner" style="bottom:14px;right:26px">P-5 / MARS OUTPOST</div>
+    <div class="word">S<i>O</i>MA</div>
+    <div class="sig">AGENT IN THE SHELL<span class="cur"></span></div>
+    <div class="pillar"><span class="no">02 / 霊魂</span><span class="en">GHOST<b>.</b></span><span class="jp">大腦 ── LLM 你選，Key 你帶</span></div>
+  </div>
+  <div class="tag"><b>P-5 · 火星殖民（赤鐵前哨）</b><span>殖民地 × 鐵鏽暖橘</span></div>
+  <p class="note">赤鐵黑底（帶棕調，不是純黑）+ 火星橘 accent + 底部一層鐵鏽色地平線輝光；游標反用一點冷青綠——殖民艙裡唯一的維生系統燈。孤星前哨的浪漫：一個人、一台機器、一片荒原。適合限定主題皮膚或「離線也能陪你」的敘事場景。</p>
+  <div class="chips"><span class="chip"><i style="background:#120b08"></i>bg #120B08</span><span class="chip"><i style="background:#f2e9e0"></i>fg #F2E9E0</span><span class="chip"><i style="background:#ff6b35"></i>accent #FF6B35</span><span class="chip"><i style="background:#7cd0c4"></i>life #7CD0C4</span></div>
+</div>
+
+</div>
+
+<p class="sub" style="max-width:1180px;margin:36px auto 0;text-align:center">
+建議：<b style="color:#d8dbe6">P-1 當品牌本命</b>（行銷站預設 + App 預設主題），<b style="color:#d8dbe6">P-3 當亮色雙生</b>（light mode / App Store 素材），P-2 / P-4 / P-5 做成 App 的「主題皮膚」——網站放一顆主題切換器讓訪客玩，親身體驗「完全客製化」這件事。
+</p>
+</body>
+</html>

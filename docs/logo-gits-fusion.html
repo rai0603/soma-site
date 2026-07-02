@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soma Agent — 攻殻官網 × CD-3 字標融合提案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Six+Caps&family=Michroma&family=Chakra+Petch:wght@300;400;500;700&family=DotGothic16&family=Orbitron:wght@600;800&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, "PingFang TC", system-ui, sans-serif; background: #101114; color: #e8eaf2; padding: 48px 28px 90px; }
+h1 { font-size: 24px; margin-bottom: 6px; }
+.sub { color: #9aa0b5; font-size: 14px; margin-bottom: 12px; max-width: 940px; line-height: 1.7; }
+.dna { max-width: 940px; margin: 0 auto 36px; border: 1px solid #262a38; border-radius: 14px; padding: 18px 22px; font-size: 13px; color: #9aa0b5; line-height: 1.9; background: #16181f; }
+.dna b { color: #d8dbe6; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 26px; max-width: 1280px; margin: 0 auto; }
+.card { border-radius: 18px; overflow: hidden; border: 1px solid #262a38; background: #1b1e28; }
+.card.wide { grid-column: 1 / -1; }
+.tag { display: flex; justify-content: space-between; align-items: baseline; padding: 13px 18px; }
+.tag b { font-size: 15px; }
+.tag span { font-size: 12px; color: #8b90a4; }
+.note { padding: 0 18px 15px; font-size: 12.5px; color: #9aa0b5; line-height: 1.6; }
+
+/* 攻殻式舞台：近純黑，不再滿版青色調 */
+.mock { height: 360px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; position: relative; overflow: hidden; background: #0a0a0c; }
+.mock::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.012) 0 1px, transparent 1px 3px); pointer-events: none; }
+.corner { position: absolute; font-family: "DotGothic16", monospace; font-size: 9px; color: #3a3f4e; letter-spacing: .15em; }
+.cursor { display: inline-block; width: 0.48em; height: 0.13em; background: #e6b357; vertical-align: baseline; margin-left: 8px; animation: blink 1.05s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* G-1：切殼大字 */
+.g1 .word { font-family: "Six Caps", sans-serif; font-size: 150px; line-height: .86; letter-spacing: .06em; color: #f2f3f7;
+  -webkit-mask-image: linear-gradient(180deg,#000 0 34%,transparent 34% 37.5%,#000 37.5% 66%,transparent 66% 68.5%,#000 68.5% 100%);
+          mask-image: linear-gradient(180deg,#000 0 34%,transparent 34% 37.5%,#000 37.5% 66%,transparent 66% 68.5%,#000 68.5% 100%); }
+.g1 .word i { font-style: normal; color: #7cf5d8; text-shadow: 0 0 24px rgba(60,255,205,.35); }
+.g1 .sig { font-family: "Chakra Petch", sans-serif; font-weight: 300; font-size: 12px; letter-spacing: .62em; text-indent: .62em; color: #b9bdcc; margin-top: 14px; }
+.g1 .kana { font-family: "Noto Sans JP", sans-serif; font-weight: 700; font-size: 11px; letter-spacing: .3em; color: #565c6e; margin-top: 4px; }
+
+/* G-2：一覧體（extended index） */
+.g2 .word { font-family: "Michroma", sans-serif; font-size: 52px; letter-spacing: .04em; color: #f2f3f7; }
+.g2 .word .agent { color: #6e7487; }
+.g2 .jp { font-family: "Noto Sans JP", sans-serif; font-weight: 700; font-size: 12px; letter-spacing: .18em; color: #9aa0b5; margin-top: 10px; }
+.g2 .jp b { color: #7cf5d8; font-weight: 700; }
+.g2 .rule { width: 420px; height: 1px; background: #2a2e3c; margin-top: 22px; position: relative; }
+.g2 .rule::before { content: ""; position: absolute; left: 0; top: 0; width: 96px; height: 1px; background: #7cf5d8; }
+
+/* G-3：NEWS_ 系統（工作 logo） */
+.g3 .frame { position: relative; padding: 34px 52px 30px; }
+.g3 .frame::before, .g3 .frame::after { content: ""; position: absolute; width: 18px; height: 18px; border: 1.5px solid #4a5061; }
+.g3 .frame::before { top: 0; left: 0; border-right: none; border-bottom: none; }
+.g3 .frame::after { bottom: 0; right: 0; border-left: none; border-top: none; }
+.g3 .mark { position: absolute; font-family: "DotGothic16", monospace; font-size: 10px; color: #4a5061; }
+.g3 .word { font-family: "Orbitron", sans-serif; font-weight: 800; font-size: 56px; letter-spacing: .22em; color: #f2f3f7; }
+.g3 .word .u { color: #7cf5d8; text-shadow: 0 0 16px rgba(60,255,205,.4); }
+.g3 .sig { font-family: "Chakra Petch", sans-serif; font-weight: 400; font-size: 11px; letter-spacing: .52em; text-indent: .52em; color: #8b90a4; margin-top: 12px; text-align: center; }
+.g3 .jp { font-family: "Noto Sans JP", sans-serif; font-weight: 500; font-size: 10px; letter-spacing: .34em; color: #565c6e; margin-top: 6px; text-align: center; }
+
+.sizerow { display: flex; align-items: center; gap: 22px; padding: 14px 18px; background: #10131b; border-top: 1px solid #262a38; }
+.sizerow span { font-size: 11px; color: #6d7288; }
+.fav { border-radius: 22%; background: #0a0a0c; display: grid; place-items: center; border: 1px solid #22262f; }
+</style>
+</head>
+<body>
+<h1>Soma Agent — 攻殻官網 × CD-3 融合字標</h1>
+<p class="sub" style="margin:6px auto 18px;max-width:940px">實際看完 theghostintheshell.jp 之後的三個融合方向。</p>
+<div class="dna">
+攻殻官網抓到的字體 DNA：<b>① 超高瘦大字被橫向「切開」</b>（hero 的 SHELL，像義體切片）；<b>② 章節標題尾端掛底線游標</b>（「NEWS_」——直接驗證了我們 T-2 的方向）；<b>③ 索引頁用超寬 extended 大寫</b>（STAND ALONE COMPLEX）；<b>④ 幾乎純黑白，色彩只當針點</b>（小黃標、紅光暈）；<b>⑤ 日英混排小標</b>（攻殻機動隊 THE GHOST IN THE SHELL）＋切角框、四角 glitch 記號。<br>
+融合原則：版面骨架學攻殻（單色、克制、大字距），CD-3 的磷光青／琥珀降級成「針點色」，DotGothic16 退到角落記號。
+</div>
+
+<div class="grid">
+
+<!-- ============ G-1 ============ -->
+<div class="card wide">
+  <div class="mock g1">
+    <div class="corner" style="top:18px;left:22px">SA-01 / SHELL TYPE</div>
+    <div class="corner" style="bottom:16px;right:22px">ソマ・エージェント</div>
+    <div class="word">S<i>O</i>MA</div>
+    <div class="sig">AGENT IN THE SHELL<span class="cursor"></span></div>
+    <div class="kana">殻の中のエージェント</div>
+  </div>
+  <div class="tag"><b>G-1 · 切殻大字（hero 展示字）</b><span>Six Caps ＋ 橫向切片 mask</span></div>
+  <p class="note">學攻殻 hero 的 SHELL：超高瘦大字被兩道橫向切縫剖開——「殼被切開、裡面有東西」。整字近白，只有 O 一個字母是磷光青（agent 住在殼裡的那一格）。行銷站 hero 用這個，字可以跟 Live2D 角色前後交錯（角色遮住字的一部分），就是攻殻官網那種層次。</p>
+  <div class="sizerow"><span>用途：hero 大字／OG image／海報。不當小尺寸 logo 用。</span></div>
+</div>
+
+<!-- ============ G-2 ============ -->
+<div class="card">
+  <div class="mock g2">
+    <div class="corner" style="top:18px;left:22px">INDEX / 02</div>
+    <div class="word">SOMA<span class="agent"> AGENT</span></div>
+    <div class="jp">ソマ・エージェント <b>／ AGENT IN THE SHELL</b></div>
+    <div class="rule"></div>
+  </div>
+  <div class="tag"><b>G-2 · 一覧體（正式標準字）</b><span>Michroma ＋ 日英混排小標</span></div>
+  <p class="note">學攻殻索引頁的 extended 大寫：Michroma 的寬字身自帶科技感，「AGENT」降灰做主從。下面掛日英混排小標——攻殻官網每個作品標題都是這個結構。最正式、放合約／簡報／Mac App Store 都撐得住。</p>
+  <div class="sizerow"><span>favicon（M 字寬 S）：</span>
+    <div class="fav" style="width:16px;height:16px"><span style="font-family:'Michroma',sans-serif;font-size:9px;color:#f2f3f7">S</span></div>
+    <div class="fav" style="width:32px;height:32px"><span style="font-family:'Michroma',sans-serif;font-size:17px;color:#f2f3f7">S</span></div>
+    <div class="fav" style="width:48px;height:48px"><span style="font-family:'Michroma',sans-serif;font-size:26px;color:#f2f3f7">S</span></div>
+  </div>
+</div>
+
+<!-- ============ G-3 ============ -->
+<div class="card">
+  <div class="mock g3">
+    <div class="frame">
+      <div class="mark" style="top:6px;right:0">▚</div>
+      <div class="mark" style="bottom:6px;left:0">//</div>
+      <div class="word">SOMA<span class="u">_</span></div>
+      <div class="sig">AGENT IN THE SHELL</div>
+      <div class="jp">ソマ・エージェント</div>
+    </div>
+  </div>
+  <div class="tag"><b>G-3 · NEWS_ 系統（工作 logo）</b><span>Orbitron 拉字距 ＋ 青游標 ＋ 切角框</span></div>
+  <p class="note">攻殻官網自己就把章節標題寫成「NEWS_」——底線游標直接拿來當品牌記號：「SOMA_」。Orbitron 拉大字距（攻殻的大字距），游標改磷光青、掛切角框與 glitch 記號。app header、網站 nav、社群頭像的日常工作 logo 就是它。</p>
+  <div class="sizerow"><span>favicon（S_）：</span>
+    <div class="fav" style="width:16px;height:16px"><span style="font-family:'Orbitron',sans-serif;font-weight:800;font-size:8px;color:#f2f3f7">S<span style="color:#7cf5d8">_</span></span></div>
+    <div class="fav" style="width:32px;height:32px"><span style="font-family:'Orbitron',sans-serif;font-weight:800;font-size:15px;color:#f2f3f7">S<span style="color:#7cf5d8">_</span></span></div>
+    <div class="fav" style="width:48px;height:48px"><span style="font-family:'Orbitron',sans-serif;font-weight:800;font-size:22px;color:#f2f3f7">S<span style="color:#7cf5d8">_</span></span></div>
+  </div>
+</div>
+
+</div>
+
+<div class="dna" style="margin-top:36px">
+<b>我的建議：三件一套用。</b> G-3「SOMA_」當工作 logo（header／favicon／頭像，每天出現的那顆）；G-2 當正式標準字（文件、商店頁）；G-1 只在 hero 和海報出場（大字＋角色交錯的儀式場面）。三者共用同一套規則——近黑底、白字、大字距、日英混排小標，磷光青只出現在「一個字母／一個游標」的針點面積，琥珀只留給閃爍的動態游標。這比原本 CD-3 滿版磷光更克制，也更接近攻殻官網的高級感。
+</div>
+</body>
+</html>

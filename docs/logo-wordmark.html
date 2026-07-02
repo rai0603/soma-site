@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Soma Agent — 純文字字標提案（CD-3 語彙）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Chakra+Petch:wght@400;500;700&family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, "PingFang TC", system-ui, sans-serif; background: #14161d; color: #e8eaf2; padding: 48px 28px 90px; }
+h1 { font-size: 24px; margin-bottom: 6px; }
+.sub { color: #9aa0b5; font-size: 14px; margin-bottom: 34px; max-width: 900px; line-height: 1.7; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 26px; max-width: 1280px; margin: 0 auto; }
+.card { border-radius: 18px; overflow: hidden; border: 1px solid #262a38; background: #1b1e28; }
+.tag { display: flex; justify-content: space-between; align-items: baseline; padding: 13px 18px; }
+.tag b { font-size: 15px; }
+.tag span { font-size: 12px; color: #8b90a4; }
+.note { padding: 0 18px 15px; font-size: 12.5px; color: #9aa0b5; line-height: 1.6; }
+
+.mock { height: 330px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; position: relative; overflow: hidden; background: radial-gradient(120% 130% at 50% -10%, #0d2427 0%, #05070c 58%); }
+.scan { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0,0,0,.20) 0 2px, transparent 2px 4px); pointer-events: none; }
+.hud { position: absolute; inset: 16px; border: 1px solid rgba(124,245,216,.20); border-radius: 12px; pointer-events: none; }
+.hud::before, .hud::after { content: ""; position: absolute; width: 24px; height: 24px; border: 2px solid #7cf5d8; }
+.hud::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+.hud::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+.cursor { display: inline-block; width: 0.5em; height: 1em; background: currentColor; vertical-align: -0.08em; margin-left: 5px; animation: blink 1.05s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.tagline { font-family: "DotGothic16", monospace; font-size: 13px; letter-spacing: 0.18em; color: #46f06a; text-shadow: 0 0 10px rgba(70,240,106,.4); }
+.tagline .p { color: #2f8f4d; margin-right: 6px; }
+.kana { font-family: "Chakra Petch", sans-serif; font-size: 11px; letter-spacing: 0.5em; text-indent: 0.5em; color: #55c3a8; }
+
+.sizerow { display: flex; align-items: center; gap: 22px; padding: 14px 18px; background: #10131b; border-top: 1px solid #262a38; }
+.sizerow span { font-size: 11px; color: #6d7288; }
+.fav { border-radius: 22%; background: #05070c; display: grid; place-items: center; }
+</style>
+</head>
+<body>
+<h1>Soma Agent — 純文字字標提案</h1>
+<p class="sub">不用圖形 glyph，logo ＝ 字體本身。四種處理都在 CD-3 的語彙裡（暗青底、磷光、HUD、終端 prompt），差別在「誰當主角」。favicon / app icon 一律從字標抽出「S」或「S_」單字元版。</p>
+
+<div class="grid">
+
+<!-- ============ T-1 ============ -->
+<div class="card">
+  <div class="mock">
+    <div class="scan"></div><div class="hud"></div>
+    <div style="font-family:'Orbitron',sans-serif;font-weight:900;font-size:42px;letter-spacing:.06em;color:#7cf5d8;text-shadow:0 0 22px rgba(60,255,205,.5)">SOMA</div>
+    <div style="font-family:'Orbitron',sans-serif;font-weight:600;font-size:15px;letter-spacing:.55em;text-indent:.55em;color:#e6b357;text-shadow:0 0 10px rgba(230,179,87,.35);margin-top:-6px">AGENT</div>
+    <div class="tagline" style="margin-top:10px"><span class="p">&gt;</span>AGENT IN THE SHELL<span class="cursor"></span></div>
+  </div>
+  <div class="tag"><b>T-1 · 主從堆疊</b><span>SOMA 大／AGENT 小・琥珀</span></div>
+  <p class="note">Orbitron 900 的「SOMA」當臉，「AGENT」縮小拉寬字距、用琥珀色墊在下面——雙色母題靠文字本身完成。最正式、最像科技品牌標準字的一款。</p>
+  <div class="sizerow"><span>favicon（S）：</span>
+    <div class="fav" style="width:16px;height:16px"><span style="font-family:'Orbitron',sans-serif;font-weight:900;font-size:11px;color:#7cf5d8">S</span></div>
+    <div class="fav" style="width:32px;height:32px"><span style="font-family:'Orbitron',sans-serif;font-weight:900;font-size:22px;color:#7cf5d8;text-shadow:0 0 6px rgba(60,255,205,.6)">S</span></div>
+    <div class="fav" style="width:48px;height:48px"><span style="font-family:'Orbitron',sans-serif;font-weight:900;font-size:32px;color:#7cf5d8;text-shadow:0 0 8px rgba(60,255,205,.6)">S</span></div>
+  </div>
+</div>
+
+<!-- ============ T-2 ============ -->
+<div class="card">
+  <div class="mock">
+    <div class="scan"></div><div class="hud"></div>
+    <div style="font-family:'DotGothic16',monospace;font-size:48px;color:#5df2c0;text-shadow:0 0 16px rgba(70,240,180,.55)">SOMA<span style="color:#e6b357">_</span></div>
+    <div style="font-family:'Chakra Petch',sans-serif;font-weight:500;font-size:13px;letter-spacing:.32em;text-indent:.32em;color:#9fe8ff">AGENT IN THE SHELL</div>
+    <div class="kana" style="font-family:'DotGothic16',monospace;color:#3fae74">ソマ・エージェント</div>
+  </div>
+  <div class="tag"><b>T-2 · 像素游標</b><span>DotGothic16 ＋ 琥珀「_」</span></div>
+  <p class="note">「SOMA_」——琥珀游標是唯一的第二色，也是記憶點：軀殼待命、等你輸入。復古味最重、社群辨識度最高；游標在動態版本會閃爍。</p>
+  <div class="sizerow"><span>favicon（S_）：</span>
+    <div class="fav" style="width:16px;height:16px"><span style="font-family:'DotGothic16',monospace;font-size:11px;color:#5df2c0">S<span style="color:#e6b357">_</span></span></div>
+    <div class="fav" style="width:32px;height:32px"><span style="font-family:'DotGothic16',monospace;font-size:20px;color:#5df2c0">S<span style="color:#e6b357">_</span></span></div>
+    <div class="fav" style="width:48px;height:48px"><span style="font-family:'DotGothic16',monospace;font-size:30px;color:#5df2c0;text-shadow:0 0 8px rgba(70,240,180,.5)">S<span style="color:#e6b357">_</span></span></div>
+  </div>
+</div>
+
+<!-- ============ T-3 ============ -->
+<div class="card">
+  <div class="mock">
+    <div class="scan"></div><div class="hud"></div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <span style="font-family:'Orbitron',sans-serif;font-weight:600;font-size:40px;color:#e6b357;text-shadow:0 0 12px rgba(230,179,87,.4)">[</span>
+      <span style="font-family:'Orbitron',sans-serif;font-weight:800;font-size:38px;letter-spacing:.08em;color:#7cf5d8;text-shadow:0 0 20px rgba(60,255,205,.45)">SOMA</span>
+      <span style="font-family:'Orbitron',sans-serif;font-weight:600;font-size:40px;color:#e6b357;text-shadow:0 0 12px rgba(230,179,87,.4)">]</span>
+    </div>
+    <div class="tagline"><span class="p">&gt;</span>AGENT IN THE SHELL<span class="cursor"></span></div>
+    <div class="kana">ソマ・エージェント</div>
+  </div>
+  <div class="tag"><b>T-3 · 括號軀殼</b><span>[ SOMA ]・括號＝shell</span></div>
+  <p class="note">琥珀方括號就是「殼」，青色 SOMA 是住在裡面的 agent——「Agent in the Shell」用純排版講完。概念最強的一款，而且 [S] 抽出來就是現成 favicon。</p>
+  <div class="sizerow"><span>favicon（[S]）：</span>
+    <div class="fav" style="width:16px;height:16px"><span style="font-family:'Orbitron',sans-serif;font-size:9px"><span style="color:#e6b357">[</span><span style="color:#7cf5d8;font-weight:800">S</span><span style="color:#e6b357">]</span></span></div>
+    <div class="fav" style="width:32px;height:32px"><span style="font-family:'Orbitron',sans-serif;font-size:17px"><span style="color:#e6b357">[</span><span style="color:#7cf5d8;font-weight:800">S</span><span style="color:#e6b357">]</span></span></div>
+    <div class="fav" style="width:48px;height:48px"><span style="font-family:'Orbitron',sans-serif;font-size:26px;text-shadow:0 0 8px rgba(60,255,205,.4)"><span style="color:#e6b357">[</span><span style="color:#7cf5d8;font-weight:800">S</span><span style="color:#e6b357">]</span></span></div>
+  </div>
+</div>
+
+<!-- ============ T-4 ============ -->
+<div class="card">
+  <div class="mock">
+    <div class="scan"></div><div class="hud"></div>
+    <div style="font-family:'DotGothic16',monospace;font-size:38px;color:#5df2c0;text-shadow:0 0 16px rgba(70,240,180,.5)"><span style="color:#2f8f4d">&gt;</span> soma<span class="cursor" style="color:#e6b357"></span></div>
+    <div style="font-family:'Chakra Petch',sans-serif;font-weight:500;font-size:12px;letter-spacing:.32em;text-indent:.32em;color:#9fe8ff;margin-top:4px">AGENT IN THE SHELL</div>
+    <div class="kana" style="font-family:'DotGothic16',monospace;color:#3fae74">ソマ・エージェント</div>
+  </div>
+  <div class="tag"><b>T-4 · 指令行</b><span>&gt; soma・小寫・像打指令</span></div>
+  <p class="note">把品牌名當成一行終端指令：「&gt; soma」＋琥珀游標。小寫最親暱、開發者受眾一看就懂（就像在 terminal 打 <b>soma</b> 喚醒它）。適合當 hero 開場動畫：逐字打出來。</p>
+  <div class="sizerow"><span>favicon（&gt;_）：</span>
+    <div class="fav" style="width:16px;height:16px"><span style="font-family:'DotGothic16',monospace;font-size:10px"><span style="color:#5df2c0">&gt;</span><span style="color:#e6b357">_</span></span></div>
+    <div class="fav" style="width:32px;height:32px"><span style="font-family:'DotGothic16',monospace;font-size:18px"><span style="color:#5df2c0">&gt;</span><span style="color:#e6b357">_</span></span></div>
+    <div class="fav" style="width:48px;height:48px"><span style="font-family:'DotGothic16',monospace;font-size:28px;text-shadow:0 0 8px rgba(70,240,180,.5)"><span style="color:#5df2c0">&gt;</span><span style="color:#e6b357">_</span></span></div>
+  </div>
+</div>
+
+</div>
+
+<p class="sub" style="text-align:center;margin-top:38px;max-width:none">四款可混用：例如 T-1 當正式標準字、T-4 當 hero 開場動畫、favicon 用該款的單字元版。選定後我出正式 SVG（文字轉外框，不依賴字體安裝）＋ PNG ＋ favicon 全尺寸。</p>
+</body>
+</html>
