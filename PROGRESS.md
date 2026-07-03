@@ -25,6 +25,8 @@
 - 設定全集中在 `index.html` 底部 `SOMA` 物件（paddle token/prices + campaign 數字）。
 - 設計原始稿在 `docs/_design_src/`（已 gitignore，本機參考用，含 Lumi 原型唯一規格來源）。
 
+- **Stretch Goals 六階新目標（2026-07-03 定案）**：舊目標「韓語聲線／一鍵語音輸入」因 App 端早已開發完成而下架。新階梯（皆為 App repo 盤點確認未做）：300k 全員送主題皮膚（深淵赤燈・火星殖民，復用配色系統）→ 450k 外觀商店開張 → 650k 全新自製角色 → 900k 雙桌寵直播模式（Phase B/C）→ 1.3M Windows 版提前啟動開發 → 2M 語音克隆・會議聽寫。文案紀律：大工程一律寫「啟動開發」不承諾上線時程。五語已同步。
+
 ## Open failures（待調查/待辦）
 - [ ] Paddle：填 client token + 5 個 price ID（buyout_basic/pro、founder、sub_basic_year、sub_pro_year），先 sandbox 驗證 Overlay + successUrl→success.html。
 - [ ] 募資數字接後端 API / CMS（goal/raised/backers/batch/countdown），**上線前切勿用假數字**。
@@ -42,7 +44,8 @@
 - dc.html 設計稿含設計工具 runtime（support.js / x-dc / sc-if / {{ }}），handoff 明示不可移植，須當規格來源純手重建。
 
 ## Last session（續跑指標）
-- 做了什麼（2026-07-02）：① logo 三輪提案 → 攻殻融合定案（`docs/logo-gits-fusion.html`），配色五套提案（`docs/palette-concepts.html`）→ **Rai 拍板 P-3 白域科技**。② `index.html` + `success.html` 全站換皮 P-3 × GITS（原內容 100% 保留，新增 CUSTOMIZE_ 四支柱 index 區 + 各卡 pillar 代號），③ 4 個 subagent 平行產出 en/cn/ja/ko 完整獨立 HTML（i18n 策略＝每語言獨立檔，無 build step），④ DOM 驗證五語全綠。
+- 做了什麼（2026-07-03）：盤點 App repo 功能完成度 → 發現舊 Stretch Goals 兩項已出貨 → 重排六階新目標（見 General rules）→ 五語檔 Python 一次替換 + DOM 驗證（7 tiles、4+3 排版、無溢出）→ commit+push。
+- 前一日（2026-07-02）：① logo 三輪提案 → 攻殻融合定案（`docs/logo-gits-fusion.html`），配色五套提案（`docs/palette-concepts.html`）→ **Rai 拍板 P-3 白域科技**。② `index.html` + `success.html` 全站換皮 P-3 × GITS（原內容 100% 保留，新增 CUSTOMIZE_ 四支柱 index 區 + 各卡 pillar 代號），③ 4 個 subagent 平行產出 en/cn/ja/ko 完整獨立 HTML（i18n 策略＝每語言獨立檔，無 build step），④ DOM 驗證五語全綠。
 - 在地化備註：Demo 例句「播周杰倫」ja 版改「YOASOBI をかけて」、ko 版改「아이유(IU) 틀어 줘」；ja/ko 定價區各加一句「價格為台灣元」註記。若 Demo 影片實拍是周杰倫要改回。
 - 下一步：填 Paddle sandbox token + 5 price ID 跑真實 Overlay；Demo 影片；正式 logo 資產（文字轉外框 SVG + favicon 全尺寸，字標=G-3 SOMA_）；未來文案改動需同步五個檔（改繁中後可再叫 subagent 重翻）。
 - 舊提案頁：`docs/logo-concepts.html`（粉彩，棄）、`docs/logo-concepts-cd3.html`（glyph，棄）、`docs/logo-wordmark.html`（初版）、`docs/brand-hero-mock.html`（hero mock，已落地）。
