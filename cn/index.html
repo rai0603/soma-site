@@ -165,7 +165,7 @@
   @media (max-width:980px){
     .hero-grid{grid-template-columns:1fr !important;}
     .hero-art{min-height:420px !important;}
-    .pain-grid,.feat-grid,.tech-grid,.stretch-grid,.plat-grid{grid-template-columns:1fr !important;}
+    .pain-grid,.feat-grid,.tech-grid,.stretch-grid,.unit-grid,.plat-grid{grid-template-columns:1fr !important;}
     .meter-grid,.char-grid,.demo-grid,.duo-grid,.price2{grid-template-columns:1fr !important;}
     .price3{grid-template-columns:1fr !important;}
     .pillar-row{grid-template-columns:1fr;gap:10px;}
@@ -796,25 +796,57 @@
       <div class="card" data-reveal style="margin-top:46px;border-style:dashed;padding:30px 34px;">
         <div class="f-dot" style="font-size:11px;color:var(--dim);letter-spacing:.2em;margin-bottom:6px;">STRETCH GOALS</div>
         <h3 style="font-weight:900;font-size:20px;margin:0 0 20px;">解锁目标</h3>
-        <div class="stretch-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;">
+        <div class="f-mich" style="font-size:12px;letter-spacing:.28em;color:var(--acc);margin:4px 0 8px;">NEW UNIT<span style="animation:blink 1.05s steps(1) infinite;">_</span></div>
+        <p style="font-size:13px;color:var(--muted);margin:0 0 14px;">每解锁一阶，就有一位新伙伴加入角色清单——造型与命名将与支持者社区共创。</p>
+        <div class="unit-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px;">
+          <div class="hud" style="background:radial-gradient(120% 120% at 50% -10%,#1d2530,#14161D 60%);border:1px solid var(--d-line);overflow:hidden;position:relative;">
+            <div data-unit-img="UNIT-04" style="aspect-ratio:3/4;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+              <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,transparent 2px 4px);pointer-events:none;z-index:2;"></div>
+              <span class="f-dot" style="font-size:72px;color:rgba(102,224,242,.5);text-shadow:0 0 34px rgba(102,224,242,.45);">?</span>
+              <div class="corner-mark" style="top:10px;left:12px;color:var(--d-dim);">UNIT-04 / CLASSIFIED</div>
+            </div>
+            <div style="padding:13px 15px;border-top:1px solid var(--d-line);">
+              <div class="num" style="color:var(--d-acc);font-size:14px;">NT$300,000</div>
+              <div style="color:var(--d-fg);font-weight:700;font-size:13.5px;margin-top:4px;">全新 VRM 角色「机甲型」</div>
+              <div class="f-chakra" style="color:var(--d-dim);font-size:10px;letter-spacing:.08em;margin-top:4px;">MECHA TYPE ・ 概念设计中</div>
+            </div>
+          </div>
+          <div class="hud" style="background:radial-gradient(120% 120% at 50% -10%,#1d2530,#14161D 60%);border:1px solid var(--d-line);overflow:hidden;position:relative;">
+            <div data-unit-img="UNIT-05" style="aspect-ratio:3/4;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+              <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,transparent 2px 4px);pointer-events:none;z-index:2;"></div>
+              <span class="f-dot" style="font-size:72px;color:rgba(102,224,242,.5);text-shadow:0 0 34px rgba(102,224,242,.45);">?</span>
+              <div class="corner-mark" style="top:10px;left:12px;color:var(--d-dim);">UNIT-05 / CLASSIFIED</div>
+            </div>
+            <div style="padding:13px 15px;border-top:1px solid var(--d-line);">
+              <div class="num" style="color:var(--d-acc);font-size:14px;">NT$650,000</div>
+              <div style="color:var(--d-fg);font-weight:700;font-size:13.5px;margin-top:4px;">全新 VRM 角色「？？？」</div>
+              <div class="f-chakra" style="color:var(--d-dim);font-size:10px;letter-spacing:.08em;margin-top:4px;">UNKNOWN TYPE ・ 未公开</div>
+            </div>
+          </div>
+          <div class="hud" style="background:radial-gradient(120% 120% at 50% -10%,#1d2530,#14161D 60%);border:1px solid var(--d-line);overflow:hidden;position:relative;">
+            <div data-unit-img="UNIT-06" style="aspect-ratio:3/4;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+              <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,transparent 2px 4px);pointer-events:none;z-index:2;"></div>
+              <span class="f-dot" style="font-size:72px;color:rgba(102,224,242,.5);text-shadow:0 0 34px rgba(102,224,242,.45);">?</span>
+              <div class="corner-mark" style="top:10px;left:12px;color:var(--d-dim);">UNIT-06 / CLASSIFIED</div>
+            </div>
+            <div style="padding:13px 15px;border-top:1px solid var(--d-line);">
+              <div class="num" style="color:var(--amber);font-size:14px;">NT$1,000,000</div>
+              <div style="color:var(--d-fg);font-weight:700;font-size:13.5px;margin-top:4px;">全新 VRM 角色「？？？」</div>
+              <div class="f-chakra" style="color:var(--d-dim);font-size:10px;letter-spacing:.08em;margin-top:4px;">UNKNOWN TYPE ・ 未公开</div>
+            </div>
+          </div>
+        </div>
+        <div class="stretch-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;">
           <div style="padding:18px;background:var(--acc-soft);border:1px solid rgba(0,145,173,.3);">
             <div class="num" style="color:var(--acc);font-size:14px;">NT$200,000 ✓</div>
             <div style="font-size:13.5px;margin-top:6px;font-weight:700;">基本目标达成・正式版启动</div>
-          </div>
-          <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">
-            <div class="num" style="color:var(--muted);font-size:14px;">NT$300,000</div>
-            <div style="font-size:13.5px;margin-top:6px;font-weight:700;color:var(--muted);">全员加赠 App 主题皮肤（深渊赤灯・火星殖民）</div>
           </div>
           <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">
             <div class="num" style="color:var(--muted);font-size:14px;">NT$450,000</div>
             <div style="font-size:13.5px;margin-top:6px;font-weight:700;color:var(--muted);">外观商店开张（Live2D＋VRM 官方外观首发）</div>
           </div>
           <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">
-            <div class="num" style="color:var(--muted);font-size:14px;">NT$650,000</div>
-            <div style="font-size:13.5px;margin-top:6px;font-weight:700;color:var(--muted);">全新官方自制角色（含专属人设＋声线）</div>
-          </div>
-          <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">
-            <div class="num" style="color:var(--muted);font-size:14px;">NT$900,000</div>
+            <div class="num" style="color:var(--muted);font-size:14px;">NT$800,000</div>
             <div style="font-size:13.5px;margin-top:6px;font-weight:700;color:var(--muted);">双桌宠直播模式（观众留言・打赏互动）</div>
           </div>
           <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">

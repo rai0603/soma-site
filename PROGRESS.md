@@ -25,7 +25,8 @@
 - 設定全集中在 `index.html` 底部 `SOMA` 物件（paddle token/prices + campaign 數字）。
 - 設計原始稿在 `docs/_design_src/`（已 gitignore，本機參考用，含 Lumi 原型唯一規格來源）。
 
-- **Stretch Goals 六階新目標（2026-07-03 定案）**：舊目標「韓語聲線／一鍵語音輸入」因 App 端早已開發完成而下架。新階梯（皆為 App repo 盤點確認未做）：300k 全員送主題皮膚（深淵赤燈・火星殖民，復用配色系統）→ 450k 外觀商店開張 → 650k 全新自製角色 → 900k 雙桌寵直播模式（Phase B/C）→ 1.3M Windows 版提前啟動開發 → 2M 語音克隆・會議聽寫。文案紀律：大工程一律寫「啟動開發」不承諾上線時程。五語已同步。
+- **Stretch Goals（2026-07-03 二修定案）**：舊目標「韓語聲線／一鍵語音輸入」App 端已完成故下架；「主題皮膚」Rai 認定吸引力低已砍。現行結構＝**NEW UNIT_ 角色解鎖卡置頂**（UNIT-04 機甲型 300k／UNIT-05 ??? 650k／UNIT-06 ??? 1,000k，機密剪影「?」teaser 卡，`data-unit-img` 已預留概念圖位）＋功能 tiles（200k✓ 基本／450k 外觀商店／800k 雙桌寵直播／1.3M Windows 提前啟動／2M 語音克隆・會議聽寫）。文案紀律：大工程寫「啟動開發」不承諾時程；角色造型命名「與支持者社群共創」。五語已同步。
+- ⚠️ **fal 餘額已耗盡**（ai-video-platform 的 FAL_KEY，2026-07-03 確認）：VRM 角色概念示意圖（機甲型等 3 款，flux/dev 生圖腳本已寫好在 scratchpad gen.py 邏輯）待 Rai 儲值後生成，換進 `data-unit-img` 卡位。
 
 ## Open failures（待調查/待辦）
 - [ ] Paddle：填 client token + 5 個 price ID（buyout_basic/pro、founder、sub_basic_year、sub_pro_year），先 sandbox 驗證 Overlay + successUrl→success.html。
