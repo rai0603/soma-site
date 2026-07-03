@@ -25,7 +25,7 @@
 - 設定全集中在 `index.html` 底部 `SOMA` 物件（paddle token/prices + campaign 數字）。
 - 設計原始稿在 `docs/_design_src/`（已 gitignore，本機參考用，含 Lumi 原型唯一規格來源）。
 
-- **Stretch Goals（2026-07-03 二修定案）**：舊目標「韓語聲線／一鍵語音輸入」App 端已完成故下架；「主題皮膚」Rai 認定吸引力低已砍。現行結構＝**NEW UNIT_ 角色解鎖卡置頂**（UNIT-04 機甲型 300k／UNIT-05 ??? 650k／UNIT-06 ??? 1,000k，機密剪影「?」teaser 卡，`data-unit-img` 已預留概念圖位）＋功能 tiles（200k✓ 基本／450k 外觀商店／800k 雙桌寵直播／1.3M Windows 提前啟動／2M 語音克隆・會議聽寫）。文案紀律：大工程寫「啟動開發」不承諾時程；角色造型命名「與支持者社群共創」。五語已同步。
+- **Stretch Goals（2026-07-03 三修定案）**：舊目標「韓語聲線／一鍵語音輸入」App 端已完成故下架；「主題皮膚」吸引力低已砍；角色與功能**合併成單一金額階梯**（Rai 指示，不分兩區）。現行 `.goal-ladder` 垂直階梯 8 階：200k✓ 基本 → 300k UNIT-04 機甲型 → 450k 外觀商店 → 650k UNIT-05 ??? → 800k 雙桌寵直播 → 1,000k UNIT-06 ??? → 1.3M Windows 提前啟動 → 2M 語音克隆・會議聽寫。角色列帶「?」機密縮圖（`data-unit-img` 預留概念圖位）＋琥珀空心節點；已達成列＝實心青節點＋✓。文案紀律：大工程寫「啟動開發」不承諾時程；角色造型命名「與支持者社群共創」。五語已同步。
 - ⚠️ **fal 餘額已耗盡**（ai-video-platform 的 FAL_KEY，2026-07-03 確認）：VRM 角色概念示意圖（機甲型等 3 款，flux/dev 生圖腳本已寫好在 scratchpad gen.py 邏輯）待 Rai 儲值後生成，換進 `data-unit-img` 卡位。
 
 ## Open failures（待調查/待辦）

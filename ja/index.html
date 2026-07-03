@@ -165,7 +165,7 @@
   @media (max-width:980px){
     .hero-grid{grid-template-columns:1fr !important;}
     .hero-art{min-height:420px !important;}
-    .pain-grid,.feat-grid,.tech-grid,.stretch-grid,.unit-grid,.plat-grid{grid-template-columns:1fr !important;}
+    .pain-grid,.feat-grid,.tech-grid,.stretch-grid,.plat-grid{grid-template-columns:1fr !important;}
     .meter-grid,.char-grid,.demo-grid,.duo-grid,.price2{grid-template-columns:1fr !important;}
     .price3{grid-template-columns:1fr !important;}
     .pillar-row{grid-template-columns:1fr;gap:10px;}
@@ -795,66 +795,65 @@
       <div class="card" data-reveal style="margin-top:46px;border-style:dashed;padding:30px 34px;">
         <div class="f-dot" style="font-size:11px;color:var(--dim);letter-spacing:.2em;margin-bottom:6px;">STRETCH GOALS</div>
         <h3 style="font-weight:900;font-size:20px;margin:0 0 20px;">アンロック目標</h3>
-        <div class="f-mich" style="font-size:12px;letter-spacing:.28em;color:var(--acc);margin:4px 0 8px;">NEW UNIT<span style="animation:blink 1.05s steps(1) infinite;">_</span></div>
-        <p style="font-size:13px;color:var(--muted);margin:0 0 14px;">1 段階アンロックごとに、新しい仲間がロースターに加わります——デザインと名前は支援者コミュニティと共創。</p>
-        <div class="unit-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px;">
-          <div class="hud" style="background:radial-gradient(120% 120% at 50% -10%,#1d2530,#14161D 60%);border:1px solid var(--d-line);overflow:hidden;position:relative;">
-            <div data-unit-img="UNIT-04" style="aspect-ratio:3/4;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-              <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,transparent 2px 4px);pointer-events:none;z-index:2;"></div>
-              <span class="f-dot" style="font-size:72px;color:rgba(102,224,242,.5);text-shadow:0 0 34px rgba(102,224,242,.45);">?</span>
-              <div class="corner-mark" style="top:10px;left:12px;color:var(--d-dim);">UNIT-04 / CLASSIFIED</div>
-            </div>
-            <div style="padding:13px 15px;border-top:1px solid var(--d-line);">
-              <div class="num" style="color:var(--d-acc);font-size:14px;">NT$300,000</div>
-              <div style="color:var(--d-fg);font-weight:700;font-size:13.5px;margin-top:4px;">新 VRM キャラクター「メカタイプ」</div>
-              <div class="f-chakra" style="color:var(--d-dim);font-size:10px;letter-spacing:.08em;margin-top:4px;">MECHA TYPE ・ コンセプト設計中</div>
-            </div>
+        <p style="font-size:13px;color:var(--muted);margin:0 0 6px;">1 段階達成ごとに 1 つアンロック——新キャラクターのデザインと名前は、支援者コミュニティと共創します。</p>
+        <div class="goal-ladder" style="border-bottom:1px solid var(--line);">
+          <div style="display:grid;grid-template-columns:22px 118px 1fr;gap:14px;align-items:center;padding:13px 0;border-top:1px solid var(--line);">
+            <span style="width:11px;height:11px;background:var(--acc);display:inline-block;"></span>
+            <span class="num" style="color:var(--acc);font-size:14px;">NT$200,000 ✓</span>
+            <div style="font-size:14px;font-weight:700;">基本目標達成・正式版始動</div>
           </div>
-          <div class="hud" style="background:radial-gradient(120% 120% at 50% -10%,#1d2530,#14161D 60%);border:1px solid var(--d-line);overflow:hidden;position:relative;">
-            <div data-unit-img="UNIT-05" style="aspect-ratio:3/4;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-              <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,transparent 2px 4px);pointer-events:none;z-index:2;"></div>
-              <span class="f-dot" style="font-size:72px;color:rgba(102,224,242,.5);text-shadow:0 0 34px rgba(102,224,242,.45);">?</span>
-              <div class="corner-mark" style="top:10px;left:12px;color:var(--d-dim);">UNIT-05 / CLASSIFIED</div>
+          <div style="display:grid;grid-template-columns:22px 118px 1fr 58px;gap:14px;align-items:center;padding:11px 0;border-top:1px solid var(--line);">
+            <span style="width:11px;height:11px;border:1.5px solid var(--amber);display:inline-block;"></span>
+            <span class="num" style="color:var(--ink);font-size:14px;">NT$300,000</span>
+            <div>
+              <div style="font-size:14px;font-weight:700;">新 VRM キャラクター「メカタイプ」</div>
+              <div class="f-chakra" style="font-size:10px;letter-spacing:.1em;color:var(--dim);margin-top:2px;">UNIT-04 ・ MECHA TYPE ・ コンセプト設計中</div>
             </div>
-            <div style="padding:13px 15px;border-top:1px solid var(--d-line);">
-              <div class="num" style="color:var(--d-acc);font-size:14px;">NT$650,000</div>
-              <div style="color:var(--d-fg);font-weight:700;font-size:13.5px;margin-top:4px;">新 VRM キャラクター「？？？」</div>
-              <div class="f-chakra" style="color:var(--d-dim);font-size:10px;letter-spacing:.08em;margin-top:4px;">UNKNOWN TYPE ・ 未公開</div>
+            <div data-unit-img="UNIT-04" style="width:58px;aspect-ratio:3/4;background:radial-gradient(120% 120% at 50% -10%,#1d2530,#14161D 60%);border:1px solid var(--d-line);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+              <span class="f-dot" style="font-size:24px;color:rgba(102,224,242,.55);text-shadow:0 0 14px rgba(102,224,242,.45);">?</span>
             </div>
           </div>
-          <div class="hud" style="background:radial-gradient(120% 120% at 50% -10%,#1d2530,#14161D 60%);border:1px solid var(--d-line);overflow:hidden;position:relative;">
-            <div data-unit-img="UNIT-06" style="aspect-ratio:3/4;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-              <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 2px,transparent 2px 4px);pointer-events:none;z-index:2;"></div>
-              <span class="f-dot" style="font-size:72px;color:rgba(102,224,242,.5);text-shadow:0 0 34px rgba(102,224,242,.45);">?</span>
-              <div class="corner-mark" style="top:10px;left:12px;color:var(--d-dim);">UNIT-06 / CLASSIFIED</div>
+          <div style="display:grid;grid-template-columns:22px 118px 1fr;gap:14px;align-items:center;padding:13px 0;border-top:1px solid var(--line);">
+            <span style="width:11px;height:11px;border:1.5px solid var(--dim);display:inline-block;"></span>
+            <span class="num" style="color:var(--ink);font-size:14px;">NT$450,000</span>
+            <div style="font-size:14px;font-weight:700;color:var(--muted);">スキンストア開店（Live2D＋VRM 公式スキン第一弾）</div>
+          </div>
+          <div style="display:grid;grid-template-columns:22px 118px 1fr 58px;gap:14px;align-items:center;padding:11px 0;border-top:1px solid var(--line);">
+            <span style="width:11px;height:11px;border:1.5px solid var(--amber);display:inline-block;"></span>
+            <span class="num" style="color:var(--ink);font-size:14px;">NT$650,000</span>
+            <div>
+              <div style="font-size:14px;font-weight:700;">新 VRM キャラクター「？？？」</div>
+              <div class="f-chakra" style="font-size:10px;letter-spacing:.1em;color:var(--dim);margin-top:2px;">UNIT-05 ・ UNKNOWN TYPE ・ 未公開</div>
             </div>
-            <div style="padding:13px 15px;border-top:1px solid var(--d-line);">
-              <div class="num" style="color:var(--amber);font-size:14px;">NT$1,000,000</div>
-              <div style="color:var(--d-fg);font-weight:700;font-size:13.5px;margin-top:4px;">新 VRM キャラクター「？？？」</div>
-              <div class="f-chakra" style="color:var(--d-dim);font-size:10px;letter-spacing:.08em;margin-top:4px;">UNKNOWN TYPE ・ 未公開</div>
+            <div data-unit-img="UNIT-05" style="width:58px;aspect-ratio:3/4;background:radial-gradient(120% 120% at 50% -10%,#1d2530,#14161D 60%);border:1px solid var(--d-line);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+              <span class="f-dot" style="font-size:24px;color:rgba(102,224,242,.55);text-shadow:0 0 14px rgba(102,224,242,.45);">?</span>
             </div>
           </div>
-        </div>
-        <div class="stretch-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;">
-          <div style="padding:18px;background:var(--acc-soft);border:1px solid rgba(0,145,173,.3);">
-            <div class="num" style="color:var(--acc);font-size:14px;">NT$200,000 ✓</div>
-            <div style="font-size:13.5px;margin-top:6px;font-weight:700;">基本目標達成・正式版始動</div>
+          <div style="display:grid;grid-template-columns:22px 118px 1fr;gap:14px;align-items:center;padding:13px 0;border-top:1px solid var(--line);">
+            <span style="width:11px;height:11px;border:1.5px solid var(--dim);display:inline-block;"></span>
+            <span class="num" style="color:var(--ink);font-size:14px;">NT$800,000</span>
+            <div style="font-size:14px;font-weight:700;color:var(--muted);">デュオ配信モード（視聴者コメント・投げ銭連動）</div>
           </div>
-          <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">
-            <div class="num" style="color:var(--muted);font-size:14px;">NT$450,000</div>
-            <div style="font-size:13.5px;margin-top:6px;font-weight:700;color:var(--muted);">スキンストア開店（Live2D＋VRM 公式スキン第一弾）</div>
+          <div style="display:grid;grid-template-columns:22px 118px 1fr 58px;gap:14px;align-items:center;padding:11px 0;border-top:1px solid var(--line);">
+            <span style="width:11px;height:11px;border:1.5px solid var(--amber);display:inline-block;"></span>
+            <span class="num" style="color:var(--ink);font-size:14px;">NT$1,000,000</span>
+            <div>
+              <div style="font-size:14px;font-weight:700;">新 VRM キャラクター「？？？」</div>
+              <div class="f-chakra" style="font-size:10px;letter-spacing:.1em;color:var(--dim);margin-top:2px;">UNIT-06 ・ UNKNOWN TYPE ・ 未公開</div>
+            </div>
+            <div data-unit-img="UNIT-06" style="width:58px;aspect-ratio:3/4;background:radial-gradient(120% 120% at 50% -10%,#1d2530,#14161D 60%);border:1px solid var(--d-line);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+              <span class="f-dot" style="font-size:24px;color:rgba(102,224,242,.55);text-shadow:0 0 14px rgba(102,224,242,.45);">?</span>
+            </div>
           </div>
-          <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">
-            <div class="num" style="color:var(--muted);font-size:14px;">NT$800,000</div>
-            <div style="font-size:13.5px;margin-top:6px;font-weight:700;color:var(--muted);">デュオ配信モード（視聴者コメント・投げ銭連動）</div>
+          <div style="display:grid;grid-template-columns:22px 118px 1fr;gap:14px;align-items:center;padding:13px 0;border-top:1px solid var(--line);">
+            <span style="width:11px;height:11px;border:1.5px solid var(--dim);display:inline-block;"></span>
+            <span class="num" style="color:var(--ink);font-size:14px;">NT$1,300,000</span>
+            <div style="font-size:14px;font-weight:700;color:var(--muted);">Windows 版の開発を前倒しスタート</div>
           </div>
-          <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">
-            <div class="num" style="color:var(--muted);font-size:14px;">NT$1,300,000</div>
-            <div style="font-size:13.5px;margin-top:6px;font-weight:700;color:var(--muted);">Windows 版の開発を前倒しスタート</div>
-          </div>
-          <div style="padding:18px;background:var(--bg);border:1px solid var(--line);">
-            <div class="num" style="color:var(--muted);font-size:14px;">NT$2,000,000</div>
-            <div style="font-size:13.5px;margin-top:6px;font-weight:700;color:var(--muted);">ボイスクローン・会議文字起こし 開発スタート</div>
+          <div style="display:grid;grid-template-columns:22px 118px 1fr;gap:14px;align-items:center;padding:13px 0;border-top:1px solid var(--line);">
+            <span style="width:11px;height:11px;border:1.5px solid var(--dim);display:inline-block;"></span>
+            <span class="num" style="color:var(--ink);font-size:14px;">NT$2,000,000</span>
+            <div style="font-size:14px;font-weight:700;color:var(--muted);">ボイスクローン・会議文字起こし 開発スタート</div>
           </div>
         </div>
       </div>
