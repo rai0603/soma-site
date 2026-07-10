@@ -431,7 +431,8 @@
             <button class="mode-pill" type="button" data-mode="podcast" aria-pressed="true">PODCAST 모드</button>
             <button class="mode-pill" type="button" data-mode="three" aria-pressed="false">3자 모드</button>
           </div>
-          <p data-mode-desc style="color:var(--d-muted);font-size:14.5px;margin:0 0 24px;min-height:44px;">주제를 던져 주면 둘이 알아서 대화를 이어 가고, 당신은 옆에서 보고 들으면 됩니다. AI 팟캐스트 한 편처럼.</p>
+          <p data-mode-desc style="color:var(--d-muted);font-size:14.5px;margin:0 0 12px;min-height:44px;">주제를 던져 주면 둘이 알아서 대화를 이어 가고, 당신은 옆에서 보고 들으면 됩니다. AI 팟캐스트 한 편처럼.</p>
+          <p style="margin:0 0 24px;"><a href="#pricing" style="color:var(--amber);font-size:13px;font-weight:700;text-decoration:none;">Podcast 모드＝별도 애드온 NT$399（기본판／고급판 모두 가능）→ 플랜 보기</a></p>
 
           <div style="display:flex;flex-direction:column;gap:14px;">
             <div style="display:flex;gap:12px;align-items:flex-start;"><span class="f-dot" style="flex:none;color:var(--d-green);">&gt;&gt;</span><div><strong style="color:var(--d-fg);">끊김 없이 매끄럽게</strong><div style="color:var(--d-muted);font-size:13.5px;">말하는 동안 다음 문장을 미리 생성해, 문장 사이 공백이 거의 없습니다.</div></div></div>
@@ -720,7 +721,8 @@
           <div style="margin:6px 0 14px;"><span class="num" style="font-size:36px;color:var(--d-acc);">NT$899</span><span style="color:var(--d-muted);font-size:13px;"> 일시불</span></div>
           <ul style="list-style:none;padding:0;margin:0 0 20px;color:var(--d-fg);font-size:14px;display:flex;flex-direction:column;gap:9px;flex:1;">
             <li style="color:var(--d-acc);">✓ 평생 사용・이후 업데이트 포함</li>
-            <li>✓ 전체 대화 + <strong>듀오 대화</strong> + tool use</li>
+            <li>✓ 대화 + <strong>tool use 데스크톱 자동화</strong></li>
+            <li style="color:var(--d-muted);font-size:13px;">＋ 듀오 대화는 애드온으로 추가 가능（아래 Podcast 참고）</li>
             <li>✓ BYOK・AI 사용량 무제한</li>
             <li style="color:var(--amber);">★ 이번 배치 한정 스킨 ×2(컬렉터스)</li>
             <li style="color:var(--amber);">★ 한정 100개</li>
@@ -741,6 +743,23 @@
             <li style="color:var(--amber);">★ 전 기간 한정 50명</li>
           </ul>
           <button class="cta cta-amber" type="button" data-sku="founder" style="padding:12px;font-size:14px;">파운더 컬렉터 되기</button>
+        </div>
+      </div>
+
+      <!-- PODCAST ADD-ON -->
+      <div class="dark card hud" data-reveal style="background:var(--d-bg);border:1px solid var(--d-line);color:var(--d-fg);padding:26px 28px;margin:18px 0 44px;display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <span class="f-chakra" style="background:rgba(224,119,28,.15);color:var(--amber);font-weight:700;font-size:11px;letter-spacing:.1em;padding:5px 12px;">ADD-ON・추가 구매</span>
+            <h3 style="font-weight:900;font-size:20px;margin:0;">Podcast 듀오 대화</h3>
+            <span class="num" style="font-size:28px;color:var(--d-acc);">NT$399</span><span style="color:var(--d-muted);font-size:12.5px;">일시불・키에 귀속</span>
+          </div>
+          <p style="color:var(--d-muted);font-size:14px;margin:12px 0 0;"><strong style="color:var(--d-fg);">듀오 대화(팟캐스트)／3자 채팅／라이브 인터랙션</strong>을 해제합니다. 기본판・고급판 모두 추가 가능——키를 입력하고 결제하면 기능이 키에 연결되고, 앱 재시작 시 활성화됩니다.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <input id="podcast-key" type="text" placeholder="라이선스 키 입력 SOMA-XXXX-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false" style="width:100%;box-sizing:border-box;background:rgba(255,255,255,.06);border:1px solid var(--d-line);color:var(--d-fg);font-family:ui-monospace,Menlo,monospace;font-size:13.5px;letter-spacing:.06em;padding:12px 14px;outline:none;">
+          <button id="btn-podcast-buy" class="cta cta-primary" type="button" style="padding:13px;font-size:14px;">Podcast 추가 →</button>
+          <span style="color:var(--d-dim);font-size:11.5px;">키가 아직 없나요? 먼저 위의 買斷 플랜을 선택하세요. 키는 구매 후 이메일로 발송됩니다.</span>
         </div>
       </div>
 
@@ -914,6 +933,7 @@ const SOMA = {
     prices: {                        // TODO: 填入各方案 Paddle price ID
       buyout_basic:   'pri_01kx2qry2j359jdckdf87pgj4y',            // 限量買斷・基礎 NT$599
       buyout_pro:     'pri_01kx2qryn64p0ry8w04bkw4jfv',            // 限量買斷・進階 NT$899
+      addon_podcast:  'pri_01kx2qrzs8nh61shm4ag3aczfa',
       founder:        '',            // 創始收藏家 NT$1,680
       sub_basic_year: '',            // 基礎・早鳥年訂 NT$2,490
       sub_pro_year:   '',            // 進階・早鳥年訂 NT$4,990
@@ -967,6 +987,7 @@ const FAQS = [
 /* ---- UI 訊息 ---- */
 const MSG = {
   checkoutSoon: '결제가 곧 오픈됩니다. 조금만 기다려 주세요',
+  podcastKeyBad: '올바른 라이선스 키를 먼저 입력하세요（형식: SOMA-XXXX-XXXX-XXXX-XXXX）. 키는 구매 후 받은 이메일에 있습니다',
   checkoutFail: '지금은 결제를 열 수 없습니다. 잠시 후 다시 시도해 주세요',
   demoSoon: '데모 영상을 준비 중입니다. 조금만 기다려 주세요',
   modePodcast: '주제를 던져 주면 둘이 알아서 대화를 이어 가고, 당신은 옆에서 보고 들으면 됩니다. AI 팟캐스트 한 편처럼.',
@@ -994,22 +1015,38 @@ function initPaddle(){
 }
 const paddleReady = initPaddle();
 
-function openCheckout(sku){
+function openCheckout(sku, customData){
   const priceId = SOMA.paddle.prices[sku];
   if (!paddleReady || !priceId){
-    toast(MSG.checkoutSoon);   // 尚未設定 Paddle token / price ID
+    toast(MSG.checkoutSoon);
     return;
   }
   try {
-    Paddle.Checkout.open({
+    const opts = {
       items: [{ priceId, quantity: 1 }],
-      settings: { successUrl: location.origin + '/ko/success.html', theme: 'light', locale: SOMA.paddleLocale },
-    });
+      settings: { successUrl: location.origin + '/success.html', theme: 'light', locale: SOMA.paddleLocale },
+    };
+    if (customData) opts.customData = customData;
+    Paddle.Checkout.open(opts);
   } catch (e) {
     console.warn('[Soma] checkout error', e);
     toast(MSG.checkoutFail);
   }
 }
+
+function buyPodcast(){
+  const inp = document.getElementById('podcast-key');
+  const key = (inp.value || '').trim().toUpperCase();
+  if (!/^SOMA(-[A-Z0-9]{4}){4}$/.test(key)){
+    inp.style.borderColor = '#E0771C';
+    toast(MSG.podcastKeyBad);
+    inp.focus();
+    return;
+  }
+  inp.style.borderColor = '';
+  openCheckout('addon_podcast', { license_key: key });
+}
+document.getElementById('btn-podcast-buy')?.addEventListener('click', buyPodcast);
 $$('[data-sku]').forEach(btn => btn.addEventListener('click', () => openCheckout(btn.dataset.sku)));
 
 /* ---- Demo 影片佔位 ---- */

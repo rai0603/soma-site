@@ -431,7 +431,8 @@
             <button class="mode-pill" type="button" data-mode="podcast" aria-pressed="true">PODCAST MODE</button>
             <button class="mode-pill" type="button" data-mode="three" aria-pressed="false">3-WAY MODE</button>
           </div>
-          <p data-mode-desc style="color:var(--d-muted);font-size:14.5px;margin:0 0 24px;min-height:44px;">The two of them chat about any topic you set while you watch and listen — like your own AI podcast.</p>
+          <p data-mode-desc style="color:var(--d-muted);font-size:14.5px;margin:0 0 12px;min-height:44px;">The two of them chat about any topic you set while you watch and listen — like your own AI podcast.</p>
+          <p style="margin:0 0 24px;"><a href="#pricing" style="color:var(--amber);font-size:13px;font-weight:700;text-decoration:none;">Podcast mode = separate add-on NT$399 (works with Basic or Advanced) → see plans</a></p>
 
           <div style="display:flex;flex-direction:column;gap:14px;">
             <div style="display:flex;gap:12px;align-items:flex-start;"><span class="f-dot" style="flex:none;color:var(--d-green);">&gt;&gt;</span><div><strong style="color:var(--d-fg);">Smooth, no dead air</strong><div style="color:var(--d-muted);font-size:13.5px;">The next line is pre-generated while one is speaking — near-zero gaps between turns.</div></div></div>
@@ -719,7 +720,8 @@
           <div style="margin:6px 0 14px;"><span class="num" style="font-size:36px;color:var(--d-acc);">NT$899</span><span style="color:var(--d-muted);font-size:13px;"> one-time</span></div>
           <ul style="list-style:none;padding:0;margin:0 0 20px;color:var(--d-fg);font-size:14px;display:flex;flex-direction:column;gap:9px;flex:1;">
             <li style="color:var(--d-acc);">✓ Yours forever ・ future updates included</li>
-            <li>✓ Full chat + <strong>duo talk</strong> + tool use</li>
+            <li>✓ Chat + <strong>tool-use desktop automation</strong></li>
+            <li style="color:var(--d-muted);font-size:13px;">＋ Duo talk available as add-on (see Podcast below)</li>
             <li>✓ BYOK ・ unlimited AI usage</li>
             <li style="color:var(--amber);">★ 2 exclusive skins for this batch (collector's)</li>
             <li style="color:var(--amber);">★ Limited to 100</li>
@@ -740,6 +742,23 @@
             <li style="color:var(--amber);">★ Only 50 ever</li>
           </ul>
           <button class="cta cta-amber" type="button" data-sku="founder" style="padding:12px;font-size:14px;">Become a Founding Collector</button>
+        </div>
+      </div>
+
+      <!-- PODCAST ADD-ON -->
+      <div class="dark card hud" data-reveal style="background:var(--d-bg);border:1px solid var(--d-line);color:var(--d-fg);padding:26px 28px;margin:18px 0 44px;display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <span class="f-chakra" style="background:rgba(224,119,28,.15);color:var(--amber);font-weight:700;font-size:11px;letter-spacing:.1em;padding:5px 12px;">ADD-ON</span>
+            <h3 style="font-weight:900;font-size:20px;margin:0;">Podcast Duo Talk</h3>
+            <span class="num" style="font-size:28px;color:var(--d-acc);">NT$399</span><span style="color:var(--d-muted);font-size:12.5px;">one-time · tied to your license</span>
+          </div>
+          <p style="color:var(--d-muted);font-size:14px;margin:12px 0 0;">Unlocks <strong style="color:var(--d-fg);">duo talk (podcast) / three-way chat / live-stream interaction</strong>. Works with both Basic and Advanced — enter your license key, pay, and the feature attaches to it. Restart the app and it\u2019s on.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <input id="podcast-key" type="text" placeholder="Enter license key SOMA-XXXX-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false" style="width:100%;box-sizing:border-box;background:rgba(255,255,255,.06);border:1px solid var(--d-line);color:var(--d-fg);font-family:ui-monospace,Menlo,monospace;font-size:13.5px;letter-spacing:.06em;padding:12px 14px;outline:none;">
+          <button id="btn-podcast-buy" class="cta cta-primary" type="button" style="padding:13px;font-size:14px;">Add Podcast →</button>
+          <span style="color:var(--d-dim);font-size:11.5px;">No key yet? Pick a buyout plan above first — your key arrives by email.</span>
         </div>
       </div>
 
@@ -913,6 +932,7 @@ const SOMA = {
     prices: {                        // TODO: 填入各方案 Paddle price ID
       buyout_basic:   'pri_01kx2qry2j359jdckdf87pgj4y',            // 限量買斷・基礎 NT$599
       buyout_pro:     'pri_01kx2qryn64p0ry8w04bkw4jfv',            // 限量買斷・進階 NT$899
+      addon_podcast:  'pri_01kx2qrzs8nh61shm4ag3aczfa',
       founder:        '',            // 創始收藏家 NT$1,680
       sub_basic_year: '',            // 基礎・早鳥年訂 NT$2,490
       sub_pro_year:   '',            // 進階・早鳥年訂 NT$4,990
@@ -966,6 +986,7 @@ const FAQS = [
 /* ---- UI 訊息 ---- */
 const MSG = {
   checkoutSoon: 'Checkout opens soon — stay tuned',
+  podcastKeyBad: 'Enter a valid license key first (format: SOMA-XXXX-XXXX-XXXX-XXXX) — it\'s in your purchase email',
   checkoutFail: 'Checkout is temporarily unavailable. Please try again later.',
   demoSoon: 'The demo video is on its way — stay tuned',
   modePodcast: 'The two of them chat about any topic you set while you watch and listen — like your own AI podcast.',
@@ -993,22 +1014,38 @@ function initPaddle(){
 }
 const paddleReady = initPaddle();
 
-function openCheckout(sku){
+function openCheckout(sku, customData){
   const priceId = SOMA.paddle.prices[sku];
   if (!paddleReady || !priceId){
-    toast(MSG.checkoutSoon);   // 尚未設定 Paddle token / price ID
+    toast(MSG.checkoutSoon);
     return;
   }
   try {
-    Paddle.Checkout.open({
+    const opts = {
       items: [{ priceId, quantity: 1 }],
-      settings: { successUrl: location.origin + '/en/success.html', theme: 'light', locale: SOMA.paddleLocale },
-    });
+      settings: { successUrl: location.origin + '/success.html', theme: 'light', locale: SOMA.paddleLocale },
+    };
+    if (customData) opts.customData = customData;
+    Paddle.Checkout.open(opts);
   } catch (e) {
     console.warn('[Soma] checkout error', e);
     toast(MSG.checkoutFail);
   }
 }
+
+function buyPodcast(){
+  const inp = document.getElementById('podcast-key');
+  const key = (inp.value || '').trim().toUpperCase();
+  if (!/^SOMA(-[A-Z0-9]{4}){4}$/.test(key)){
+    inp.style.borderColor = '#E0771C';
+    toast(MSG.podcastKeyBad);
+    inp.focus();
+    return;
+  }
+  inp.style.borderColor = '';
+  openCheckout('addon_podcast', { license_key: key });
+}
+document.getElementById('btn-podcast-buy')?.addEventListener('click', buyPodcast);
 $$('[data-sku]').forEach(btn => btn.addEventListener('click', () => openCheckout(btn.dataset.sku)));
 
 /* ---- Demo 影片佔位 ---- */

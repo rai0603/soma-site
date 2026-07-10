@@ -431,7 +431,8 @@
             <button class="mode-pill" type="button" data-mode="podcast" aria-pressed="true">PODCAST 模式</button>
             <button class="mode-pill" type="button" data-mode="three" aria-pressed="false">三方模式</button>
           </div>
-          <p data-mode-desc style="color:var(--d-muted);font-size:14.5px;margin:0 0 24px;min-height:44px;">两只就你给的主题自己对谈，你在旁边看／听，像听一档 AI podcast。</p>
+          <p data-mode-desc style="color:var(--d-muted);font-size:14.5px;margin:0 0 12px;min-height:44px;">两只就你给的主题自己对谈，你在旁边看／听，像听一档 AI podcast。</p>
+          <p style="margin:0 0 24px;"><a href="#pricing" style="color:var(--amber);font-size:13px;font-weight:700;text-decoration:none;">Podcast 模式＝独立加购 NT$399（基础版／进阶版皆可）→ 看方案</a></p>
 
           <div style="display:flex;flex-direction:column;gap:14px;">
             <div style="display:flex;gap:12px;align-items:flex-start;"><span class="f-dot" style="flex:none;color:var(--d-green);">&gt;&gt;</span><div><strong style="color:var(--d-fg);">流畅不冷场</strong><div style="color:var(--d-muted);font-size:13.5px;">边讲边预生成下一句，句间几乎无空档。</div></div></div>
@@ -720,7 +721,8 @@
           <div style="margin:6px 0 14px;"><span class="num" style="font-size:36px;color:var(--d-acc);">NT$899</span><span style="color:var(--d-muted);font-size:13px;"> 一次付清</span></div>
           <ul style="list-style:none;padding:0;margin:0 0 20px;color:var(--d-fg);font-size:14px;display:flex;flex-direction:column;gap:9px;flex:1;">
             <li style="color:var(--d-acc);">✓ 永久使用・含后续更新</li>
-            <li>✓ 全部对话 + <strong>双角色对话</strong> + tool use</li>
+            <li>✓ 对话 + <strong>tool use 桌面自动化</strong></li>
+            <li style="color:var(--d-muted);font-size:13px;">＋ 双角色对话可加购（见下方 Podcast）</li>
             <li>✓ BYOK・AI 用量无上限</li>
             <li style="color:var(--amber);">★ 本批限定外观 ×2（收藏款）</li>
             <li style="color:var(--amber);">★ 限量 100 份</li>
@@ -741,6 +743,23 @@
             <li style="color:var(--amber);">★ 全程限量 50 名</li>
           </ul>
           <button class="cta cta-amber" type="button" data-sku="founder" style="padding:12px;font-size:14px;">成为创始收藏家</button>
+        </div>
+      </div>
+
+      <!-- PODCAST ADD-ON -->
+      <div class="dark card hud" data-reveal style="background:var(--d-bg);border:1px solid var(--d-line);color:var(--d-fg);padding:26px 28px;margin:18px 0 44px;display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+            <span class="f-chakra" style="background:rgba(224,119,28,.15);color:var(--amber);font-weight:700;font-size:11px;letter-spacing:.1em;padding:5px 12px;">ADD-ON・加购</span>
+            <h3 style="font-weight:900;font-size:20px;margin:0;">Podcast 双角色对话</h3>
+            <span class="num" style="font-size:28px;color:var(--d-acc);">NT$399</span><span style="color:var(--d-muted);font-size:12.5px;">一次付清・跟着序号走</span>
+          </div>
+          <p style="color:var(--d-muted);font-size:14px;margin:12px 0 0;">解锁<strong style="color:var(--d-fg);">双角色对谈（podcast）／三方聊天／直播互动</strong>。基础版、进阶版都可加购——输入你的序号，付款后功能直接挂上，重开 app 即生效。</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <input id="podcast-key" type="text" placeholder="输入序号 SOMA-XXXX-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false" style="width:100%;box-sizing:border-box;background:rgba(255,255,255,.06);border:1px solid var(--d-line);color:var(--d-fg);font-family:ui-monospace,Menlo,monospace;font-size:13.5px;letter-spacing:.06em;padding:12px 14px;outline:none;">
+          <button id="btn-podcast-buy" class="cta cta-primary" type="button" style="padding:13px;font-size:14px;">加购 Podcast →</button>
+          <span style="color:var(--d-dim);font-size:11.5px;">还没有序号？先在上方选一个买断方案。序号在购买后的 email 里。</span>
         </div>
       </div>
 
@@ -914,6 +933,7 @@ const SOMA = {
     prices: {                        // TODO: 填入各方案 Paddle price ID
       buyout_basic:   'pri_01kx2qry2j359jdckdf87pgj4y',            // 限量買斷・基礎 NT$599
       buyout_pro:     'pri_01kx2qryn64p0ry8w04bkw4jfv',            // 限量買斷・進階 NT$899
+      addon_podcast:  'pri_01kx2qrzs8nh61shm4ag3aczfa',
       founder:        '',            // 創始收藏家 NT$1,680
       sub_basic_year: '',            // 基礎・早鳥年訂 NT$2,490
       sub_pro_year:   '',            // 進階・早鳥年訂 NT$4,990
@@ -967,6 +987,7 @@ const FAQS = [
 /* ---- UI 訊息 ---- */
 const MSG = {
   checkoutSoon: '结账即将开放，敬请期待',
+  podcastKeyBad: '请先输入正确的序号（格式：SOMA-XXXX-XXXX-XXXX-XXXX），序号在你购买买断版后的 email 里',
   checkoutFail: '结账暂时无法打开，请稍后再试',
   demoSoon: 'Demo 视频准备中，敬请期待',
   modePodcast: '两只就你给的主题自己对谈，你在旁边看／听，像听一档 AI podcast。',
@@ -994,22 +1015,38 @@ function initPaddle(){
 }
 const paddleReady = initPaddle();
 
-function openCheckout(sku){
+function openCheckout(sku, customData){
   const priceId = SOMA.paddle.prices[sku];
   if (!paddleReady || !priceId){
-    toast(MSG.checkoutSoon);   // 尚未設定 Paddle token / price ID
+    toast(MSG.checkoutSoon);
     return;
   }
   try {
-    Paddle.Checkout.open({
+    const opts = {
       items: [{ priceId, quantity: 1 }],
-      settings: { successUrl: location.origin + '/cn/success.html', theme: 'light', locale: SOMA.paddleLocale },
-    });
+      settings: { successUrl: location.origin + '/success.html', theme: 'light', locale: SOMA.paddleLocale },
+    };
+    if (customData) opts.customData = customData;
+    Paddle.Checkout.open(opts);
   } catch (e) {
     console.warn('[Soma] checkout error', e);
     toast(MSG.checkoutFail);
   }
 }
+
+function buyPodcast(){
+  const inp = document.getElementById('podcast-key');
+  const key = (inp.value || '').trim().toUpperCase();
+  if (!/^SOMA(-[A-Z0-9]{4}){4}$/.test(key)){
+    inp.style.borderColor = '#E0771C';
+    toast(MSG.podcastKeyBad);
+    inp.focus();
+    return;
+  }
+  inp.style.borderColor = '';
+  openCheckout('addon_podcast', { license_key: key });
+}
+document.getElementById('btn-podcast-buy')?.addEventListener('click', buyPodcast);
 $$('[data-sku]').forEach(btn => btn.addEventListener('click', () => openCheckout(btn.dataset.sku)));
 
 /* ---- Demo 影片佔位 ---- */
