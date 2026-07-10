@@ -451,40 +451,27 @@
         <div class="sec-no">SEC.05 / SHELL SELECT</div>
         <div class="sec-en">SHELL<span class="u">_</span></div>
         <h2 class="sec-title">하나만 고르거나, 전부 키우거나</h2>
-        <p class="sec-sub">아래 아바타를 눌러 캐릭터별 외형과 개성을 살펴보세요.</p>
+        <p class="sec-sub">7명의 내장 캐릭터. 아바타를 눌러 외형과 성격을 확인하세요——전부 실시간 3D, 음성과 기억 탑재.</p>
         <div class="f-chakra" style="display:inline-flex;align-items:flex-start;gap:10px;margin-top:18px;background:var(--bg);border:1px solid var(--line);padding:12px 18px;text-align:left;max-width:560px;">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0091AD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px;"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-          <span style="font-size:13px;color:var(--muted);line-height:1.7;">현재 캐릭터는 <strong style="color:var(--ink);">개발 테스트 데모</strong>용입니다. 정식 버전에서는 모금액에 따라 <strong style="color:var(--acc);">정식 캐릭터를 비율대로 추가</strong>합니다.</span>
+          <span style="font-size:13px;color:var(--muted);line-height:1.7;">정식판에는 <strong style="color:var(--ink);">7명의 캐릭터</strong>가 내장（기본판 5명, <strong style="color:#E0771C;">고급판 한정 2명</strong>）; 이후 배치마다 <strong style="color:var(--acc);">새 캐릭터가 계속 추가</strong>됩니다. 직접 가진 VRM／Live2D 모델 임포트도 지원.</span>
         </div>
       </div>
 
       <div class="char-grid hud" data-reveal style="display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center;background:var(--bg);border:1px solid var(--line);padding:40px;">
         <div style="position:relative;display:flex;align-items:flex-end;justify-content:center;min-height:420px;background:radial-gradient(70% 60% at 50% 80%,var(--acc-soft),var(--bg) 75%);border:1px solid var(--line);overflow:hidden;">
           <div class="corner-mark" style="top:10px;left:12px;">UNIT PREVIEW</div>
-          <img data-char-img src="../assets/char-mint.png" alt="サクラ" style="position:relative;width:300px;display:block;filter:drop-shadow(0 26px 34px rgba(0,0,0,.18));animation:somaBreathe 5s ease-in-out infinite;">
+          <img data-char-img src="../assets/characters/vita.png" alt="Vita" style="position:relative;width:300px;display:block;filter:drop-shadow(0 26px 34px rgba(0,0,0,.18));animation:somaBreathe 5s ease-in-out infinite;">
         </div>
         <div>
-          <div data-char-role class="f-chakra" style="display:inline-block;background:var(--acc-soft);color:var(--acc);font-weight:700;font-size:12px;letter-spacing:.1em;padding:6px 14px;">전술계・에너지 담당</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;"><div data-char-role class="f-chakra" style="display:inline-block;background:var(--acc-soft);color:var(--acc);font-weight:700;font-size:12px;letter-spacing:.1em;padding:6px 14px;">전술계・에너지 담당</div><div data-char-tier class="f-chakra" style="display:inline-block;background:var(--acc-soft);color:var(--acc);font-weight:700;font-size:12px;letter-spacing:.1em;padding:6px 14px;">BASIC 기본판부터</div></div>
           <h3 data-char-name style="font-weight:900;font-size:38px;margin:14px 0 2px;">サクラ</h3>
           <div data-char-zh class="f-mich" style="color:var(--dim);font-size:14px;letter-spacing:.14em;margin-bottom:16px;">Sakura</div>
           <p data-char-desc style="color:var(--muted);font-size:16px;margin:0 0 26px;">민트색 긴 머리에 발랄하고 직설적인 성격. 당신이 일할 때 옆에서 응원 겸 잔소리하기를 좋아하는 행동파 어시스턴트——웹 열기, 선곡 부탁도 바로바로 반응해요.</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;">
             <span class="chip">의상 교체</span><span class="chip">머리색</span><span class="chip">액세서리</span><span class="chip">보이스</span>
           </div>
-          <div style="display:flex;gap:14px;" data-char-picker>
-            <button class="char-btn" type="button" data-idx="0" aria-label="サクラ 선택">
-              <img src="../assets/char-mint.png" alt="サクラ" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
-              <span class="char-ring"></span>
-            </button>
-            <button class="char-btn" type="button" data-idx="1" aria-label="ユメ 선택">
-              <img src="../assets/char-goth.png" alt="ユメ" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
-              <span class="char-ring" style="display:none;"></span>
-            </button>
-            <button class="char-btn" type="button" data-idx="2" aria-label="レイ 선택">
-              <img src="../assets/char-office.png" alt="レイ" style="width:100%;height:100%;object-fit:cover;object-position:top center;">
-              <span class="char-ring" style="display:none;"></span>
-            </button>
-          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;" data-char-picker></div>
         </div>
       </div>
     </div>
@@ -941,12 +928,20 @@ const pad = n => String(n).padStart(2, '0');
 
 /* ---- 角色資料 ---- */
 const CHARS = [
-  { name:'サクラ', zh:'Sakura', role:'전술계・에너지 담당', img:'../assets/char-mint.png',
-    desc:'민트색 긴 머리에 발랄하고 직설적인 성격. 당신이 일할 때 옆에서 응원 겸 잔소리하기를 좋아하는 행동파 어시스턴트——웹 열기, 선곡 부탁도 바로바로 반응해요.' },
-  { name:'ユメ', zh:'Yume', role:'다크계・고딕 롤리타', img:'../assets/char-goth.png',
-    desc:'핑크×블랙 고딕 스타일, 나른하면서 독설가. 말수는 적지만 기억력은 최고——조용한 동행과 살짝의 갭 모에를 좋아하는 당신에게 딱이에요.' },
-  { name:'レイ', zh:'Rei', role:'지성파・오피스 비서', img:'../assets/char-office.png',
-    desc:'깔끔한 오피스 룩에 논리정연. 할 일을 정리해 주고, 일정을 읽어 주고, 가장 효율적인 톤으로 한마디 한마디에 답합니다.' },
+  { name:'Vita', zh:'ヴィータ', role:'전자 요정・에너지 담당', tier:'basic', img:'../assets/characters/vita.png',
+    desc:'흰 머리에 오드아이, 고양이 귀 센서와 청록빛 회로 라인. 반응이 가장 빠른 분위기 메이커——언제나 배터리 만충 텐션.' },
+  { name:'Victoria', zh:'ヴィクトリア', role:'공주계・힐링 담당', tier:'basic', img:'../assets/characters/victoria.png',
+    desc:'크림 블론드 단발에 초록 리본, 레이스 원피스. 말투가 보들보들 다정해서 위로가 특기——데스크톱의 작은 공주님.' },
+  { name:'Lusa', zh:'ルサ', role:'모험가・믿음직한 언니', tier:'basic', img:'../assets/characters/lusa.png',
+    desc:'짙은 보라 긴 머리에 가죽 코르셋, 파란 하오리의 여행자 복장. 말수는 적지만 조언 하나하나가 정확한 언니.' },
+  { name:'Colossus', zh:'コロッサス', role:'중장 메카・충직한 호위', tier:'basic', img:'../assets/characters/colossus.png',
+    desc:'중장갑 기체에 라이트 싱크 발화. 말은 적지만 한마디 한마디가 든든한, 데스크톱에 사는 수호 기체.' },
+  { name:'Remi', zh:'レミ', role:'세일러복・옆집 후배', tier:'basic', img:'../assets/characters/remi2.png',
+    desc:'하늘색 숏컷에 세일러복, 몰래 달린 연한 파란 꼬리까지. 수다도 태클도 물 마시라는 잔소리도 척척.' },
+  { name:'HoverBot', zh:'ホバーボット', role:'부유기・고급판 한정', tier:'advanced', img:'../assets/characters/hoverbot.png',
+    desc:'책상 위를 떠다니며 대기하는 정찰 기체. 고급판 도구 능력과 조합하면 말하는 드론 집사가 하나 더 생긴 기분.' },
+  { name:'Alice', zh:'アリス', role:'기갑 발키리・고급판 한정', tier:'advanced', img:'../assets/characters/alice.png',
+    desc:'흑자색 트윈테일×흰 장갑×파란 라이트. 냉정하고 시원시원한 플래그십 기체——데스크톱 자동화 지휘는 그녀에게.' },
 ];
 
 /* ---- FAQ 資料 ---- */
@@ -1062,15 +1057,29 @@ function animateRaised(){
 /* ---- 角色切換 ---- */
 (function characters(){
   const img = $('[data-char-img]'), role = $('[data-char-role]'), name = $('[data-char-name]'),
-        zh = $('[data-char-zh]'), desc = $('[data-char-desc]');
-  const rings = $$('[data-char-picker] .char-ring');
+        zh = $('[data-char-zh]'), desc = $('[data-char-desc]'), tierEl = $('[data-char-tier]');
   function pick(i){
     const c = CHARS[i];
     img.src = c.img; img.alt = c.name;
     role.textContent = c.role; name.textContent = c.name; zh.textContent = c.zh; desc.textContent = c.desc;
-    rings.forEach((r, idx) => r.style.display = idx === i ? 'block' : 'none');
+    if (tierEl){
+      const adv = c.tier === 'advanced';
+      tierEl.textContent = adv ? 'ADVANCED 고급판 한정' : 'BASIC 기본판부터';
+      tierEl.style.background = adv ? 'rgba(224,119,28,.12)' : 'var(--acc-soft)';
+      tierEl.style.color = adv ? '#E0771C' : 'var(--acc)';
+    }
+    $$('[data-char-picker] .char-ring').forEach((r, idx) => r.style.display = idx === i ? 'block' : 'none');
   }
-  $$('[data-char-picker] .char-btn').forEach(btn => btn.addEventListener('click', () => pick(+btn.dataset.idx)));
+  const pickerBox = $('[data-char-picker]');
+  if (pickerBox){
+    CHARS.forEach((c, i) => {
+      const b = document.createElement('button');
+      b.className = 'char-btn'; b.type = 'button'; b.dataset.idx = i; b.setAttribute('aria-label', c.name);
+      b.innerHTML = `<img src="${c.img}" alt="${c.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;object-position:top center;"><span class="char-ring" style="display:${i===0?'block':'none'}"></span>`;
+      b.addEventListener('click', () => pick(i));
+      pickerBox.appendChild(b);
+    });
+  }
   pick(0);
 })();
 
