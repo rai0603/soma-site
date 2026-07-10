@@ -688,7 +688,7 @@
       <div class="card hud-amber hud" data-reveal style="padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
         <div style="flex:1;min-width:260px;">
           <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;font-weight:700;margin-bottom:8px;">
-            <span class="f-chakra" style="color:var(--amber);letter-spacing:.06em;">Batch 1 ・ limited to <span data-batch-total>100</span></span>
+            <span class="f-chakra" style="color:var(--amber);letter-spacing:.06em;">Batch 1 ・ limited to <span data-batch-total>1000</span></span>
             <span style="color:var(--muted);">claimed <strong class="num" data-batch-claimed style="color:var(--ink);font-size:15px;">0</strong> ／ <strong class="num" data-batch-left style="color:var(--amber);font-size:15px;">0</strong> left</span>
           </div>
           <div style="height:8px;background:#EDE4D8;overflow:hidden;"><div data-batch-fill style="width:0;height:100%;background:linear-gradient(90deg,#F0993F,var(--amber));transition:width 1.4s cubic-bezier(.16,1,.3,1);"></div></div>
@@ -707,7 +707,7 @@
             <li>✓ Core chat features</li>
             <li>✓ Plug in your own LLM / voice (BYOK)</li>
             <li>✓ Your own key = unlimited AI usage</li>
-            <li style="color:var(--amber);">★ Limited to 100 per batch</li>
+            <li style="color:var(--amber);">★ Limited to 1,000 per batch</li>
           </ul>
           <button class="cta cta-ghost" type="button" data-sku="buyout_basic" style="padding:12px;font-size:14px;">Back ・ Basic Buyout</button>
         </div>
@@ -724,7 +724,7 @@
             <li style="color:var(--d-muted);font-size:13px;">＋ Duo talk available as add-on (see Podcast below)</li>
             <li>✓ BYOK ・ unlimited AI usage</li>
             <li style="color:var(--amber);">★ 2 exclusive skins for this batch (collector's)</li>
-            <li style="color:var(--amber);">★ Limited to 100</li>
+            <li style="color:var(--amber);">★ Limited to 1,000</li>
           </ul>
           <button class="cta cta-primary" type="button" data-sku="buyout_pro" style="padding:14px;font-size:14px;">Buy Out Now →</button>
         </div>
@@ -944,7 +944,7 @@ const SOMA = {
     raised: 0,                       // 真實已募金額
     backers: 0,                      // 真實支持者數
     countdownDays: 18,               // 早鳥倒數天數
-    batch: { total: 100, claimed: 0 } // 第 1 批限量 / 已售
+    batch: { total: 1000, claimed: 0 } // 第 1 批限量 / 已售
   },
   paddleLocale: 'en',
 };
@@ -979,7 +979,7 @@ const FAQS = [
   { q:'Which operating systems are supported? Will it run on my machine?', a:'The first release supports macOS on both Intel (x64) and Apple Silicon (M-series) chips, running as a transparent, always-on-top, draggable desktop companion. On the roadmap: Phase 2 brings a Mac App Store release (one-click install, automatic updates); Phase 3 adds Windows and Linux. Timing may shift with development and funding progress.' },
   { q:'What is "duo talk"?', a:'Soma\'s signature feature: two AI characters appear on your desktop together and trade lines on their own (Podcast mode — you watch), and you can type in and join anytime (3-way mode). Turns are strictly sequential so voices never collide, the next line is pre-generated for near-zero gaps, you can even pair one Live2D with one VRM in the same scene, and a built-in turn limit keeps costs in check.' },
   { q:'Buyout vs. subscription — which should I pick?', a:'Buyout = pay once, own it forever; AI and voice run on your own keys (BYOK), with unlimited usage billed directly to your providers — best if you want long-term ownership and are happy bringing your own key. Subscription = we manage it for you, with monthly AI credits (Basic 500 messages / Pro 1000) plus voice-synthesis characters included, zero setup, ready out of the box; when you run out, add-on credits keep you going.' },
-  { q:'Are buyouts really limited? What happens when they sell out?', a:'Yes. Buyouts are sold in limited batches of 100, and each batch closes for good once sold out. A new batch opens later — and every Pro buyout batch comes with a different exclusive skin, making each one a collector\'s edition that grows in value. The Founding Collector tier (only 50 ever) permanently unlocks every batch\'s exclusive skins.' },
+  { q:'Are buyouts really limited? What happens when they sell out?', a:'Yes. Buyouts are sold in limited batches of 1,000, and each batch closes for good once sold out. A new batch opens later — and every Pro buyout batch comes with a different exclusive skin, making each one a collector\'s edition that grows in value. The Founding Collector tier (only 50 ever) permanently unlocks every batch\'s exclusive skins.' },
   { q:'Will the early bird subscription price go up? What if I run out of credits?', a:'The early bird annual price is locked forever: keep renewing and you keep the early bird rate (Basic NT$2,490 / Pro NT$4,990 — each saving about 2 months). Monthly plans are also available (Basic NT$299 / Pro NT$599). If you use up your credits, add-on packs keep you going (+300 messages, +30,000 voice-synthesis characters); buyouts run on BYOK, so AI usage has no cap at all.' },
 ];
 
@@ -1082,6 +1082,24 @@ function animateRaised(){
   }
   requestAnimationFrame(step);
 }
+
+
+/* ---- 真實銷售數字（授權後端 /stats；失敗保留靜態值） ---- */
+(function liveStats(){
+  fetch('https://license.soma-agent.com/stats').then(r => r.json()).then(s => {
+    const c = SOMA.campaign;
+    if (typeof s.raised === 'number') c.raised = s.raised;
+    if (typeof s.backers === 'number') c.backers = s.backers;
+    if (typeof s.claimed === 'number') c.batch.claimed = s.claimed;
+    const { total, claimed } = c.batch;
+    const left = Math.max(0, total - claimed);
+    const pct = total ? Math.round(claimed / total * 100) : 0;
+    const set = (sel, v) => { const e = $(sel); if (e) e.textContent = v; };
+    set('[data-batch-total]', total); set('[data-batch-claimed]', claimed); set('[data-batch-left]', left);
+    const f = $('[data-batch-fill]'); if (f) f.style.width = pct + '%';
+    animateRaised();
+  }).catch(() => {});
+})();
 
 /* ---- 倒數 ---- */
 (function countdown(){

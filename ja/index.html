@@ -688,7 +688,7 @@
       <div class="card hud-amber hud" data-reveal style="padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
         <div style="flex:1;min-width:260px;">
           <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;font-weight:700;margin-bottom:8px;">
-            <span class="f-chakra" style="color:var(--amber);letter-spacing:.06em;">第 1 バッチ・限定 <span data-batch-total>100</span> 本</span>
+            <span class="f-chakra" style="color:var(--amber);letter-spacing:.06em;">第 1 バッチ・限定 <span data-batch-total>1000</span> 本</span>
             <span style="color:var(--muted);">支援済み <strong class="num" data-batch-claimed style="color:var(--ink);font-size:15px;">0</strong> ／ 残り <strong class="num" data-batch-left style="color:var(--amber);font-size:15px;">0</strong> 本</span>
           </div>
           <div style="height:8px;background:#EDE4D8;overflow:hidden;"><div data-batch-fill style="width:0;height:100%;background:linear-gradient(90deg,#F0993F,var(--amber));transition:width 1.4s cubic-bezier(.16,1,.3,1);"></div></div>
@@ -707,7 +707,7 @@
             <li>✓ 会話機能</li>
             <li>✓ 自分の LLM／音声を接続（BYOK）</li>
             <li>✓ キー持ち込み＝AI 使用量無制限</li>
-            <li style="color:var(--amber);">★ 各バッチ限定 100 本</li>
+            <li style="color:var(--amber);">★ 各バッチ限定 1,000 本</li>
           </ul>
           <button class="cta cta-ghost" type="button" data-sku="buyout_basic" style="padding:12px;font-size:14px;">支援・ベーシック買い切り</button>
         </div>
@@ -724,7 +724,7 @@
             <li style="color:var(--d-muted);font-size:13px;">＋ デュオ対話はアドオンで追加可（下記 Podcast 参照）</li>
             <li>✓ BYOK・AI 使用量無制限</li>
             <li style="color:var(--amber);">★ 本バッチ限定スキン ×2（コレクターズ）</li>
-            <li style="color:var(--amber);">★ 限定 100 本</li>
+            <li style="color:var(--amber);">★ 限定 1,000 本</li>
           </ul>
           <button class="cta cta-primary" type="button" data-sku="buyout_pro" style="padding:14px;font-size:14px;">今すぐ買い切る →</button>
         </div>
@@ -944,7 +944,7 @@ const SOMA = {
     raised: 0,                       // 真實已募金額
     backers: 0,                      // 真實支持者數
     countdownDays: 18,               // 早鳥倒數天數
-    batch: { total: 100, claimed: 0 } // 第 1 批限量 / 已售
+    batch: { total: 1000, claimed: 0 } // 第 1 批限量 / 已售
   },
   paddleLocale: 'ja',
 };
@@ -979,7 +979,7 @@ const FAQS = [
   { q:'対応 OS は？自分のパソコンで動きますか？', a:'第一弾リリースは macOS 対応で、Intel（x64）と Apple Silicon（M シリーズ）の両チップに対応。透過・最前面表示・ドラッグ可能なデスクトップマスコットとして動作します。今後のロードマップ：第 2 フェーズで Mac App Store に公開（ワンクリックインストール・自動アップデート）、第 3 フェーズで Windows と Linux に対応予定。時期は開発およびクラファンの進捗により変更される場合があります。' },
   { q:'「デュオ対話」とは何ですか？', a:'Soma の看板機能です。二人の AI キャラクターがデスクトップに同時に登場し、勝手に会話のラリーを続けます（Podcast モードではあなたは観客）。いつでもテキストで割り込める三者モードも。発話はシーケンシャルで声がかぶらず、セリフの先行生成で間はほぼゼロ。Live2D と VRM の同時出演も可能で、ラウンド上限内蔵でコストも管理できます。' },
   { q:'買い切りとサブスクの違いは？どちらを選べばいい？', a:'買い切り＝一括払いで永久所有。AI と音声はご自身のキー（BYOK）を使うため使用量は無制限、費用は各サービス事業者へ直接支払います。長く使いたい・キーを自分で用意できる方向け。サブスク＝当方がマネージし、毎月の AI クレジット（ベーシック 500 メッセージ／アドバンス 1000 メッセージ）と音声文字数込み。設定不要ですぐ使え、超過分は追加クレジットで継続できます。' },
-  { q:'買い切りは数量限定ですか？売り切れたらどうなりますか？', a:'はい。買い切りは限定バッチ制で、各バッチ 100 本、完売次第終了です。その後は新しいバッチを再開しますが、アドバンス買い切りにはバッチごとに「異なる限定スキン」が付属——価値の育つコレクターズ版です。ファウンダーコレクタープラン（限定 50 名）なら、全バッチの限定スキンを永久アンロックできます。' },
+  { q:'買い切りは数量限定ですか？売り切れたらどうなりますか？', a:'はい。買い切りは限定バッチ制で、各バッチ 1,000 本、完売次第終了です。その後は新しいバッチを再開しますが、アドバンス買い切りにはバッチごとに「異なる限定スキン」が付属——価値の育つコレクターズ版です。ファウンダーコレクタープラン（限定 50 名）なら、全バッチの限定スキンを永久アンロックできます。' },
   { q:'サブスクの早期価格は後で上がりますか？クレジットを使い切ったら？', a:'早期年額の価格は永久ロック。継続更新している限りずっと早期価格のままです（ベーシック NT$2,490／アドバンス NT$4,990、いずれも約 2 か月分お得）。月額からも始められます（ベーシック NT$299／アドバンス NT$599）。クレジットを使い切っても、追加クレジット（会話 +300 メッセージ、音声 +3 万文字）で継続可能。買い切りは BYOK のため AI 使用量に上限はありません。' },
 ];
 
@@ -1082,6 +1082,24 @@ function animateRaised(){
   }
   requestAnimationFrame(step);
 }
+
+
+/* ---- 真實銷售數字（授權後端 /stats；失敗保留靜態值） ---- */
+(function liveStats(){
+  fetch('https://license.soma-agent.com/stats').then(r => r.json()).then(s => {
+    const c = SOMA.campaign;
+    if (typeof s.raised === 'number') c.raised = s.raised;
+    if (typeof s.backers === 'number') c.backers = s.backers;
+    if (typeof s.claimed === 'number') c.batch.claimed = s.claimed;
+    const { total, claimed } = c.batch;
+    const left = Math.max(0, total - claimed);
+    const pct = total ? Math.round(claimed / total * 100) : 0;
+    const set = (sel, v) => { const e = $(sel); if (e) e.textContent = v; };
+    set('[data-batch-total]', total); set('[data-batch-claimed]', claimed); set('[data-batch-left]', left);
+    const f = $('[data-batch-fill]'); if (f) f.style.width = pct + '%';
+    animateRaised();
+  }).catch(() => {});
+})();
 
 /* ---- 倒數 ---- */
 (function countdown(){

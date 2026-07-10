@@ -689,7 +689,7 @@
       <div class="card hud-amber hud" data-reveal style="padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
         <div style="flex:1;min-width:260px;">
           <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;font-weight:700;margin-bottom:8px;">
-            <span class="f-chakra" style="color:var(--amber);letter-spacing:.06em;">第 1 批・限量 <span data-batch-total>100</span> 份</span>
+            <span class="f-chakra" style="color:var(--amber);letter-spacing:.06em;">第 1 批・限量 <span data-batch-total>1000</span> 份</span>
             <span style="color:var(--muted);">已被支持 <strong class="num" data-batch-claimed style="color:var(--ink);font-size:15px;">0</strong> ／ 剩 <strong class="num" data-batch-left style="color:var(--amber);font-size:15px;">0</strong> 份</span>
           </div>
           <div style="height:8px;background:#EDE4D8;overflow:hidden;"><div data-batch-fill style="width:0;height:100%;background:linear-gradient(90deg,#F0993F,var(--amber));transition:width 1.4s cubic-bezier(.16,1,.3,1);"></div></div>
@@ -708,7 +708,7 @@
             <li>✓ 纯对话功能</li>
             <li>✓ 外挂自己的 LLM／语音（BYOK）</li>
             <li>✓ 自带密钥＝AI 用量无上限</li>
-            <li style="color:var(--amber);">★ 每批限量 100 份</li>
+            <li style="color:var(--amber);">★ 每批限量 1,000 份</li>
           </ul>
           <button class="cta cta-ghost" type="button" data-sku="buyout_basic" style="padding:12px;font-size:14px;">支持・基础买断</button>
         </div>
@@ -725,7 +725,7 @@
             <li style="color:var(--d-muted);font-size:13px;">＋ 双角色对话可加购（见下方 Podcast）</li>
             <li>✓ BYOK・AI 用量无上限</li>
             <li style="color:var(--amber);">★ 本批限定外观 ×2（收藏款）</li>
-            <li style="color:var(--amber);">★ 限量 100 份</li>
+            <li style="color:var(--amber);">★ 限量 1,000 份</li>
           </ul>
           <button class="cta cta-primary" type="button" data-sku="buyout_pro" style="padding:14px;font-size:14px;">立即买断 →</button>
         </div>
@@ -945,7 +945,7 @@ const SOMA = {
     raised: 0,                       // 真實已募金額
     backers: 0,                      // 真實支持者數
     countdownDays: 18,               // 早鳥倒數天數
-    batch: { total: 100, claimed: 0 } // 第 1 批限量 / 已售
+    batch: { total: 1000, claimed: 0 } // 第 1 批限量 / 已售
   },
   paddleLocale: 'zh-Hans',
 };
@@ -980,7 +980,7 @@ const FAQS = [
   { q:'支持哪些操作系统？我的电脑跑得动吗？', a:'首发支持 macOS，且同时兼容 Intel（x64）与 Apple Silicon（M 系列）芯片，以透明置顶、可拖拽的桌宠形式运行。后续蓝图：第二阶段上架 Mac App Store（一键安装、自动更新）；第三阶段支持 Windows 与 Linux。时间表可能依开发与众筹进度调整。' },
   { q:'什么是“双角色对话”？', a:'Soma 的招牌功能：两个 AI 角色一起出现在桌面，会自己你来我往（Podcast 模式你旁观），也能随时打字插话（三方模式）。发言按顺序不打架、句间预生成几乎无空档，还能一只 Live2D 一只 VRM 同框，内置轮数上限让成本可控。' },
   { q:'买断和订阅差在哪？该选哪个？', a:'买断＝一次付清、永久拥有，AI 与语音走你自己的密钥（BYOK），用量无上限、费用直接付给服务商；适合想长期拥有、会自备 key 的人。订阅＝我们托管，含每月 AI 额度（基础 500 条／进阶 1000 条）与语音字数，免设置、开箱即用；超量再用加购点数续用。' },
-  { q:'买断是限量的吗？卖完怎么办？', a:'是。买断采用限量批次，每批 100 份，售完即止；之后会再开放新一批，且进阶买断每批都搭配“不同的限定外观”，是会增值的收藏款。创始收藏家方案（限量 50 名）则可永久解锁每一批的限定外观。' },
+  { q:'买断是限量的吗？卖完怎么办？', a:'是。买断采用限量批次，每批 1,000 份，售完即止；之后会再开放新一批，且进阶买断每批都搭配“不同的限定外观”，是会增值的收藏款。创始收藏家方案（限量 50 名）则可永久解锁每一批的限定外观。' },
   { q:'订阅的早鸟价之后会涨吗？额度用完怎么办？', a:'早鸟年订价格永久锁定，只要持续续订就一直是早鸟价（基础 NT$2,490／进阶 NT$4,990，均省约 2 个月）。也可按月起订（基础 NT$299／进阶 NT$599）。额度用完可购买加购点数续用（对话 +300 条、语音 +3 万字）；买断因为 BYOK，AI 用量没有上限。' },
 ];
 
@@ -1083,6 +1083,24 @@ function animateRaised(){
   }
   requestAnimationFrame(step);
 }
+
+
+/* ---- 真實銷售數字（授權後端 /stats；失敗保留靜態值） ---- */
+(function liveStats(){
+  fetch('https://license.soma-agent.com/stats').then(r => r.json()).then(s => {
+    const c = SOMA.campaign;
+    if (typeof s.raised === 'number') c.raised = s.raised;
+    if (typeof s.backers === 'number') c.backers = s.backers;
+    if (typeof s.claimed === 'number') c.batch.claimed = s.claimed;
+    const { total, claimed } = c.batch;
+    const left = Math.max(0, total - claimed);
+    const pct = total ? Math.round(claimed / total * 100) : 0;
+    const set = (sel, v) => { const e = $(sel); if (e) e.textContent = v; };
+    set('[data-batch-total]', total); set('[data-batch-claimed]', claimed); set('[data-batch-left]', left);
+    const f = $('[data-batch-fill]'); if (f) f.style.width = pct + '%';
+    animateRaised();
+  }).catch(() => {});
+})();
 
 /* ---- 倒數 ---- */
 (function countdown(){

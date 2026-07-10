@@ -689,7 +689,7 @@
       <div class="card hud-amber hud" data-reveal style="padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;">
         <div style="flex:1;min-width:260px;">
           <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;font-weight:700;margin-bottom:8px;">
-            <span class="f-chakra" style="color:var(--amber);letter-spacing:.06em;">1차 배치・한정 <span data-batch-total>100</span>개</span>
+            <span class="f-chakra" style="color:var(--amber);letter-spacing:.06em;">1차 배치・한정 <span data-batch-total>1000</span>개</span>
             <span style="color:var(--muted);">후원 완료 <strong class="num" data-batch-claimed style="color:var(--ink);font-size:15px;">0</strong> ／ 남은 수량 <strong class="num" data-batch-left style="color:var(--amber);font-size:15px;">0</strong>개</span>
           </div>
           <div style="height:8px;background:#EDE4D8;overflow:hidden;"><div data-batch-fill style="width:0;height:100%;background:linear-gradient(90deg,#F0993F,var(--amber));transition:width 1.4s cubic-bezier(.16,1,.3,1);"></div></div>
@@ -708,7 +708,7 @@
             <li>✓ 순수 대화 기능</li>
             <li>✓ 내 LLM/음성 직접 연결(BYOK)</li>
             <li>✓ 내 키 지참＝AI 사용량 무제한</li>
-            <li style="color:var(--amber);">★ 배치당 한정 100개</li>
+            <li style="color:var(--amber);">★ 배치당 한정 1,000개</li>
           </ul>
           <button class="cta cta-ghost" type="button" data-sku="buyout_basic" style="padding:12px;font-size:14px;">후원・베이직 소장판</button>
         </div>
@@ -725,7 +725,7 @@
             <li style="color:var(--d-muted);font-size:13px;">＋ 듀오 대화는 애드온으로 추가 가능（아래 Podcast 참고）</li>
             <li>✓ BYOK・AI 사용량 무제한</li>
             <li style="color:var(--amber);">★ 이번 배치 한정 스킨 ×2(컬렉터스)</li>
-            <li style="color:var(--amber);">★ 한정 100개</li>
+            <li style="color:var(--amber);">★ 한정 1,000개</li>
           </ul>
           <button class="cta cta-primary" type="button" data-sku="buyout_pro" style="padding:14px;font-size:14px;">지금 소장하기 →</button>
         </div>
@@ -945,7 +945,7 @@ const SOMA = {
     raised: 0,                       // 真實已募金額
     backers: 0,                      // 真實支持者數
     countdownDays: 18,               // 早鳥倒數天數
-    batch: { total: 100, claimed: 0 } // 第 1 批限量 / 已售
+    batch: { total: 1000, claimed: 0 } // 第 1 批限量 / 已售
   },
   paddleLocale: 'ko',
 };
@@ -980,7 +980,7 @@ const FAQS = [
   { q:'어떤 운영체제를 지원하나요? 제 컴퓨터에서 돌아갈까요?', a:'1차 출시는 macOS를 지원하며 Intel(x64)과 Apple Silicon(M 시리즈) 칩 모두 호환됩니다. 투명 최상위·드래그 가능한 데스크톱 마스코트 형태로 동작해요. 이후 로드맵: 2단계로 Mac App Store 출시(원클릭 설치·자동 업데이트), 3단계로 Windows와 Linux 지원. 일정은 개발 및 펀딩 진행 상황에 따라 조정될 수 있습니다.' },
   { q:'\'듀오 대화\'가 뭔가요?', a:'Soma의 시그니처 기능입니다. 두 AI 캐릭터가 데스크톱에 함께 등장해 알아서 주거니 받거니 대화하고(Podcast 모드에서는 당신이 관람), 언제든 텍스트로 끼어들 수도 있습니다(3자 모드). 발언은 순차 처리라 겹치지 않고, 문장 사이 사전 생성으로 공백이 거의 없으며, Live2D 하나＋VRM 하나 같은 화면도 가능합니다. 턴 수 상한이 내장돼 비용도 관리됩니다.' },
   { q:'영구 소장판과 구독은 뭐가 다른가요? 어느 쪽을 골라야 하죠?', a:'영구 소장판＝일시불 결제로 평생 소장. AI와 음성은 내 키(BYOK)로 연결해 사용량 무제한이며 비용은 서비스 제공사에 직접 지불합니다. 오래 소장하고 싶고 키를 직접 준비할 수 있는 분께 적합해요. 구독＝저희가 매니지드로 운영하며 월 AI 크레딧(베이직 500회/프로 1000회)과 음성 글자 수가 포함됩니다. 설정 없이 바로 사용하고, 초과분은 추가 크레딧으로 이어 쓰면 됩니다.' },
-  { q:'영구 소장판은 한정 수량인가요? 완판되면 어떻게 되나요?', a:'네. 영구 소장판은 한정 배치 방식으로 배치당 100개, 완판 시 판매를 종료합니다. 이후 새 배치가 다시 열리며, 프로 소장판은 배치마다 \'서로 다른 한정 스킨\'이 함께 제공되는, 가치가 쌓이는 컬렉터스 에디션입니다. 파운더 컬렉터 플랜(한정 50명)은 모든 배치의 한정 스킨을 영구 해금할 수 있습니다.' },
+  { q:'영구 소장판은 한정 수량인가요? 완판되면 어떻게 되나요?', a:'네. 영구 소장판은 한정 배치 방식으로 배치당 1,000개, 완판 시 판매를 종료합니다. 이후 새 배치가 다시 열리며, 프로 소장판은 배치마다 \'서로 다른 한정 스킨\'이 함께 제공되는, 가치가 쌓이는 컬렉터스 에디션입니다. 파운더 컬렉터 플랜(한정 50명)은 모든 배치의 한정 스킨을 영구 해금할 수 있습니다.' },
   { q:'구독 얼리버드 가격은 나중에 오르나요? 크레딧을 다 쓰면요?', a:'얼리버드 연간 가격은 평생 고정입니다. 계속 갱신하는 한 언제나 얼리버드 가격이에요(베이직 NT$2,490/프로 NT$4,990, 모두 약 2개월치 할인). 월 구독(베이직 NT$299/프로 NT$599)으로 시작할 수도 있습니다. 크레딧을 다 쓰면 추가 크레딧(대화 +300회, 음성 +3만 자)을 구매해 이어 쓸 수 있고, 영구 소장판은 BYOK라 AI 사용량에 상한이 없습니다.' },
 ];
 
@@ -1083,6 +1083,24 @@ function animateRaised(){
   }
   requestAnimationFrame(step);
 }
+
+
+/* ---- 真實銷售數字（授權後端 /stats；失敗保留靜態值） ---- */
+(function liveStats(){
+  fetch('https://license.soma-agent.com/stats').then(r => r.json()).then(s => {
+    const c = SOMA.campaign;
+    if (typeof s.raised === 'number') c.raised = s.raised;
+    if (typeof s.backers === 'number') c.backers = s.backers;
+    if (typeof s.claimed === 'number') c.batch.claimed = s.claimed;
+    const { total, claimed } = c.batch;
+    const left = Math.max(0, total - claimed);
+    const pct = total ? Math.round(claimed / total * 100) : 0;
+    const set = (sel, v) => { const e = $(sel); if (e) e.textContent = v; };
+    set('[data-batch-total]', total); set('[data-batch-claimed]', claimed); set('[data-batch-left]', left);
+    const f = $('[data-batch-fill]'); if (f) f.style.width = pct + '%';
+    animateRaised();
+  }).catch(() => {});
+})();
 
 /* ---- 倒數 ---- */
 (function countdown(){
