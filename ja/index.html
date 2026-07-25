@@ -504,26 +504,19 @@
   <!-- ============ DEMO ============ -->
   <section id="demo" class="dark" style="padding:92px 24px;background:var(--d-bg);position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 2px,transparent 2px 4px);pointer-events:none;"></div>
-    <div class="demo-grid" style="max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr 320px;gap:56px;align-items:center;position:relative;">
+    <div class="demo-grid" style="max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:56px;align-items:center;position:relative;">
       <div data-reveal>
         <div class="sec-no">SEC.06 / SEE IT IN ACTION</div>
         <div class="sec-en">DEMO<span class="u">_</span></div>
-        <h2 class="sec-title">30 秒でわかる Soma Agent</h2>
-        <p class="sec-sub" style="margin:0 0 28px;max-width:380px;">縦型ショート動画、デスクトップの彼女とまったく同じ比率。二人が勝手に語り合い、声を出し、Spotify で選曲する様子をどうぞ。</p>
+        <h2 class="sec-title">動画で見る Soma Agent</h2>
+        <p class="sec-sub" style="margin:0 0 28px;max-width:380px;">実際のツール実行を収録 — 音声コマンド → 安全確認 → デスクトップが本当に動く。台本なしの実録です。</p>
         <div style="display:flex;flex-direction:column;gap:14px;">
-          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">1</span><span style="font-size:14.5px;color:var(--d-fg);">「YOASOBI をかけて」→ 彼女が Spotify で選曲</span></div>
-          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">2</span><span style="font-size:14.5px;color:var(--d-fg);">二人がひとつのテーマで語り合い、ひと言挟めばあなたの方へ</span></div>
-          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">3</span><span style="font-size:14.5px;color:var(--d-fg);">衣装を替えると → 表情もモーションも即座に変化</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">1</span><span style="font-size:14.5px;color:var(--d-fg);">Appleサイトを開く・YouTubeでハイライト検索</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">2</span><span style="font-size:14.5px;color:var(--d-fg);">CapCutをひとことで起動</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">3</span><span style="font-size:14.5px;color:var(--d-fg);">実行前に必ず確認（「はい」と言うだけ）</span></div>
         </div>
       </div>
-      <div data-reveal data-delay="120" style="position:relative;justify-self:center;">
-        <div class="hud" style="position:relative;width:300px;aspect-ratio:9/16;overflow:hidden;background:radial-gradient(70% 60% at 50% 24%,#232a36,#0d0f15);border:1px solid var(--d-line);">
-          <img src="../assets/characters/alice.png" alt="" aria-hidden="true" style="position:absolute;left:50%;bottom:0;transform:translateX(-50%);height:78%;opacity:.6;filter:drop-shadow(0 0 40px rgba(102,224,242,.35));">
-          <button class="cta" type="button" data-demo aria-label="Demo を再生" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:76px;height:76px;border:1px solid var(--d-acc);background:rgba(102,224,242,.12);color:var(--d-acc);font-size:26px;">▶</button>
-          <div class="f-dot" style="position:absolute;top:14px;left:14px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.5);padding:5px 11px;"><span style="width:6px;height:6px;background:var(--amber);animation:blink 1.2s steps(1) infinite;"></span><span style="font-size:10px;color:#fff;letter-spacing:.12em;">LIVE DEMO</span></div>
-          <div class="f-chakra" style="position:absolute;left:14px;right:14px;bottom:14px;background:rgba(0,0,0,.5);padding:9px 14px;font-size:11.5px;font-weight:700;text-align:center;color:var(--d-muted);letter-spacing:.06em;">9:16 縦型・動画は準備中</div>
-        </div>
-      </div>
+      <div data-reveal data-delay="120" style="width:100%;"><div class="hud" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#000;border:1px solid var(--d-line);"><video controls preload="none" poster="../assets/demo/poster-ja.jpg" src="../assets/demo/demo-ja.mp4" style="position:absolute;inset:0;width:100%;height:100%;"></video><div class="f-dot" style="position:absolute;top:14px;left:14px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.55);padding:5px 11px;pointer-events:none;"><span style="width:6px;height:6px;background:var(--amber);animation:blink 1.2s steps(1) infinite;"></span><span style="font-size:10px;color:#fff;letter-spacing:.12em;">REAL TOOL-USE · UNSCRIPTED</span></div></div></div>
     </div>
   </section>
 
@@ -1062,7 +1055,7 @@ document.getElementById('btn-podcast-buy')?.addEventListener('click', buyPodcast
 $$('[data-sku]').forEach(btn => btn.addEventListener('click', () => openCheckout(btn.dataset.sku)));
 
 /* ---- Demo 影片佔位 ---- */
-$$('[data-demo]').forEach(btn => btn.addEventListener('click', () => toast(MSG.demoSoon)));
+$$('[data-demo]').forEach(btn => btn.addEventListener('click', () => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })));
 
 /* ---- 募資數字 / 目標 ---- */
 $$('[data-goal]').forEach(el => el.textContent = fmtNT(SOMA.campaign.goal));

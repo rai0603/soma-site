@@ -504,26 +504,19 @@
   <!-- ============ DEMO ============ -->
   <section id="demo" class="dark" style="padding:92px 24px;background:var(--d-bg);position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.14) 0 2px,transparent 2px 4px);pointer-events:none;"></div>
-    <div class="demo-grid" style="max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr 320px;gap:56px;align-items:center;position:relative;">
+    <div class="demo-grid" style="max-width:980px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:56px;align-items:center;position:relative;">
       <div data-reveal>
         <div class="sec-no">SEC.06 / SEE IT IN ACTION</div>
         <div class="sec-en">DEMO<span class="u">_</span></div>
-        <h2 class="sec-title">30 秒看懂 Soma Agent</h2>
-        <p class="sec-sub" style="margin:0 0 28px;max-width:380px;">竖屏短视频，跟桌面上的她一模一样的比例。看两只怎么自己聊、开口说话、Spotify 点歌。</p>
+        <h2 class="sec-title">一支视频看懂 Soma Agent</h2>
+        <p class="sec-sub" style="margin:0 0 28px;max-width:380px;">真实工具执行实录：语音下令 → 安全确认 → 桌面真的动起来。全程真实执行、无脚本摆拍。</p>
         <div style="display:flex;flex-direction:column;gap:14px;">
-          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">1</span><span style="font-size:14.5px;color:var(--d-fg);">“播周杰伦”→ 她开 Spotify 点歌</span></div>
-          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">2</span><span style="font-size:14.5px;color:var(--d-fg);">两只就一个主题自己对谈，你插一句就转向你</span></div>
-          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">3</span><span style="font-size:14.5px;color:var(--d-fg);">换一套衣服 → 表情动作实时跟着变</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">1</span><span style="font-size:14.5px;color:var(--d-fg);">YouTube 看世界杯集锦、打开剪映</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">2</span><span style="font-size:14.5px;color:var(--d-fg);">存储卡 329 个文件，一句话备份上云端＋打开文件夹给你看</span></div>
+          <div style="display:flex;align-items:center;gap:12px;"><span class="f-dot" style="width:30px;height:30px;border:1px solid var(--d-line);color:var(--d-acc);display:flex;align-items:center;justify-content:center;">3</span><span style="font-size:14.5px;color:var(--d-fg);">每个动作执行前，都先问过你（语音「可以」）</span></div>
         </div>
       </div>
-      <div data-reveal data-delay="120" style="position:relative;justify-self:center;">
-        <div class="hud" style="position:relative;width:300px;aspect-ratio:9/16;overflow:hidden;background:radial-gradient(70% 60% at 50% 24%,#232a36,#0d0f15);border:1px solid var(--d-line);">
-          <img src="../assets/characters/alice.png" alt="" aria-hidden="true" style="position:absolute;left:50%;bottom:0;transform:translateX(-50%);height:78%;opacity:.6;filter:drop-shadow(0 0 40px rgba(102,224,242,.35));">
-          <button class="cta" type="button" data-demo aria-label="播放 Demo" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:76px;height:76px;border:1px solid var(--d-acc);background:rgba(102,224,242,.12);color:var(--d-acc);font-size:26px;">▶</button>
-          <div class="f-dot" style="position:absolute;top:14px;left:14px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.5);padding:5px 11px;"><span style="width:6px;height:6px;background:var(--amber);animation:blink 1.2s steps(1) infinite;"></span><span style="font-size:10px;color:#fff;letter-spacing:.12em;">LIVE DEMO</span></div>
-          <div class="f-chakra" style="position:absolute;left:14px;right:14px;bottom:14px;background:rgba(0,0,0,.5);padding:9px 14px;font-size:11.5px;font-weight:700;text-align:center;color:var(--d-muted);letter-spacing:.06em;">9:16 竖屏・等你提供视频链接</div>
-        </div>
-      </div>
+      <div data-reveal data-delay="120" style="width:100%;"><div class="hud" style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#000;border:1px solid var(--d-line);"><video controls preload="none" poster="../assets/demo/poster-cn.jpg" src="../assets/demo/demo-cn.mp4" style="position:absolute;inset:0;width:100%;height:100%;"></video><div class="f-dot" style="position:absolute;top:14px;left:14px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.55);padding:5px 11px;pointer-events:none;"><span style="width:6px;height:6px;background:var(--amber);animation:blink 1.2s steps(1) infinite;"></span><span style="font-size:10px;color:#fff;letter-spacing:.12em;">REAL TOOL-USE · UNSCRIPTED</span></div></div></div>
     </div>
   </section>
 
@@ -1063,7 +1056,7 @@ document.getElementById('btn-podcast-buy')?.addEventListener('click', buyPodcast
 $$('[data-sku]').forEach(btn => btn.addEventListener('click', () => openCheckout(btn.dataset.sku)));
 
 /* ---- Demo 影片佔位 ---- */
-$$('[data-demo]').forEach(btn => btn.addEventListener('click', () => toast(MSG.demoSoon)));
+$$('[data-demo]').forEach(btn => btn.addEventListener('click', () => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })));
 
 /* ---- 募資數字 / 目標 ---- */
 $$('[data-goal]').forEach(el => el.textContent = fmtNT(SOMA.campaign.goal));
