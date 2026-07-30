@@ -498,6 +498,22 @@
           <div style="display:flex;gap:10px;flex-wrap:wrap;" data-char-picker></div>
         </div>
       </div>
+
+      <!-- 角色訪談實錄：8 角 × 5 語，9:16 直式（影片本體五語共用，卡片文案隨頁面語言） -->
+      <div data-reveal data-delay="140" style="margin-top:60px;">
+        <div style="text-align:center;max-width:560px;margin:0 auto 28px;">
+          <h3 style="font-weight:900;font-size:27px;margin:0 0 10px;">本人たちに聞いてみた</h3>
+          <p style="color:var(--muted);font-size:15px;line-height:1.75;margin:0;">キャラクターごとに、来歴も性格も好みも違います。以下はその場で交わした本物の会話——質問はライブ、返事はすべてリアルタイム生成、5つの言語で。</p>
+        </div>
+        <div class="hud" style="position:relative;width:100%;max-width:352px;margin:0 auto;aspect-ratio:9/16;overflow:hidden;background:#000;border:1px solid var(--line);">
+          <video controls preload="none" poster="../assets/demo/cast-poster-ja.jpg" src="../assets/demo/cast-ja.mp4"
+                 style="position:absolute;inset:0;width:100%;height:100%;"></video>
+          <div class="f-dot" style="position:absolute;top:12px;left:12px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.55);padding:5px 10px;pointer-events:none;">
+            <span style="width:6px;height:6px;background:var(--amber);animation:blink 1.2s steps(1) infinite;"></span>
+            <span style="font-size:10px;color:#fff;letter-spacing:.12em;">UNSCRIPTED · 5 LANGUAGES</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
