@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soma Agent 使用教程｜安装、激活与功能说明</title>
+<meta name="description" content="Soma Agent 的完整使用教程：安装、7 天试用、购买与序号激活、AI 模型设置、角色与记忆、语音、导入自己的模型，以及疑难排解。">
+<meta name="theme-color" content="#F2F4F7">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Soma Agent 使用教程｜安装、激活与功能说明">
+<meta property="og:description" content="Soma Agent 的完整使用教程：安装、7 天试用、购买与序号激活、AI 模型设置、角色与记忆、语音、导入自己的模型，以及疑难排解。">
+<meta property="og:url" content="https://soma-agent.com/cn/help.html">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/help.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://soma-agent.com/cn/help.html">
+<link rel="alternate" hreflang="en" href="https://soma-agent.com/en/help.html">
+<link rel="alternate" hreflang="ja" href="https://soma-agent.com/ja/help.html">
+<link rel="alternate" hreflang="ko" href="https://soma-agent.com/ko/help.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Orbitron:wght@600;800&family=Chakra+Petch:wght@300;400;500;700&family=DotGothic16&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F4F7; --panel:#FFFFFF; --ink:#14161D; --muted:#5A6172; --dim:#9AA2B3; --line:#D8DCE4;
+    --acc:#0091AD; --acc-soft:#E3F4F8; --amber:#E0771C; --amber-soft:#FBEEDF;
+    --d-bg:#14161D; --d-line:#2A2E3A; --d-fg:#F2F3F7; --d-muted:#A6ACBD; --d-dim:#6A7183; --d-acc:#66E0F2;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{background:var(--bg);color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.75;}
+  a{color:inherit;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(242,244,247,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  nav{max-width:1100px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px;}
+  .logo{font-family:'Orbitron',sans-serif;font-weight:800;font-size:18px;letter-spacing:.22em;text-decoration:none;}
+  .logo i{color:var(--acc);font-style:normal;animation:blink 1.05s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .navright{display:flex;align-items:center;gap:16px;}
+  .lang{display:flex;gap:2px;font-size:12px;}
+  .lang a{padding:4px 7px;text-decoration:none;color:var(--dim);border:1px solid transparent;border-radius:3px;}
+  .lang a.on{color:var(--acc);border-color:var(--acc);}
+  .cta{display:inline-block;text-decoration:none;font-weight:700;border-radius:4px;padding:9px 18px;font-size:13px;}
+  .cta-primary{background:var(--acc);color:#fff;}
+  .cta-ghost{border:1px solid var(--line);color:var(--muted);background:var(--panel);}
+
+  .hero{padding:56px 0 34px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:'DotGothic16',monospace;font-size:11px;letter-spacing:.2em;color:var(--dim);margin-bottom:10px;}
+  h1{font-size:42px;font-weight:900;letter-spacing:.02em;margin:0 0 12px;}
+  .lead{color:var(--muted);font-size:16px;max-width:62ch;margin:0 0 22px;}
+
+  /* 水平 padding 要跟 .wrap 一致——只寫 padding 簡寫會把 .wrap 的左右 padding 蓋掉 */
+  .cols{display:grid;grid-template-columns:236px 1fr;gap:52px;align-items:start;padding:40px 24px 72px;}
+  /* grid item 預設 min-width:auto，內文的長網址會把軌道撐到超出視窗 → 手機版橫向溢出 */
+  .cols > *{min-width:0;}
+  .h-p,.h-note,.h-list li,.h-steps li,.h-rows dt,.h-rows dd{overflow-wrap:break-word;}
+  .toc{position:sticky;top:92px;}
+  .toc h3{font-family:'Michroma',sans-serif;font-size:11px;letter-spacing:.28em;color:var(--acc);margin:0 0 14px;font-weight:400;}
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc li{margin-bottom:2px;}
+  .toc a{display:flex;gap:10px;text-decoration:none;color:var(--muted);font-size:13.5px;padding:5px 8px;border-radius:4px;border-left:2px solid transparent;}
+  .toc a:hover{color:var(--ink);background:var(--panel);border-left-color:var(--acc);}
+  .toc .n{font-family:'Chakra Petch',sans-serif;color:var(--dim);font-size:12px;}
+
+  .h-sec{position:relative;padding:0 0 44px;}
+  .h-sec + .h-sec{border-top:1px solid var(--line);padding-top:38px;}
+  .h-sec-no{font-family:'DotGothic16',monospace;font-size:11px;letter-spacing:.2em;color:var(--dim);margin-bottom:6px;}
+  .h-sec h2{font-size:25px;font-weight:800;margin:0 0 16px;letter-spacing:.01em;scroll-margin-top:92px;}
+  .h-p{margin:0 0 14px;max-width:70ch;}
+  .h-note{margin:16px 0;padding:13px 16px;background:var(--acc-soft);border-left:3px solid var(--acc);border-radius:0 4px 4px 0;font-size:14.5px;color:#0d3d47;max-width:70ch;}
+  .h-list{margin:0 0 14px;padding-left:20px;max-width:70ch;}
+  .h-list li{margin-bottom:7px;}
+  .h-steps{counter-reset:s;list-style:none;margin:0 0 16px;padding:0;max-width:70ch;}
+  .h-steps li{counter-increment:s;position:relative;padding-left:40px;margin-bottom:13px;}
+  .h-steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--acc);color:#fff;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;}
+  .h-rows{margin:0 0 14px;display:grid;grid-template-columns:minmax(150px,auto) 1fr;gap:0;border-top:1px solid var(--line);}
+  .h-rows dt{padding:11px 16px 11px 0;border-bottom:1px solid var(--line);font-weight:700;font-size:14.5px;}
+  .h-rows dd{padding:11px 0 11px 16px;border-bottom:1px solid var(--line);margin:0;color:var(--muted);font-size:14.5px;}
+  .h-sec a{color:var(--acc);}
+
+  .stuck{background:var(--d-bg);color:var(--d-muted);padding:34px 0;border-top:1px solid var(--d-line);}
+  .stuck h3{color:var(--d-fg);font-size:19px;margin:0 0 8px;}
+  .stuck p{margin:0 0 16px;font-size:14.5px;}
+  .stuck .links{display:flex;flex-wrap:wrap;gap:12px;}
+  .stuck .links a{display:inline-block;padding:9px 16px;border:1px solid var(--d-line);border-radius:4px;text-decoration:none;color:var(--d-fg);font-size:13.5px;}
+  .stuck .links a:hover{border-color:var(--d-acc);color:var(--d-acc);}
+
+  footer{background:#0e1015;color:var(--d-muted);padding:26px 0;font-size:12.5px;}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  footer a{color:inherit;}
+
+  @media(max-width:900px){
+    .cols{grid-template-columns:1fr;gap:26px;padding-top:26px;}
+    .toc{position:static;border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:16px;}
+    h1{font-size:32px;}
+    .h-rows{grid-template-columns:1fr;}
+    .h-rows dt{border-bottom:none;padding-bottom:2px;}
+    .h-rows dd{padding-left:0;}
+    .navright .cta-primary{display:none;}
+  }
+
+  /* 列印：拿掉導覽與底色，用來出 PDF 快速上手單張 */
+  @media print{
+    header,.toc,.stuck,footer,.hero .cta{display:none !important;}
+    body{background:#fff;font-size:11.5pt;}
+    .cols{display:block;padding:0;}
+    .h-sec{break-inside:avoid;padding-bottom:18px;}
+    .h-note{background:#f4f4f4;color:#000;}
+    a{text-decoration:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="logo" href="index.html">SOMA<i>_</i></a>
+    <div class="navright">
+      <div class="lang"><a href="../help.html" lang="zh-Hant">繁</a><a class="on" href="help.html" lang="zh-Hans">简</a><a href="../en/help.html" lang="en">EN</a><a href="../ja/help.html" lang="ja">日</a><a href="../ko/help.html" lang="ko">한</a></div>
+      <a class="cta cta-ghost" href="index.html">回首页</a>
+      <a class="cta cta-primary" href="index.html#download">下载 macOS 版</a>
+    </div>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">SEC.00 / GUIDE</div>
+    <h1>使用教程</h1>
+    <p class="lead">从安装到激活，再到把它调成你要的样子。App 内 ⚙ 设置 → 说明也能看到同一份内容。</p>
+  </div>
+</div>
+
+<div class="wrap cols">
+  <aside class="toc">
+    <h3>目录</h3>
+    <ol><li><a href="#intro"><span class="n">01</span>这是什么</a></li><li><a href="#quickstart"><span class="n">02</span>快速开始</a></li><li><a href="#ai-models"><span class="n">03</span>AI 模型与密钥</a></li><li><a href="#license"><span class="n">04</span>授权与试用</a></li><li><a href="#purchase"><span class="n">05</span>购买与激活</a></li><li><a href="#characters"><span class="n">06</span>角色、记忆与语言</a></li><li><a href="#voice"><span class="n">07</span>语音</a></li><li><a href="#import"><span class="n">08</span>导入自己的模型</a></li><li><a href="#troubleshooting"><span class="n">09</span>疑难排解</a></li><li><a href="#about"><span class="n">10</span>平台与热键</a></li></ol>
+  </aside>
+  <main>
+      <section class="h-sec" id="intro">
+        <div class="h-sec-no">01</div>
+        <h2>这是什么</h2>
+        <p class="h-p">Soma 不是「对话框里的 AI」，是一只浮在你桌面、看得到、会行动的伙伴。</p>
+        <ul class="h-list"><li>桌面形象：VRM／Live2D 角色透明浮在桌面、常驻置顶，会对嘴、会做表情。</li><li>会说话：逐句串流语音，讲话时嘴型同步。</li><li>有记忆：每个角色各自记住跟你聊过的重点。</li><li>会行动（进阶版）：开网页、整理文件、控制音乐——走出对话框操作真实桌面。</li></ul>
+      </section>
+
+      <section class="h-sec" id="quickstart">
+        <div class="h-sec-no">02</div>
+        <h2>快速开始</h2>
+        <p class="h-p">从安装到说第一句话，四个步骤。</p>
+        <ol class="h-steps"><li>把 Soma Agent 拖进「应用程序」再打开（直接从 dmg 开会找不到）。</li><li>选择界面语言。之后可以在设置改，也不影响角色讲什么语言。</li><li>在 ⚙ 设置 → 授权填 Email 开始 7 天试用，或贴上你购买的序列号。</li><li>在 ⚙ 设置 → AI 模型贴上 API key（或选 Ollama 走免费本地模型），然后就能开始聊了。</li></ol>
+        <p class="h-note">Soma 刻意不显示在程序坞——桌面上那只半透明角色就是它。找不到窗口时用 Spotlight 搜「Soma」。</p>
+      </section>
+
+      <section class="h-sec" id="ai-models">
+        <div class="h-sec-no">03</div>
+        <h2>AI 模型与密钥</h2>
+        <p class="h-p">Soma 不转卖 AI 额度。你用自己的 API key 直接连到模型供应商，用多少付多少给他们，对话不经过我们的服务器。这就是 BYOK（自备密钥）。</p>
+        <dl class="h-rows"><dt>Anthropic（Claude）</dt><dd><a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a>｜唯一支持桌面工具、看图与 PDF</dd><dt>OpenAI（GPT）</dt><dd><a href="https://platform.openai.com" target="_blank" rel="noopener">platform.openai.com</a>｜纯对话</dd><dt>Google Gemini</dt><dd><a href="https://aistudio.google.com" target="_blank" rel="noopener">aistudio.google.com</a>｜纯对话</dd><dt>Ollama（本机）</dt><dd><a href="https://ollama.com" target="_blank" rel="noopener">ollama.com</a>｜完全免费、数据不外流，纯对话</dd></dl>
+        <p class="h-note">你的 key 只存在这台电脑的 secrets.json（文件权限 600），只有 Rust 端读得到——不会进到网页层，也不会传给我们。</p>
+        <p class="h-p">费用看模型。Haiku 最便宜，一般闲聊一条大约几毛钱；改用 Opus 或每次都带大量附件会明显往上。想完全免费就用 Ollama。</p>
+      </section>
+
+      <section class="h-sec" id="license">
+        <div class="h-sec-no">04</div>
+        <h2>授权与试用</h2>
+        <p class="h-p">在 ⚙ 设置 → 授权填 Email 就能开始 7 天免费试用，不需要付款信息。序列号会寄到你的邮箱，换电脑时用得到。试用期是基础版功能。</p>
+        <p class="h-p">试用结束后角色、设置和聊天记忆全部保留，只是不能再发消息。购买后贴上序列号就能接着用。</p>
+        <p class="h-p">买断制、没有月费：基础版 NT$599、进阶版 NT$899（多两位角色与桌面工具）、Podcast 双角色对话加购 NT$399。</p>
+        <p class="h-note">基础版绑 1 台、进阶版 2 台。换电脑时先在旧机按「解除绑定」，再到新机贴同一组序列号。</p>
+      </section>
+
+      <section class="h-sec" id="purchase">
+        <div class="h-sec-no">05</div>
+        <h2>购买与激活</h2>
+        <p class="h-p">在官网 <a href="https://soma-agent.com" target="_blank" rel="noopener">soma-agent.com</a> 选方案结账，付款由 Paddle 处理（支持信用卡与常见电子钱包）。买断制，付一次就永久可用。</p>
+        <ol class="h-steps"><li>到官网「支持方案」选基础版或进阶版；需要双角色对话再加购 Podcast。</li><li>在 Paddle 结账窗口完成付款，Email 请填你收得到信的那一个。</li><li>序号会寄到该邮箱，通常几分钟内送达。</li><li>打开 Soma Agent → ⚙ 设置 → 授权，粘贴序号按「激活」。</li></ol>
+        <p class="h-p">没收到序号邮件：先看垃圾邮件箱，再到官网「找回序号」页输入同一个 Email 重寄。还是没有就寄 <a href="mailto:support@<a href="https://soma-agent.com" target="_blank" rel="noopener">soma-agent.com</a>">support@<a href="https://soma-agent.com" target="_blank" rel="noopener">soma-agent.com</a></a>。</p>
+        <p class="h-p">官网「我的账号」页可以用 Email 收登录链接（不必设密码），查看名下的授权、已绑定的设备，以及解除旧电脑的绑定。</p>
+        <p class="h-note">Podcast 加购要在结账时填入既有序号，才会挂到同一组授权上。退款依官网退款政策办理。</p>
+      </section>
+
+      <section class="h-sec" id="characters">
+        <div class="h-sec-no">06</div>
+        <h2>角色、记忆与语言</h2>
+        <p class="h-p">⚙ 设置 → 角色可以切换或新增角色。每个角色有自己的人设、记忆和外观，互不干扰。</p>
+        <p class="h-note">语言和声线是「每个角色各自」的设置，随时可换——任何角色都能讲任何语言。回复语言在 ⚙ 设置 → 角色改，声线在 → 语音改。</p>
+        <p class="h-p">角色会记住聊过的事，并慢慢整理成长期记忆。可以在角色设置里查看或清除。</p>
+        <p class="h-p">有 Podcast 加购时，点输入栏上的双人图标可以让两只角色互相聊（你旁观）或三方一起聊。</p>
+      </section>
+
+      <section class="h-sec" id="voice">
+        <div class="h-sec-no">07</div>
+        <h2>语音</h2>
+        <p class="h-p">在 ⚙ 设置 → 语音填入 Azure Speech 的密钥与区域，角色才会出声；没设置时会退回系统声音。</p>
+        <p class="h-p">语音输入：按住右边的 Option 键说话，放开发送。需要在系统设置给「输入监控」权限，热键可以改。</p>
+      </section>
+
+      <section class="h-sec" id="import">
+        <div class="h-sec-no">08</div>
+        <h2>导入自己的模型</h2>
+        <p class="h-p">⚙ 设置 → 形象与外观 → 导入模型，支持 .vrm 与 Live2D（文件夹或 zip）。自己导入的模型不受版本限制，基础版也能用。</p>
+        <p class="h-note">Live2D 贴图必须是 RGBA PNG。用调色板（indexed）格式的贴图会让角色卡在「准备中…」。</p>
+      </section>
+
+      <section class="h-sec" id="troubleshooting">
+        <div class="h-sec-no">09</div>
+        <h2>疑难排解</h2>
+        <dl class="h-rows"><dt>没有程序坞图标</dt><dd>正常，桌宠刻意不显示在程序坞，只有桌面上那只角色。</dd><dt>角色卡在「准备中…」</dt><dd>多半是导入模型的贴图不是 RGBA PNG，转档后重新导入。</dd><dt>加图片却说只支持 Claude</dt><dd>图片与 PDF 只有 Anthropic 模型能读，把对话模型切回 Claude。</dd><dt>没有声音</dt><dd>确认 ⚙ 设置 → 语音的 Azure 密钥与区域都填了，并检查系统音量没静音。</dd><dt>语音输入没反应</dt><dd>需要在系统设置 → 隐私与安全性 → 输入监控里允许 Soma。</dd><dt>抓网页没有内容</dt><dd>网页工具只有 Anthropic 模型可用，且要给完整的 http(s) 网址。</dd></dl>
+      </section>
+
+      <section class="h-sec" id="about">
+        <div class="h-sec-no">10</div>
+        <h2>平台与热键</h2>
+        <p class="h-p">目前支持 macOS（Intel 与 Apple Silicon）。Windows 版在规划中，Mac App Store 上架也在路上。</p>
+        <dl class="h-rows"><dt>语音输入（按住说话）</dt><dd>右 Option（可改）</dd><dt>发送消息</dt><dd>Enter</dd><dt>角色转身／拉近／回正</dt><dd>右键拖曳／滚轮／双击</dd></dl>
+      </section>
+  </main>
+</div>
+
+<div class="stuck">
+  <div class="wrap">
+    <h3>还没解决？</h3>
+    <p>这三条路径都在官网上：</p>
+    <div class="links">
+      <a href="recover.html">找回序号</a>
+      <a href="account/">我的账号</a>
+      <a href="mailto:support@soma-agent.com">来信 support@soma-agent.com</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Soma Agent ・ 本页随 App 版本更新</span>
+    <span><a href="/legal.html#terms">Terms</a> ・ <a href="/legal.html#privacy">Privacy</a> ・ <a href="/legal.html#refund">Refund</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soma Agent Guide | Install, Activate and Everything Else</title>
+<meta name="description" content="The complete Soma Agent guide: installing, the 7-day trial, buying and activating a licence, AI model setup, characters and memory, voice, importing your own models, and troubleshooting.">
+<meta name="theme-color" content="#F2F4F7">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Soma Agent Guide | Install, Activate and Everything Else">
+<meta property="og:description" content="The complete Soma Agent guide: installing, the 7-day trial, buying and activating a licence, AI model setup, characters and memory, voice, importing your own models, and troubleshooting.">
+<meta property="og:url" content="https://soma-agent.com/en/help.html">
+<meta name="twitter:card" content="summary">
+<link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/help.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://soma-agent.com/cn/help.html">
+<link rel="alternate" hreflang="en" href="https://soma-agent.com/en/help.html">
+<link rel="alternate" hreflang="ja" href="https://soma-agent.com/ja/help.html">
+<link rel="alternate" hreflang="ko" href="https://soma-agent.com/ko/help.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Orbitron:wght@600;800&family=Chakra+Petch:wght@300;400;500;700&family=DotGothic16&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F4F7; --panel:#FFFFFF; --ink:#14161D; --muted:#5A6172; --dim:#9AA2B3; --line:#D8DCE4;
+    --acc:#0091AD; --acc-soft:#E3F4F8; --amber:#E0771C; --amber-soft:#FBEEDF;
+    --d-bg:#14161D; --d-line:#2A2E3A; --d-fg:#F2F3F7; --d-muted:#A6ACBD; --d-dim:#6A7183; --d-acc:#66E0F2;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  body{background:var(--bg);color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.75;}
+  a{color:inherit;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+
+  header{position:sticky;top:0;z-index:50;background:rgba(242,244,247,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  nav{max-width:1100px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px;}
+  .logo{font-family:'Orbitron',sans-serif;font-weight:800;font-size:18px;letter-spacing:.22em;text-decoration:none;}
+  .logo i{color:var(--acc);font-style:normal;animation:blink 1.05s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .navright{display:flex;align-items:center;gap:16px;}
+  .lang{display:flex;gap:2px;font-size:12px;}
+  .lang a{padding:4px 7px;text-decoration:none;color:var(--dim);border:1px solid transparent;border-radius:3px;}
+  .lang a.on{color:var(--acc);border-color:var(--acc);}
+  .cta{display:inline-block;text-decoration:none;font-weight:700;border-radius:4px;padding:9px 18px;font-size:13px;}
+  .cta-primary{background:var(--acc);color:#fff;}
+  .cta-ghost{border:1px solid var(--line);color:var(--muted);background:var(--panel);}
+
+  .hero{padding:56px 0 34px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:'DotGothic16',monospace;font-size:11px;letter-spacing:.2em;color:var(--dim);margin-bottom:10px;}
+  h1{font-size:42px;font-weight:900;letter-spacing:.02em;margin:0 0 12px;}
+  .lead{color:var(--muted);font-size:16px;max-width:62ch;margin:0 0 22px;}
+
+  /* 水平 padding 要跟 .wrap 一致——只寫 padding 簡寫會把 .wrap 的左右 padding 蓋掉 */
+  .cols{display:grid;grid-template-columns:236px 1fr;gap:52px;align-items:start;padding:40px 24px 72px;}
+  /* grid item 預設 min-width:auto，內文的長網址會把軌道撐到超出視窗 → 手機版橫向溢出 */
+  .cols > *{min-width:0;}
+  .h-p,.h-note,.h-list li,.h-steps li,.h-rows dt,.h-rows dd{overflow-wrap:break-word;}
+  .toc{position:sticky;top:92px;}
+  .toc h3{font-family:'Michroma',sans-serif;font-size:11px;letter-spacing:.28em;color:var(--acc);margin:0 0 14px;font-weight:400;}
+  .toc ol{list-style:none;margin:0;padding:0;}
+  .toc li{margin-bottom:2px;}
+  .toc a{display:flex;gap:10px;text-decoration:none;color:var(--muted);font-size:13.5px;padding:5px 8px;border-radius:4px;border-left:2px solid transparent;}
+  .toc a:hover{color:var(--ink);background:var(--panel);border-left-color:var(--acc);}
+  .toc .n{font-family:'Chakra Petch',sans-serif;color:var(--dim);font-size:12px;}
+
+  .h-sec{position:relative;padding:0 0 44px;}
+  .h-sec + .h-sec{border-top:1px solid var(--line);padding-top:38px;}
+  .h-sec-no{font-family:'DotGothic16',monospace;font-size:11px;letter-spacing:.2em;color:var(--dim);margin-bottom:6px;}
+  .h-sec h2{font-size:25px;font-weight:800;margin:0 0 16px;letter-spacing:.01em;scroll-margin-top:92px;}
+  .h-p{margin:0 0 14px;max-width:70ch;}
+  .h-note{margin:16px 0;padding:13px 16px;background:var(--acc-soft);border-left:3px solid var(--acc);border-radius:0 4px 4px 0;font-size:14.5px;color:#0d3d47;max-width:70ch;}
+  .h-list{margin:0 0 14px;padding-left:20px;max-width:70ch;}
+  .h-list li{margin-bottom:7px;}
+  .h-steps{counter-reset:s;list-style:none;margin:0 0 16px;padding:0;max-width:70ch;}
+  .h-steps li{counter-increment:s;position:relative;padding-left:40px;margin-bottom:13px;}
+  .h-steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--acc);color:#fff;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;}
+  .h-rows{margin:0 0 14px;display:grid;grid-template-columns:minmax(150px,auto) 1fr;gap:0;border-top:1px solid var(--line);}
+  .h-rows dt{padding:11px 16px 11px 0;border-bottom:1px solid var(--line);font-weight:700;font-size:14.5px;}
+  .h-rows dd{padding:11px 0 11px 16px;border-bottom:1px solid var(--line);margin:0;color:var(--muted);font-size:14.5px;}
+  .h-sec a{color:var(--acc);}
+
+  .stuck{background:var(--d-bg);color:var(--d-muted);padding:34px 0;border-top:1px solid var(--d-line);}
+  .stuck h3{color:var(--d-fg);font-size:19px;margin:0 0 8px;}
+  .stuck p{margin:0 0 16px;font-size:14.5px;}
+  .stuck .links{display:flex;flex-wrap:wrap;gap:12px;}
+  .stuck .links a{display:inline-block;padding:9px 16px;border:1px solid var(--d-line);border-radius:4px;text-decoration:none;color:var(--d-fg);font-size:13.5px;}
+  .stuck .links a:hover{border-color:var(--d-acc);color:var(--d-acc);}
+
+  footer{background:#0e1015;color:var(--d-muted);padding:26px 0;font-size:12.5px;}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  footer a{color:inherit;}
+
+  @media(max-width:900px){
+    .cols{grid-template-columns:1fr;gap:26px;padding-top:26px;}
+    .toc{position:static;border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:16px;}
+    h1{font-size:32px;}
+    .h-rows{grid-template-columns:1fr;}
+    .h-rows dt{border-bottom:none;padding-bottom:2px;}
+    .h-rows dd{padding-left:0;}
+    .navright .cta-primary{display:none;}
+  }
+
+  /* 列印：拿掉導覽與底色，用來出 PDF 快速上手單張 */
+  @media print{
+    header,.toc,.stuck,footer,.hero .cta{display:none !important;}
+    body{background:#fff;font-size:11.5pt;}
+    .cols{display:block;padding:0;}
+    .h-sec{break-inside:avoid;padding-bottom:18px;}
+    .h-note{background:#f4f4f4;color:#000;}
+    a{text-decoration:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="logo" href="index.html">SOMA<i>_</i></a>
+    <div class="navright">
+      <div class="lang"><a href="../help.html" lang="zh-Hant">繁</a><a href="../cn/help.html" lang="zh-Hans">简</a><a class="on" href="help.html" lang="en">EN</a><a href="../ja/help.html" lang="ja">日</a><a href="../ko/help.html" lang="ko">한</a></div>
+      <a class="cta cta-ghost" href="index.html">Home</a>
+      <a class="cta cta-primary" href="index.html#download">Download for macOS</a>
+    </div>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">SEC.00 / GUIDE</div>
+    <h1>Guide</h1>
+    <p class="lead">From install to activation, then tuning it into the companion you want. The same content lives inside the app under ⚙ Settings → Help.</p>
+  </div>
+</div>
+
+<div class="wrap cols">
+  <aside class="toc">
+    <h3>Contents</h3>
+    <ol><li><a href="#intro"><span class="n">01</span>What is this</a></li><li><a href="#quickstart"><span class="n">02</span>Quick start</a></li><li><a href="#ai-models"><span class="n">03</span>AI models &amp; keys</a></li><li><a href="#license"><span class="n">04</span>License &amp; trial</a></li><li><a href="#purchase"><span class="n">05</span>Buying and activating</a></li><li><a href="#characters"><span class="n">06</span>Characters, memory &amp; language</a></li><li><a href="#voice"><span class="n">07</span>Voice</a></li><li><a href="#import"><span class="n">08</span>Import your own model</a></li><li><a href="#troubleshooting"><span class="n">09</span>Troubleshooting</a></li><li><a href="#about"><span class="n">10</span>Platform &amp; shortcuts</a></li></ol>
+  </aside>
+  <main>
+      <section class="h-sec" id="intro">
+        <div class="h-sec-no">01</div>
+        <h2>What is this</h2>
+        <p class="h-p">Soma isn't an AI in a chat window. It's a companion that floats on your desktop, that you can see, and that can act.</p>
+        <ul class="h-list"><li>A presence: a VRM/Live2D character floats transparently on your desktop, always on top, lip-syncing and emoting.</li><li>A voice: sentence-by-sentence streamed speech, with the mouth in sync.</li><li>A memory: each character remembers what mattered in your conversations.</li><li>Hands (Advanced): open pages, tidy files, control music — acting on your real desktop, not just talking about it.</li></ul>
+      </section>
+
+      <section class="h-sec" id="quickstart">
+        <div class="h-sec-no">02</div>
+        <h2>Quick start</h2>
+        <p class="h-p">Four steps from install to your first sentence.</p>
+        <ol class="h-steps"><li>Drag Soma Agent into Applications, then open it (opening straight from the dmg leaves it unfindable later).</li><li>Pick your interface language. You can change it later, and it does not lock what language characters speak.</li><li>Under ⚙ Settings → License, enter your email for a 7-day trial, or paste a license key you bought.</li><li>Under ⚙ Settings → AI Model, paste an API key (or pick Ollama for a free local model) — then start talking.</li></ol>
+        <p class="h-note">Soma deliberately has no Dock icon — that translucent character on your desktop is the app. If you lose the window, search &quot;Soma&quot; in Spotlight.</p>
+      </section>
+
+      <section class="h-sec" id="ai-models">
+        <div class="h-sec-no">03</div>
+        <h2>AI models &amp; keys</h2>
+        <p class="h-p">Soma doesn't resell AI credits. You connect with your own API key straight to the provider and pay them for what you use — your conversations never touch our servers. That's BYOK.</p>
+        <dl class="h-rows"><dt>Anthropic (Claude)</dt><dd><a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a> | the only one with desktop tools, image and PDF reading</dd><dt>OpenAI (GPT)</dt><dd><a href="https://platform.openai.com" target="_blank" rel="noopener">platform.openai.com</a> | chat only</dd><dt>Google Gemini</dt><dd><a href="https://aistudio.google.com" target="_blank" rel="noopener">aistudio.google.com</a> | chat only</dd><dt>Ollama (local)</dt><dd><a href="https://ollama.com" target="_blank" rel="noopener">ollama.com</a> | free, nothing leaves your Mac, chat only</dd></dl>
+        <p class="h-note">Your key lives only in secrets.json on this Mac (file mode 600), readable only by the Rust side — it never reaches the web layer, and never reaches us.</p>
+        <p class="h-p">Cost depends on the model. Haiku is cheapest — a casual message is a fraction of a cent. Opus, or large attachments every turn, climbs noticeably. Ollama is free.</p>
+      </section>
+
+      <section class="h-sec" id="license">
+        <div class="h-sec-no">04</div>
+        <h2>License &amp; trial</h2>
+        <p class="h-p">Enter your email under ⚙ Settings → License to start a 7-day free trial — no payment details. Your key is emailed to you; keep it for when you switch machines. The trial covers Basic features.</p>
+        <p class="h-p">When the trial ends your characters, settings and memories all stay — you just cannot send messages. Purchase, paste the key, and pick up where you left off.</p>
+        <p class="h-p">One-time purchase, no subscription: Basic NT$599, Advanced NT$899 (two extra characters plus desktop tools), Podcast dual-character add-on NT$399.</p>
+        <p class="h-note">Basic covers 1 machine, Advanced 2. To move, hit Deactivate on the old Mac first, then paste the same key on the new one.</p>
+      </section>
+
+      <section class="h-sec" id="purchase">
+        <div class="h-sec-no">05</div>
+        <h2>Buying and activating</h2>
+        <p class="h-p">Pick a plan at <a href="https://soma-agent.com" target="_blank" rel="noopener">soma-agent.com</a> and check out through Paddle (credit cards and common wallets). One-time purchase, no subscription.</p>
+        <ol class="h-steps"><li>Choose Basic or Advanced under Plans on the website; add Podcast if you want two characters talking to each other.</li><li>Complete payment in the Paddle checkout. Use an email address you can actually receive mail at.</li><li>Your licence key is emailed to that address, usually within a few minutes.</li><li>Open Soma Agent → ⚙ Settings → Licence, paste the key and press Activate.</li></ol>
+        <p class="h-p">No key in your inbox? Check spam first, then use the Recover key page on the website with the same email. Still nothing — write to <a href="mailto:support@<a href="https://soma-agent.com" target="_blank" rel="noopener">soma-agent.com</a>.">support@<a href="https://soma-agent.com" target="_blank" rel="noopener">soma-agent.com</a>.</a></p>
+        <p class="h-p">The My account page on the website emails you a sign-in link, no password needed. From there you can see your licences, which machines are bound, and unbind an old computer.</p>
+        <p class="h-note">The Podcast add-on needs your existing licence key entered at checkout so it attaches to the same licence. Refunds follow the refund policy on the website.</p>
+      </section>
+
+      <section class="h-sec" id="characters">
+        <div class="h-sec-no">06</div>
+        <h2>Characters, memory &amp; language</h2>
+        <p class="h-p">Switch or add characters under ⚙ Settings → Character. Each keeps its own persona, memory and look, entirely separately.</p>
+        <p class="h-note">Language and voice are set per character and can be changed any time — any character can speak any language. Reply language lives under ⚙ Settings → Character, the voice under → Voice.</p>
+        <p class="h-p">Characters remember what you talked about and gradually distil it into long-term memory. View or clear it in character settings.</p>
+        <p class="h-p">With the Podcast add-on, the two-person icon above the input lets two characters talk to each other while you watch, or with you joining in.</p>
+      </section>
+
+      <section class="h-sec" id="voice">
+        <div class="h-sec-no">07</div>
+        <h2>Voice</h2>
+        <p class="h-p">Add your Azure Speech key and region under ⚙ Settings → Voice to give characters a voice; without it Soma falls back to the system voice.</p>
+        <p class="h-p">Voice input: hold the right Option key to talk, release to send. macOS needs Input Monitoring permission, and the hotkey is changeable.</p>
+      </section>
+
+      <section class="h-sec" id="import">
+        <div class="h-sec-no">08</div>
+        <h2>Import your own model</h2>
+        <p class="h-p">⚙ Settings → Appearance → Import model. Both .vrm and Live2D (folder or zip) work, and imported models are never restricted by your plan.</p>
+        <p class="h-note">Live2D textures must be RGBA PNG. Indexed/palette PNGs will leave the character stuck on &quot;Loading…&quot;.</p>
+      </section>
+
+      <section class="h-sec" id="troubleshooting">
+        <div class="h-sec-no">09</div>
+        <h2>Troubleshooting</h2>
+        <dl class="h-rows"><dt>No Dock icon</dt><dd>Expected — the pet deliberately stays out of the Dock. The character on your desktop is the app.</dd><dt>Character stuck on &quot;Loading…&quot;</dt><dd>Usually an imported texture that is not RGBA PNG. Convert it and import again.</dd><dt>Attachment says Claude only</dt><dd>Images and PDFs only work on Anthropic models. Switch the chat model back to Claude.</dd><dt>No sound</dt><dd>Check the Azure key and region under ⚙ Settings → Voice, and that system volume is not muted.</dd><dt>Voice input does nothing</dt><dd>Allow Soma under System Settings → Privacy &amp; Security → Input Monitoring.</dd><dt>Fetching a page returns nothing</dt><dd>The web tool is Anthropic-only and needs a full http(s) URL.</dd></dl>
+      </section>
+
+      <section class="h-sec" id="about">
+        <div class="h-sec-no">10</div>
+        <h2>Platform &amp; shortcuts</h2>
+        <p class="h-p">macOS for now (Intel and Apple Silicon). Windows is planned, and a Mac App Store release is on the way.</p>
+        <dl class="h-rows"><dt>Voice input (hold to talk)</dt><dd>Right Option (changeable)</dd><dt>Send message</dt><dd>Enter</dd><dt>Turn / zoom / reset character</dt><dd>Right-drag / scroll / double-click</dd></dl>
+      </section>
+  </main>
+</div>
+
+<div class="stuck">
+  <div class="wrap">
+    <h3>Still stuck?</h3>
+    <p>All three routes are on this site:</p>
+    <div class="links">
+      <a href="recover.html">Recover your key</a>
+      <a href="account/">My account</a>
+      <a href="mailto:support@soma-agent.com">Email support@soma-agent.com</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Soma Agent ・ Updated alongside the app</span>
+    <span><a href="/legal.html#terms">Terms</a> ・ <a href="/legal.html#privacy">Privacy</a> ・ <a href="/legal.html#refund">Refund</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
