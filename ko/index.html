@@ -242,8 +242,8 @@
         </div>
         <div data-reveal data-delay="340" style="max-width:470px;">
           <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;font-weight:700;margin-bottom:8px;">
-            <span class="f-chakra" style="color:var(--acc);letter-spacing:.06em;">달성 <span class="num" data-pct style="font-size:17px;">0</span>%</span>
-            <span style="color:var(--muted);">목표 <span data-goal>NT$0</span> ・ 마감까지 <strong class="num" style="color:var(--ink);" data-cd-d>--</strong>일</span>
+            <span class="f-chakra" style="color:var(--acc);letter-spacing:.06em;">판매 <span class="num" data-pct style="font-size:17px;">0</span>%</span>
+            <span style="color:var(--muted);"><strong class="num" style="color:var(--ink);" data-batch-left>--</strong>개 남음</span>
           </div>
           <div style="height:8px;background:#E2E6EC;overflow:hidden;">
             <div data-pct-fill style="height:100%;background:linear-gradient(90deg,var(--acc),#33B8CE,var(--amber));background-size:200% 100%;animation:somaShimmer 2.4s linear infinite;transition:width 1.6s cubic-bezier(.16,1,.3,1);width:0;"></div>
@@ -687,20 +687,20 @@
         <div class="corner-mark" style="top:12px;right:16px;">FUNDING MONITOR</div>
         <div class="meter-grid" style="display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:center;position:relative;">
           <div>
-            <div class="f-chakra" style="display:inline-flex;align-items:center;gap:8px;border:1px solid var(--d-acc);color:var(--d-acc);font-weight:700;font-size:11px;letter-spacing:.2em;padding:6px 14px;margin-bottom:18px;"><span style="width:6px;height:6px;background:var(--d-acc);animation:blink 1.4s steps(1) infinite;"></span>펀딩 진행 중</div>
+            <div class="f-chakra" style="display:inline-flex;align-items:center;gap:8px;border:1px solid var(--d-acc);color:var(--d-acc);font-weight:700;font-size:11px;letter-spacing:.2em;padding:6px 14px;margin-bottom:18px;"><span style="width:6px;height:6px;background:var(--d-acc);animation:blink 1.4s steps(1) infinite;"></span>첫 배치 판매 중</div>
             <div style="display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;">
               <span class="num" data-raised style="font-weight:700;font-size:50px;color:var(--d-acc);line-height:1;">NT$0</span>
-              <span style="color:var(--d-muted);font-size:14.5px;">／ 목표 <span data-goal>NT$0</span></span>
+              <span style="color:var(--d-muted);font-size:14.5px;">／ 첫 배치 <span data-batch-total>1,000</span>개</span>
             </div>
             <div style="height:12px;background:rgba(255,255,255,.08);overflow:hidden;margin:18px 0 12px;position:relative;">
               <div data-pct-fill style="height:100%;background:linear-gradient(90deg,var(--d-acc),#9beef9,var(--amber));background-size:200% 100%;animation:somaShimmer 2.4s linear infinite;transition:width 1.6s cubic-bezier(.16,1,.3,1);width:0;"></div>
             </div>
             <div style="display:flex;gap:28px;font-size:14px;">
-              <div><span class="num" data-pct style="font-size:21px;color:var(--d-fg);">0</span>% <span style="color:var(--d-muted);">달성</span></div>
+              <div><span class="num" data-pct style="font-size:21px;color:var(--d-fg);">0</span>% <span style="color:var(--d-muted);">판매됨</span></div>
               <div><span class="num" data-backers style="font-size:21px;color:var(--d-fg);">0</span> <span style="color:var(--d-muted);">명의 후원자</span></div>
             </div>
           </div>
-          <div style="text-align:center;background:rgba(255,255,255,.03);border:1px solid var(--d-line);padding:24px;">
+          <div data-countdown-box style="text-align:center;background:rgba(255,255,255,.03);border:1px solid var(--d-line);padding:24px;">
             <div class="f-chakra" style="color:var(--d-muted);font-size:12px;font-weight:700;letter-spacing:.2em;margin-bottom:14px;">얼리버드 카운트다운</div>
             <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
               <div style="background:rgba(0,0,0,.3);border:1px solid var(--d-line);padding:12px 14px;min-width:60px;"><div class="num" data-cd-d style="font-size:28px;color:var(--d-acc);">--</div><div class="f-chakra" style="font-size:10.5px;color:var(--d-muted);">일</div></div>
@@ -716,7 +716,7 @@
         <div class="sec-no">SEC.09 / SUPPORT</div>
         <div class="sec-en">SUPPORT<span class="u">_</span></div>
         <h2 class="sec-title">두 가지 후원 방법</h2>
-        <p class="sec-sub">펀딩의 메인은 <strong style="color:var(--ink);">한정 수량 영구 소장판</strong>(한 번 결제로 평생 소장・BYOK). 편하게 매니지드를 원한다면 <strong style="color:var(--ink);">얼리버드 구독</strong>(AI 크레딧 포함・가격 고정)을 선택하세요.</p>
+        <p class="sec-sub">첫 출시의 메인은 <strong style="color:var(--ink);">한정 수량 영구 소장판</strong>(한 번 결제로 평생 소장・BYOK・사용량 무제한)입니다. 매니지드형 <strong style="color:var(--ink);">얼리버드 구독</strong>은 첫 배치 판매가 끝난 뒤 오픈합니다.</p>
       </div>
 
       <!-- BLOCK A: 限量買斷 -->
@@ -984,7 +984,7 @@ const SOMA = {
     goal: 200000,
     raised: 0,                       // 真實已募金額
     backers: 0,                      // 真實支持者數
-    countdownDays: 18,               // 早鳥倒數天數
+    countdownDays: null,            // 有真實截止日才填天數；null = 隱藏倒數
     batch: { total: 1000, claimed: 0 } // 第 1 批限量 / 已售
   },
   paddleLocale: 'ko',
@@ -1028,6 +1028,8 @@ const FAQS = [
 
 /* ---- UI 訊息 ---- */
 const MSG = {
+  comingSoon: '곧 공개',
+  comingSoonWhy: '이 플랜은 아직 구매할 수 없습니다. 오픈 시 이 페이지와 메일로 알려 드립니다.',
   checkoutSoon: '결제가 곧 오픈됩니다. 조금만 기다려 주세요',
   podcastKeyBad: '올바른 라이선스 키를 먼저 입력하세요（형식: SOMA-XXXX-XXXX-XXXX-XXXX）. 키는 구매 후 받은 이메일에 있습니다',
   checkoutFail: '지금은 결제를 열 수 없습니다. 잠시 후 다시 시도해 주세요',
@@ -1089,42 +1091,49 @@ function buyPodcast(){
   openCheckout('addon_podcast', { license_key: key });
 }
 document.getElementById('btn-podcast-buy')?.addEventListener('click', buyPodcast);
-$$('[data-sku]').forEach(btn => btn.addEventListener('click', () => openCheckout(btn.dataset.sku)));
+/* 沒填 price id 的方案就是還沒開賣：按鈕停用並寫明原因，不要讓人按下去才發現買不到 */
+$$('[data-sku]').forEach(btn => {
+  const sku = btn.dataset.sku;
+  if (!SOMA.paddle.prices[sku]) {
+    btn.disabled = true;
+    btn.textContent = MSG.comingSoon;
+    btn.style.cssText += ';cursor:not-allowed;opacity:.5;';
+    const why = document.createElement('p');
+    why.textContent = MSG.comingSoonWhy;
+    why.style.cssText = 'margin:9px 0 0;font-size:12px;line-height:1.6;color:var(--muted);text-align:center;';
+    btn.insertAdjacentElement('afterend', why);
+    return;
+  }
+  btn.addEventListener('click', () => openCheckout(sku));
+});
 
 /* ---- Demo 影片佔位 ---- */
 $$('[data-demo]').forEach(btn => btn.addEventListener('click', () => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })));
 
-/* ---- 募資數字 / 目標 ---- */
-$$('[data-goal]').forEach(el => el.textContent = fmtNT(SOMA.campaign.goal));
 
-(function batchMeter(){
-  const { total, claimed } = SOMA.campaign.batch;
+/**
+ * 首發批次數字。第一波只賣買斷，對外一律講「份數」不講金額——
+ * 剛開賣的 NT$0 讀起來像募資失敗，而「1,000 份還剩 1,000 份」就只是還沒開始。
+ * hero 與儀表板都有同名的 data 節點，所以一律用 $$ 全部更新。
+ */
+function renderBatch(){
+  const { total, claimed, } = SOMA.campaign.batch;
   const left = Math.max(0, total - claimed);
   const pct = total ? Math.round(claimed / total * 100) : 0;
-  const set = (sel, v) => { const e = $(sel); if (e) e.textContent = v; };
-  set('[data-batch-total]', total); set('[data-batch-claimed]', claimed); set('[data-batch-left]', left);
-  requestAnimationFrame(() => { const f = $('[data-batch-fill]'); if (f) f.style.width = pct + '%'; });
-})();
-
-/* ---- 募資進度補間動畫 ---- */
-function animateRaised(){
-  const goal = SOMA.campaign.goal, target = SOMA.campaign.raised;
-  const backers = SOMA.campaign.backers;
-  const raisedEls = $$('[data-raised]'), pctEls = $$('[data-pct]'), fillEls = $$('[data-pct-fill]'), backerEls = $$('[data-backers]');
-  const start = performance.now(), dur = 1700;
-  function step(t){
-    const k = Math.min(1, (t - start) / dur);
-    const e = 1 - Math.pow(1 - k, 3);
-    const raised = Math.round(target * e);
-    const pct = goal ? Math.round(raised / goal * 100) : 0;
-    raisedEls.forEach(el => el.textContent = fmtNT(raised));
-    pctEls.forEach(el => el.textContent = pct);
-    fillEls.forEach(el => el.style.width = Math.min(100, pct) + '%');
-    backerEls.forEach(el => el.textContent = Math.round(backers * e));
-    if (k < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
+  const setAll = (sel, v) => $$(sel).forEach(e => e.textContent = v);
+  setAll('[data-batch-total]', total.toLocaleString('en-US'));
+  setAll('[data-batch-claimed]', claimed);
+  setAll('[data-batch-left]', left.toLocaleString('en-US'));
+  setAll('[data-raised]', claimed.toLocaleString('en-US'));
+  setAll('[data-pct]', pct);
+  setAll('[data-backers]', SOMA.campaign.backers);
+  requestAnimationFrame(() => {
+    $$('[data-batch-fill]').forEach(f => f.style.width = pct + '%');
+    $$('[data-pct-fill]').forEach(f => f.style.width = Math.min(100, pct) + '%');
+  });
 }
+renderBatch();
+
 
 
 /* ---- 真實銷售數字（授權後端 /stats；失敗保留靜態值） ---- */
@@ -1134,19 +1143,15 @@ function animateRaised(){
     if (typeof s.raised === 'number') c.raised = s.raised;
     if (typeof s.backers === 'number') c.backers = s.backers;
     if (typeof s.claimed === 'number') c.batch.claimed = s.claimed;
-    const { total, claimed } = c.batch;
-    const left = Math.max(0, total - claimed);
-    const pct = total ? Math.round(claimed / total * 100) : 0;
-    const set = (sel, v) => { const e = $(sel); if (e) e.textContent = v; };
-    set('[data-batch-total]', total); set('[data-batch-claimed]', claimed); set('[data-batch-left]', left);
-    const f = $('[data-batch-fill]'); if (f) f.style.width = pct + '%';
-    animateRaised();
+    renderBatch();
   }).catch(() => {});
 })();
 
 /* ---- 倒數 ---- */
 (function countdown(){
   const days = SOMA.campaign.countdownDays;
+  // 沒有真實截止日就別放倒數：每次重新整理都回到同一個天數，一眼就看得出來是假的
+  if (!days) { $$('[data-countdown-box]').forEach(el => el.hidden = true); return; }
   const targetTs = Date.now() + days*86400000 + 9*3600000 + 23*60000 + 41000;
   const map = { d:$$('[data-cd-d]'), h:$$('[data-cd-h]'), m:$$('[data-cd-m]'), s:$$('[data-cd-s]') };
   function tick(){
@@ -1276,8 +1281,8 @@ function animateRaised(){
   });
 })();
 
-/* ---- 啟動募資補間（DOM 就緒後） ---- */
-animateRaised();
+/* ---- 批次數字最後再刷一次（前面的區塊可能改動過 DOM） ---- */
+renderBatch();
 </script>
 </body>
 </html>
