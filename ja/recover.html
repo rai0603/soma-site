@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>キーの再送 — Soma Agent</title>
+<meta name="description" content="Soma Agent — 登録済みのライセンスキーをメールで再送します。">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#F2F4F7">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://soma-agent.com/ja/recover">
+<link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/recover">
+<link rel="alternate" hreflang="zh-Hans" href="https://soma-agent.com/cn/recover">
+<link rel="alternate" hreflang="en" href="https://soma-agent.com/en/recover">
+<link rel="alternate" hreflang="ja" href="https://soma-agent.com/ja/recover">
+<link rel="alternate" hreflang="ko" href="https://soma-agent.com/ko/recover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Chakra+Petch:wght@400;700&family=DotGothic16&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F4F7; --panel:#FFFFFF; --ink:#14161D; --muted:#5A6172; --dim:#9AA2B3; --line:#D8DCE4;
+    --acc:#0091AD; --acc-soft:#E3F4F8; --amber:#E0771C; --amber-soft:#FBEEDF; --bad:#B0264A; --bad-soft:#FBE7EC;
+    --d-line:#2A2E3A; --d-fg:#F2F3F7; --d-muted:#A6ACBD; --d-dim:#6A7183; --d-acc:#66E0F2;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.7;}
+  a{color:inherit;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px;}
+  header{border-bottom:1px solid var(--line);background:rgba(242,244,247,.92);}
+  nav{max-width:760px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .logo{font-family:'Orbitron',sans-serif;font-weight:800;font-size:18px;letter-spacing:.22em;text-decoration:none;}
+  .logo i{color:var(--acc);font-style:normal;}
+  .navright{display:flex;align-items:center;gap:14px;}
+  .lang{display:flex;gap:2px;font-size:12px;}
+  .lang a{padding:4px 7px;text-decoration:none;color:var(--dim);border:1px solid transparent;border-radius:3px;}
+  .lang a.on{color:var(--acc);border-color:var(--acc);}
+  .navlink{font-size:13px;color:var(--muted);text-decoration:none;}
+  .navlink:hover{color:var(--acc);}
+
+  main{padding:48px 0 72px;}
+  .eyebrow{font-family:'DotGothic16',monospace;font-size:11px;letter-spacing:.2em;color:var(--dim);margin-bottom:10px;}
+  h1{font-size:33px;font-weight:900;margin:0 0 12px;letter-spacing:.02em;}
+  .lead{color:var(--muted);margin:0 0 28px;max-width:56ch;}
+
+  form{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px;}
+  input[type=email]{flex:1;min-width:240px;padding:12px 14px;border:1px solid var(--line);border-radius:5px;background:var(--panel);font:inherit;font-size:15px;color:var(--ink);}
+  input[type=email]:focus{outline:2px solid var(--acc);outline-offset:-1px;border-color:var(--acc);}
+  button{font:inherit;font-weight:700;font-size:14.5px;border:0;border-radius:5px;padding:12px 22px;background:var(--acc);color:#fff;cursor:pointer;}
+  button:hover{filter:brightness(1.08);}
+  button[disabled]{opacity:.5;cursor:not-allowed;}
+  button.ghost{background:var(--panel);color:var(--muted);border:1px solid var(--line);font-weight:500;padding:7px 14px;font-size:13px;}
+  button.ghost:hover{color:var(--bad);border-color:var(--bad);filter:none;}
+
+  .msg{padding:13px 16px;border-radius:5px;font-size:14.5px;margin:0 0 20px;}
+  .msg.ok{background:var(--acc-soft);border-left:3px solid var(--acc);color:#0d3d47;}
+  .msg.bad{background:var(--bad-soft);border-left:3px solid var(--bad);color:#7a1730;}
+  .msg.wait{background:var(--panel);border:1px solid var(--line);color:var(--muted);}
+  [hidden]{display:none !important;}
+
+  .who{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:26px;}
+  .who .mail{font-weight:700;overflow-wrap:anywhere;}
+
+  .lic{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:22px;margin-bottom:18px;}
+  .lic-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
+  .lic-plan{font-size:19px;font-weight:800;}
+  .tag{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.06em;padding:3px 9px;border-radius:3px;margin-left:8px;vertical-align:2px;}
+  .tag.t-active{background:var(--acc-soft);color:#0d3d47;}
+  .tag.t-suspended{background:var(--amber-soft);color:#7a4410;}
+  .tag.t-refunded{background:var(--bad-soft);color:#7a1730;}
+  .tag.t-addon{background:#EDE7FB;color:#4a2f8f;}
+  .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px 20px;font-size:13.5px;color:var(--muted);margin-bottom:16px;}
+  .meta b{display:block;color:var(--dim);font-size:11.5px;letter-spacing:.08em;font-weight:700;text-transform:uppercase;margin-bottom:1px;}
+  .keyrow{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:10px 14px;margin-bottom:18px;flex-wrap:wrap;}
+  .keyrow code{font-family:ui-monospace,Menlo,monospace;font-size:15px;letter-spacing:.5px;overflow-wrap:anywhere;flex:1;}
+  .devs h4{font-size:12px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;margin:0 0 8px;}
+  .dev{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line);flex-wrap:wrap;}
+  .dev-name{font-weight:700;font-size:14.5px;}
+  .dev-when{font-size:12.5px;color:var(--dim);}
+  .empty{color:var(--muted);font-size:14px;padding:11px 0;border-top:1px solid var(--line);}
+
+  footer{background:#0e1015;color:var(--d-muted);padding:24px 0;font-size:12.5px;margin-top:40px;}
+  footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+  footer a{color:inherit;}
+  @media(max-width:560px){h1{font-size:27px;} button{width:100%;} input[type=email]{min-width:0;}}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="logo" href="index.html">SOMA<i>_</i></a>
+    <div class="navright">
+      <div class="lang"><a href="../recover.html" lang="zh-Hant">繁</a><a href="../cn/recover.html" lang="zh-Hans">简</a><a href="../en/recover.html" lang="en">EN</a><a class="on" href="../ja/recover.html" lang="ja">日</a><a href="../ko/recover.html" lang="ko">한</a></div>
+      <a class="navlink" href="account/">マイアカウント</a>
+      <a class="navlink" href="help.html">使い方ガイド</a>
+      <a class="navlink" href="index.html">トップへ</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="eyebrow">SEC.RC / RECOVER</div>
+    <h1>キーの再送</h1>
+    <p class="lead">購入時のメールアドレスを入力すると、そのアドレスに紐づくライセンスキーをすべて再送します。</p>
+    <form id="f" novalidate>
+      <input id="email" type="email" autocomplete="email" placeholder="購入時のメールアドレス" aria-label="購入時のメールアドレス">
+      <button id="btn" type="submit">キーを再送する</button>
+    </form>
+    <p id="msg" class="msg" hidden></p>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Soma Agent</span>
+    <span><a href="mailto:support@soma-agent.com">support@soma-agent.com</a></span>
+  </div>
+</footer>
+
+<script>
+const API = "https://license.soma-agent.com";
+const T = {"home":"トップへ","guide":"使い方ガイド","account":"マイアカウント","recover":"キーの再送","emailPh":"購入時のメールアドレス","invalidEmail":"有効なメールアドレスを入力してください。","tooMany":"試行が多すぎます。1 分ほど待って再度お試しください。","netError":"ライセンスサーバーに接続できません。しばらくしてからお試しください。","loading":"読み込み中…","support":"サポートに問い合わせる","rcTitle":"キーの再送","rcDesc":"Soma Agent — 登録済みのライセンスキーをメールで再送します。","rcLead":"購入時のメールアドレスを入力すると、そのアドレスに紐づくライセンスキーをすべて再送します。","rcSubmit":"キーを再送する","rcSent":"そのアドレスにライセンスがあれば、キーを送信しました。受信トレイと迷惑メールフォルダをご確認ください。","acTitle":"マイアカウント","acDesc":"Soma Agent — ライセンス・キー・認証済み端末の確認と、リモートでの認証解除。","acLead":"購入時のメールアドレスを入力してください。ログインリンクをお送りします（パスワードは不要です）。","acSubmit":"ログインリンクを送る","acSent":"そのアドレスにライセンスがあれば、ログインリンクを送信しました。有効期限は 15 分、使用は 1 回限りです。","acInvalidLink":"このログインリンクは無効か、すでに使用されています。もう一度お試しください。","logout":"ログアウト","noLicense":"このアカウントにはまだライセンスがありません。同じアドレスで購入すると自動的に紐づきます。","key":"ライセンスキー","copy":"コピー","copied":"コピーしました","purchasedAt":"購入日","seats":"ライセンス数","devices":"認証済みの端末","noDevices":"まだ端末は登録されていません。","activatedAt":"認証日","lastSeen":"最終使用","unbind":"認証を解除","unbindConfirm":"「{name}」の認証を解除しますか？次回 Soma Agent を起動したときに未認証の状態に戻り、枠はすぐに解放されます。","unnamed":"名称未設定の端末","tier":{"basic":"ベーシック","advanced":"アドバンス"},"podcast":"Podcast 追加","type":{"perpetual":"買い切り","subscription":"サブスク","trial":"7 日間の試用"},"status":{"active":"有効","suspended":"停止中","refunded":"返金済み"},"expiresAt":"有効期限","neverExpires":"無期限"};
+const LOCALE = "ja-JP";
+const $ = (id) => document.getElementById(id);
+const looksLikeEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+function show(el, cls, text){ el.className = 'msg ' + cls; el.textContent = text; el.hidden = false; }
+
+$('f').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = $('email').value.trim();
+  const msg = $('msg'), btn = $('btn');
+  if (!looksLikeEmail(email)) return show(msg, 'bad', T.invalidEmail);
+
+  btn.disabled = true;
+  try {
+    const res = await fetch(API + '/recover', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    });
+    // 後端對「查到／查不到」一律回同一個回應，前端也不要多說什麼
+    if (res.status === 429) show(msg, 'bad', T.tooMany);
+    else if (!res.ok) show(msg, 'bad', T.netError);
+    else show(msg, 'ok', T.rcSent);
+  } catch { show(msg, 'bad', T.netError); }
+  btn.disabled = false;
+});
+</script>
+</body>
+</html>
