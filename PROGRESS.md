@@ -44,6 +44,19 @@
 - 視覺驗證用 DOM 量測（getBoundingClientRect/computedStyle/手動觸發 handler）比「捲動後截圖」可靠——本環境截圖會搶在重繪前。
 - dc.html 設計稿含設計工具 runtime（support.js / x-dc / sc-if / {{ }}），handoff 明示不可移植，須當規格來源純手重建。
 
+## Last session（2026-08-14 — 發售鏈路補完）
+
+- **新增頁面**：`help.html` ×5 語（由 app repo `scripts/build-help.mjs` 產生，與 app 內說明面板共用同一份 content.json + i18n）、`account/index.html` ×5 語、`recover.html` ×5 語（由本 repo `scripts/build-portal.mjs` 產生）、`version.json` + `_headers`、`assets/quickstart-{zh-TW,en}.pdf`。
+- **定價區改為首發批次敘事**：未填 price id 的方案自動停用並寫明原因（單一真相＝`SOMA.paddle.prices`，之後填了就自動恢復可買）；儀表板主視覺由金額改成份數；假倒數（`Date.now()+18天`）關掉，`countdownDays: null` 時整塊隱藏。
+- **五語 nav 加教學入口、footer 加我的帳號／找回序號**；success.html 加教學指路。
+- **法務頁**補日／韓／簡中收合摘要，並載明英文為 governing version。
+- ⚠️ **這個 repo 現在有兩支產生器**：`scripts/build-portal.mjs`（本 repo）與 app repo 的 `scripts/build-help.mjs`（輸出到這裡）。改文案要回對應的來源改，不要直接編產出的 HTML。
+
+### 這輪踩到的（會再踩）
+- **Cloudflare Pages 對不存在的路徑回首頁 HTML**，HTTP 200 不代表頁面存在。驗證一律比對 `<title>`（與首頁不同才算數），JSON 比對 content-type。
+- **CF Pages 會裁掉 `.html`**：`/help.html` → 308 → `/help`。canonical / hreflang 用裁掉後的形式，站內相對連結留 `.html` 沒問題。
+- `_headers` 對 `/version.json` 放行 CORS `*`，桌面 app 才讀得到版本公告。
+
 ## Last session（續跑指標）
 - 做了什麼（2026-07-03）：盤點 App repo 功能完成度 → 發現舊 Stretch Goals 兩項已出貨 → 重排六階新目標（見 General rules）→ 五語檔 Python 一次替換 + DOM 驗證（7 tiles、4+3 排版、無溢出）→ commit+push。
 - 前一日（2026-07-02）：① logo 三輪提案 → 攻殻融合定案（`docs/logo-gits-fusion.html`），配色五套提案（`docs/palette-concepts.html`）→ **Rai 拍板 P-3 白域科技**。② `index.html` + `success.html` 全站換皮 P-3 × GITS（原內容 100% 保留，新增 CUSTOMIZE_ 四支柱 index 區 + 各卡 pillar 代號），③ 4 個 subagent 平行產出 en/cn/ja/ko 完整獨立 HTML（i18n 策略＝每語言獨立檔，無 build step），④ DOM 驗證五語全綠。
