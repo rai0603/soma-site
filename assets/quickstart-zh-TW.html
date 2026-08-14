@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>Soma Agent — 快速上手</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Chakra+Petch:wght@700&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  @page{size:A4;margin:14mm 15mm;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans TC',sans-serif;color:#14161D;line-height:1.6;font-size:10.5pt;background:#fff;}
+  .logo{font-family:'Orbitron',sans-serif;font-weight:800;letter-spacing:.2em;font-size:15pt;}
+  .logo i{color:#0091AD;font-style:normal;}
+  header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid #14161D;padding-bottom:7px;margin-bottom:14px;}
+  header .tag{font-family:'Chakra Petch',sans-serif;font-size:8.5pt;letter-spacing:.16em;color:#5A6172;}
+  h1{font-size:20pt;font-weight:900;margin-bottom:3px;}
+  .sub{color:#5A6172;font-size:10pt;margin-bottom:16px;}
+  h2{font-size:11.5pt;font-weight:900;margin:0 0 8px;padding-left:9px;border-left:3px solid #0091AD;}
+  section{margin-bottom:15px;}
+  ol{counter-reset:s;list-style:none;}
+  ol li{counter-increment:s;position-relative;padding-left:26px;margin-bottom:6px;position:relative;}
+  ol li::before{content:counter(s);position:absolute;left:0;top:1px;width:18px;height:18px;border-radius:50%;background:#0091AD;color:#fff;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:9pt;display:flex;align-items:center;justify-content:center;}
+  .q{margin-bottom:6px;padding-left:9px;border-left:2px solid #D8DCE4;}
+  .q b{display:block;font-size:10pt;}
+  .q span{color:#5A6172;font-size:9.5pt;}
+  footer{border-top:1px solid #D8DCE4;padding-top:9px;margin-top:4px;display:flex;justify-content:space-between;font-size:9pt;color:#5A6172;}
+  footer b{color:#0091AD;}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">SOMA<i>_</i></span>
+  <span class="tag">AGENT IN THE SHELL</span>
+</header>
+
+<h1>快速上手</h1>
+<p class="sub">從安裝到說第一句話，一頁看完。</p>
+
+<section>
+  <h2>安裝與開始</h2>
+  <ol><li>把 Soma Agent 拖進「應用程式」再開啟（直接從 dmg 開會找不到）。</li><li>選擇介面語言。之後可以在設定改，也不影響角色講什麼語言。</li><li>在 ⚙ 設定 → 授權填 Email 開始 7 天試用，或貼上你購買的序號。</li><li>在 ⚙ 設定 → AI 模型貼上 API key（或選 Ollama 走免費本地模型），然後就能開始聊了。</li></ol>
+</section>
+
+<section>
+  <h2>購買與啟用</h2>
+  <ol><li>到官網「支持方案」選基礎版或進階版；需要雙角色對話再加購 Podcast。</li><li>在 Paddle 結帳視窗完成付款，Email 請填你收得到信的那一個。</li><li>序號會寄到該信箱，通常幾分鐘內送達。</li><li>打開 Soma Agent → ⚙ 設定 → 授權，貼上序號按「啟用」。</li></ol>
+</section>
+
+<section>
+  <h2>卡住了？</h2>
+  <div class="q"><b>沒有程式塢圖示</b><span>正常，桌寵刻意不顯示在程式塢，只有桌面上那隻角色。</span></div><div class="q"><b>角色卡在「準備中…」</b><span>多半是匯入模型的貼圖不是 RGBA PNG，轉檔後重新匯入。</span></div><div class="q"><b>沒有聲音</b><span>確認 ⚙ 設定 → 語音的 Azure 金鑰與區域都填了，並檢查系統音量沒靜音。</span></div>
+</section>
+
+<footer>
+  <span><b>完整教學：soma-agent.com/help</b></span>
+  <span>問題來信：support@soma-agent.com</span>
+</footer>
+</body>
+</html>

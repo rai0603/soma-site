@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Soma Agent — Quick start</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Chakra+Petch:wght@700&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  @page{size:A4;margin:14mm 15mm;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Noto Sans TC',sans-serif;color:#14161D;line-height:1.6;font-size:10.5pt;background:#fff;}
+  .logo{font-family:'Orbitron',sans-serif;font-weight:800;letter-spacing:.2em;font-size:15pt;}
+  .logo i{color:#0091AD;font-style:normal;}
+  header{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid #14161D;padding-bottom:7px;margin-bottom:14px;}
+  header .tag{font-family:'Chakra Petch',sans-serif;font-size:8.5pt;letter-spacing:.16em;color:#5A6172;}
+  h1{font-size:20pt;font-weight:900;margin-bottom:3px;}
+  .sub{color:#5A6172;font-size:10pt;margin-bottom:16px;}
+  h2{font-size:11.5pt;font-weight:900;margin:0 0 8px;padding-left:9px;border-left:3px solid #0091AD;}
+  section{margin-bottom:15px;}
+  ol{counter-reset:s;list-style:none;}
+  ol li{counter-increment:s;position-relative;padding-left:26px;margin-bottom:6px;position:relative;}
+  ol li::before{content:counter(s);position:absolute;left:0;top:1px;width:18px;height:18px;border-radius:50%;background:#0091AD;color:#fff;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:9pt;display:flex;align-items:center;justify-content:center;}
+  .q{margin-bottom:6px;padding-left:9px;border-left:2px solid #D8DCE4;}
+  .q b{display:block;font-size:10pt;}
+  .q span{color:#5A6172;font-size:9.5pt;}
+  footer{border-top:1px solid #D8DCE4;padding-top:9px;margin-top:4px;display:flex;justify-content:space-between;font-size:9pt;color:#5A6172;}
+  footer b{color:#0091AD;}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">SOMA<i>_</i></span>
+  <span class="tag">AGENT IN THE SHELL</span>
+</header>
+
+<h1>Quick start</h1>
+<p class="sub">From install to your first message, on one page.</p>
+
+<section>
+  <h2>Install and start</h2>
+  <ol><li>Drag Soma Agent into Applications, then open it (opening straight from the dmg leaves it unfindable later).</li><li>Pick your interface language. You can change it later, and it does not lock what language characters speak.</li><li>Under ⚙ Settings → License, enter your email for a 7-day trial, or paste a license key you bought.</li><li>Under ⚙ Settings → AI Model, paste an API key (or pick Ollama for a free local model) — then start talking.</li></ol>
+</section>
+
+<section>
+  <h2>Buy and activate</h2>
+  <ol><li>Choose Basic or Advanced under Plans on the website; add Podcast if you want two characters talking to each other.</li><li>Complete payment in the Paddle checkout. Use an email address you can actually receive mail at.</li><li>Your licence key is emailed to that address, usually within a few minutes.</li><li>Open Soma Agent → ⚙ Settings → Licence, paste the key and press Activate.</li></ol>
+</section>
+
+<section>
+  <h2>Stuck?</h2>
+  <div class="q"><b>No Dock icon</b><span>Expected — the pet deliberately stays out of the Dock. The character on your desktop is the app.</span></div><div class="q"><b>Character stuck on &quot;Loading…&quot;</b><span>Usually an imported texture that is not RGBA PNG. Convert it and import again.</span></div><div class="q"><b>No sound</b><span>Check the Azure key and region under ⚙ Settings → Voice, and that system volume is not muted.</span></div>
+</section>
+
+<footer>
+  <span><b>Full guide: soma-agent.com/en/help</b></span>
+  <span>Questions: support@soma-agent.com</span>
+</footer>
+</body>
+</html>
