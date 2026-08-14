@@ -1,0 +1,6 @@
+{
+  "_comment": "桌面 App 的版本公告。App 啟動時會讀這裡比對自己的版本，有新版就在設定→關於提示。發新版時同時更新 latest 與 url（url 指向該版的下載位置）。",
+  "latest": "0.5.0",
+  "url": "https://soma-agent.com/#download",
+  "minSupported": "0.5.0"
+}

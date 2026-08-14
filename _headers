@@ -1,0 +1,7 @@
+# Cloudflare Pages 標頭規則。
+
+# 桌面 App 從 tauri:// 這個 origin 讀版本公告，跨來源請求需要明確放行。
+# 內容是公開的靜態版本號，用萬用字元沒有風險。
+/version.json
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=600
