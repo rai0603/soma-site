@@ -957,9 +957,7 @@
       <div class="lang" style="display:flex;gap:2px;">
         <a href="../" lang="zh-Hant" style="color:var(--d-dim);">繁</a><a class="on" href="./" lang="zh-Hans" style="color:var(--d-fg);">简</a><a href="../en/" lang="en" style="color:var(--d-dim);">EN</a><a href="../ja/" lang="ja" style="color:var(--d-dim);">日</a><a href="../ko/" lang="ko" style="color:var(--d-dim);">한</a>
       </div>
-      <div style="font-size:12.5px;">展示模型与正式版功能可能有差异</div>
-      <!-- TODO: 換成正式聯絡信箱與年份 -->
-      <div class="f-chakra" style="font-size:12px;letter-spacing:.04em;">© 2026 Soma Agent ・ support@soma-agent.com ・ <a href="account/" style="color:inherit;">我的账号</a> ・ <a href="recover.html" style="color:inherit;">找回序号</a> ・ <a href="/legal.html#terms" style="color:inherit;">服务条款</a> ・ <a href="/legal.html#privacy" style="color:inherit;">隐私政策</a> ・ <a href="/legal.html#refund" style="color:inherit;">退款政策</a></div>
+      <div style="font-size:12.5px;">展示模型与正式版功能可能有差异</div>      <div class="f-chakra" style="font-size:12px;letter-spacing:.04em;">© 2026 Soma Agent ・ support@soma-agent.com ・ <a href="account/" style="color:inherit;">我的账号</a> ・ <a href="recover.html" style="color:inherit;">找回序号</a> ・ <a href="/legal.html#terms" style="color:inherit;">服务条款</a> ・ <a href="/legal.html#privacy" style="color:inherit;">隐私政策</a> ・ <a href="/legal.html#refund" style="color:inherit;">退款政策</a></div>
     </div>
   </footer>
 
@@ -974,8 +972,8 @@
 const SOMA = {
   paddle: {
     environment: 'production',          // 'sandbox' | 'production'
-    token: 'live_c16f44b40b646589d28f3195212',                       // TODO: 填入 Paddle client-side token（先 sandbox）
-    prices: {                        // TODO: 填入各方案 Paddle price ID
+    token: 'live_c16f44b40b646589d28f3195212',  // production client token
+    prices: {  // 買斷三項已填；未填的方案會自動停用並標「即將開放」
       buyout_basic:   'pri_01kx2qry2j359jdckdf87pgj4y',            // 限量買斷・基礎 NT$599
       buyout_pro:     'pri_01kx2qryn64p0ry8w04bkw4jfv',            // 限量買斷・進階 NT$899
       addon_podcast:  'pri_01kx2qrzs8nh61shm4ag3aczfa',
