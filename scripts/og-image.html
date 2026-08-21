@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Michroma&family=Chakra+Petch:wght@400;700&family=DotGothic16&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{width:1200px;height:630px;overflow:hidden;background:#0a0a0c;color:#F2F3F7;
+       font-family:'Noto Sans TC',sans-serif;position:relative;}
+  /* 掃描線：跟官網暗域一致的質感 */
+  body::after{content:"";position:absolute;inset:0;
+    background:repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 2px,transparent 2px 4px);}
+  .glow{position:absolute;right:-60px;top:-120px;width:760px;height:760px;border-radius:50%;
+    background:radial-gradient(circle,rgba(102,224,242,.20) 0%,rgba(102,224,242,0) 62%);}
+  .wrap{position:absolute;inset:0;display:grid;grid-template-columns:1fr 430px;}
+  .left{padding:64px 0 64px 72px;display:flex;flex-direction:column;justify-content:center;z-index:2;}
+  .logo{font-family:'Orbitron',sans-serif;font-weight:800;font-size:40px;letter-spacing:.24em;}
+  .logo i{color:#66E0F2;font-style:normal;}
+  .tag{font-family:'Michroma',sans-serif;font-size:16px;letter-spacing:.30em;color:#66E0F2;margin:22px 0 26px;}
+  h1{font-size:52px;font-weight:900;line-height:1.24;letter-spacing:.01em;}
+  h1 b{color:#66E0F2;}
+  p{margin-top:22px;font-size:21px;line-height:1.6;color:#A6ACBD;max-width:19em;}
+  .feats{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap;}
+  .feats span{font-family:'Chakra Petch',sans-serif;font-size:15px;font-weight:700;letter-spacing:.05em;
+    border:1px solid #2A2E3A;padding:7px 15px;color:#F2F3F7;}
+  .corner{position:absolute;left:72px;bottom:44px;font-family:'DotGothic16',monospace;
+    font-size:13px;letter-spacing:.2em;color:#6A7183;z-index:2;}
+  .right{position:relative;z-index:2;}
+  .right img{position:absolute;right:10px;bottom:0;height:598px;
+    filter:drop-shadow(0 0 46px rgba(102,224,242,.24));}
+</style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="wrap">
+    <div class="left">
+      <div class="logo">SOMA<i>_</i></div>
+      <div class="tag">AGENT IN THE SHELL</div>
+      <h1>自帶你的 AI，<br>我們給它<b>臉孔、聲音<br>與記憶</b>。</h1>
+      <p>住在你桌面的 AI 夥伴。八位角色，各有人設與記憶。</p>
+      <div class="feats"><span>BYOK・無月費</span><span>會說話</span><span>會動手</span><span>macOS</span></div>
+    </div>
+    <div class="right"><img src="../assets/characters/vita.png" alt=""></div>
+  </div>
+  <div class="corner">SOMA-AGENT.COM</div>
+</body>
+</html>
