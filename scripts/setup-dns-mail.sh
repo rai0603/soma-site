@@ -5,6 +5,7 @@
 #   export CF_API_TOKEN=<Zone:DNS:Edit 權限的 token>
 #   bash scripts/setup-dns-mail.sh --dry-run   # 先看要做什麼
 #   bash scripts/setup-dns-mail.sh             # 真的建立
+#   bash scripts/setup-dns-mail.sh --fix-spf   # 既有 SPF 缺 include 就合併補上
 #
 # 只新增缺的記錄，已存在的略過；SPF 若已有會印出現值要你自己確認，不會蓋掉。
 # token 只從環境變數讀，不接受命令列參數（`ps` 看得到 arg，會外洩）。
@@ -14,7 +15,11 @@ set -uo pipefail
 ZONE_NAME="soma-agent.com"
 API="https://api.cloudflare.com/client/v4"
 DRY_RUN=false
-[ "${1:-}" = "--dry-run" ] && DRY_RUN=true
+FIX_SPF=false
+case "${1:-}" in
+  --dry-run) DRY_RUN=true ;;
+  --fix-spf) FIX_SPF=true ;;
+esac
 
 # Brevo 負責寄（序號信），Cloudflare Email Routing 負責收（support@ 轉寄）。
 # 兩個 include 都要在，少了 Brevo 那個，序號信在 Gmail 會被打成垃圾郵件。
@@ -102,15 +107,44 @@ create MX "$ZONE_NAME" "route3.mx.cloudflare.net" 96
 echo
 echo "SPF"
 if [ -n "$CURRENT_SPF" ]; then
-  echo "  ! 已有 SPF，沒有動它：${CURRENT_SPF}"
-  case "$CURRENT_SPF" in
-    *spf.brevo.com*) ;;
-    *) echo "    ⚠ 這條缺 include:spf.brevo.com —— 序號信會被打成垃圾郵件，請手動補上" ;;
-  esac
-  case "$CURRENT_SPF" in
-    *_spf.mx.cloudflare.net*) ;;
-    *) echo "    ⚠ 這條缺 include:_spf.mx.cloudflare.net —— 轉寄的信可能被退，請手動補上" ;;
-  esac
+  MISSING=""
+  case "$CURRENT_SPF" in *spf.brevo.com*) ;; *) MISSING="${MISSING} include:spf.brevo.com" ;; esac
+  case "$CURRENT_SPF" in *_spf.mx.cloudflare.net*) ;; *) MISSING="${MISSING} include:_spf.mx.cloudflare.net" ;; esac
+
+  if [ -z "$MISSING" ]; then
+    echo "  ✓ 已有 SPF 且兩個 include 都在：${CURRENT_SPF}"
+  elif $FIX_SPF; then
+    # 把缺的 include 插在 all 機制之前——SPF 是由左到右比對，all 之後的會被忽略
+    MERGED=$(python3 -c "
+import re, sys
+cur, missing = sys.argv[1], sys.argv[2].split()
+parts = cur.strip('\"').split()
+tail = [p for p in parts if p.endswith('all')]
+head = [p for p in parts if not p.endswith('all')]
+for m in missing:
+    if m not in head:
+        head.append(m)
+print(' '.join(head + (tail or ['~all'])))
+" "$CURRENT_SPF" "$MISSING")
+    REC_ID=$(printf '%s' "$EXISTING" | python3 -c "
+import json,sys
+for r in json.load(sys.stdin)['result']:
+    if r['type']=='TXT' and 'v=spf1' in r.get('content',''):
+        print(r['id']); break")
+    echo "  舊：${CURRENT_SPF}"
+    echo "  新：${MERGED}"
+    BODY=$(python3 -c "
+import json,sys
+print(json.dumps({'type':'TXT','name':sys.argv[1],'content':sys.argv[2],'ttl':1}))
+" "$ZONE_NAME" "$MERGED")
+    RES=$(api -X PUT "${API}/zones/${ZONE_ID}/dns_records/${REC_ID}" --data "$BODY")
+    ok_or_die "$RES" "更新 SPF"
+    echo "  ✓ SPF 已更新"
+  else
+    echo "  ! 已有 SPF，沒有動它：${CURRENT_SPF}"
+    echo "    ⚠ 缺：${MISSING}"
+    echo "    → 加 --fix-spf 讓腳本自動合併，或到 DNS → Records 手動編輯"
+  fi
 else
   create TXT "$ZONE_NAME" "$SPF_VALUE"
 fi
