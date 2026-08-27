@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soma Agent：可打造有記憶、會對談、能動手的專屬 AI 夥伴的 macOS 桌面 Companion</title>
+<meta name="description" content="Soma Agent 是 macOS 上的桌面 AI 夥伴，整合 LLM、神經語音、長期記憶與 VRM／Live2D 角色，支援雙角色對談、桌面自動化與完全 BYOK 的模型選擇。">
+<meta name="theme-color" content="#F2F4F7">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://soma-agent.com/blog/soma-agent-intro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Soma Agent：可打造有記憶、會對談、能動手的專屬 AI 夥伴">
+<meta property="og:description" content="整合 LLM、神經語音、長期記憶與 VRM／Live2D 角色，支援雙角色對談與桌面自動化，完全 BYOK。">
+<meta property="og:url" content="https://soma-agent.com/blog/soma-agent-intro">
+<meta property="og:image" content="https://soma-agent.com/assets/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Soma Agent">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://soma-agent.com/assets/og-cover.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Orbitron:wght@600;800&family=Chakra+Petch:wght@400;700&family=DotGothic16&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F4F7; --panel:#FFFFFF; --ink:#14161D; --muted:#5A6172; --dim:#9AA2B3; --line:#D8DCE4;
+    --acc:#0091AD; --acc-soft:#E3F4F8; --amber:#E0771C; --amber-soft:#FBEEDF;
+    --d-bg:#14161D; --d-line:#2A2E3A; --d-fg:#F2F3F7; --d-muted:#A6ACBD; --d-dim:#6A7183; --d-acc:#66E0F2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.85;}
+  a{color:var(--acc);}
+  img,video{max-width:100%;height:auto;display:block;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px;}
+
+  header{border-bottom:1px solid var(--line);background:rgba(242,244,247,.94);position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);}
+  nav{max-width:760px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .logo{font-family:'Orbitron',sans-serif;font-weight:800;font-size:18px;letter-spacing:.22em;text-decoration:none;color:var(--ink);}
+  .logo i{color:var(--acc);font-style:normal;}
+  .navright{display:flex;gap:16px;align-items:center;}
+  .navlink{font-size:13px;color:var(--muted);text-decoration:none;}
+  .navlink:hover{color:var(--acc);}
+  .cta{display:inline-block;text-decoration:none;font-weight:700;border-radius:4px;padding:9px 18px;font-size:13px;background:var(--acc);color:#fff;}
+
+  .hero{padding:52px 0 30px;}
+  .eyebrow{font-family:'DotGothic16',monospace;font-size:11px;letter-spacing:.2em;color:var(--dim);margin-bottom:12px;}
+  h1{font-size:34px;font-weight:900;line-height:1.35;letter-spacing:.01em;margin-bottom:18px;}
+  .lede{color:var(--muted);font-size:16.5px;border-left:3px solid var(--acc);padding-left:16px;margin-bottom:22px;}
+  .meta{font-size:13px;color:var(--dim);font-family:'Chakra Petch',sans-serif;letter-spacing:.04em;}
+
+  article{padding:12px 0 60px;}
+  article p{margin:0 0 20px;}
+  h2{font-size:23px;font-weight:900;margin:46px 0 16px;padding-left:12px;border-left:4px solid var(--acc);line-height:1.4;}
+  h3{font-size:17px;font-weight:700;margin:32px 0 12px;}
+  ul{margin:0 0 20px;padding-left:22px;}
+  li{margin-bottom:9px;}
+  strong{font-weight:700;}
+
+  figure{margin:30px 0;}
+  figure img,figure video{border:1px solid var(--line);border-radius:6px;background:var(--panel);}
+  figcaption{font-size:13.5px;color:var(--muted);margin-top:10px;padding-left:12px;border-left:2px solid var(--line);line-height:1.7;}
+
+  .flow{background:var(--d-bg);color:var(--d-fg);padding:20px 22px;border-radius:6px;margin:26px 0;
+    font-family:'Chakra Petch',sans-serif;font-size:14.5px;line-height:2;overflow-wrap:break-word;}
+  .flow b{color:var(--d-acc);font-weight:700;}
+
+  .note{background:var(--acc-soft);border-left:3px solid var(--acc);padding:14px 18px;border-radius:0 5px 5px 0;
+    margin:24px 0;font-size:15px;color:#0d3d47;}
+  .warn{background:var(--amber-soft);border-left:3px solid var(--amber);padding:14px 18px;border-radius:0 5px 5px 0;
+    margin:24px 0;font-size:15px;color:#6d3d10;}
+
+  .chars{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:26px 0 12px;}
+  .chars>div{min-width:0;}
+  .chars img{border-radius:6px;border:1px solid var(--line);background:linear-gradient(180deg,#fff,#eef1f5);}
+  .chars span{display:block;text-align:center;font-size:12.5px;color:var(--muted);margin-top:6px;
+    font-family:'Chakra Petch',sans-serif;letter-spacing:.04em;}
+
+  .specs{border-top:1px solid var(--line);margin-top:44px;padding-top:26px;}
+  .specs dl{display:grid;grid-template-columns:minmax(90px,auto) 1fr;gap:0;}
+  .specs dt{padding:11px 16px 11px 0;border-bottom:1px solid var(--line);font-weight:700;font-size:14.5px;}
+  .specs dd{padding:11px 0;border-bottom:1px solid var(--line);color:var(--muted);font-size:14.5px;overflow-wrap:break-word;}
+
+  .endcta{background:var(--d-bg);color:var(--d-fg);border-radius:8px;padding:30px 28px;margin:44px 0 0;text-align:center;}
+  .endcta h3{font-size:20px;margin:0 0 10px;color:var(--d-fg);}
+  .endcta p{color:var(--d-muted);font-size:14.5px;margin-bottom:20px;}
+  .endcta a{display:inline-block;background:var(--d-acc);color:var(--d-bg);font-weight:700;
+    text-decoration:none;padding:12px 28px;border-radius:5px;}
+
+  footer{background:#0e1015;color:var(--d-muted);padding:26px 0;font-size:12.5px;margin-top:50px;}
+  footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+  footer a{color:inherit;}
+
+  @media(max-width:620px){
+    h1{font-size:26px;}
+    h2{font-size:20px;}
+    .chars{grid-template-columns:repeat(2,1fr);}
+    .specs dl{grid-template-columns:1fr;}
+    .specs dt{border-bottom:none;padding-bottom:2px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a class="logo" href="/">SOMA<i>_</i></a>
+    <div class="navright">
+      <a class="navlink" href="/help">使用教學</a>
+      <a class="cta" href="/#download">免費試用</a>
+    </div>
+  </nav>
+</header>
+
+<div class="wrap hero">
+  <div class="eyebrow">SEC.BLOG / INTRODUCTION</div>
+  <h1>Soma Agent：可打造有記憶、會對談、能動手的專屬 AI 夥伴的 macOS 桌面 Companion</h1>
+  <p class="lede">Soma Agent 是 macOS 上的桌面 AI 夥伴，整合 LLM、神經語音、長期記憶與 VRM／Live2D 角色，支援雙角色對談、桌面自動化與完全 BYOK 的模型選擇。</p>
+  <div class="meta">2026 年 8 月・產品介紹</div>
+</div>
+
+<div class="wrap">
+<article>
+
+<figure>
+  <img src="../assets/og-cover.png" alt="Soma Agent — Agent in the Shell" width="1200" height="630">
+  <figcaption>產品標語「Agent in the Shell」：你自己帶來的 AI 是 ghost，Soma 提供的是那具軀殼。</figcaption>
+</figure>
+
+<p>Soma Agent 是一套執行在 macOS 的桌面 AI 夥伴，把大型語言模型（LLM）、語音辨識（ASR）、文字轉語音（TTS）、長期記憶與 VRM／Live2D 角色整合在同一個原生應用程式裡。使用者可以打字或按住熱鍵說話，角色會用自己的聲線回應、同步嘴型與表情，並且記得先前聊過的內容。開發者將它定位為 Agent in the Shell——你自己帶來的 AI 是 ghost，Soma 提供的是那具軀殼：形象、聲音、記憶，以及操作桌面的能力。</p>
+
+<p>它和一般 ChatGPT 語音對話或 Character AI 類服務最大的差異，在於 Soma Agent <strong>完全不轉賣 AI 額度</strong>。使用者填入自己的 API key 直接連到模型供應商，用多少付多少給對方，對話內容不經過開發者的伺服器；官方的伺服器只負責驗證序號這一件事。再加上角色外觀、人格、聲線與回應語言都能逐一設定，因此它比較接近「把你選的模型裝進一個有身體的殼」的基礎工具，而不是一個已經幫你決定好一切的訂閱服務。</p>
+
+<p>這個專案最早的起點，是一套嵌在網站上的 Live2D 語音客服。開發過程中發現「有形象、會說話、記得你」這三件事湊在一起時，體驗和純文字聊天框完全不同，於是把它從瀏覽器裡搬出來，做成常駐桌面的原生應用。隨著功能增加，定位也從單一助理延伸到多角色的 Personal AI Companion——內建八位角色，各自擁有獨立的人格、記憶與聲音。</p>
+
+<p>基本互動流程可以理解成：</p>
+
+<div class="flow">
+使用者說話或打字 → <b>ASR</b> 語音辨識 → <b>LLM</b> 理解與回應 → <b>記憶萃取</b> → <b>TTS</b> 產生聲音 → <b>VRM／Live2D</b> 表情與嘴型同步
+</div>
+
+<p>不過 Soma Agent 並不只處理對話。在進階版中，AI 可以呼叫桌面工具：開啟網頁與應用程式、讀取網頁內容、依日期整理檔案、控制音樂播放。任何會動到檔案的操作都會先跳出確認框，按下允許之後才執行。這讓它比單純的語音助理更接近一個「有眼睛、有聲音、也有手」的桌面代理人。</p>
+
+<h2>目前的主要能力</h2>
+
+<ul>
+  <li>VRM 與 Live2D 雙引擎的桌面角色，透明背景、常駐置頂、可拖曳</li>
+  <li>八位內建角色，各自獨立的人格、記憶、聲線與外觀設定</li>
+  <li><strong>長期記憶</strong>：角色會記住聊過的重點並逐步整理，可隨時查看或清除</li>
+  <li>Azure 神經語音，中文、日文、韓文、英文多語聲線</li>
+  <li>按住右 Option 說話的語音輸入，放開即送出</li>
+  <li><strong>雙角色對談</strong>（加購）：兩個角色就給定主題自己聊，你可以旁觀或隨時插話變成三方對話</li>
+  <li><strong>桌面工具執行</strong>（進階版）：開網頁、讀網頁、整理檔案、控制音樂</li>
+  <li>匯入自己合法取得的 VRM 或 Live2D 模型，不受版本限制</li>
+  <li>回應語言與語音語言可分開設定，例如用中文聊天、讓角色以日文發音</li>
+  <li>介面五語：繁體中文、簡體中文、英文、日文、韓文</li>
+  <li>完全 BYOK，支援 Anthropic、OpenAI、Google Gemini 與本機 Ollama</li>
+  <li>買斷制、無月費，7 天免費試用不需付款資訊</li>
+</ul>
+
+<h2>長期記憶：關掉視窗之後還記得你</h2>
+
+<p>其中「長期記憶」是實際使用一段時間後最有感的一項。多數 AI 桌寵在關掉視窗後就把一切忘光，每次都要重新自我介紹；Soma 的每個角色各自累積記憶，你跟這隻聊的事，那隻並不知道。</p>
+
+<p>開發過程中曾經踩到一個值得一提的坑：模型偶爾產生的錯誤資訊會被記憶萃取寫進長期記憶，下次讀出來當成事實使用，等於<strong>幻覺自我固化</strong>。因此「可以查看與清除記憶」不是加分功能，而是必要設計。</p>
+
+<h2>桌面工具：把「說」變成「做」</h2>
+
+<p>跟角色說「幫我把記憶卡昨天拍的照片複製到雲端硬碟」，它會實際去列資料夾、比對日期、建立目標資料夾並複製檔案。</p>
+
+<figure>
+  <video controls preload="none" poster="../assets/demo/poster-zh-TW.jpg" src="../assets/demo/demo-zh-TW.mp4" width="1280" height="720"></video>
+  <figcaption>實際操作錄影，未經腳本排練：指令說出口之後，角色實際開啟網頁、控制音樂與整理檔案。影片中每一個會動到檔案的動作都會先跳出確認框。</figcaption>
+</figure>
+
+<p>這條路徑早期版本曾出現「動嘴不動手」的問題——模型回報已完成，實際上一個檔案都沒動。根因是讓 AI 自己逐步協調多個步驟時，它會在中途認為差不多了就收尾。最後的解法是把整段流程包成單一個 Rust 指令，AI 只負責呼叫一次，<strong>多步協調交給程式而非模型</strong>。</p>
+
+<p>安全邊界則放在 Rust 層而不是介面層。可讀與可寫的路徑各有白名單，路徑會先 canonicalize 解開符號連結與相對路徑再比對，前端的確認框只是使用者體驗，真正的守門在後端。API key 存放在本機的設定檔（權限 600），只有 Rust 端讀得到，不會進入網頁層、也不會傳給開發者。</p>
+
+<h2>雙角色對談：讓兩個角色自己聊</h2>
+
+<p>給定一個主題之後，兩個角色會就該主題自行往返討論，使用者可以純粹旁觀，也可以隨時打字插話，讓下一個角色轉過來回應你。</p>
+
+<figure>
+  <video controls preload="none" poster="../assets/demo/cast-poster-zh-TW.jpg" src="../assets/demo/cast-zh-TW.mp4" width="1280" height="720"></video>
+  <figcaption>雙角色對談實錄。兩位角色就給定主題自行往返，使用者可以隨時插話轉為三方對話。</figcaption>
+</figure>
+
+<p>這件事的技術難點不在對話本身而在成本：實測一場 36 分鐘的對談，輸入 token 會從 826 一路線性攀升到每輪 12,783，其中 <strong>96% 的成本都在 input</strong>。後來加上只送最近十筆發言的滑動窗口，成本才封頂。也因為長時間對談確實耗用額度，這項功能只在買斷版提供、不進訂閱制。</p>
+
+<h2>八位角色，各自獨立的人格與記憶</h2>
+
+<div class="chars">
+  <div><img src="../assets/characters/thumb/vita.png" alt="Vita" loading="lazy"><span>VITA</span></div>
+  <div><img src="../assets/characters/thumb/victoria.png" alt="Victoria" loading="lazy"><span>VICTORIA</span></div>
+  <div><img src="../assets/characters/thumb/lusa.png" alt="Lusa" loading="lazy"><span>LUSA</span></div>
+  <div><img src="../assets/characters/thumb/remi2.png" alt="Remi" loading="lazy"><span>REMI</span></div>
+  <div><img src="../assets/characters/thumb/yuna.png" alt="Yuna" loading="lazy"><span>YUNA</span></div>
+  <div><img src="../assets/characters/thumb/alice.png" alt="Alice" loading="lazy"><span>ALICE</span></div>
+  <div><img src="../assets/characters/thumb/colossus.png" alt="Colossus" loading="lazy"><span>COLOSSUS</span></div>
+  <div><img src="../assets/characters/thumb/hoverbot.png" alt="HoverBot" loading="lazy"><span>HOVERBOT</span></div>
+</div>
+
+<p>角色客製化不只是換一張圖。每位角色擁有獨立的人格設定、記憶、聲線、回應語言與外觀，切換角色時整組設定一併切換。內建角色中，機械型的 Colossus 沒有嘴，改用胸口燈光對嘴——講話時光條跟著音節亮。</p>
+
+<p>使用者也可以匯入自己的 VRM 或 Live2D 模型；匯入 Live2D 時程式會檢查貼圖格式，調色盤（indexed）格式的貼圖會讓角色永遠卡在載入中，因此匯入時會自動轉為 RGBA，轉不成的則明確擋下並說明原因，而不是讓使用者對著轉圈圈猜。</p>
+
+<h2>模型選擇：不綁定任何一家</h2>
+
+<p>Soma Agent 目前支援 Anthropic（Claude）、OpenAI、Google Gemini，以及透過 OpenAI 相容介面連接的本機 Ollama。使用者可以依成本、隱私與模型能力自行選擇，也能在下拉選單之外手動輸入模型 ID——各家模型名稱汰換得很快，寫死清單很快就會過時。</p>
+
+<div class="warn">
+  <strong>需要留意</strong>：桌面工具目前<strong>只有 Anthropic 的模型會實際執行</strong>。Gemini 的 function call 要求帶上 thought_signature，這部分尚未實作，因此選擇 Gemini、OpenAI 或本機模型時只提供純對話。介面上有標示，但這確實是目前的功能落差。
+</div>
+
+<h2>平台與安裝</h2>
+
+<p>目前首波支援 macOS，Intel 與 Apple Silicon 都可執行，安裝檔已完成 Developer ID 簽章與 Apple 公證，下載後拖進應用程式即可開啟，不需要處理隔離屬性或安裝任何執行環境。桌面端以 Tauri 打包（Rust 後端搭配系統 WebView），因此常駐時的記憶體占用低於 Electron 方案。</p>
+
+<h2>兩種使用路線</h2>
+
+<p>從實際使用情境來看，Soma Agent 可以走兩條路線。第一種是<strong>桌面助理</strong>：讓角色待在螢幕角落，隨時查東西、整理檔案、開網頁，需要時才叫它。第二種是<strong>陪伴型 Companion</strong>：讓角色記住你的偏好與近況，或啟用雙角色模式讓兩位角色自己聊天，當成背景的 AI podcast。</p>
+
+<p>它和開源自架方案的差異也在這裡。開源專案（例如 Open-LLM-VTuber）把最大的控制權交給使用者——可以完全離線執行、自由替換 ASR 與 TTS 元件、跨三大作業系統，代價是需要自行安裝 Python 環境與設定各項服務。Soma Agent 則選擇了另一端：開箱即用的簽章安裝檔、內建授權乾淨的八位角色、五語介面與商業支援，代價是需要付費、目前僅支援 macOS，而且不提供完全離線的語音方案（語音仍走 Azure，只有 LLM 那一段可以用 Ollama 完全在本機執行）。</p>
+
+<h2>購買前值得知道的限制</h2>
+
+<ul>
+  <li><strong>僅支援 macOS</strong>。Windows 與 Linux 版本在規劃中，Mac App Store 上架也在路上，但目前都還沒有時程承諾。</li>
+  <li><strong>沒有語音打斷</strong>。目前是角色講完一段之後才進入下一輪，無法在它說話途中插話。這會影響長回應時的對話節奏。</li>
+  <li><strong>沒有視覺感知</strong>。角色不會讀取攝影機或螢幕內容；圖片與 PDF 需要使用者主動附加，且只有 Anthropic 模型能讀。</li>
+  <li><strong>角色不會主動開口</strong>。待機時有隨機的表情與動作，但不會自行發起話題。</li>
+  <li><strong>語音需要另外準備 Azure 金鑰</strong>。沒有設定時會退回系統語音，音質差距明顯。</li>
+</ul>
+
+<h2>總結</h2>
+
+<p>整體而言，Soma Agent 真正有辨識度的地方，不只是「讓 LLM 配上一個 3D 角色」，而是把長期記憶、多角色人格、雙角色對談與桌面工具執行串成一套可以每天使用的原生應用，同時把模型選擇權與資料完全留在使用者手上。對想要一個記得住你、能陪你聊天、必要時還能替你動手處理桌面雜事的 AI 夥伴，而且不希望每個月付訂閱費或把對話交給第三方伺服器的使用者而言，它提供了一條與開源自架方案不同、但同樣把控制權交回使用者的路徑。</p>
+
+<div class="specs">
+  <dl>
+    <dt>售價</dt>
+    <dd>買斷制。基礎版 NT$599、進階版 NT$899（含桌面工具與兩位額外角色）、雙角色對談加購 NT$399。無月費。</dd>
+    <dt>試用</dt>
+    <dd>7 天免費，不需付款資訊。到期後角色與對話記憶都保留。</dd>
+    <dt>系統需求</dt>
+    <dd>macOS，Intel 或 Apple Silicon。已完成簽章與公證。</dd>
+    <dt>AI 費用</dt>
+    <dd>BYOK，自行付費給模型供應商；使用本機 Ollama 則完全免費。</dd>
+  </dl>
+</div>
+
+<div class="endcta">
+  <h3>7 天免費試用</h3>
+  <p>不需要付款資訊，填個 Email 就能開始。</p>
+  <a href="/#download">下載 macOS 版</a>
+</div>
+
+</article>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Soma Agent</span>
+    <span><a href="/help">使用教學</a> ・ <a href="/legal.html">法律資訊</a> ・ <a href="mailto:support@soma-agent.com">support@soma-agent.com</a></span>
+  </div>
+</footer>
+
+</body>
+</html>

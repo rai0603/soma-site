@@ -4,7 +4,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://soma-agent.com/</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/"/>
@@ -16,7 +16,7 @@
   </url>
   <url>
     <loc>https://soma-agent.com/cn/</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/"/>
@@ -28,7 +28,7 @@
   </url>
   <url>
     <loc>https://soma-agent.com/en/</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/"/>
@@ -40,7 +40,7 @@
   </url>
   <url>
     <loc>https://soma-agent.com/ja/</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/"/>
@@ -52,7 +52,7 @@
   </url>
   <url>
     <loc>https://soma-agent.com/ko/</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/"/>
@@ -64,7 +64,7 @@
   </url>
   <url>
     <loc>https://soma-agent.com/help</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/help"/>
@@ -76,7 +76,7 @@
   </url>
   <url>
     <loc>https://soma-agent.com/cn/help</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/help"/>
@@ -88,7 +88,7 @@
   </url>
   <url>
     <loc>https://soma-agent.com/en/help</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/help"/>
@@ -100,7 +100,7 @@
   </url>
   <url>
     <loc>https://soma-agent.com/ja/help</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/help"/>
@@ -112,7 +112,7 @@
   </url>
   <url>
     <loc>https://soma-agent.com/ko/help</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/help"/>
@@ -123,8 +123,14 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://soma-agent.com/en/help"/>
   </url>
   <url>
+    <loc>https://soma-agent.com/blog/soma-agent-intro</loc>
+    <lastmod>2026-08-28</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://soma-agent.com/legal.html</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-08-28</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
