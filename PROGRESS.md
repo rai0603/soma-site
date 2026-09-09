@@ -44,6 +44,17 @@
 - 視覺驗證用 DOM 量測（getBoundingClientRect/computedStyle/手動觸發 handler）比「捲動後截圖」可靠——本環境截圖會搶在重繪前。
 - dc.html 設計稿含設計工具 runtime（support.js / x-dc / sc-if / {{ }}），handoff 明示不可移植，須當規格來源純手重建。
 
+## Last session（2026-09-09 — 儀表板假 0、流量追蹤、0.5.1／0.5.2 上線）
+
+- **儀表板顯示假的 0 已修。** 成因三層：`liveStats` 只在載入時抓一次（長時間開著的分頁永遠停在舊數字）、`.catch(() => {})` 靜默吞掉失敗、靜態 fallback 寫「剩 0 份」讀起來像售完。改成沒資料顯示 `--`、失敗重試三次、localStorage 墊上次成功值、`visibilitychange` 回前景重抓。五語同步。
+- **流量追蹤接上 AICMS**（`assets/track.js`，15 頁共用）。先前完全沒裝任何 beacon，所以後台是空的。除 pageview 外送 `download_click`（漏斗最關鍵那格）與 `pageleave`。端點指向 `waterman-sports.cc/api/track`（AICMS public-site 本體；`ai-cms.cc` 是另一個服務，回 405）。
+- **`build-help.mjs` 產生器同步**加了追蹤器與雙 Meta Pixel，重建 help 頁不會掉。
+- **0.5.1 / 0.5.2 兩次發版**：下載連結、下載面板的版本標示與 **SHA256**、`version.json` 四處都要同步——SHA256 沒換的話，照官網比對雜湊的人會得到 mismatch，看起來像檔案被動過手腳。
+
+### ⚠️ 下一步要知道的
+- AICMS 那側的 `is_internal` 要維持 `true`，否則事件會被靜默丟棄。後台分析頁看的時候要開「含外站」。
+- Cloudflare Web Analytics 仍未安裝；AICMS 追蹤已在收（9/9 收到 128 筆），可能不需要了。
+
 ## Last session（2026-08-14 — 發售鏈路補完）
 
 - **新增頁面**：`help.html` ×5 語（由 app repo `scripts/build-help.mjs` 產生，與 app 內說明面板共用同一份 content.json + i18n）、`account/index.html` ×5 語、`recover.html` ×5 語（由本 repo `scripts/build-portal.mjs` 產生）、`version.json` + `_headers`、`assets/quickstart-{zh-TW,en}.pdf`。
