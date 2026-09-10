@@ -47,8 +47,8 @@
   .lead{color:var(--muted);margin:0 0 28px;max-width:56ch;}
 
   form{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px;}
-  input[type=email]{flex:1;min-width:240px;padding:12px 14px;border:1px solid var(--line);border-radius:5px;background:var(--panel);font:inherit;font-size:15px;color:var(--ink);}
-  input[type=email]:focus{outline:2px solid var(--acc);outline-offset:-1px;border-color:var(--acc);}
+  input[type=email],input[type=text]{flex:1;min-width:240px;padding:12px 14px;border:1px solid var(--line);border-radius:5px;background:var(--panel);font:inherit;font-size:15px;color:var(--ink);}
+  input[type=email]:focus,input[type=text]:focus{outline:2px solid var(--acc);outline-offset:-1px;border-color:var(--acc);}
   button{font:inherit;font-weight:700;font-size:14.5px;border:0;border-radius:5px;padding:12px 22px;background:var(--acc);color:#fff;cursor:pointer;}
   button:hover{filter:brightness(1.08);}
   button[disabled]{opacity:.5;cursor:not-allowed;}
@@ -81,11 +81,14 @@
   .dev-name{font-weight:700;font-size:14.5px;}
   .dev-when{font-size:12.5px;color:var(--dim);}
   .empty{color:var(--muted);font-size:14px;padding:11px 0;border-top:1px solid var(--line);}
+  .hint{font-size:13.5px;color:var(--muted);margin:0 0 20px;}
+  .steps{line-height:1.9;padding-left:20px;margin:0 0 18px;font-size:14.5px;}
+  .dl{display:inline-block;background:var(--acc);color:#fff;font-weight:700;font-size:14.5px;padding:12px 22px;border-radius:5px;text-decoration:none;}
 
   footer{background:#0e1015;color:var(--d-muted);padding:24px 0;font-size:12.5px;margin-top:40px;}
   footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
   footer a{color:inherit;}
-  @media(max-width:560px){h1{font-size:27px;} button{width:100%;} input[type=email]{min-width:0;}}
+  @media(max-width:560px){h1{font-size:27px;} button{width:100%;} form input[type=email],form input[type=text]{min-width:0;flex:1 1 100%;}}
 </style>
 </head>
 <body>
@@ -136,7 +139,7 @@
 
 <script>
 const API = "https://license.soma-agent.com";
-const T = {"home":"トップへ","guide":"使い方ガイド","account":"マイアカウント","recover":"キーの再送","emailPh":"購入時のメールアドレス","invalidEmail":"有効なメールアドレスを入力してください。","tooMany":"試行が多すぎます。1 分ほど待って再度お試しください。","netError":"ライセンスサーバーに接続できません。しばらくしてからお試しください。","loading":"読み込み中…","support":"サポートに問い合わせる","rcTitle":"キーの再送","rcDesc":"Soma Agent — 登録済みのライセンスキーをメールで再送します。","rcLead":"購入時のメールアドレスを入力すると、そのアドレスに紐づくライセンスキーをすべて再送します。","rcSubmit":"キーを再送する","rcSent":"そのアドレスにライセンスがあれば、キーを送信しました。受信トレイと迷惑メールフォルダをご確認ください。","acTitle":"マイアカウント","acDesc":"Soma Agent — ライセンス・キー・認証済み端末の確認と、リモートでの認証解除。","acLead":"購入時のメールアドレスを入力してください。ログインリンクをお送りします（パスワードは不要です）。","acSubmit":"ログインリンクを送る","acSent":"そのアドレスにライセンスがあれば、ログインリンクを送信しました。有効期限は 15 分、使用は 1 回限りです。","acInvalidLink":"このログインリンクは無効か、すでに使用されています。もう一度お試しください。","logout":"ログアウト","noLicense":"このアカウントにはまだライセンスがありません。同じアドレスで購入すると自動的に紐づきます。","key":"ライセンスキー","copy":"コピー","copied":"コピーしました","purchasedAt":"購入日","seats":"ライセンス数","devices":"認証済みの端末","noDevices":"まだ端末は登録されていません。","activatedAt":"認証日","lastSeen":"最終使用","unbind":"認証を解除","unbindConfirm":"「{name}」の認証を解除しますか？次回 Soma Agent を起動したときに未認証の状態に戻り、枠はすぐに解放されます。","unnamed":"名称未設定の端末","tier":{"basic":"ベーシック","advanced":"アドバンス"},"podcast":"Podcast 追加","type":{"perpetual":"買い切り","subscription":"サブスク","trial":"7 日間の試用"},"status":{"active":"有効","suspended":"停止中","refunded":"返金済み"},"expiresAt":"有効期限","neverExpires":"無期限"};
+const T = {"home":"トップへ","guide":"使い方ガイド","account":"マイアカウント","recover":"キーの再送","emailPh":"購入時のメールアドレス","invalidEmail":"有効なメールアドレスを入力してください。","tooMany":"試行が多すぎます。1 分ほど待って再度お試しください。","netError":"ライセンスサーバーに接続できません。しばらくしてからお試しください。","loading":"読み込み中…","support":"サポートに問い合わせる","rcTitle":"キーの再送","rcDesc":"Soma Agent — 登録済みのライセンスキーをメールで再送します。","rcLead":"購入時のメールアドレスを入力すると、そのアドレスに紐づくライセンスキーをすべて再送します。","rcSubmit":"キーを再送する","rcSent":"そのアドレスにライセンスがあれば、キーを送信しました。受信トレイと迷惑メールフォルダをご確認ください。","acTitle":"マイアカウント","acDesc":"Soma Agent — ライセンス・キー・認証済み端末の確認と、リモートでの認証解除。","acLead":"購入時のメールアドレスを入力してください。ログインリンクをお送りします（パスワードは不要です）。","acSubmit":"ログインリンクを送る","acSent":"そのアドレスにライセンスがあれば、ログインリンクを送信しました。有効期限は 15 分、使用は 1 回限りです。","acInvalidLink":"このログインリンクは無効か、すでに使用されています。もう一度お試しください。","logout":"ログアウト","noLicense":"このアカウントにはまだライセンスがありません。同じアドレスで購入すると自動的に紐づきます。","key":"ライセンスキー","copy":"コピー","copied":"コピーしました","purchasedAt":"購入日","seats":"ライセンス数","devices":"認証済みの端末","noDevices":"まだ端末は登録されていません。","activatedAt":"認証日","lastSeen":"最終使用","unbind":"認証を解除","unbindConfirm":"「{name}」の認証を解除しますか？次回 Soma Agent を起動したときに未認証の状態に戻り、枠はすぐに解放されます。","unnamed":"名称未設定の端末","tier":{"basic":"ベーシック","advanced":"アドバンス"},"podcast":"Podcast 追加","type":{"perpetual":"買い切り","subscription":"サブスク","trial":"7 日間の試用"},"status":{"active":"有効","suspended":"停止中","refunded":"返金済み"},"expiresAt":"有効期限","neverExpires":"無期限","btTitle":"BOOTH 購入者向け シリアル引換","btDesc":"Soma Agent BOOTH 購入者専用｜注文番号とメールアドレスでシリアルコードを発行します。","btLead":"BOOTH でご購入いただいた方は、注文番号とメールアドレスを入力してください。その場でシリアルコードを発行します。","btOrderPh":"BOOTH の注文番号","btOrderHelp":"注文番号は BOOTH の「購入履歴」→ 該当の注文ページで確認できます。","btSubmit":"シリアルコードを発行","btOk":"シリアルコードを発行しました。同じ内容をメールでもお送りしています。大切に保管してください。","btResent":"こちらは以前発行済みのシリアルコードです（新しい番号は発行されません）。","btNotFound":"この注文番号は確認できませんでした。ご購入直後の場合、反映まで最大 24 時間ほどかかります。時間をおいても解決しない場合は support@soma-agent.com までご連絡ください。","btAlready":"この注文番号は別のメールアドレスで引換済みです。お心当たりがない場合は support@soma-agent.com までご連絡ください。","btInvalidOrder":"注文番号の形式が正しくないようです。購入履歴と照らし合わせてご確認ください。","btKeyLabel":"あなたのシリアルコード","btNextTitle":"次の手順","btNext1":"Soma Agent（macOS）をダウンロード","btNext2":"アプリを起動 → ⚙ 設定 → ライセンス","btNext3":"上のシリアルコードを貼り付けて「有効化」","btDownload":"macOS 版をダウンロード"};
 const LOCALE = "ja-JP";
 const $ = (id) => document.getElementById(id);
 const looksLikeEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());

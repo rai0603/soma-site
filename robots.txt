@@ -6,6 +6,7 @@ Allow: /
 # 客戶自助頁沒有可索引的內容，且 /account 是登入後才有東西
 Disallow: /account
 Disallow: /recover
+Disallow: /booth
 Disallow: /success.html
 
 Sitemap: https://soma-agent.com/sitemap.xml

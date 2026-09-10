@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>我的账号 — Soma Agent</title>
-<meta name="description" content="Soma Agent 我的账号｜查看授权、序号与已绑定的设备，并可远程解除绑定。">
+<title>BOOTH 购买者序号兑换 — Soma Agent</title>
+<meta name="description" content="Soma Agent BOOTH 购买者专用｜输入订单编号与 Email 换取序号。">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#F2F4F7">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="canonical" href="https://soma-agent.com/cn/account">
-<link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/account">
-<link rel="alternate" hreflang="zh-Hans" href="https://soma-agent.com/cn/account">
-<link rel="alternate" hreflang="en" href="https://soma-agent.com/en/account">
-<link rel="alternate" hreflang="ja" href="https://soma-agent.com/ja/account">
-<link rel="alternate" hreflang="ko" href="https://soma-agent.com/ko/account">
+<link rel="canonical" href="https://soma-agent.com/cn/booth">
+<link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/booth">
+<link rel="alternate" hreflang="zh-Hans" href="https://soma-agent.com/cn/booth">
+<link rel="alternate" hreflang="en" href="https://soma-agent.com/en/booth">
+<link rel="alternate" hreflang="ja" href="https://soma-agent.com/ja/booth">
+<link rel="alternate" hreflang="ko" href="https://soma-agent.com/ko/booth">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Chakra+Petch:wght@400;700&family=DotGothic16&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
@@ -95,37 +95,44 @@
 
 <header>
   <nav>
-    <a class="logo" href="../index.html">SOMA<i>_</i></a>
+    <a class="logo" href="index.html">SOMA<i>_</i></a>
     <div class="navright">
-      <div class="lang"><a href="../account/" lang="zh-Hant">繁</a><a class="on" href="../cn/account/" lang="zh-Hans">简</a><a href="../en/account/" lang="en">EN</a><a href="../ja/account/" lang="ja">日</a><a href="../ko/account/" lang="ko">한</a></div>
-      <a class="navlink" href="../recover.html">找回序号</a>
-      <a class="navlink" href="../help.html">使用教程</a>
-      <a class="navlink" href="../index.html">回首页</a>
+      <div class="lang"><a href="../booth.html" lang="zh-Hant">繁</a><a class="on" href="../cn/booth.html" lang="zh-Hans">简</a><a href="../en/booth.html" lang="en">EN</a><a href="../ja/booth.html" lang="ja">日</a><a href="../ko/booth.html" lang="ko">한</a></div>
+      <a class="navlink" href="account/">我的账号</a>
+      <a class="navlink" href="help.html">使用教程</a>
+      <a class="navlink" href="index.html">回首页</a>
     </div>
   </nav>
 </header>
 
 <main>
   <div class="wrap">
-    <div class="eyebrow">SEC.AC / ACCOUNT</div>
-    <h1>我的账号</h1>
-
+    <div class="eyebrow">SEC.BT / BOOTH</div>
+    <h1>BOOTH 购买者序号兑换</h1>
+    <p class="lead">在 BOOTH 购买的朋友，请在这里输入订单编号与 Email，我们会立刻发给你序号。</p>
+    <form id="f" novalidate>
+      <input id="order" type="text" autocomplete="off" placeholder="BOOTH 订单编号（注文番号）" aria-label="BOOTH 订单编号（注文番号）">
+      <input id="email" type="email" autocomplete="email" placeholder="购买时使用的 Email" aria-label="购买时使用的 Email">
+      <button id="btn" type="submit">发给我序号</button>
+    </form>
+    <p class="hint">订单编号可在 BOOTH 的「購入履歴」→ 该笔订单页面找到。</p>
     <p id="msg" class="msg" hidden></p>
 
-    <section id="signin" hidden>
-      <p class="lead">输入购买时使用的 Email，我们会寄一条登录链接给你——不需要设密码。</p>
-      <form id="f" novalidate>
-        <input id="email" type="email" autocomplete="email" placeholder="购买时使用的 Email" aria-label="购买时使用的 Email">
-        <button id="btn" type="submit">寄送登录链接</button>
-      </form>
-    </section>
-
-    <section id="dash" hidden>
-      <div class="who">
-        <span class="mail" id="who-mail"></span>
-        <button class="ghost" id="btn-logout" type="button">登出</button>
+    <section id="result" hidden>
+      <div class="lic">
+        <div class="meta"><span><b>你的序号</b></span></div>
+        <div class="keyrow">
+          <code id="key"></code>
+          <button class="ghost" id="copy" type="button">复制</button>
+        </div>
+        <h4 style="font-size:12px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;margin:0 0 8px">接下来</h4>
+        <ol class="steps">
+          <li>下载 Soma Agent（macOS）</li>
+          <li>打开 app → ⚙ 设置 → 授权</li>
+          <li>粘贴上面的序号 → 点「启用」</li>
+        </ol>
+        <a class="dl" href="index.html#download">下载 macOS 版</a>
       </div>
-      <div id="licenses"></div>
     </section>
   </div>
 </main>
@@ -145,164 +152,66 @@ const $ = (id) => document.getElementById(id);
 const looksLikeEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 function show(el, cls, text){ el.className = 'msg ' + cls; el.textContent = text; el.hidden = false; }
 
-const fmtDate = (s) => s ? new Date(s).toLocaleDateString(LOCALE, { year:'numeric', month:'long', day:'numeric' }) : '';
+/**
+ * 失敗表示。**前回のシリアルを必ず消す**——1 件目を引き換えたあと 2 件目で
+ * 404 を出すと、赤いエラーと前のシリアルが同じ画面に並び、
+ * そのコードが 2 件目のものだと誤解される。
+ */
+function fail(msg, result, text){ result.hidden = true; show(msg, 'bad', text); }
 
-function planName(lic){
-  const base = T.tier[lic.tier] || lic.tier;
-  return base + '（' + (T.type[lic.licenseType] || lic.licenseType) + '）';
-}
-
-function licenseCard(lic){
-  const card = document.createElement('div');
-  card.className = 'lic';
-
-  const top = document.createElement('div');
-  top.className = 'lic-top';
-  const plan = document.createElement('div');
-  plan.className = 'lic-plan';
-  plan.textContent = planName(lic);
-  if (lic.addons && lic.addons.includes('podcast')) {
-    const a = document.createElement('span');
-    a.className = 'tag t-addon';
-    a.textContent = T.podcast;
-    plan.appendChild(a);
-  }
-  const st = document.createElement('span');
-  st.className = 'tag t-' + lic.status;
-  st.textContent = T.status[lic.status] || lic.status;
-  top.appendChild(plan); top.appendChild(st);
-  card.appendChild(top);
-
-  const keyrow = document.createElement('div');
-  keyrow.className = 'keyrow';
-  const code = document.createElement('code');
-  code.textContent = lic.key;
-  const copyBtn = document.createElement('button');
-  copyBtn.className = 'ghost'; copyBtn.type = 'button'; copyBtn.textContent = T.copy;
-  copyBtn.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText(lic.key); copyBtn.textContent = T.copied; }
-    catch { /* 沒有剪貼簿權限就讓使用者自己選取 */ }
-  });
-  keyrow.appendChild(code); keyrow.appendChild(copyBtn);
-  card.appendChild(keyrow);
-
-  const meta = document.createElement('div');
-  meta.className = 'meta';
-  const cells = [
-    [T.purchasedAt, fmtDate(lic.purchasedAt)],
-    [T.seats, (lic.devices ? lic.devices.length : 0) + ' / ' + lic.seatLimit],
-    [T.expiresAt, lic.expiresAt ? fmtDate(lic.expiresAt) : T.neverExpires],
-  ];
-  for (const [label, value] of cells) {
-    const d = document.createElement('div');
-    const b = document.createElement('b'); b.textContent = label;
-    d.appendChild(b); d.appendChild(document.createTextNode(value));
-    meta.appendChild(d);
-  }
-  card.appendChild(meta);
-
-  const devs = document.createElement('div');
-  devs.className = 'devs';
-  const h4 = document.createElement('h4'); h4.textContent = T.devices;
-  devs.appendChild(h4);
-
-  if (!lic.devices || lic.devices.length === 0) {
-    const e = document.createElement('div'); e.className = 'empty'; e.textContent = T.noDevices;
-    devs.appendChild(e);
-  } else {
-    for (const d of lic.devices) {
-      const row = document.createElement('div');
-      row.className = 'dev';
-      const left = document.createElement('div');
-      const name = document.createElement('div');
-      name.className = 'dev-name';
-      name.textContent = d.name || T.unnamed;
-      const when = document.createElement('div');
-      when.className = 'dev-when';
-      when.textContent = T.activatedAt + ' ' + fmtDate(d.activatedAt) + ' ・ ' + T.lastSeen + ' ' + fmtDate(d.lastSeenAt);
-      left.appendChild(name); left.appendChild(when);
-      const btn = document.createElement('button');
-      btn.className = 'ghost'; btn.type = 'button'; btn.textContent = T.unbind;
-      btn.addEventListener('click', () => unbind(d.id, d.name || T.unnamed, btn));
-      row.appendChild(left); row.appendChild(btn);
-      devs.appendChild(row);
-    }
-  }
-  card.appendChild(devs);
-  return card;
-}
-
-async function unbind(id, name, btn){
-  if (!confirm(T.unbindConfirm.replace('{name}', name))) return;
-  btn.disabled = true;
-  try {
-    const res = await fetch(API + '/me/devices/' + encodeURIComponent(id) + '/deactivate', {
-      method: 'POST', credentials: 'include',
-    });
-    if (!res.ok) { show($('msg'), 'bad', res.status === 429 ? T.tooMany : T.netError); btn.disabled = false; return; }
-    await load();                    // 重讀，席次數字才不會停在舊值
-  } catch { show($('msg'), 'bad', T.netError); btn.disabled = false; }
-}
-
-function renderDash(data){
-  $('who-mail').textContent = data.email;
-  const box = $('licenses');
-  box.textContent = '';
-  if (!data.licenses || data.licenses.length === 0) {
-    const e = document.createElement('p'); e.className = 'msg wait'; e.textContent = T.noLicense;
-    box.appendChild(e);
-  } else {
-    for (const lic of data.licenses) box.appendChild(licenseCard(lic));
-  }
-  $('signin').hidden = true;
-  $('dash').hidden = false;
-}
-
-async function load(){
-  const msg = $('msg');
-  try {
-    const res = await fetch(API + '/me', { credentials: 'include' });
-    if (res.status === 401) { $('dash').hidden = true; $('signin').hidden = false; return; }
-    if (!res.ok) { show(msg, 'bad', T.netError); $('signin').hidden = false; return; }
-    renderDash(await res.json());
-  } catch {
-    show(msg, 'bad', T.netError);
-    $('signin').hidden = false;
-  }
-}
+// 日本語入力のまま打つと全角になる（ＢＴ－1001／ｔest@example.com）。
+// サーバー側も注文番号は正規化するが、メールは zod の .email() が全角を弾くので、
+// ここで直しておかないと「注文番号が正しくない」という**別の欄**の話を見せてしまう。
+const halfWidth = (v) => v.normalize('NFKC').trim();
 
 $('f').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const email = $('email').value.trim();
-  const msg = $('msg'), btn = $('btn');
+  const order = halfWidth($('order').value);
+  const email = halfWidth($('email').value);
+  const msg = $('msg'), btn = $('btn'), result = $('result');
+  if (!order) return show(msg, 'bad', T.btInvalidOrder);
   if (!looksLikeEmail(email)) return show(msg, 'bad', T.invalidEmail);
+
   btn.disabled = true;
   try {
-    const res = await fetch(API + '/auth/request', {
-      method: 'POST', credentials: 'include',
+    const res = await fetch(API + '/redeem/booth', {
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ order_no: order, email }),
     });
-    if (res.status === 429) show(msg, 'bad', T.tooMany);
-    else if (!res.ok) show(msg, 'bad', T.netError);
-    else show(msg, 'ok', T.acSent);
-  } catch { show(msg, 'bad', T.netError); }
+    const data = await res.json().catch(() => ({}));
+    // 失敗の理由ごとに次の行動が違うので、一括りの「エラー」にしない。
+    // とくに 400 は「どちらの欄が悪いか」で見るべき場所が変わる。
+    if (res.status === 429) fail(msg, result, T.tooMany);
+    else if (res.status === 404) fail(msg, result, T.btNotFound);
+    else if (res.status === 409) fail(msg, result, T.btAlready);
+    else if (res.status === 400) {
+      fail(msg, result, data.error === 'invalid_email' ? T.invalidEmail : T.btInvalidOrder);
+    }
+    else if (!res.ok || !data.license_key) fail(msg, result, T.netError);
+    else {
+      show(msg, 'ok', data.resent ? T.btResent : T.btOk);
+      $('key').textContent = data.license_key;
+      result.hidden = false;
+    }
+  } catch { fail(msg, result, T.netError); }
   btn.disabled = false;
 });
 
-$('btn-logout').addEventListener('click', async () => {
-  try { await fetch(API + '/auth/logout', { method: 'POST', credentials: 'include' }); } catch {}
-  location.href = location.pathname;   // 清掉可能殘留的 ?error=
-});
-
-// /auth/verify 兌換失敗會把人導回 ?error=invalid_link
-if (new URLSearchParams(location.search).get('error') === 'invalid_link') {
-  show($('msg'), 'bad', T.acInvalidLink);
-}
-show($('msg'), 'wait', T.loading);
-load().finally(() => {
-  const m = $('msg');
-  if (m.className === 'msg wait') m.hidden = true;   // 只清掉「載入中」，別蓋掉錯誤訊息
+$('copy').addEventListener('click', async () => {
+  const btn = $('copy');
+  try {
+    await navigator.clipboard.writeText($('key').textContent);
+    btn.textContent = T.copied;
+    setTimeout(() => { btn.textContent = T.copy; }, 1600);
+  } catch {
+    // クリップボード権限がない環境では選択状態にして手動コピーへ逃がす
+    const r = document.createRange();
+    r.selectNodeContents($('key'));
+    const sel = getSelection();
+    sel.removeAllRanges();
+    sel.addRange(r);
+  }
 });
 </script>
 </body>

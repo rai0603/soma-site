@@ -57,6 +57,23 @@ const S = {
     type: { perpetual: '買斷', subscription: '訂閱', trial: '7 天試用' },
     status: { active: '使用中', suspended: '已暫停', refunded: '已退款' },
     expiresAt: '到期日', neverExpires: '永久有效',
+    btTitle: 'BOOTH 購買者序號兌換',
+    btDesc: 'Soma Agent BOOTH 購買者專用｜輸入注文番号與 Email 換取序號。',
+    btLead: '在 BOOTH 購買的朋友，請在這裡輸入注文番号與 Email，我們會立刻發給你序號。',
+    btOrderPh: 'BOOTH 注文番号',
+    btOrderHelp: '注文番号可在 BOOTH 的「購入履歴」→ 該筆訂單頁面找到。',
+    btSubmit: '發給我序號',
+    btOk: '序號已發出，同一組序號也寄到你的信箱了。請保存好。',
+    btResent: '這是你先前已兌換的同一組序號（不會發新的）。',
+    btNotFound: '查不到這筆注文番号。剛買完的話，訂單同步最多需要 24 小時；若超過時間仍查不到，請來信 support@soma-agent.com。',
+    btAlready: '這筆訂單已被另一個 Email 兌換過了。若不是你本人操作，請來信 support@soma-agent.com。',
+    btInvalidOrder: '注文番号格式看起來不對，請對照購入履歴再確認一次。',
+    btKeyLabel: '你的序號',
+    btNextTitle: '接下來',
+    btNext1: '下載 Soma Agent（macOS）',
+    btNext2: '開啟 app → ⚙ 設定 → 授權',
+    btNext3: '貼上上面的序號 → 點「啟用」',
+    btDownload: '下載 macOS 版',
   },
   'zh-Hans': {
     home: '回首页', guide: '使用教程', account: '我的账号', recover: '找回序号',
@@ -82,6 +99,23 @@ const S = {
     type: { perpetual: '买断', subscription: '订阅', trial: '7 天试用' },
     status: { active: '使用中', suspended: '已暂停', refunded: '已退款' },
     expiresAt: '到期日', neverExpires: '永久有效',
+    btTitle: 'BOOTH 购买者序号兑换',
+    btDesc: 'Soma Agent BOOTH 购买者专用｜输入订单编号与 Email 换取序号。',
+    btLead: '在 BOOTH 购买的朋友，请在这里输入订单编号与 Email，我们会立刻发给你序号。',
+    btOrderPh: 'BOOTH 订单编号（注文番号）',
+    btOrderHelp: '订单编号可在 BOOTH 的「購入履歴」→ 该笔订单页面找到。',
+    btSubmit: '发给我序号',
+    btOk: '序号已发出，同一组序号也寄到你的邮箱了。请保存好。',
+    btResent: '这是你先前已兑换的同一组序号（不会发新的）。',
+    btNotFound: '查不到这笔订单编号。刚买完的话，订单同步最多需要 24 小时；若超过时间仍查不到，请来信 support@soma-agent.com。',
+    btAlready: '这笔订单已被另一个 Email 兑换过了。若不是你本人操作，请来信 support@soma-agent.com。',
+    btInvalidOrder: '订单编号格式看起来不对，请对照購入履歴再确认一次。',
+    btKeyLabel: '你的序号',
+    btNextTitle: '接下来',
+    btNext1: '下载 Soma Agent（macOS）',
+    btNext2: '打开 app → ⚙ 设置 → 授权',
+    btNext3: '粘贴上面的序号 → 点「启用」',
+    btDownload: '下载 macOS 版',
   },
   en: {
     home: 'Home', guide: 'Guide', account: 'My account', recover: 'Recover key',
@@ -107,6 +141,23 @@ const S = {
     type: { perpetual: 'One-time', subscription: 'Subscription', trial: '7-day trial' },
     status: { active: 'Active', suspended: 'Suspended', refunded: 'Refunded' },
     expiresAt: 'Expires', neverExpires: 'Never expires',
+    btTitle: 'Redeem your BOOTH purchase',
+    btDesc: 'Soma Agent for BOOTH buyers — enter your order number and email to get your license key.',
+    btLead: 'Bought Soma Agent on BOOTH? Enter your order number and email, and we will issue your license key right away.',
+    btOrderPh: 'BOOTH order number',
+    btOrderHelp: 'You can find the order number on BOOTH under Purchase history (購入履歴) → the order.',
+    btSubmit: 'Issue my license key',
+    btOk: 'Here is your license key. We also emailed you a copy — please keep it.',
+    btResent: 'This is the same key you redeemed earlier (no new key is issued).',
+    btNotFound: 'We could not find that order number. If you just purchased, it can take up to 24 hours to sync. If it still fails after that, email support@soma-agent.com.',
+    btAlready: 'This order has already been redeemed with a different email address. If that was not you, email support@soma-agent.com.',
+    btInvalidOrder: 'That order number does not look right — please check it against your purchase history.',
+    btKeyLabel: 'Your license key',
+    btNextTitle: 'Next steps',
+    btNext1: 'Download Soma Agent (macOS)',
+    btNext2: 'Open the app → ⚙ Settings → License',
+    btNext3: 'Paste the key above and click Activate',
+    btDownload: 'Download for macOS',
   },
   ja: {
     home: 'トップへ', guide: '使い方ガイド', account: 'マイアカウント', recover: 'キーの再送',
@@ -132,6 +183,23 @@ const S = {
     type: { perpetual: '買い切り', subscription: 'サブスク', trial: '7 日間の試用' },
     status: { active: '有効', suspended: '停止中', refunded: '返金済み' },
     expiresAt: '有効期限', neverExpires: '無期限',
+    btTitle: 'BOOTH 購入者向け シリアル引換',
+    btDesc: 'Soma Agent BOOTH 購入者専用｜注文番号とメールアドレスでシリアルコードを発行します。',
+    btLead: 'BOOTH でご購入いただいた方は、注文番号とメールアドレスを入力してください。その場でシリアルコードを発行します。',
+    btOrderPh: 'BOOTH の注文番号',
+    btOrderHelp: '注文番号は BOOTH の「購入履歴」→ 該当の注文ページで確認できます。',
+    btSubmit: 'シリアルコードを発行',
+    btOk: 'シリアルコードを発行しました。同じ内容をメールでもお送りしています。大切に保管してください。',
+    btResent: 'こちらは以前発行済みのシリアルコードです（新しい番号は発行されません）。',
+    btNotFound: 'この注文番号は確認できませんでした。ご購入直後の場合、反映まで最大 24 時間ほどかかります。時間をおいても解決しない場合は support@soma-agent.com までご連絡ください。',
+    btAlready: 'この注文番号は別のメールアドレスで引換済みです。お心当たりがない場合は support@soma-agent.com までご連絡ください。',
+    btInvalidOrder: '注文番号の形式が正しくないようです。購入履歴と照らし合わせてご確認ください。',
+    btKeyLabel: 'あなたのシリアルコード',
+    btNextTitle: '次の手順',
+    btNext1: 'Soma Agent（macOS）をダウンロード',
+    btNext2: 'アプリを起動 → ⚙ 設定 → ライセンス',
+    btNext3: '上のシリアルコードを貼り付けて「有効化」',
+    btDownload: 'macOS 版をダウンロード',
   },
   ko: {
     home: '홈으로', guide: '사용 가이드', account: '내 계정', recover: '일련번호 찾기',
@@ -157,6 +225,23 @@ const S = {
     type: { perpetual: '단품 구매', subscription: '구독', trial: '7일 체험' },
     status: { active: '사용 중', suspended: '일시 중지', refunded: '환불됨' },
     expiresAt: '만료일', neverExpires: '무기한',
+    btTitle: 'BOOTH 구매자 시리얼 교환',
+    btDesc: 'Soma Agent BOOTH 구매자 전용｜주문번호와 이메일로 시리얼 코드를 발급합니다.',
+    btLead: 'BOOTH에서 구매하셨다면 주문번호와 이메일을 입력해 주세요. 바로 시리얼 코드를 발급해 드립니다.',
+    btOrderPh: 'BOOTH 주문번호',
+    btOrderHelp: '주문번호는 BOOTH의 「購入履歴」(구매 내역) → 해당 주문 페이지에서 확인할 수 있습니다.',
+    btSubmit: '시리얼 코드 발급',
+    btOk: '시리얼 코드를 발급했습니다. 같은 내용을 이메일로도 보냈습니다. 잘 보관해 주세요.',
+    btResent: '이전에 발급받은 것과 동일한 시리얼 코드입니다(새 번호는 발급되지 않습니다).',
+    btNotFound: '해당 주문번호를 찾을 수 없습니다. 방금 구매하셨다면 반영까지 최대 24시간이 걸릴 수 있습니다. 그 이후에도 안 되면 support@soma-agent.com 으로 연락해 주세요.',
+    btAlready: '이 주문은 다른 이메일로 이미 교환되었습니다. 본인이 아니라면 support@soma-agent.com 으로 연락해 주세요.',
+    btInvalidOrder: '주문번호 형식이 올바르지 않은 것 같습니다. 구매 내역과 대조해 확인해 주세요.',
+    btKeyLabel: '내 시리얼 코드',
+    btNextTitle: '다음 단계',
+    btNext1: 'Soma Agent(macOS) 다운로드',
+    btNext2: '앱 실행 → ⚙ 설정 → 라이선스',
+    btNext3: '위 시리얼 코드를 붙여넣고 「활성화」 클릭',
+    btDownload: 'macOS 버전 다운로드',
   },
 };
 
@@ -193,8 +278,8 @@ const CSS = `
   .lead{color:var(--muted);margin:0 0 28px;max-width:56ch;}
 
   form{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px;}
-  input[type=email]{flex:1;min-width:240px;padding:12px 14px;border:1px solid var(--line);border-radius:5px;background:var(--panel);font:inherit;font-size:15px;color:var(--ink);}
-  input[type=email]:focus{outline:2px solid var(--acc);outline-offset:-1px;border-color:var(--acc);}
+  input[type=email],input[type=text]{flex:1;min-width:240px;padding:12px 14px;border:1px solid var(--line);border-radius:5px;background:var(--panel);font:inherit;font-size:15px;color:var(--ink);}
+  input[type=email]:focus,input[type=text]:focus{outline:2px solid var(--acc);outline-offset:-1px;border-color:var(--acc);}
   button{font:inherit;font-weight:700;font-size:14.5px;border:0;border-radius:5px;padding:12px 22px;background:var(--acc);color:#fff;cursor:pointer;}
   button:hover{filter:brightness(1.08);}
   button[disabled]{opacity:.5;cursor:not-allowed;}
@@ -227,18 +312,23 @@ const CSS = `
   .dev-name{font-weight:700;font-size:14.5px;}
   .dev-when{font-size:12.5px;color:var(--dim);}
   .empty{color:var(--muted);font-size:14px;padding:11px 0;border-top:1px solid var(--line);}
+  .hint{font-size:13.5px;color:var(--muted);margin:0 0 20px;}
+  .steps{line-height:1.9;padding-left:20px;margin:0 0 18px;font-size:14.5px;}
+  .dl{display:inline-block;background:var(--acc);color:#fff;font-weight:700;font-size:14.5px;padding:12px 22px;border-radius:5px;text-decoration:none;}
 
   footer{background:#0e1015;color:var(--d-muted);padding:24px 0;font-size:12.5px;margin-top:40px;}
   footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
   footer a{color:inherit;}
-  @media(max-width:560px){h1{font-size:27px;} button{width:100%;} input[type=email]{min-width:0;}}
+  @media(max-width:560px){h1{font-size:27px;} button{width:100%;} form input[type=email],form input[type=text]{min-width:0;flex:1 1 100%;}}
 `;
 
 /** 同一頁在其他語系的相對路徑。account 是目錄、recover 是檔案。 */
 function altHref(from, to, page) {
   const up = from.dir ? '../' : '';
   const base = `${up}${to.dir ? `${to.dir}/` : ''}`;
-  return page === 'account' ? `${base}account/` : `${base}recover.html`;
+  if (page === 'account') return `${base}account/`;
+  if (page === 'booth') return `${base}booth.html`;
+  return `${base}recover.html`;
 }
 
 /** account 在子目錄底下多一層，站內連結要多退一級。 */
@@ -246,16 +336,21 @@ function shell({ lang, page, bodyHtml, script }) {
   const t = S[lang.code];
   // account 產在 <lang>/account/ 底下，比 recover 多一層，站內連結要多退一級
   const up = page === 'account' ? '../' : '';
-  const title = page === 'account' ? t.acTitle : t.rcTitle;
-  const desc = page === 'account' ? t.acDesc : t.rcDesc;
-  const canonical = `${SITE}/${lang.dir ? `${lang.dir}/` : ''}${page === 'account' ? 'account' : 'recover'}`;
+  const TITLES = { account: t.acTitle, recover: t.rcTitle, booth: t.btTitle };
+  const DESCS = { account: t.acDesc, recover: t.rcDesc, booth: t.btDesc };
+  const SLUGS = { account: 'account', recover: 'recover', booth: 'booth' };
+  const title = TITLES[page];
+  const desc = DESCS[page];
+  const canonical = `${SITE}/${lang.dir ? `${lang.dir}/` : ''}${SLUGS[page]}`;
 
   const langBar = LANGS.map(
     (l) => `<a${l.code === lang.code ? ' class="on"' : ''} href="${altHref(lang, l, page)}" lang="${l.htmlLang}">${l.label}</a>`,
   ).join('');
   const hreflang = LANGS.map(
-    (l) => `<link rel="alternate" hreflang="${l.htmlLang}" href="${SITE}/${l.dir ? `${l.dir}/` : ''}${page === 'account' ? 'account' : 'recover'}">`,
+    (l) => `<link rel="alternate" hreflang="${l.htmlLang}" href="${SITE}/${l.dir ? `${l.dir}/` : ''}${SLUGS[page]}">`,
   ).join('\n');
+  // 兌換頁刻意不放在其他頁的導覽列：那是 BOOTH 買家從商品說明點進來的專用入口，
+  // 對官網購買者顯示只會讓人以為自己買錯地方。
   const other = page === 'account'
     ? `<a class="navlink" href="${up}recover.html">${esc(t.recover)}</a>`
     : `<a class="navlink" href="${up}account/">${esc(t.account)}</a>`;
@@ -547,6 +642,116 @@ load().finally(() => {
   return shell({ lang, page: 'account', bodyHtml: body, script });
 }
 
+
+/* ---------- booth（BOOTH 購入者のシリアル引換） ---------- */
+
+/**
+ * BOOTH で買った人が注文番号をシリアルコードに換えるページ。
+ *
+ * なぜ専用ページが要るのか：BOOTH は購入者ごとに違うファイルを配れないし、
+ * webhook も API もない。つまり「誰が買ったか」はこちら側に自動では届かない——
+ * 注文番号を突き合わせるこの一手間が、BOOTH 経由の唯一の交付経路になる。
+ *
+ * 発行したシリアルは**画面にも出す**（メールだけにしない）。
+ * BOOTH の購入者はこちらにアカウントを持っていないので、
+ * メールアドレスを一文字打ち間違えた時点で問い合わせ案件になる。
+ */
+function boothPage(lang) {
+  const t = S[lang.code];
+  const body = `    <div class="eyebrow">SEC.BT / BOOTH</div>
+    <h1>${esc(t.btTitle)}</h1>
+    <p class="lead">${esc(t.btLead)}</p>
+    <form id="f" novalidate>
+      <input id="order" type="text" autocomplete="off" placeholder="${esc(t.btOrderPh)}" aria-label="${esc(t.btOrderPh)}">
+      <input id="email" type="email" autocomplete="email" placeholder="${esc(t.emailPh)}" aria-label="${esc(t.emailPh)}">
+      <button id="btn" type="submit">${esc(t.btSubmit)}</button>
+    </form>
+    <p class="hint">${esc(t.btOrderHelp)}</p>
+    <p id="msg" class="msg" hidden></p>
+
+    <section id="result" hidden>
+      <div class="lic">
+        <div class="meta"><span><b>${esc(t.btKeyLabel)}</b></span></div>
+        <div class="keyrow">
+          <code id="key"></code>
+          <button class="ghost" id="copy" type="button">${esc(t.copy)}</button>
+        </div>
+        <h4 style="font-size:12px;letter-spacing:.1em;color:var(--dim);text-transform:uppercase;margin:0 0 8px">${esc(t.btNextTitle)}</h4>
+        <ol class="steps">
+          <li>${esc(t.btNext1)}</li>
+          <li>${esc(t.btNext2)}</li>
+          <li>${esc(t.btNext3)}</li>
+        </ol>
+        <a class="dl" href="index.html#download">${esc(t.btDownload)}</a>
+      </div>
+    </section>`;
+
+  const script = `
+/**
+ * 失敗表示。**前回のシリアルを必ず消す**——1 件目を引き換えたあと 2 件目で
+ * 404 を出すと、赤いエラーと前のシリアルが同じ画面に並び、
+ * そのコードが 2 件目のものだと誤解される。
+ */
+function fail(msg, result, text){ result.hidden = true; show(msg, 'bad', text); }
+
+// 日本語入力のまま打つと全角になる（ＢＴ－1001／ｔest@example.com）。
+// サーバー側も注文番号は正規化するが、メールは zod の .email() が全角を弾くので、
+// ここで直しておかないと「注文番号が正しくない」という**別の欄**の話を見せてしまう。
+const halfWidth = (v) => v.normalize('NFKC').trim();
+
+$('f').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const order = halfWidth($('order').value);
+  const email = halfWidth($('email').value);
+  const msg = $('msg'), btn = $('btn'), result = $('result');
+  if (!order) return show(msg, 'bad', T.btInvalidOrder);
+  if (!looksLikeEmail(email)) return show(msg, 'bad', T.invalidEmail);
+
+  btn.disabled = true;
+  try {
+    const res = await fetch(API + '/redeem/booth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ order_no: order, email }),
+    });
+    const data = await res.json().catch(() => ({}));
+    // 失敗の理由ごとに次の行動が違うので、一括りの「エラー」にしない。
+    // とくに 400 は「どちらの欄が悪いか」で見るべき場所が変わる。
+    if (res.status === 429) fail(msg, result, T.tooMany);
+    else if (res.status === 404) fail(msg, result, T.btNotFound);
+    else if (res.status === 409) fail(msg, result, T.btAlready);
+    else if (res.status === 400) {
+      fail(msg, result, data.error === 'invalid_email' ? T.invalidEmail : T.btInvalidOrder);
+    }
+    else if (!res.ok || !data.license_key) fail(msg, result, T.netError);
+    else {
+      show(msg, 'ok', data.resent ? T.btResent : T.btOk);
+      $('key').textContent = data.license_key;
+      result.hidden = false;
+    }
+  } catch { fail(msg, result, T.netError); }
+  btn.disabled = false;
+});
+
+$('copy').addEventListener('click', async () => {
+  const btn = $('copy');
+  try {
+    await navigator.clipboard.writeText($('key').textContent);
+    btn.textContent = T.copied;
+    setTimeout(() => { btn.textContent = T.copy; }, 1600);
+  } catch {
+    // クリップボード権限がない環境では選択状態にして手動コピーへ逃がす
+    const r = document.createRange();
+    r.selectNodeContents($('key'));
+    const sel = getSelection();
+    sel.removeAllRanges();
+    sel.addRange(r);
+  }
+});`;
+
+  return shell({ lang, page: 'booth', bodyHtml: body, script });
+}
+
 /* ---------- 輸出 ---------- */
 
 for (const lang of LANGS) {
@@ -557,6 +762,10 @@ for (const lang of LANGS) {
   const recFile = join(ROOT, lang.dir, 'recover.html');
   writeFileSync(recFile, recoverPage(lang), 'utf8');
 
-  console.log(`  ✓ ${lang.dir ? lang.dir + '/' : ''}account/index.html + ${lang.dir ? lang.dir + '/' : ''}recover.html`);
+  const boothFile = join(ROOT, lang.dir, 'booth.html');
+  writeFileSync(boothFile, boothPage(lang), 'utf8');
+
+  const pre = lang.dir ? lang.dir + '/' : '';
+  console.log(`  ✓ ${pre}account/index.html + ${pre}recover.html + ${pre}booth.html`);
 }
-console.log(`\n${LANGS.length} 個語系 × 2 頁 → ${ROOT}`);
+console.log(`\n${LANGS.length} 個語系 × 3 頁 → ${ROOT}`);
