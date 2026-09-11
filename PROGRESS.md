@@ -44,6 +44,29 @@
 - 視覺驗證用 DOM 量測（getBoundingClientRect/computedStyle/手動觸發 handler）比「捲動後截圖」可靠——本環境截圖會搶在重繪前。
 - dc.html 設計稿含設計工具 runtime（support.js / x-dc / sc-if / {{ }}），handoff 明示不可移植，須當規格來源純手重建。
 
+## Last session（2026-09-12 — 0.5.3 上線 + 下載區明確標示系統需求）
+
+起因：客戶（MacBook 2015 / macOS 11、Safari 16.6.1）回報 app 開啟後永遠停在「準備中…」。
+根因與修復在 live2d-desktop-agent repo，這邊做的是上線與說明。
+
+- **Release v0.5.3**（`rai0603/soma-site`）：dmg 261MB／273,820,248 bytes，
+  SHA256 `497eb0fa…bd1092`，公證 Accepted、staple OK、Gatekeeper accepted
+- **五語首頁**：下載區規格表最上面新增「系統需求」列（排在版本號之前——那是決定要不要
+  下載之前就該看到的事）；FAQ「支援哪些作業系統」補上為什麼跟 Safari 有關、怎麼查版本、
+  太舊請自行升級（直說 2015 年前後或更早的機種可能升不上去）
+- 五語 success 頁下載連結、version.json latest → 0.5.3
+
+### 這次踩到的
+- **規格表的 `word-break:break-all` 會把英文單字硬切**（它本來是為了 SHA256 能斷行）：
+  英文版需求字串被切成「Safari 15 or lat/er」。長句子那列要改用 `overflow-wrap:break-word`
+- **CF Pages 的線上路徑沒有 `.html`**：驗證要打 `/success`、`/ja/success`，
+  打 `/success.html` 拿到空白不代表沒部署成功
+- 驗證五語頁面時 `data-reveal` 進場動畫會讓截圖一片空白，
+  截圖前要先 `document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'))`
+
+### 順手發現（未處理）
+- 右下角「線上客服」的按鈕文字在 en/ja/ko 頁面仍是繁體中文「線上客服」，沒有跟著語言切換
+
 ## Last session（2026-09-09 — 儀表板假 0、流量追蹤、0.5.1／0.5.2 上線）
 
 - **儀表板顯示假的 0 已修。** 成因三層：`liveStats` 只在載入時抓一次（長時間開著的分頁永遠停在舊數字）、`.catch(() => {})` 靜默吞掉失敗、靜態 fallback 寫「剩 0 份」讀起來像售完。改成沒資料顯示 `--`、失敗重試三次、localStorage 墊上次成功值、`visibilitychange` 回前景重抓。五語同步。
