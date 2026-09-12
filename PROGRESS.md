@@ -44,6 +44,15 @@
 - 視覺驗證用 DOM 量測（getBoundingClientRect/computedStyle/手動觸發 handler）比「捲動後截圖」可靠——本環境截圖會搶在重繪前。
 - dc.html 設計稿含設計工具 runtime（support.js / x-dc / sc-if / {{ }}），handoff 明示不可移植，須當規格來源純手重建。
 
+## Last session（2026-09-13 — 切到 0.5.4）
+
+0.5.4 修的是 0.5.3 自己造成的破口：角色載入失敗時，錯誤訊息會被啟動進度顯示蓋成
+「準備中… (6/6)」，使用者看到「還在準備」而不是失敗原因。根因與修法在
+live2d-desktop-agent repo，這邊只做上線。
+
+- Release v0.5.4：SHA256 `57db5b70…ba456`、273,819,708 bytes，公證 Accepted、Gatekeeper 通過
+- 五語首頁（連結／版本／SHA256）、五語 success 頁、version.json 全部切換並線上驗證
+
 ## Last session（2026-09-12 — 0.5.3 上線 + 下載區明確標示系統需求）
 
 起因：客戶（MacBook 2015 / macOS 11、Safari 16.6.1）回報 app 開啟後永遠停在「準備中…」。
