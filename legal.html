@@ -80,6 +80,7 @@
     <li><strong>Purchase data</strong> — your email address and order details, processed by Paddle (merchant of record) and shared with us to issue and deliver your license key.</li>
     <li><strong>License activation data</strong> — a one-way hashed device identifier and license key, used solely to enforce device limits and validate licenses.</li>
     <li><strong>Transactional email</strong> — we send license keys and service notices via our email provider (Brevo) to the email you used at checkout.</li>
+    <li><strong>Anonymous startup diagnostics</strong> — when the app starts, it reports whether startup succeeded or failed, together with the app version, your macOS version, the browser engine version, and (on failure) a coarse failure category such as &ldquo;WebGL2 unavailable&rdquo;. It is tied only to a random identifier generated on your own Mac, which is unrelated to your license or device fingerprint and is deleted when you switch the setting off. We do not log your IP address, and we never transmit error messages verbatim &mdash; those can contain file paths that include your name. This exists for one reason: to find out how many people install Soma and cannot open it. It is on by default, the app tells you on first launch and lets you decline right there, and you can turn it off at any time in Settings &rarr; About.</li>
   </ul>
   <h3>2. What we do NOT collect</h3>
   <ul>
@@ -91,12 +92,12 @@
   <p>We rely on: Paddle (payments & tax), Brevo (transactional email), and cloud infrastructure providers hosting our license server. Each processes data only as needed to provide their service.</p>
   <h3>4. Retention & your rights</h3>
   <p>License records are kept for as long as your license is valid and as required for accounting. You may request access, correction, or deletion of your personal data by emailing <a href="mailto:support@soma-agent.com">support@soma-agent.com</a>. Deleting license records will disable future activations of the associated key.</p>
-  <p class="zh">中文摘要：我們只收集訂單資料（email、購買項目）與啟用資料（裝置識別碼的單向雜湊）。你與 AI 的對話、語音、檔案、API 金鑰全部只存在你的電腦，不會上傳到我們的伺服器；我們不出售個資；你與 AI 的對話、語音、檔案、金鑰絕不用於廣告或任何其他用途。另外，行銷網站（soma-agent.com）裝有 Meta Pixel，用來衡量廣告帶來多少訪客與下載，**僅限網站、不涉及 App 內的任何資料**，可透過瀏覽器設定或 Meta 廣告偏好關閉。資料權利行使請來信 support@soma-agent.com。</p>
+  <p class="zh">中文摘要：我們只收集訂單資料（email、購買項目）與啟用資料（裝置識別碼的單向雜湊）。你與 AI 的對話、語音、檔案、API 金鑰全部只存在你的電腦，不會上傳到我們的伺服器；我們不出售個資；你與 AI 的對話、語音、檔案、金鑰絕不用於廣告或任何其他用途。另外，行銷網站（soma-agent.com）裝有 Meta Pixel，用來衡量廣告帶來多少訪客與下載，**僅限網站、不涉及 App 內的任何資料**，可透過瀏覽器設定或 Meta 廣告偏好關閉。另外，App 啟動時會回報一筆匿名的啟動記錄：成功或失敗、app 版本、macOS 版本、引擎版本，失敗時再加一個粗略的失敗分類（例如「無法使用 WebGL2」）。它只綁一組在你電腦上隨機產生、與授權和裝置指紋都無關的編號，關閉設定時會一併刪除；我們不記錄你的 IP，也不會傳送原始錯誤訊息（那可能含有帶你名字的檔案路徑）。它存在的唯一理由是找出「裝了卻打不開」的機型。預設開啟，App 首次啟動會明確告知並讓你當場拒絕，也隨時可在「設定 → 關於」關閉。資料權利行使請來信 support@soma-agent.com。</p>
   <details class="more-lang">
     <summary>Summaries in other languages ／ 其他語言摘要</summary>
-    <p class="zh" lang="zh-Hans"><strong>简体中文</strong>：我们只收集订单资料（email、购买项目）与激活资料（设备识别码的单向哈希）。你与 AI 的对话、语音、文件、API 密钥全部只存在你的电脑，不会上传到我们的服务器；我们不出售个资、不做广告利用。资料权利行使请来信 support@soma-agent.com。</p>
-    <p class="zh" lang="ja"><strong>日本語</strong>：収集するのは注文情報（メールアドレス・購入内容）と認証情報（端末識別子の一方向ハッシュ）のみです。AI との会話・音声・ファイル・API キーはすべてお使いの端末内に留まり、当社サーバーには送信されません。個人情報の販売や広告利用は行いません。権利行使は support@soma-agent.com までご連絡ください。</p>
-    <p class="zh" lang="ko"><strong>한국어</strong>：수집하는 것은 주문 정보(이메일·구매 내역)와 인증 정보(기기 식별자의 단방향 해시)뿐입니다. AI와의 대화·음성·파일·API 키는 모두 사용자 기기에만 남으며 당사 서버로 전송되지 않습니다. 개인정보를 판매하거나 광고에 이용하지 않습니다. 권리 행사는 support@soma-agent.com 으로 문의해 주세요.</p>
+    <p class="zh" lang="zh-Hans"><strong>简体中文</strong>：我们只收集订单资料（email、购买项目）与激活资料（设备识别码的单向哈希）。你与 AI 的对话、语音、文件、API 密钥全部只存在你的电脑，不会上传到我们的服务器；我们不出售个资、不做广告利用。此外，App 启动时会回报一笔匿名的启动记录（成功或失败、app 版本、macOS 版本、引擎版本，失败时加上粗略的失败分类），只绑定一组在你电脑上随机生成、与授权无关的编号，关闭设置时一并删除；不记录 IP，也不传送原始错误信息。默认开启，首次启动会明确告知，可随时在「设置 → 关于」关闭。资料权利行使请来信 support@soma-agent.com。</p>
+    <p class="zh" lang="ja"><strong>日本語</strong>：収集するのは注文情報（メールアドレス・購入内容）と認証情報（端末識別子の一方向ハッシュ）のみです。AI との会話・音声・ファイル・API キーはすべてお使いの端末内に留まり、当社サーバーには送信されません。個人情報の販売や広告利用は行いません。なお、アプリ起動時に匿名の起動記録（成功・失敗、app のバージョン、macOS のバージョン、エンジンのバージョン、失敗時は大まかな失敗分類）を送信します。これはお使いの Mac で生成されたランダムな識別子にのみ紐づき、ライセンスとは無関係で、設定をオフにすると削除されます。IP は記録せず、エラーメッセージそのものも送信しません。既定でオンですが、初回起動時にお知らせし、「設定 → 情報」でいつでもオフにできます。権利行使は support@soma-agent.com までご連絡ください。</p>
+    <p class="zh" lang="ko"><strong>한국어</strong>：수집하는 것은 주문 정보(이메일·구매 내역)와 인증 정보(기기 식별자의 단방향 해시)뿐입니다. AI와의 대화·음성·파일·API 키는 모두 사용자 기기에만 남으며 당사 서버로 전송되지 않습니다. 개인정보를 판매하거나 광고에 이용하지 않습니다. 또한 앱 실행 시 익명 실행 기록(성공·실패, app 버전, macOS 버전, 엔진 버전, 실패 시 대략적인 실패 분류)을 전송합니다. 이는 사용자의 Mac에서 생성된 임의 식별자에만 연결되며 라이선스와 무관하고, 설정을 끄면 삭제됩니다. IP는 기록하지 않고 오류 메시지 원문도 보내지 않습니다. 기본값은 켜짐이며 첫 실행 시 안내하고 「설정 → 정보」에서 언제든 끌 수 있습니다. 권리 행사는 support@soma-agent.com 으로 문의해 주세요.</p>
   </details>
 
   <h2 id="refund">Refund Policy <span class="zh">／退款政策</span></h2>
