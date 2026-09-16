@@ -44,6 +44,16 @@
 - 視覺驗證用 DOM 量測（getBoundingClientRect/computedStyle/手動觸發 handler）比「捲動後截圖」可靠——本環境截圖會搶在重繪前。
 - dc.html 設計稿含設計工具 runtime（support.js / x-dc / sc-if / {{ }}），handoff 明示不可移植，須當規格來源純手重建。
 
+## Last session（2026-09-16 — 0.5.5 上線 + 隱私政策補遙測）
+
+- Release v0.5.5：SHA256 `fdf1a596…42e30`、273,829,237 bytes，公證 Accepted、Gatekeeper 通過
+- 五語首頁／success 頁／version.json 切換並線上驗證（連結、SHA256、無舊版殘留）
+- **`legal.html` 補上匿名啟動遙測**：英文條目寫明收什麼（app／macOS／引擎版本、成功失敗、
+  失敗分類）、不收什麼（原始錯誤訊息會夾帶帶使用者名字的檔案路徑，所以只送分類碼；
+  不記錄 IP；匿名 id 與授權無關、關閉即刪）、預設開但首啟告知且當場可拒絕。
+  中／簡／日／韓摘要同步。**legal.html 不是產生器產出的，直接編輯**
+- 線上驗證：`/legal` 確認看得到新條目（CF Pages 路徑無 `.html`）
+
 ## Last session（2026-09-13 — 切到 0.5.4）
 
 0.5.4 修的是 0.5.3 自己造成的破口：角色載入失敗時，錯誤訊息會被啟動進度顯示蓋成
