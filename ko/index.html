@@ -31,8 +31,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Six+Caps&family=Michroma&family=Orbitron:wght@600;800&family=Chakra+Petch:wght@300;400;500;700&family=DotGothic16&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Sans+JP:wght@500;700&display=swap" rel="stylesheet">
-<!-- Paddle.js Overlay Checkout（v2）。token / priceId 見頁尾 SOMA.paddle 設定 -->
-<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<!-- 匯款 / ATM / PayPal 購買流程（線上刷卡停用中）。收款資訊五語共用這一支。 -->
+<script src="/assets/payment.js"></script>
 <style>
   :root{
     /* ===== P-3 白域科技 tokens ===== */
@@ -194,7 +194,7 @@ n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
 fbq('init','2231262713555584');fbq('init','1068005176190695');fbq('track','PageView');
-// 按下下載＝目前最有意義的轉換訊號（真正的購買在 Paddle 那端，追不到）
+// 按下下載＝目前最有意義的轉換訊號（購買走匯款／PayPal 人工處理，追不到）
 document.addEventListener('click',function(e){
   var a=e.target.closest&&e.target.closest('a[href*="releases/download"]');
   if(a) fbq('track','Lead',{content_name:'download_dmg'});
@@ -986,18 +986,6 @@ src="https://www.facebook.com/tr?id=2231262713555584&ev=PageView&noscript=1"/></
    Soma 行銷站 · 設定區（上線前調整這裡）
    ============================================================ */
 const SOMA = {
-  paddle: {
-    environment: 'production',          // 'sandbox' | 'production'
-    token: 'live_c16f44b40b646589d28f3195212',  // production client token
-    prices: {  // 買斷三項已填；未填的方案會自動停用並標「即將開放」
-      buyout_basic:   'pri_01kx2qry2j359jdckdf87pgj4y',            // 限量買斷・基礎 NT$599
-      buyout_pro:     'pri_01kx2qryn64p0ry8w04bkw4jfv',            // 限量買斷・進階 NT$899
-      addon_podcast:  'pri_01kx2qrzs8nh61shm4ag3aczfa',
-      founder:        '',            // 創始收藏家 NT$1,680
-      sub_basic_year: '',            // 基礎・早鳥年訂 NT$2,490
-      sub_pro_year:   '',            // 進階・早鳥年訂 NT$4,990
-    },
-  },
   // ⚠️ 募資數字＝示意。上線前接後端 API / CMS 餵真實值，切勿用假數字對外。
   campaign: {
     goal: 200000,
@@ -1006,7 +994,7 @@ const SOMA = {
     countdownDays: null,            // 有真實截止日才填天數；null = 隱藏倒數
     batch: { total: 1000, claimed: 0 } // 第 1 批限量 / 已售
   },
-  paddleLocale: 'ko',
+  uiLocale: 'ko',
 };
 
 /* ============================================================ */
@@ -1067,34 +1055,10 @@ function toast(msg){
   toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
 }
 
-/* ---- Paddle checkout ---- */
-function initPaddle(){
-  if (!window.Paddle || !SOMA.paddle.token) return false;
-  try {
-    if (SOMA.paddle.environment === 'sandbox') Paddle.Environment.set('sandbox');
-    Paddle.Initialize({ token: SOMA.paddle.token });
-    return true;
-  } catch (e) { console.warn('[Soma] Paddle init failed', e); return false; }
-}
-const paddleReady = initPaddle();
-
-function openCheckout(sku, customData){
-  const priceId = SOMA.paddle.prices[sku];
-  if (!paddleReady || !priceId){
-    toast(MSG.checkoutSoon);
-    return;
-  }
-  try {
-    const opts = {
-      items: [{ priceId, quantity: 1 }],
-      settings: { successUrl: location.origin + '/success.html', theme: 'light', locale: SOMA.paddleLocale },
-    };
-    if (customData) opts.customData = customData;
-    Paddle.Checkout.open(opts);
-  } catch (e) {
-    console.warn('[Soma] checkout error', e);
-    toast(MSG.checkoutFail);
-  }
+/* ---- 付款：線上刷卡停用中，改走匯款 / ATM / PayPal（assets/payment.js）---- */
+function openCheckout(sku, extra){
+  if (!window.SomaPayment){ toast(MSG.checkoutFail); return; }
+  window.SomaPayment.open(sku, SOMA.uiLocale, extra);
 }
 
 function buyPodcast(){
@@ -1107,13 +1071,13 @@ function buyPodcast(){
     return;
   }
   inp.style.borderColor = '';
-  openCheckout('addon_podcast', { license_key: key });
+  openCheckout('addon_podcast', { licenseKey: key });
 }
 document.getElementById('btn-podcast-buy')?.addEventListener('click', buyPodcast);
-/* 沒填 price id 的方案就是還沒開賣：按鈕停用並寫明原因，不要讓人按下去才發現買不到 */
+/* 買得到的方案改標「線上支付申請中」並開匯款說明；還沒開賣的（訂閱、創始款）維持停用並寫明原因 */
 $$('[data-sku]').forEach(btn => {
   const sku = btn.dataset.sku;
-  if (!SOMA.paddle.prices[sku]) {
+  if (!window.SomaPayment || !window.SomaPayment.sellable(sku)) {
     btn.disabled = true;
     btn.textContent = MSG.comingSoon;
     btn.style.cssText += ';cursor:not-allowed;opacity:.5;';
@@ -1123,6 +1087,9 @@ $$('[data-sku]').forEach(btn => {
     btn.insertAdjacentElement('afterend', why);
     return;
   }
+  const L = window.SomaPayment.labels(SOMA.uiLocale);
+  btn.innerHTML = '<span>' + L.btn + '</span><br><span style="font-size:11.5px;font-weight:400;opacity:.85;">' + L.btnSub + '</span>';
+  btn.style.cssText += ';line-height:1.45;';
   btn.addEventListener('click', () => openCheckout(sku));
 });
 

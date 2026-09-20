@@ -29,6 +29,7 @@
 - ⚠️ **fal 餘額已耗盡**（ai-video-platform 的 FAL_KEY，2026-07-03 確認）：VRM 角色概念示意圖（機甲型等 3 款，flux/dev 生圖腳本已寫好在 scratchpad gen.py 邏輯）待 Rai 儲值後生成，換進 `data-unit-img` 卡位。
 
 ## Open failures（待調查/待辦）
+- **`/en/` 在 400px 寬有 3px 橫向溢出**（2026-09-20 實測）。肇事元素是一組 `<a>` 包 `<img>`，right=403 / 402。其他四語沒有。與匯款彈窗無關，未開彈窗就會發生。
 - [ ] Paddle：填 client token + 5 個 price ID（buyout_basic/pro、founder、sub_basic_year、sub_pro_year），先 sandbox 驗證 Overlay + successUrl→success.html。
 - [ ] 募資數字接後端 API / CMS（goal/raised/backers/batch/countdown），**上線前切勿用假數字**。
 - [ ] Demo 9:16 影片（目前佔位，點擊顯示 toast）。
@@ -43,6 +44,15 @@
 ## Lessons learned（教訓）
 - 視覺驗證用 DOM 量測（getBoundingClientRect/computedStyle/手動觸發 handler）比「捲動後截圖」可靠——本環境截圖會搶在重繪前。
 - dc.html 設計稿含設計工具 runtime（support.js / x-dc / sc-if / {{ }}），handoff 明示不可移植，須當規格來源純手重建。
+
+## Last session（2026-09-20 — Paddle 帳戶被關，結帳改匯款 / PayPal）
+
+- **Paddle 通知關閉帳戶**（理由：AUP restricted category / high risk，不提供細節）。三個站的線上刷卡同時失效，本站是其中之一。
+- **五語首頁的購買流程全部改走 `assets/payment.js`**：買得到的 SKU（`buyout_basic` / `buyout_pro` / `addon_podcast`）按鈕改標「線上支付申請中 → 改用匯款 / ATM」，點下去開匯款說明彈窗；賣不到的（`founder`、兩個訂閱）維持原本的「即將開放」停用邏輯。
+- **收款資訊只有一份**，在 `assets/payment.js` 頂端，五語共用——不要在 5 個 index.html 裡各放一份。帳號採拆段存放前端 join，原始碼不含完整帳號字串。
+- 一併移除：`cdn.paddle.com` script tag、`SOMA.paddle` 整塊設定（**裡面有 live client token，本 repo 是公開的**）。`paddleLocale` 更名 `uiLocale`。
+- 驗證（Playwright + 系統 Chrome，本地 `python3 -m http.server 8912`）：**五語 × 12 項 + Podcast 序號帶入 3 項 = 60 項，59 綠**。唯一紅的是 `/en/` 400px 橫向溢出 3px，**實測未開彈窗就已存在＝既有問題，非本次造成**（見 Open failures）。
+- **⚠ 待 Rai 填**：收款資訊還是空的，頁面目前自動退回「來信索取匯款帳號」的保底流程（刻意設計，不會顯示空欄位）。填了就會顯示完整匯款表格。
 
 ## Last session（2026-09-16 — 0.5.5 上線 + 隱私政策補遙測）
 
