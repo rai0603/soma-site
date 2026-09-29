@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<!-- 由 scripts/build-kiosk.py 產生，請改產生器，不要直接編這個檔案 -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SOMA AI 안내 키오스크: 쉬지 않는 오프라인 AI 고객응대 직원</title>
+<meta name="description" content="홈페이지를 읽은 AI 안내 직원이 iPad와 대형 화면으로 입구에 서서 중국어·영어·일본어·한국어로 연중무휴 손님을 응대합니다. 호텔, 백화점·쇼핑몰, 관광지, 체험 시설, 매장에 적합합니다.">
+<meta name="theme-color" content="#F2F4F7">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://soma-agent.com/ko/kiosk">
+<link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/kiosk">
+<link rel="alternate" hreflang="zh-Hans" href="https://soma-agent.com/cn/kiosk">
+<link rel="alternate" hreflang="en" href="https://soma-agent.com/en/kiosk">
+<link rel="alternate" hreflang="ja" href="https://soma-agent.com/ja/kiosk">
+<link rel="alternate" hreflang="ko" href="https://soma-agent.com/ko/kiosk">
+<link rel="alternate" hreflang="x-default" href="https://soma-agent.com/en/kiosk">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="SOMA AI 안내 키오스크: 쉬지 않는 오프라인 AI 고객응대 직원">
+<meta property="og:description" content="홈페이지를 읽은 AI 안내 직원이 iPad와 대형 화면으로 입구에 서서 중국어·영어·일본어·한국어로 연중무휴 손님을 응대합니다. 호텔, 백화점·쇼핑몰, 관광지, 체험 시설, 매장에 적합합니다.">
+<meta property="og:url" content="https://soma-agent.com/ko/kiosk">
+<meta property="og:image" content="https://soma-agent.com/assets/kiosk/hero-ui.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1067">
+<meta property="og:site_name" content="Soma Agent">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://soma-agent.com/assets/kiosk/hero-ui.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+KR:wght@400;500;700;900&family=Orbitron:wght@800&display=swap">
+<style>
+  :root {
+    --ground: #f4f5f8;
+    --paper: #ffffff;
+    --ink: #14161d;
+    --muted: #525a6b;
+    --line: #d8dce4;
+    --accent: #0091ad;
+    --accent-deep: #00647a;
+    --accent-tint: rgba(0, 145, 173, 0.08);
+    --screen: #eaf6f9;
+    --font: "Noto Sans TC", "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    --r: 2px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0f1419;
+      --paper: #171d24;
+      --ink: #eef1f5;
+      --muted: #a9b2c0;
+      --line: #2c3540;
+      --accent: #35c2dc;
+      --accent-deep: #7fdcec;
+      --accent-tint: rgba(53, 194, 220, 0.1);
+      --screen: #10262d;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0f1419;
+    --paper: #171d24;
+    --ink: #eef1f5;
+    --muted: #a9b2c0;
+    --line: #2c3540;
+    --accent: #35c2dc;
+    --accent-deep: #7fdcec;
+    --accent-tint: rgba(53, 194, 220, 0.1);
+    --screen: #10262d;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.7;
+    padding: 32px 20px 64px;
+  }
+  .sheet {
+    max-width: 960px;
+    margin: 0 auto;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+  }
+  section { padding: 44px 48px; border-top: 1px solid var(--line); break-inside: avoid; }
+  section:first-child { border-top: 0; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin: 0 0 10px;
+  }
+  h1, h2, h3 { margin: 0; }
+  h2 { font-size: 26px; font-weight: 900; letter-spacing: 0.02em; margin-bottom: 20px; }
+  h3 { font-size: 17px; font-weight: 700; }
+  p { margin: 0; }
+  .lead { color: var(--muted); max-width: 60ch; }
+
+  /* ── hero ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 32px;
+    align-items: center;
+    padding-top: 40px;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 28px;
+    letter-spacing: 0.24em;
+  }
+  .brand b { font-size: 20px; font-weight: 700; }
+  .brand i { display: inline-block; width: 22px; height: 2px; background: var(--accent); transform: translateY(-5px); }
+  .brand span { font-size: 12px; color: var(--muted); letter-spacing: 0.3em; }
+  .hero h1 { font-size: 40px; line-height: 1.25; font-weight: 900; letter-spacing: 0.01em; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero .lead { margin-top: 16px; font-size: 17px; }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .facts span {
+    font-size: 13px;
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    color: var(--muted);
+  }
+  .facts b { color: var(--ink); font-family: var(--mono); font-weight: 600; margin-right: 4px; }
+
+
+  .hero-shot { margin: 0; }
+  .hero-shot img { width: 100%; height: auto; display: block; border-radius: var(--r); }
+  .hero-shot figcaption, .scenes figcaption { font-size: 12px; color: var(--muted); margin-top: 8px; }
+  .scenes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .scenes figure { margin: 0; }
+  .scenes img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: var(--r); border: 1px solid var(--line); }
+  .scenes figcaption { font-size: 14px; color: var(--muted); margin-top: 10px; }
+  .scenes figcaption b { display: block; color: var(--ink); font-size: 16px; }
+
+  /* ── pains ── */
+  .pairs { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: var(--r); }
+  .pairs > div { padding: 14px 18px; border-top: 1px solid var(--line); }
+  .pairs > div:nth-child(-n+2) { border-top: 0; }
+  .pairs .head { font-size: 12px; letter-spacing: 0.14em; color: var(--muted); background: var(--ground); }
+  .pairs .after { border-left: 1px solid var(--line); }
+  .pairs .after::before { content: "→ "; color: var(--accent); font-weight: 700; }
+
+  /* ── features ── */
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 32px; }
+  .feature h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .feature h3 svg { width: 22px; height: 22px; flex: none; color: var(--accent); }
+  .feature p { color: var(--muted); font-size: 15px; }
+
+  /* ── steps ── */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: step; }
+  .step { border-top: 2px solid var(--accent); padding-top: 12px; }
+  .step .day { font-family: var(--mono); font-size: 12px; color: var(--accent-deep); letter-spacing: 0.08em; }
+  .step h3 { margin: 4px 0 6px; }
+  .step p { color: var(--muted); font-size: 14px; }
+
+  .note { margin-top: 16px; font-size: 13px; color: var(--muted); }
+
+
+  .plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .plan-col h3 { margin-bottom: 12px; }
+  .plan-col b { font-weight: 700; }
+
+
+  /* ── fit ── */
+  .fit { display: grid; grid-template-columns: 1.2fr 1fr; gap: 36px; }
+  .fit h3 { margin-bottom: 12px; }
+  ul.biz { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+  ul.biz li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  ul.biz b { display: block; color: var(--ink); font-size: 16px; }
+  ul.info { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  ul.info li { font-size: 14px; padding: 6px 12px; border: 1px solid var(--line); border-radius: var(--r); background: var(--ground); }
+
+  /* ── provide + contact ── */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  ul.tick { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  ul.tick li { padding-left: 22px; position: relative; }
+  ul.tick li::before { content: ""; position: absolute; left: 2px; top: 11px; width: 10px; height: 2px; background: var(--accent); }
+  .contact { background: var(--accent-tint); border: 1px solid var(--accent); border-radius: var(--r); padding: 22px 24px; }
+  .contact h3 { font-size: 20px; margin-bottom: 8px; }
+  .contact dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin: 16px 0 0; font-size: 15px; }
+  .contact dt { color: var(--muted); }
+  .contact dd { margin: 0; font-family: var(--mono); }
+
+  @media (max-width: 760px) {
+    section { padding: 32px 22px; }
+    .hero, .pairs, .two, .scenes, .plan-grid, .fit { grid-template-columns: 1fr; }
+    .pairs .after { border-left: 0; }
+    .pairs > div:nth-child(2) { border-top: 1px solid var(--line); }
+    .pairs .head.after { display: none; }
+    .features, .steps { grid-template-columns: 1fr 1fr; }
+    .hero h1 { font-size: 30px; }
+  }
+  @media (max-width: 440px) {
+    .features, .steps { grid-template-columns: 1fr; }
+  }
+  @media print {
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 0; font-size: 13px; }
+    .sheet { border: 0; max-width: none; }
+    section { padding: 22px 8px; }
+    .hero h1 { font-size: 30px; }
+  }
+  body { padding: 0 20px 48px; }
+  .sheet { margin-top: 24px; }
+  header.site { margin: 0 -20px; border-bottom: 1px solid var(--line); background: var(--paper); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; }
+  header.site nav { max-width: 1000px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  header.site .logo { font-family: 'Orbitron', var(--font); font-weight: 800; font-size: 18px; letter-spacing: .22em; text-decoration: none; color: var(--ink); }
+  header.site .logo i { color: var(--accent); font-style: normal; }
+  header.site .navlink { font-size: 13px; color: var(--muted); text-decoration: none; }
+  header.site .navlink:hover { color: var(--accent); }
+  .contact .book { display: inline-block; margin-top: 18px; padding: 12px 22px; background: var(--accent); color: #fff; font-weight: 700; text-decoration: none; border-radius: var(--r); }
+  .contact .book:hover { background: var(--accent-deep); }
+  .contact .mail { margin-top: 10px; font-size: 13px; color: var(--muted); }
+  footer.site { max-width: 1000px; margin: 28px auto 0; padding: 0 20px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); }
+  footer.site a { color: inherit; }
+  header.site .right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: flex-end; }
+  header.site .langs { display: flex; gap: 2px; font-size: 12.5px; }
+  header.site .langs a { padding: 2px 6px; color: var(--muted); text-decoration: none; }
+  header.site .langs a[aria-current="page"] { color: var(--ink); font-weight: 700; border-bottom: 2px solid var(--accent); }
+  :root { --font: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+</style>
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2231262713555584');fbq('init','1068005176190695');fbq('track','PageView');
+// 按下「來信預約展示」＝機台頁的轉換訊號
+document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('a[href^="mailto:"]');
+  if(a) fbq('track','Contact',{content_name:'kiosk_demo'});
+},true);
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2231262713555584&ev=PageView&noscript=1"/></noscript>
+</head>
+<body>
+<header class="site">
+  <nav>
+    <a class="logo" href="/ko/">SOMA<i>_</i></a>
+    <div class="right">
+      <span class="langs"><a href="/kiosk" lang="zh-Hant">繁</a><a href="/cn/kiosk" lang="zh-Hans">简</a><a href="/en/kiosk" lang="en">EN</a><a href="/ja/kiosk" lang="ja">日</a><a href="/ko/kiosk" lang="ko" aria-current="page">한</a></span>
+      <a class="navlink" href="/ko/">Soma 데스크톱 AI 파트너</a>
+    </div>
+  </nav>
+</header>
+<main class="sheet">
+  <section class="hero">
+    <div>
+      <div class="brand"><b>SOMA</b><i></i><span>AI 안내 키오스크</span></div>
+      <h1><em>쉬지 않는</em><br>오프라인 AI 고객응대 직원</h1>
+      <p class="lead">강좌, 가격, 영업시간, 오시는 길까지. 그녀는 홈페이지의 모든 페이지를 읽었습니다. 문을 여는 순간부터 닫을 때까지 입구에 서서 중국어·영어·일본어·한국어로 모든 손님에게 답합니다. 교대도, 휴가도, 지치는 일도 없습니다.</p>
+      <div class="facts"><span><b>연중</b>무휴</span><span><b>4</b>개 언어</span><span>캐릭터 <b>8</b>종</span><span>영업일 <b>10</b>일 내 도입</span></div>
+    </div>
+    <figure class="hero-shot">
+      <img src="/assets/kiosk/hero-ui.jpg" width="1600" height="1067" alt="SOMA 안내 화면: 대형 화면의 3D 캐릭터와 답변, 옆에는 손님이 조작하는 화면">
+      <figcaption>실제 화면: 손님이 조작 화면에서 질문하면 대형 화면에 캐릭터와 답변이 함께 표시됩니다</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <p class="eyebrow">쉬지 않는 직원</p>
+    <h2>안내 데스크가 매일 듣는 질문 20개, 그녀에게 맡기세요</h2>
+    <div class="pairs">
+      <div class="head">사람 직원만 있을 때</div><div class="head after">SOMA AI 직원이 함께할 때</div>
+      <div>교대와 휴무를 짜야 하고, 주말 피크 때는 늘 일손이 부족</div><div class="after">오픈부터 마감까지, 연중무휴</div><div>같은 질문에 하루 수십 번 답하면 지치기 마련</div><div class="after">1,000번째 답변도 한결같이 명확하고 친절하게</div><div>외국인 손님 응대는 그날 근무자에게 달려 있음</div><div class="after">중·영·일·한, 한 번 누르면 손님의 언어로</div><div>신입 교육에 시간이 들고, 퇴사하면 노하우도 사라짐</div><div class="after">관리 화면에서 한 번 고치면 바로 반영, 지식은 매장에 남음</div><div>지나가는 사람의 발길을 붙잡기 어려움</div><div class="after">대형 화면에서 말하고 움직이는 캐릭터가 곧 간판</div>
+    </div>
+    <p class="note">그녀는 직원을 대신하려는 것이 아닙니다. 반복되는 질문을 맡아, 직원이 결제와 서비스, 그리고 사람이 꼭 필요한 순간에 집중할 수 있게 합니다.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">특징</p>
+    <h2>웹사이트 속 채팅창이 아닌, 현장에 서 있는 안내 직원</h2>
+    <div class="features"><div class="feature"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h6"/></svg>오직 우리 매장 정보로 답변</h3><p>지식 베이스는 홈페이지 내용으로 만들고, 가격·시간·주소는 원문 그대로 안내합니다. 모르는 질문은 직원에게 문의하도록 안내하며 지어내지 않습니다.</p></div><div class="feature"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>4개 언어 지원</h3><p>외국인 손님이 언어 버튼을 누르면 그 언어로 답하고, 자연스러운 음성으로 읽어 줍니다.</p></div><div class="feature"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="3.5"/><path d="M5 21c1-5 3.5-7 7-7s6 2 7 7"/></svg>말하고 움직이는 3D 캐릭터</h3><p>말할 때 입 모양이 맞춰지고, 대화에 따라 표정이 바뀌며, 손을 흔들거나 인사도 합니다. 8종 중에서 고를 수 있고 브랜드 전용 캐릭터도 제작할 수 있습니다.</p></div><div class="feature"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="10" rx="1"/><rect x="16" y="10" width="6" height="10" rx="1"/><path d="M7 18h4"/></svg>iPad와 대형 화면의 듀얼 스크린</h3><p>손님은 iPad에 말하거나 입력하기만 하면 됩니다. 대형 화면에 캐릭터와 답변이 함께 나와 줄 선 사람과 지나가는 사람도 볼 수 있습니다.</p></div><div class="feature"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><path d="M14 4l6 6-9 9H5v-6z"/></svg>관리 화면에서 직접 수정</h3><p>가격이나 이벤트가 바뀌면 관리 화면에서 고치기만 하면, 다음 손님부터 새 답변이 나갑니다. 매월 이용 리포트와 '답하지 못한 질문' 목록을 드립니다.</p></div><div class="feature"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>렌탈·구매 모두 가능, 고장 시 교체</h3><p>일반 iPad와 TV를 사용해 비싼 전용 기기가 필요 없습니다. 렌탈을 선택하면 자연 고장 시 저희가 교체해 드립니다.</p></div></div>
+  </section>
+
+  <section>
+    <p class="eyebrow">이런 곳에 적합합니다</p>
+    <h2>사람이 오가고, 같은 질문을 자주 받는 곳이라면 어디든</h2>
+    <p class="lead" style="margin-bottom:24px">다음 중 두 가지에 해당하면 잘 맞습니다: 매일 같은 질문을 받는다, 외국인 손님이 자주 온다, 입구 앞 유동 인구가 있다, 주말이나 피크 때 일손이 부족하다.</p>
+    <div class="fit">
+      <div><h3>적합한 업종</h3><ul class="biz"><li><b>체험 활동·스포츠 시설</b>수상 레저, 클라이밍, 헬스장, 각종 교실</li><li><b>호텔·민박·온천 리조트</b>로비 안내, 시설 설명, 주변 관광지 추천</li><li><b>백화점·쇼핑몰·쇼핑센터</b>층별 안내, 브랜드 추천, 행사 정보</li><li><b>관광지·테마파크·박물관·전시회</b>단지 안내, 전시 소개, 동선 안내</li><li><b>매장·프랜차이즈</b>상품 소개, 할인 안내, 멤버십</li><li><b>병원·학원·각종 서비스 창구</b>신청·예약 절차와 자주 묻는 질문</li><li><b>관광안내소·역·공공서비스 창구</b>교통, 경로, 절차 안내</li></ul></div>
+      <div><h3>그녀가 답할 수 있는 정보</h3><ul class="info"><li>영업시간, 휴무일, 예약 방법</li><li>가격, 요금제, 할인 행사</li><li>층·위치·동선·시설</li><li>교통, 주차, 주변 명소</li><li>강좌·상품·서비스 내용</li><li>행사 일정과 최신 소식</li><li>신청, 집합 시간, 유의사항</li><li>취소·변경 규정과 FAQ</li><li>브랜드 스토리와 특징</li><li>사람이 필요할 때 데스크나 LINE으로 연결</li></ul><p class="note">글로 적을 수 있는 정보라면 모두 그녀의 답변이 됩니다. 홈페이지에서 자동으로 정리하고, 홈페이지에 없는 내용도 채워 드립니다.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">활용 사례</p>
+    <h2>사람이 지나는 곳에 두고, 손님이 먼저 묻게 하세요</h2>
+    <div class="scenes"><figure><img src="/assets/kiosk/scene-hotel.jpg" width="1024" height="765" loading="lazy" alt="민박 로비의 iPad 스탠드와 세로형 화면, 질문하는 가족 여행객"><figcaption><b>호텔·민박 로비</b>시설 안내, 주변 관광지, 다국어 응대</figcaption></figure><figure><img src="/assets/kiosk/scene-park.jpg" width="1600" height="1067" loading="lazy" alt="테마파크 입구의 AI 안내 키오스크, 터치 화면으로 질문하는 방문객"><figcaption><b>테마파크·관광지</b>시설 안내, 행사 추천, 다국어 가이드</figcaption></figure><figure><img src="/assets/kiosk/scene-mall.jpg" width="1600" height="1067" loading="lazy" alt="쇼핑몰 아트리움의 세로형 AI 안내 화면"><figcaption><b>백화점·쇼핑몰</b>층별 안내, 브랜드 추천, 행사 정보</figcaption></figure></div>
+    <p class="note">연출 이미지입니다. 실제 기기·캐릭터·화면은 요금제와 시설 설정에 따라 다릅니다. 이미지 속 휴대폰 QR 안내, 대기 정보, 피규어는 향후 구상이며 기본 요금제에 포함되지 않습니다.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">도입 절차</p>
+    <h2>계약 후 영업일 10일이면 손님을 맞을 수 있습니다</h2>
+    <div class="steps"><div class="step"><div class="day">영업일 1–4일차</div><h3>지식 베이스 구축</h3><p>홈페이지 내용으로 Q&A 50–100개를 만들고, 데스크에서 자주 받는 질문을 더합니다.</p></div><div class="step"><div class="day">영업일 2–5일차</div><h3>캐릭터와 화면</h3><p>캐릭터를 고르고 브랜드 색상과 배경을 적용하며, 4개 언어의 음성을 설정합니다.</p></div><div class="step"><div class="day">영업일 5–8일차</div><h3>내부 테스트</h3><p>직원분들이 50개 질문을 해 보고, 자주 묻는 질문의 정답률이 90% 이상이 될 때까지 조정합니다.</p></div><div class="step"><div class="day">영업일 8–10일차</div><h3>설치 및 운영 시작</h3><p>현장 설치와 화면 연결, 30분 사용 교육 후 검수를 마치면 운영을 시작합니다.</p></div></div>
+  </section>
+
+  <section>
+    <p class="eyebrow">요금제</p>
+    <h2>하드웨어는 설치 위치로, 소프트웨어는 손님 수로</h2>
+    <p class="lead" style="margin-bottom:24px">두 가지를 따로 골라 공간과 유동 인구에 맞게 조합합니다. 한 시설의 여러 대는 하나의 소프트웨어 요금제를 함께 씁니다.</p>
+    <div class="plan-grid">
+      <div class="plan-col"><h3>하드웨어: 4가지 구성, 렌탈·구매 가능</h3><ul class="tick"><li><b>iPad 단독</b>　카운터, 소형 매장</li><li><b>iPad + 43인치 화면</b>　카운터 옆, 소규모 시설</li><li><b>iPad + 55인치 화면</b>　로비, 주 출입구</li><li><b>iPad + 65인치 화면</b>　쇼핑몰 아트리움, 관광지, 전시회</li></ul></div>
+      <div class="plan-col"><h3>소프트웨어: 월 대화 수에 따른 5가지 요금제</h3><ul class="tick"><li><b>라이트, 스타터</b>　하루 수십 건의 질문</li><li><b>스탠다드</b>　하루 100건 이상</li><li><b>어드밴스드, 플래그십</b>　하루 수백 건, 또는 여러 대가 공유</li><li>한 단계 낮게 시작해 운영 후 실제 데이터를 보고 조정</li></ul></div>
+    </div>
+    <p class="note">공간, 유동 인구, 대수에 맞춰 견적을 드립니다. 전시회·팝업을 위한 단기 렌탈도 있습니다.</p>
+  </section>
+
+  <section class="two">
+    <div>
+      <p class="eyebrow">준비하실 것</p>
+      <h2>네 가지면 충분합니다. IT 담당자는 필요 없습니다</h2>
+      <ul class="tick"><li>홈페이지 주소와 데스크에서 자주 받는 질문</li><li>최신 가격표와 행사 정보</li><li>로고, 브랜드 색상, 시설 사진 한 장</li><li>설치 위치, 콘센트 하나와 Wi-Fi</li></ul>
+    </div>
+    <div class="contact">
+      <h3>우리 홈페이지로 현장에서 직접 보여 드립니다</h3>
+      <p>미리 홈페이지를 읽고 iPad를 들고 방문해, 손님들이 가장 자주 묻는 질문에 그녀가 바로 답하는 모습을 보여 드리고 시설에 맞는 견적도 드립니다. 시연은 무료이며 약 15분 걸립니다.</p>
+      <a class="book" href="mailto:support@soma-agent.com?subject=SOMA%20AI%20%EC%95%88%EB%82%B4%20%ED%82%A4%EC%98%A4%EC%8A%A4%ED%81%AC%20%EC%8B%9C%EC%97%B0%20%EC%98%88%EC%95%BD">이메일로 시연 예약</a>
+      <p class="mail">support@soma-agent.com｜매장명, 홈페이지 주소, 편하신 시간을 함께 적어 주세요</p>
+    </div>
+  </section>
+</main>
+<footer class="site">
+  <span>© 2026 Soma Agent</span>
+  <span><a href="/legal.html">법적 고지</a> ・ <a href="mailto:support@soma-agent.com">support@soma-agent.com</a></span>
+</footer>
+<!-- AICMS AI 客服（embed_key 是公開識別碼，護城河是後端的 domain allowlist） -->
+<script src="https://waterman-sports.cc/widget.js" data-key="wk_bc9f4842e30745e48191174d59780958" data-label="채팅 상담" data-color="#0091AD" data-position="right" defer></script>
+<script src="/assets/track.js" defer></script>
+</body>
+</html>

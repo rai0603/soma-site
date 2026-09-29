@@ -3,7 +3,7 @@
 
     python3 scripts/build-sitemap.py
 
-只收錄「有內容可索引」的頁面：五語首頁、五語教學頁、法務頁。
+只收錄「有內容可索引」的頁面：五語首頁、五語教學頁、五語導覽機台頁、法務頁。
 /account 與 /recover 是工具頁（登入後才有東西），交給 robots.txt 擋。
 """
 
@@ -13,9 +13,9 @@ import pathlib
 SITE = "https://soma-agent.com"
 NS = "http://www.sitemaps.org/schemas/sitemap/0.9"  # sitemaps，不是 sitemap
 LANGS = [("", "zh-Hant"), ("cn", "zh-Hans"), ("en", "en"), ("ja", "ja"), ("ko", "ko")]
-PAGES = [("", "1.0", "weekly"), ("help", "0.8", "monthly")]
+PAGES = [("", "1.0", "weekly"), ("help", "0.8", "monthly"), ("kiosk", "0.7", "monthly")]
 # 單語頁面（不做五語，所以不進 hreflang 互指）
-EXTRA = [("blog/soma-agent-intro", "0.6", "yearly"), ("kiosk", "0.7", "monthly")]
+EXTRA = [("blog/soma-agent-intro", "0.6", "yearly")]
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 today = datetime.date.today().isoformat()

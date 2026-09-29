@@ -123,16 +123,70 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://soma-agent.com/en/help"/>
   </url>
   <url>
-    <loc>https://soma-agent.com/blog/soma-agent-intro</loc>
-    <lastmod>2026-09-29</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://soma-agent.com/kiosk</loc>
     <lastmod>2026-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://soma-agent.com/cn/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soma-agent.com/en/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soma-agent.com/ja/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://soma-agent.com/ko/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soma-agent.com/en/kiosk"/>
+  </url>
+  <url>
+    <loc>https://soma-agent.com/cn/kiosk</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://soma-agent.com/cn/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soma-agent.com/en/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soma-agent.com/ja/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://soma-agent.com/ko/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soma-agent.com/en/kiosk"/>
+  </url>
+  <url>
+    <loc>https://soma-agent.com/en/kiosk</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://soma-agent.com/cn/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soma-agent.com/en/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soma-agent.com/ja/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://soma-agent.com/ko/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soma-agent.com/en/kiosk"/>
+  </url>
+  <url>
+    <loc>https://soma-agent.com/ja/kiosk</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://soma-agent.com/cn/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soma-agent.com/en/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soma-agent.com/ja/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://soma-agent.com/ko/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soma-agent.com/en/kiosk"/>
+  </url>
+  <url>
+    <loc>https://soma-agent.com/ko/kiosk</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://soma-agent.com/cn/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://soma-agent.com/en/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://soma-agent.com/ja/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://soma-agent.com/ko/kiosk"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://soma-agent.com/en/kiosk"/>
+  </url>
+  <url>
+    <loc>https://soma-agent.com/blog/soma-agent-intro</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://soma-agent.com/legal.html</loc>

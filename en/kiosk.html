@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<!-- 由 scripts/build-kiosk.py 產生，請改產生器，不要直接編這個檔案 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SOMA AI Guide Kiosk: a customer-service employee who never takes a break</title>
+<meta name="description" content="An AI concierge that has read your website, standing at your entrance on an iPad and a large screen, answering guests in Chinese, English, Japanese and Korean, every day of the year. Built for hotels, malls, attractions, activity venues and retail stores.">
+<meta name="theme-color" content="#F2F4F7">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://soma-agent.com/en/kiosk">
+<link rel="alternate" hreflang="zh-Hant" href="https://soma-agent.com/kiosk">
+<link rel="alternate" hreflang="zh-Hans" href="https://soma-agent.com/cn/kiosk">
+<link rel="alternate" hreflang="en" href="https://soma-agent.com/en/kiosk">
+<link rel="alternate" hreflang="ja" href="https://soma-agent.com/ja/kiosk">
+<link rel="alternate" hreflang="ko" href="https://soma-agent.com/ko/kiosk">
+<link rel="alternate" hreflang="x-default" href="https://soma-agent.com/en/kiosk">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="SOMA AI Guide Kiosk: a customer-service employee who never takes a break">
+<meta property="og:description" content="An AI concierge that has read your website, standing at your entrance on an iPad and a large screen, answering guests in Chinese, English, Japanese and Korean, every day of the year. Built for hotels, malls, attractions, activity venues and retail stores.">
+<meta property="og:url" content="https://soma-agent.com/en/kiosk">
+<meta property="og:image" content="https://soma-agent.com/assets/kiosk/hero-ui.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1067">
+<meta property="og:site_name" content="Soma Agent">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://soma-agent.com/assets/kiosk/hero-ui.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans:wght@400;500;700;900&family=Orbitron:wght@800&display=swap">
+<style>
+  :root {
+    --ground: #f4f5f8;
+    --paper: #ffffff;
+    --ink: #14161d;
+    --muted: #525a6b;
+    --line: #d8dce4;
+    --accent: #0091ad;
+    --accent-deep: #00647a;
+    --accent-tint: rgba(0, 145, 173, 0.08);
+    --screen: #eaf6f9;
+    --font: "Noto Sans TC", "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    --r: 2px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0f1419;
+      --paper: #171d24;
+      --ink: #eef1f5;
+      --muted: #a9b2c0;
+      --line: #2c3540;
+      --accent: #35c2dc;
+      --accent-deep: #7fdcec;
+      --accent-tint: rgba(53, 194, 220, 0.1);
+      --screen: #10262d;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0f1419;
+    --paper: #171d24;
+    --ink: #eef1f5;
+    --muted: #a9b2c0;
+    --line: #2c3540;
+    --accent: #35c2dc;
+    --accent-deep: #7fdcec;
+    --accent-tint: rgba(53, 194, 220, 0.1);
+    --screen: #10262d;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.7;
+    padding: 32px 20px 64px;
+  }
+  .sheet {
+    max-width: 960px;
+    margin: 0 auto;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+  }
+  section { padding: 44px 48px; border-top: 1px solid var(--line); break-inside: avoid; }
+  section:first-child { border-top: 0; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin: 0 0 10px;
+  }
+  h1, h2, h3 { margin: 0; }
+  h2 { font-size: 26px; font-weight: 900; letter-spacing: 0.02em; margin-bottom: 20px; }
+  h3 { font-size: 17px; font-weight: 700; }
+  p { margin: 0; }
+  .lead { color: var(--muted); max-width: 60ch; }
+
+  /* ── hero ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 32px;
+    align-items: center;
+    padding-top: 40px;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 28px;
+    letter-spacing: 0.24em;
+  }
+  .brand b { font-size: 20px; font-weight: 700; }
+  .brand i { display: inline-block; width: 22px; height: 2px; background: var(--accent); transform: translateY(-5px); }
+  .brand span { font-size: 12px; color: var(--muted); letter-spacing: 0.3em; }
+  .hero h1 { font-size: 40px; line-height: 1.25; font-weight: 900; letter-spacing: 0.01em; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero .lead { margin-top: 16px; font-size: 17px; }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .facts span {
+    font-size: 13px;
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    color: var(--muted);
+  }
+  .facts b { color: var(--ink); font-family: var(--mono); font-weight: 600; margin-right: 4px; }
+
+
+  .hero-shot { margin: 0; }
+  .hero-shot img { width: 100%; height: auto; display: block; border-radius: var(--r); }
+  .hero-shot figcaption, .scenes figcaption { font-size: 12px; color: var(--muted); margin-top: 8px; }
+  .scenes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .scenes figure { margin: 0; }
+  .scenes img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: var(--r); border: 1px solid var(--line); }
+  .scenes figcaption { font-size: 14px; color: var(--muted); margin-top: 10px; }
+  .scenes figcaption b { display: block; color: var(--ink); font-size: 16px; }
+
+  /* ── pains ── */
+  .pairs { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: var(--r); }
+  .pairs > div { padding: 14px 18px; border-top: 1px solid var(--line); }
+  .pairs > div:nth-child(-n+2) { border-top: 0; }
+  .pairs .head { font-size: 12px; letter-spacing: 0.14em; color: var(--muted); background: var(--ground); }
+  .pairs .after { border-left: 1px solid var(--line); }
+  .pairs .after::before { content: "→ "; color: var(--accent); font-weight: 700; }
+
+  /* ── features ── */
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 32px; }
+  .feature h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .feature h3 svg { width: 22px; height: 22px; flex: none; color: var(--accent); }
+  .feature p { color: var(--muted); font-size: 15px; }
+
+  /* ── steps ── */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: step; }
+  .step { border-top: 2px solid var(--accent); padding-top: 12px; }
+  .step .day { font-family: var(--mono); font-size: 12px; color: var(--accent-deep); letter-spacing: 0.08em; }
+  .step h3 { margin: 4px 0 6px; }
+  .step p { color: var(--muted); font-size: 14px; }
+
+  .note { margin-top: 16px; font-size: 13px; color: var(--muted); }
+
+
+  .plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .plan-col h3 { margin-bottom: 12px; }
+  .plan-col b { font-weight: 700; }
+
+
+  /* ── fit ── */
+  .fit { display: grid; grid-template-columns: 1.2fr 1fr; gap: 36px; }
+  .fit h3 { margin-bottom: 12px; }
+  ul.biz { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+  ul.biz li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  ul.biz b { display: block; color: var(--ink); font-size: 16px; }
+  ul.info { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  ul.info li { font-size: 14px; padding: 6px 12px; border: 1px solid var(--line); border-radius: var(--r); background: var(--ground); }
+
+  /* ── provide + contact ── */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  ul.tick { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  ul.tick li { padding-left: 22px; position: relative; }
+  ul.tick li::before { content: ""; position: absolute; left: 2px; top: 11px; width: 10px; height: 2px; background: var(--accent); }
+  .contact { background: var(--accent-tint); border: 1px solid var(--accent); border-radius: var(--r); padding: 22px 24px; }
+  .contact h3 { font-size: 20px; margin-bottom: 8px; }
+  .contact dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin: 16px 0 0; font-size: 15px; }
+  .contact dt { color: var(--muted); }
+  .contact dd { margin: 0; font-family: var(--mono); }
+
+  @media (max-width: 760px) {
+    section { padding: 32px 22px; }
+    .hero, .pairs, .two, .scenes, .plan-grid, .fit { grid-template-columns: 1fr; }
+    .pairs .after { border-left: 0; }
+    .pairs > div:nth-child(2) { border-top: 1px solid var(--line); }
+    .pairs .head.after { display: none; }
+    .features, .steps { grid-template-columns: 1fr 1fr; }
+    .hero h1 { font-size: 30px; }
+  }
+  @media (max-width: 440px) {
+    .features, .steps { grid-template-columns: 1fr; }
+  }
+  @media print {
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 0; font-size: 13px; }
+    .sheet { border: 0; max-width: none; }
+    section { padding: 22px 8px; }
+    .hero h1 { font-size: 30px; }
+  }
+  body { padding: 0 20px 48px; }
+  .sheet { margin-top: 24px; }
+  header.site { margin: 0 -20px; border-bottom: 1px solid var(--line); background: var(--paper); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; }
+  header.site nav { max-width: 1000px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  header.site .logo { font-family: 'Orbitron', var(--font); font-weight: 800; font-size: 18px; letter-spacing: .22em; text-decoration: none; color: var(--ink); }
+  header.site .logo i { color: var(--accent); font-style: normal; }
+  header.site .navlink { font-size: 13px; color: var(--muted); text-decoration: none; }
+  header.site .navlink:hover { color: var(--accent); }
+  .contact .book { display: inline-block; margin-top: 18px; padding: 12px 22px; background: var(--accent); color: #fff; font-weight: 700; text-decoration: none; border-radius: var(--r); }
+  .contact .book:hover { background: var(--accent-deep); }
+  .contact .mail { margin-top: 10px; font-size: 13px; color: var(--muted); }
+  footer.site { max-width: 1000px; margin: 28px auto 0; padding: 0 20px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); }
+  footer.site a { color: inherit; }
+  header.site .right { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: flex-end; }
+  header.site .langs { display: flex; gap: 2px; font-size: 12.5px; }
+  header.site .langs a { padding: 2px 6px; color: var(--muted); text-decoration: none; }
+  header.site .langs a[aria-current="page"] { color: var(--ink); font-weight: 700; border-bottom: 2px solid var(--accent); }
+  :root { --font: "Noto Sans", "Helvetica Neue", Arial, sans-serif; }
+</style>
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2231262713555584');fbq('init','1068005176190695');fbq('track','PageView');
+// 按下「來信預約展示」＝機台頁的轉換訊號
+document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('a[href^="mailto:"]');
+  if(a) fbq('track','Contact',{content_name:'kiosk_demo'});
+},true);
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2231262713555584&ev=PageView&noscript=1"/></noscript>
+</head>
+<body>
+<header class="site">
+  <nav>
+    <a class="logo" href="/en/">SOMA<i>_</i></a>
+    <div class="right">
+      <span class="langs"><a href="/kiosk" lang="zh-Hant">繁</a><a href="/cn/kiosk" lang="zh-Hans">简</a><a href="/en/kiosk" lang="en" aria-current="page">EN</a><a href="/ja/kiosk" lang="ja">日</a><a href="/ko/kiosk" lang="ko">한</a></span>
+      <a class="navlink" href="/en/">Soma desktop AI companion</a>
+    </div>
+  </nav>
+</header>
+<main class="sheet">
+  <section class="hero">
+    <div>
+      <div class="brand"><b>SOMA</b><i></i><span>AI GUIDE KIOSK</span></div>
+      <h1>An in-person AI host<br>who <em>never takes a break</em></h1>
+      <p class="lead">She has read every page of your website: classes, prices, opening hours, directions. From opening to closing she stands at your entrance and answers every guest in Chinese, English, Japanese or Korean. No shifts, no sick days, no fatigue.</p>
+      <div class="facts"><span><b>365</b>days a year</span><span><b>4</b>languages</span><span><b>8</b>characters to choose from</span><span>Live in <b>10</b>business days</span></div>
+    </div>
+    <figure class="hero-shot">
+      <img src="/assets/kiosk/hero-ui.jpg" width="1600" height="1067" alt="SOMA guide screens: a 3D character and her answer on a large screen, next to the screen guests use">
+      <figcaption>Actual interface: guests ask on the touch screen; the large screen shows the character and her answer</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <p class="eyebrow">An employee who never rests</p>
+    <h2>Hand her the 20 questions your front desk hears every day</h2>
+    <div class="pairs">
+      <div class="head">Front desk staff only</div><div class="head after">With a SOMA AI employee</div>
+      <div>Shifts and days off — never enough hands at weekend peaks</div><div class="after">There from opening to closing, every day of the year</div><div>The same question dozens of times a day wears anyone down</div><div class="after">The 1,000th answer is as clear and friendly as the first</div><div>Foreign visitors depend on who happens to be on shift</div><div class="after">Chinese, English, Japanese, Korean — one tap switches</div><div>New hires take time to train, and leave with what they learned</div><div class="after">Update the back office once; the knowledge stays with you</div><div>Passers-by rarely stop</div><div class="after">A talking, moving character on a big screen is a sign in itself</div>
+    </div>
+    <p class="note">She isn't here to replace your staff. She takes over the repetitive questions so your team can focus on payments, service, and the moments that need a person.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Features</p>
+    <h2>Not a chat box on a website — a host standing in your venue</h2>
+    <div class="features"><div class="feature"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h6"/></svg>Answers only from your information</h3><p>Her knowledge base is built from your website, and prices, times and addresses are quoted as written. When she doesn't know, she asks guests to check with staff instead of making something up.</p></div><div class="feature"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>Four languages</h3><p>Foreign visitors tap a language button and she answers in their language, read aloud in a natural voice.</p></div><div class="feature"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="3.5"/><path d="M5 21c1-5 3.5-7 7-7s6 2 7 7"/></svg>A 3D character that talks and moves</h3><p>Lip-synced speech, expressions that follow the conversation, waves and bows. Choose from 8 characters, or have one designed for your brand.</p></div><div class="feature"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="10" rx="1"/><rect x="16" y="10" width="6" height="10" rx="1"/><path d="M7 18h4"/></svg>iPad plus a large screen</h3><p>Guests speak or type on the iPad; the large screen shows the character and her answer, so the queue and passers-by can see too.</p></div><div class="feature"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><path d="M14 4l6 6-9 9H5v-6z"/></svg>Update it yourself</h3><p>Change a price or an event in the back office and the next guest hears the new answer. Every month you get a usage report and a list of questions she couldn't answer.</p></div><div class="feature"><h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>Rent or buy — we replace faulty units</h3><p>It runs on a regular iPad and TV, no costly custom cabinet. On a rental plan we replace any unit that fails.</p></div></div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Who it's for</p>
+    <h2>Anywhere with foot traffic and the same questions over and over</h2>
+    <p class="lead" style="margin-bottom:24px">A good fit if two of these apply: you get the same questions every day, you see foreign visitors, people walk past your entrance, or you're short-handed at peak times.</p>
+    <div class="fit">
+      <div><h3>Businesses</h3><ul class="biz"><li><b>Activity and sports venues</b>Water sports, climbing gyms, fitness studios, classes</li><li><b>Hotels, guesthouses, hot-spring resorts</b>Lobby welcome, facilities, nearby attractions</li><li><b>Department stores, malls, shopping centers</b>Floor guides, brand picks, seasonal events</li><li><b>Attractions, theme parks, museums, exhibitions</b>Park guides, exhibit introductions, wayfinding</li><li><b>Retail stores and chains</b>Products, promotions, membership</li><li><b>Clinics, schools and service counters</b>Sign-ups, booking steps, common questions</li><li><b>Visitor centers, stations, public service points</b>Transport, routes, procedures</li></ul></div>
+      <div><h3>What she can answer</h3><ul class="info"><li>Opening hours, closures, bookings</li><li>Prices, plans, promotions</li><li>Floors, locations, routes, facilities</li><li>Transport, parking, nearby spots</li><li>Classes, products, services</li><li>Events and latest news</li><li>Sign-up, meeting times, what to bring</li><li>Cancellation rules and FAQs</li><li>Your brand story</li><li>Handing off to a person at the desk or on LINE</li></ul><p class="note">If it can be written down, it can become her answer. We compile it from your website automatically, then fill in what the website leaves out.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Where it works</p>
+    <h2>Place her where people pass, and let guests ask</h2>
+    <div class="scenes"><figure><img src="/assets/kiosk/scene-hotel.jpg" width="1024" height="765" loading="lazy" alt="An iPad stand and a portrait screen in a guesthouse lobby, with a family asking questions"><figcaption><b>Hotel and guesthouse lobbies</b>Facilities, nearby attractions, multilingual welcome</figcaption></figure><figure><img src="/assets/kiosk/scene-park.jpg" width="1600" height="1067" loading="lazy" alt="An AI guide kiosk at a theme-park entrance, with a visitor using the touch screen"><figcaption><b>Theme parks and attractions</b>Rides, event picks, multilingual guidance</figcaption></figure><figure><img src="/assets/kiosk/scene-mall.jpg" width="1600" height="1067" loading="lazy" alt="A portrait AI guide screen in a mall atrium"><figcaption><b>Department stores and malls</b>Floor guides, brand picks, event info</figcaption></figure></div>
+    <p class="note">Illustrative scenes. Actual hardware, characters and screens depend on the plan and venue setup; the phone QR guide, queue information and figurine shown are future ideas, not part of the standard plan.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Getting started</p>
+    <h2>Welcoming guests 10 business days after signing</h2>
+    <div class="steps"><div class="step"><div class="day">Business days 1–4</div><h3>Knowledge base</h3><p>We turn your website into 50–100 Q&As, then add the questions your front desk hears most.</p></div><div class="step"><div class="day">Business days 2–5</div><h3>Character and look</h3><p>Pick a character, apply your brand colors and background, set the voice for each language.</p></div><div class="step"><div class="day">Business days 5–8</div><h3>Internal trial</h3><p>Your staff ask 50 questions; we tune until common questions are answered correctly at least 90% of the time.</p></div><div class="step"><div class="day">Business days 8–10</div><h3>Installation</h3><p>On-site setup, screen connection, 30 minutes of training, sign-off, and you're live.</p></div></div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Plans</p>
+    <h2>Hardware depends on the spot; software depends on the crowd</h2>
+    <p class="lead" style="margin-bottom:24px">Choose them separately to fit your space and foot traffic. Several kiosks in one venue share a single software plan.</p>
+    <div class="plan-grid">
+      <div class="plan-col"><h3>Hardware: four setups, rent or buy</h3><ul class="tick"><li><b>iPad only</b>　Counters, small shops</li><li><b>iPad + 43" screen</b>　Beside the counter, small venues</li><li><b>iPad + 55" screen</b>　Lobbies, main entrances</li><li><b>iPad + 65" screen</b>　Mall atriums, attractions, exhibitions</li></ul></div>
+      <div class="plan-col"><h3>Software: five plans by monthly interactions</h3><ul class="tick"><li><b>Lite, Starter</b>　A few dozen questions a day</li><li><b>Standard</b>　A hundred or more a day</li><li><b>Advanced, Flagship</b>　Hundreds a day, or several kiosks sharing</li><li>Start one level lower and adjust with real data after launch</li></ul></div>
+    </div>
+    <p class="note">We quote for your space, traffic and number of kiosks. Short-term rental is available for exhibitions and pop-ups.</p>
+  </section>
+
+  <section class="two">
+    <div>
+      <p class="eyebrow">What you'll need</p>
+      <h2>Four things, no IT staff required</h2>
+      <ul class="tick"><li>Your website, plus the questions your front desk hears most</li><li>Current price list and events</li><li>Logo, brand colors and one photo of the venue</li><li>A spot, a power outlet and Wi-Fi</li></ul>
+    </div>
+    <div class="contact">
+      <h3>See it answer from your own website</h3>
+      <p>We'll read your website first, bring an iPad to your venue, and let her answer the questions your guests ask most — then quote for your space. The demo is free and takes about 15 minutes.</p>
+      <a class="book" href="mailto:support@soma-agent.com?subject=SOMA%20AI%20Guide%20Kiosk%20demo%20request">Book a demo by email</a>
+      <p class="mail">support@soma-agent.com｜Please include your venue name, website and a convenient time</p>
+    </div>
+  </section>
+</main>
+<footer class="site">
+  <span>© 2026 Soma Agent</span>
+  <span><a href="/legal.html">Legal</a> ・ <a href="mailto:support@soma-agent.com">support@soma-agent.com</a></span>
+</footer>
+<!-- AICMS AI 客服（embed_key 是公開識別碼，護城河是後端的 domain allowlist） -->
+<script src="https://waterman-sports.cc/widget.js" data-key="wk_bc9f4842e30745e48191174d59780958" data-label="Chat with us" data-color="#0091AD" data-position="right" defer></script>
+<script src="/assets/track.js" defer></script>
+</body>
+</html>
