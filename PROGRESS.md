@@ -45,6 +45,14 @@
 - 視覺驗證用 DOM 量測（getBoundingClientRect/computedStyle/手動觸發 handler）比「捲動後截圖」可靠——本環境截圖會搶在重繪前。
 - dc.html 設計稿含設計工具 runtime（support.js / x-dc / sc-if / {{ }}），handoff 明示不可移植，須當規格來源純手重建。
 
+## Last session（2026-09-29 — 新增 /kiosk 導覽機台介紹頁）
+
+- 新增 `kiosk.html`（單語、手寫、**不經產生器**）與 `assets/kiosk/` 四張圖；內容同 claude.ai 上的客戶 DM，不含任何價格
+- 聯絡改成「來信預約展示」mailto support@soma-agent.com，點擊送 fbq `Contact`
+- `scripts/build-sitemap.py` 的 EXTRA 加入 `kiosk`，sitemap 重產（13 筆）
+- 線上驗證：https://soma-agent.com/kiosk 200、內容與圖片都到位
+- ⚠ 情境圖是 AI 生成，飯店那張螢幕文字是亂碼；首頁尚未連到 /kiosk
+
 ## Last session（2026-09-20 — Paddle 帳戶被關，結帳改匯款 / PayPal）
 
 - **Paddle 通知關閉帳戶**（理由：AUP restricted category / high risk，不提供細節）。三個站的線上刷卡同時失效，本站是其中之一。
