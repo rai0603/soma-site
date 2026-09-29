@@ -15,7 +15,7 @@ NS = "http://www.sitemaps.org/schemas/sitemap/0.9"  # sitemaps，不是 sitemap
 LANGS = [("", "zh-Hant"), ("cn", "zh-Hans"), ("en", "en"), ("ja", "ja"), ("ko", "ko")]
 PAGES = [("", "1.0", "weekly"), ("help", "0.8", "monthly")]
 # 單語頁面（不做五語，所以不進 hreflang 互指）
-EXTRA = [("blog/soma-agent-intro", "0.6", "yearly")]
+EXTRA = [("blog/soma-agent-intro", "0.6", "yearly"), ("kiosk", "0.7", "monthly")]
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 today = datetime.date.today().isoformat()

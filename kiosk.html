@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SOMA AI 導覽機台：永不休息的實體 AI 客服員工</title>
+<meta name="description" content="讀過你官網的 AI 接待員，用 iPad＋大電視站在門口，以中英日韓四種語言回答客人，全年無休。適合飯店民宿、百貨商場、觀光景點、體驗場館與門市。">
+<meta name="theme-color" content="#F2F4F7">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://soma-agent.com/kiosk">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SOMA AI 導覽機台：永不休息的實體 AI 客服員工">
+<meta property="og:description" content="讀過你官網的 AI 接待員，用 iPad＋大電視站在門口，以中英日韓四種語言回答客人，全年無休。適合飯店民宿、百貨商場、觀光景點、體驗場館與門市。">
+<meta property="og:url" content="https://soma-agent.com/kiosk">
+<meta property="og:image" content="https://soma-agent.com/assets/kiosk/hero-ui.jpg">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1067">
+<meta property="og:site_name" content="Soma Agent">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://soma-agent.com/assets/kiosk/hero-ui.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;500;700;900&family=Orbitron:wght@800&display=swap">
+<style>
+  :root {
+    --ground: #f4f5f8;
+    --paper: #ffffff;
+    --ink: #14161d;
+    --muted: #525a6b;
+    --line: #d8dce4;
+    --accent: #0091ad;
+    --accent-deep: #00647a;
+    --accent-tint: rgba(0, 145, 173, 0.08);
+    --screen: #eaf6f9;
+    --font: "Noto Sans TC", "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    --r: 2px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0f1419;
+      --paper: #171d24;
+      --ink: #eef1f5;
+      --muted: #a9b2c0;
+      --line: #2c3540;
+      --accent: #35c2dc;
+      --accent-deep: #7fdcec;
+      --accent-tint: rgba(53, 194, 220, 0.1);
+      --screen: #10262d;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0f1419;
+    --paper: #171d24;
+    --ink: #eef1f5;
+    --muted: #a9b2c0;
+    --line: #2c3540;
+    --accent: #35c2dc;
+    --accent-deep: #7fdcec;
+    --accent-tint: rgba(53, 194, 220, 0.1);
+    --screen: #10262d;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.7;
+    padding: 32px 20px 64px;
+  }
+  .sheet {
+    max-width: 960px;
+    margin: 0 auto;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+  }
+  section { padding: 44px 48px; border-top: 1px solid var(--line); break-inside: avoid; }
+  section:first-child { border-top: 0; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin: 0 0 10px;
+  }
+  h1, h2, h3 { margin: 0; }
+  h2 { font-size: 26px; font-weight: 900; letter-spacing: 0.02em; margin-bottom: 20px; }
+  h3 { font-size: 17px; font-weight: 700; }
+  p { margin: 0; }
+  .lead { color: var(--muted); max-width: 60ch; }
+
+  /* ── hero ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 32px;
+    align-items: center;
+    padding-top: 40px;
+  }
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 28px;
+    letter-spacing: 0.24em;
+  }
+  .brand b { font-size: 20px; font-weight: 700; }
+  .brand i { display: inline-block; width: 22px; height: 2px; background: var(--accent); transform: translateY(-5px); }
+  .brand span { font-size: 12px; color: var(--muted); letter-spacing: 0.3em; }
+  .hero h1 { font-size: 40px; line-height: 1.25; font-weight: 900; letter-spacing: 0.01em; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero .lead { margin-top: 16px; font-size: 17px; }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .facts span {
+    font-size: 13px;
+    padding: 4px 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    color: var(--muted);
+  }
+  .facts b { color: var(--ink); font-family: var(--mono); font-weight: 600; margin-right: 4px; }
+
+
+  .hero-shot { margin: 0; }
+  .hero-shot img { width: 100%; height: auto; display: block; border-radius: var(--r); }
+  .hero-shot figcaption, .scenes figcaption { font-size: 12px; color: var(--muted); margin-top: 8px; }
+  .scenes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .scenes figure { margin: 0; }
+  .scenes img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; display: block; border-radius: var(--r); border: 1px solid var(--line); }
+  .scenes figcaption { font-size: 14px; color: var(--muted); margin-top: 10px; }
+  .scenes figcaption b { display: block; color: var(--ink); font-size: 16px; }
+
+  /* ── pains ── */
+  .pairs { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: var(--r); }
+  .pairs > div { padding: 14px 18px; border-top: 1px solid var(--line); }
+  .pairs > div:nth-child(-n+2) { border-top: 0; }
+  .pairs .head { font-size: 12px; letter-spacing: 0.14em; color: var(--muted); background: var(--ground); }
+  .pairs .after { border-left: 1px solid var(--line); }
+  .pairs .after::before { content: "→ "; color: var(--accent); font-weight: 700; }
+
+  /* ── features ── */
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 32px; }
+  .feature h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+  .feature h3 svg { width: 22px; height: 22px; flex: none; color: var(--accent); }
+  .feature p { color: var(--muted); font-size: 15px; }
+
+  /* ── steps ── */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: step; }
+  .step { border-top: 2px solid var(--accent); padding-top: 12px; }
+  .step .day { font-family: var(--mono); font-size: 12px; color: var(--accent-deep); letter-spacing: 0.08em; }
+  .step h3 { margin: 4px 0 6px; }
+  .step p { color: var(--muted); font-size: 14px; }
+
+  /* ── pricing ── */
+  .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  caption { text-align: left; font-weight: 700; font-size: 15px; padding-bottom: 8px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; font-weight: 500; color: var(--muted); letter-spacing: 0.06em; }
+  td.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
+  th.num { text-align: right; }
+  td small { display: block; color: var(--muted); font-size: 12px; }
+
+  .combos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 28px; }
+  .combo { border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; }
+  .combo.pick { border-color: var(--accent); background: var(--accent-tint); }
+  .combo .where { font-size: 13px; color: var(--muted); }
+  .combo .what { font-weight: 700; margin: 2px 0 10px; }
+  .combo .amt { font-family: var(--mono); font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .combo .amt small { font-family: var(--font); font-size: 12px; font-weight: 400; color: var(--muted); margin-left: 4px; }
+
+  .once { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+  .once div { border-left: 2px solid var(--line); padding-left: 12px; font-size: 14px; }
+  .once b { display: block; font-family: var(--mono); font-size: 15px; }
+  .note { margin-top: 16px; font-size: 13px; color: var(--muted); }
+
+
+  .plan-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .plan-col h3 { margin-bottom: 12px; }
+  .plan-col b { font-weight: 700; }
+
+
+  /* ── fit ── */
+  .fit { display: grid; grid-template-columns: 1.2fr 1fr; gap: 36px; }
+  .fit h3 { margin-bottom: 12px; }
+  ul.biz { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+  ul.biz li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  ul.biz b { display: block; color: var(--ink); font-size: 16px; }
+  ul.info { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  ul.info li { font-size: 14px; padding: 6px 12px; border: 1px solid var(--line); border-radius: var(--r); background: var(--ground); }
+
+  /* ── provide + contact ── */
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  ul.tick { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  ul.tick li { padding-left: 22px; position: relative; }
+  ul.tick li::before { content: ""; position: absolute; left: 2px; top: 11px; width: 10px; height: 2px; background: var(--accent); }
+  .contact { background: var(--accent-tint); border: 1px solid var(--accent); border-radius: var(--r); padding: 22px 24px; }
+  .contact h3 { font-size: 20px; margin-bottom: 8px; }
+  .contact dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; margin: 16px 0 0; font-size: 15px; }
+  .contact dt { color: var(--muted); }
+  .contact dd { margin: 0; font-family: var(--mono); }
+
+  @media (max-width: 760px) {
+    section { padding: 32px 22px; }
+    .hero, .pairs, .price-grid, .two, .scenes, .plan-grid, .fit { grid-template-columns: 1fr; }
+    .pairs .after { border-left: 0; }
+    .pairs > div:nth-child(2) { border-top: 1px solid var(--line); }
+    .pairs .head.after { display: none; }
+    .features, .steps, .combos, .once { grid-template-columns: 1fr 1fr; }
+    .hero h1 { font-size: 30px; }
+  }
+  @media (max-width: 440px) {
+    .features, .steps, .combos, .once { grid-template-columns: 1fr; }
+  }
+  @media print {
+    @page { size: A4; margin: 12mm; }
+    body { background: #fff; padding: 0; font-size: 13px; }
+    .sheet { border: 0; max-width: none; }
+    section { padding: 22px 8px; }
+    .hero h1 { font-size: 30px; }
+  }
+</style>
+<style>
+  body { padding: 0 20px 48px; }
+  .sheet { margin-top: 24px; }
+  header.site { margin: 0 -20px; border-bottom: 1px solid var(--line); background: var(--paper); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; }
+  header.site nav { max-width: 1000px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  header.site .logo { font-family: 'Orbitron', var(--font); font-weight: 800; font-size: 18px; letter-spacing: .22em; text-decoration: none; color: var(--ink); }
+  header.site .logo i { color: var(--accent); font-style: normal; }
+  header.site .navlink { font-size: 13px; color: var(--muted); text-decoration: none; }
+  header.site .navlink:hover { color: var(--accent); }
+  .contact .book { display: inline-block; margin-top: 18px; padding: 12px 22px; background: var(--accent); color: #fff; font-weight: 700; text-decoration: none; border-radius: var(--r); }
+  .contact .book:hover { background: var(--accent-deep); }
+  .contact .mail { margin-top: 10px; font-size: 13px; color: var(--muted); }
+  footer.site { max-width: 1000px; margin: 28px auto 0; padding: 0 20px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); }
+  footer.site a { color: inherit; }
+</style>
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','2231262713555584');fbq('init','1068005176190695');fbq('track','PageView');
+// 按下「來信預約展示」＝機台頁的轉換訊號
+document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('a[href^="mailto:"]');
+  if(a) fbq('track','Contact',{content_name:'kiosk_demo'});
+},true);
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2231262713555584&ev=PageView&noscript=1"/></noscript>
+</head>
+<body>
+<header class="site">
+  <nav>
+    <a class="logo" href="/">SOMA<i>_</i></a>
+    <a class="navlink" href="/">Soma 桌面 AI 夥伴</a>
+  </nav>
+</header>
+<main class="sheet">
+  <section class="hero">
+    <div>
+      <div class="brand"><b>SOMA</b><i></i><span>AI 導覽機台</span></div>
+      <h1>一位<em>永不休息</em>的<br>實體 AI 客服員工</h1>
+      <p class="lead">她讀過你官網上的每一頁：課程、價格、營業時間、交通方式。從開門到打烊，她站在門口，用中英日韓四種語言回答每一位客人。不排班、不請假，也不會累。</p>
+      <div class="facts">
+        <span><b>全年</b>無休</span>
+        <span><b>4</b>種語言：中英日韓</span>
+        <span><b>8</b>位角色可選</span>
+        <span><b>10</b>個工作天上線</span>
+      </div>
+    </div>
+    <figure class="hero-shot">
+      <img src="/assets/kiosk/hero-ui.jpg" width="1600" height="1067" alt="SOMA 導覽畫面：大電視上的 3D 角色與回答，旁邊是訪客操作的畫面">
+      <figcaption>實際介面：訪客在操作畫面提問，大電視同步顯示角色與回答</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <p class="eyebrow">一位永不休息的員工</p>
+    <h2>櫃台最常被問的那 20 題，交給她</h2>
+    <div class="pairs">
+      <div class="head">只有真人櫃台</div><div class="head after">加上 SOMA AI 員工</div>
+      <div>要排班、輪休，假日尖峰人手永遠不夠</div><div class="after">開門到打烊都在，全年無休</div>
+      <div>同樣的問題一天回答幾十次，耐心會被磨掉</div><div class="after">第 1,000 次回答，一樣清楚、一樣親切</div>
+      <div>外國旅客來了，要看當班的人會不會說</div><div class="after">中英日韓，點一下就換成客人的語言</div>
+      <div>新人要花時間教，離職就把經驗帶走</div><div class="after">後台改一次就學會，知識永遠留在店裡</div>
+      <div>路過的人很難停下腳步</div><div class="after">大電視上會說話、會動的角色，本身就是招牌</div>
+    </div>
+    <p class="note">她不是來取代你的員工，而是接手重複的問答，讓員工把時間留給收款、服務，和真正需要人的時刻。</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">特色</p>
+    <h2>不是網頁上的聊天框，是站在現場的接待員</h2>
+    <div class="features">
+      <div class="feature">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h6"/></svg>只用你的資料回答</h3>
+        <p>知識庫由你的官網內容建立，價格、時間、地址都照原文回答；遇到答不出來的問題，會請客人洽詢工作人員，不會自己亂編。</p>
+      </div>
+      <div class="feature">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>中英日韓四種語言</h3>
+        <p>外國旅客點一下語言鈕，她就用對方的語言回答，並以自然的聲音唸出來。</p>
+      </div>
+      <div class="feature">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="3.5"/><path d="M5 21c1-5 3.5-7 7-7s6 2 7 7"/></svg>會說話、會動的 3D 角色</h3>
+        <p>說話時嘴型同步，表情跟著對話變化，還會揮手、鞠躬。8 位角色可選，也能依品牌形象打造專屬角色。</p>
+      </div>
+      <div class="feature">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="10" rx="1"/><rect x="16" y="10" width="6" height="10" rx="1"/><path d="M7 18h4"/></svg>iPad＋大電視雙畫面</h3>
+        <p>客人在 iPad 上開口或打字，大電視同步播出角色與回答，排隊和路過的人也看得到。</p>
+      </div>
+      <div class="feature">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><path d="M14 4l6 6-9 9H5v-6z"/></svg>後台自己就能改</h3>
+        <p>價格或活動異動，在後台改一下，下一位客人問到的就是新答案。每月附上數據報表與「答不出來的問題」清單。</p>
+      </div>
+      <div class="feature">
+        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>硬體可租可買，壞了我們換</h3>
+        <p>使用一般的 iPad 與電視，不必添購昂貴的專用機櫃；選擇租賃，自然故障由我們負責更換。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">誰適合</p>
+    <h2>有人潮、常被問同樣問題的地方，都用得上</h2>
+    <p class="lead" style="margin-bottom:24px">符合其中兩項，就很適合：每天被問同樣的問題、常有外國客人、門口有路過的人潮、假日或尖峰人手不足。</p>
+    <div class="fit">
+      <div>
+        <h3>適合的商家</h3>
+        <ul class="biz">
+          <li><b>體驗活動與運動場館</b>水上活動、攀岩、健身房、才藝與運動教室</li>
+          <li><b>飯店、民宿、溫泉會館</b>大廳接待、設施說明、周邊景點推薦</li>
+          <li><b>百貨、商場、購物中心</b>樓層導覽、品牌推薦、檔期活動</li>
+          <li><b>觀光景點、遊樂園、博物館、展覽</b>園區導覽、展品介紹、動線指引</li>
+          <li><b>門市與連鎖店</b>商品介紹、優惠說明、會員活動</li>
+          <li><b>診所、補習班與各式服務櫃台</b>報名、預約流程與常見問題</li>
+          <li><b>遊客中心、車站與公共服務據點</b>交通、路線與辦理流程</li>
+        </ul>
+      </div>
+      <div>
+        <h3>她能回答的資訊</h3>
+        <ul class="info">
+          <li>營業時間、公休日與預約方式</li>
+          <li>價格、方案與優惠活動</li>
+          <li>樓層、位置、動線與設施</li>
+          <li>交通、停車與周邊景點</li>
+          <li>課程、商品與服務內容</li>
+          <li>活動檔期與最新消息</li>
+          <li>報名、集合時間與注意事項</li>
+          <li>退改規則與常見問題</li>
+          <li>品牌故事與特色介紹</li>
+          <li>需要真人時，引導到櫃台或 LINE</li>
+        </ul>
+        <p class="note">只要寫得下來的資訊，都能成為她的回答。我們會從官網自動整理，再幫你補齊官網上沒寫的部分。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">應用場景</p>
+    <h2>放在人潮經過的地方，讓客人自己開口問</h2>
+    <div class="scenes">
+      <figure>
+        <img src="/assets/kiosk/scene-hotel.jpg" loading="lazy" width="1024" height="765" alt="民宿大廳的 iPad 操作台與直立式電視，旅客一家人在詢問">
+        <figcaption><b>飯店、民宿大廳</b>設施介紹、周邊景點、多語言接待</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/kiosk/scene-park.jpg" loading="lazy" width="1600" height="1067" alt="樂園入口的 AI 導覽機台，遊客在觸控螢幕上詢問">
+        <figcaption><b>樂園、景點</b>設施介紹、活動推薦、多語言導覽</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/kiosk/scene-mall.jpg" loading="lazy" width="1600" height="1067" alt="百貨公司中庭的直立式 AI 導覽螢幕">
+        <figcaption><b>百貨、商場</b>樓層導覽、品牌推薦、活動資訊</figcaption>
+      </figure>
+    </div>
+    <p class="note">情境示意圖。實際設備、角色與畫面依方案與場館設定而定；圖中的手機掃碼導覽、排隊資訊與實體公仔屬於延伸構想，不含在標準方案內。</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">導入流程</p>
+    <h2>簽約後 10 個工作天，就能開始接待客人</h2>
+    <div class="steps">
+      <div class="step"><div class="day">第 1–4 個工作天</div><h3>建立知識庫</h3><p>從你的官網整理出 50–100 條問答，再補上櫃台最常被問的問題。</p></div>
+      <div class="step"><div class="day">第 2–5 個工作天</div><h3>角色與畫面</h3><p>挑選角色，換上你的品牌色與背景，設定四種語言的聲音。</p></div>
+      <div class="step"><div class="day">第 5–8 個工作天</div><h3>內部試用</h3><p>由你的員工試問 50 題，我們修正到常見問題的正確率達 90% 以上。</p></div>
+      <div class="step"><div class="day">第 8–10 個工作天</div><h3>安裝上線</h3><p>到場安裝、接上電視，進行 30 分鐘教育訓練，驗收後正式上線。</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">方案</p>
+    <h2>硬體看擺放位置，軟體看客人多寡</h2>
+    <p class="lead" style="margin-bottom:24px">兩者分開選，依你的場地與人流自由搭配；同一個場館的多台機台，共用一個軟體方案。</p>
+    <div class="plan-grid">
+      <div class="plan-col">
+        <h3>硬體：四種規格，可租可買</h3>
+        <ul class="tick">
+          <li><b>iPad 單機</b>　櫃台、小店面</li>
+          <li><b>iPad＋43 吋電視</b>　櫃台旁、小型場館</li>
+          <li><b>iPad＋55 吋電視</b>　場館大廳、主要出入口</li>
+          <li><b>iPad＋65 吋電視</b>　百貨中庭、景點、展場</li>
+        </ul>
+      </div>
+      <div class="plan-col">
+        <h3>軟體：依每月互動次數，五種方案</h3>
+        <ul class="tick">
+          <li><b>輕量、入門</b>　每天幾十位客人詢問</li>
+          <li><b>標準</b>　每天一百多位</li>
+          <li><b>進階、旗艦</b>　每天數百位，或多台機台共用</li>
+          <li>先從低一級開始，上線後看實際數據再調整</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">依你的場地、人流與台數提供專屬報價；展覽、快閃活動另有短期租用方案。</p>
+  </section>
+
+  <section class="two">
+    <div>
+      <p class="eyebrow">你只需要準備</p>
+      <h2>四樣東西，不需要 IT 人員</h2>
+      <ul class="tick">
+        <li>官網網址，以及櫃台最常被問的問題</li>
+        <li>最新的價目表與活動資訊</li>
+        <li>Logo、品牌色，和一張場館照片</li>
+        <li>擺放位置、一個插座與 Wi-Fi</li>
+      </ul>
+    </div>
+    <div class="contact">
+      <h3>用你自己的官網，現場展示給你看</h3>
+      <p>我們會先讀過你的官網，帶著 iPad 到現場，讓她直接回答你的客人最常問的問題，並依你的場地提供報價。展示免費，約 15 分鐘。</p>
+      <a class="book" href="mailto:support@soma-agent.com?subject=%E9%A0%90%E7%B4%84%20SOMA%20AI%20%E5%B0%8E%E8%A6%BD%E6%A9%9F%E5%8F%B0%E5%B1%95%E7%A4%BA">來信預約展示</a>
+      <p class="mail">support@soma-agent.com｜請附上店名、官網網址與方便的時段</p>
+    </div>
+  </section>
+</main>
+<footer class="site">
+  <span>© 2026 Soma Agent</span>
+  <span><a href="/legal.html">法律資訊</a> ・ <a href="mailto:support@soma-agent.com">support@soma-agent.com</a></span>
+</footer>
+<!-- AICMS AI 客服（embed_key 是公開識別碼，護城河是後端的 domain allowlist） -->
+<script src="https://waterman-sports.cc/widget.js" data-key="wk_bc9f4842e30745e48191174d59780958" data-label="線上客服" data-color="#0091AD" data-position="right" defer></script>
+<script src="/assets/track.js" defer></script>
+</body>
+</html>
