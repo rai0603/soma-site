@@ -51,7 +51,11 @@
 - 聯絡改成「來信預約展示」mailto support@soma-agent.com，點擊送 fbq `Contact`
 - `scripts/build-sitemap.py` 的 EXTRA 加入 `kiosk`，sitemap 重產（13 筆）
 - 線上驗證：https://soma-agent.com/kiosk 200、內容與圖片都到位
-- ⚠ 情境圖是 AI 生成，飯店那張螢幕文字是亂碼；首頁尚未連到 /kiosk
+- ⚠ 情境圖是 AI 生成，飯店那張螢幕文字是亂碼（Rai：不處理）
+- **五語化**：改由 `scripts/build-kiosk.py` 產生 `kiosk.html` 與 `cn|en|ja|ko/kiosk.html`（第三支產生器，改文案改它），
+  樣式在 `scripts/kiosk/style.css`；hreflang 互指；sitemap 改五語收錄（17 筆）
+- 五語首頁都加了選單「導覽機台」與平台藍圖後的 FOR BUSINESS 入口卡（首頁仍是手寫，直接編）
+- 驗證：本機五語 200、500px 寬無橫向溢出、英日截圖；線上五語頁與四語首頁入口皆到位
 
 ## Last session（2026-09-20 — Paddle 帳戶被關，結帳改匯款 / PayPal）
 
