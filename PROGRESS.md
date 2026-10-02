@@ -45,6 +45,14 @@
 - 視覺驗證用 DOM 量測（getBoundingClientRect/computedStyle/手動觸發 handler）比「捲動後截圖」可靠——本環境截圖會搶在重繪前。
 - dc.html 設計稿含設計工具 runtime（support.js / x-dc / sc-if / {{ }}），handoff 明示不可移植，須當規格來源純手重建。
 
+## Last session（2026-10-02 — legal.html 新增 iOS 版隱私政策，未上線）
+
+- `legal.html` 新增 `#privacy-ios`（英文為準＋繁中／簡中／日／韓全文，錨點 `#privacy-ios-zh-tw|zh-cn|ja|ko`）；
+  原 `#privacy` 改標「桌面版與官網」並加導引，桌面版條文意思不變。**仍是手編檔，不經產生器**
+- 只 commit 未 push：等 Rai 審文字。HTML 註解 `OWNER-CONFIRM` 標了三處待定：
+  App 內刪除帳號（功能尚未實作＝送審 blocker）、保存期間（30 天／12 個月是草案，後端無自動刪除 job）、是否點名主機商與 Azure 區域
+- 下一步：soma-mobile `PRIVACY_URL` 改成 `https://soma-agent.com/legal#privacy-ios`；上線後線上確認錨點
+
 ## Last session（2026-09-29 — 新增 /kiosk 導覽機台介紹頁）
 
 - 新增 `kiosk.html`（單語、手寫、**不經產生器**）與 `assets/kiosk/` 四張圖；內容同 claude.ai 上的客戶 DM，不含任何價格

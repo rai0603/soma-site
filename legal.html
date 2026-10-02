@@ -27,17 +27,23 @@
   .more-lang{margin:10px 0 4px;}
   .more-lang summary{cursor:pointer;color:var(--acc);font-size:13.5px;font-weight:700;}
   .more-lang p{margin-top:10px;}
+  .lang-jump{font-size:13.5px;margin:-4px 0 14px;color:var(--muted);}
+  .lang-jump a{font-weight:700;text-decoration:none;}
+  .ios-lang{margin-top:40px;padding-top:20px;border-top:1px dashed var(--line);}
+  .ios-lang .lang-title{font-size:17px;margin-top:0;}
+  h4{font-size:15px;margin:18px 0 6px;}
 </style>
 </head>
 <body>
 <div class="wrap">
   <a class="brand" href="/">SOMA<span>_</span></a>
   <h1>Legal</h1>
-  <p class="updated">Terms of Service · Privacy Policy · Refund Policy — Last updated: July 10, 2026</p>
+  <p class="updated">Terms of Service · Privacy Policy · Refund Policy — Last updated: July 10, 2026 · iOS app privacy section added: October 2, 2026</p>
 
   <nav class="toc">
     <a href="#terms">Terms of Service</a>
-    <a href="#privacy">Privacy Policy</a>
+    <a href="#privacy">Privacy Policy (desktop)</a>
+    <a href="#privacy-ios">Privacy Policy (iOS app)</a>
     <a href="#refund">Refund Policy</a>
   </nav>
 
@@ -74,7 +80,9 @@
     <p class="zh" lang="ko"><strong>한국어</strong>：영구 라이선스＝평생 사용권(베이직 1대／어드밴스 2대, 기기 변경 가능). 키의 재판매·공유는 금지됩니다. BYOK이므로 AI·음성 API 키는 직접 준비하고 비용을 부담하며, 키는 사용자 기기에만 저장됩니다. 결제는 Paddle(기록상 판매자)이 처리합니다. 소프트웨어는 있는 그대로 제공되며 배상 책임 한도는 지불 금액입니다.</p>
   </details>
 
-  <h2 id="privacy">Privacy Policy <span class="zh">／隱私政策</span></h2>
+  <h2 id="privacy">Privacy Policy — Desktop app &amp; website <span class="zh">／隱私政策（桌面版與官網）</span></h2>
+  <p class="governing">This section covers the Soma desktop app (macOS, bring-your-own-key) and this website. <strong>Using Soma on iPhone or iPad?</strong> The iOS app works differently &mdash; your conversation text is relayed through our server to our AI providers &mdash; so it has its own section: <a href="#privacy-ios">Privacy Policy &mdash; Soma for iOS</a>.<br>
+  <span class="zh">本段適用於 Soma 桌面版（macOS，自備金鑰）與本網站。<strong>iPhone／iPad 版</strong>的資料流不同（對話文字會經我們的伺服器轉送給 AI 服務商），請看 <a href="#privacy-ios">iOS 版隱私政策</a>。／简体中文：iOS 版请见 <a href="#privacy-ios-zh-cn">iOS 版隐私政策</a>。／日本語：iOS 版は <a href="#privacy-ios-ja">iOS 版プライバシーポリシー</a>をご覧ください。／한국어: iOS 앱은 <a href="#privacy-ios-ko">iOS 앱 개인정보 처리방침</a>을 참고하세요.</span></p>
   <h3>1. What we collect</h3>
   <ul>
     <li><strong>Purchase data</strong> — your email address and order details, processed by Paddle (merchant of record) and shared with us to issue and deliver your license key.</li>
@@ -99,6 +107,333 @@
     <p class="zh" lang="ja"><strong>日本語</strong>：収集するのは注文情報（メールアドレス・購入内容）と認証情報（端末識別子の一方向ハッシュ）のみです。AI との会話・音声・ファイル・API キーはすべてお使いの端末内に留まり、当社サーバーには送信されません。個人情報の販売や広告利用は行いません。なお、アプリ起動時に匿名の起動記録（成功・失敗、app のバージョン、macOS のバージョン、エンジンのバージョン、失敗時は大まかな失敗分類）を送信します。これはお使いの Mac で生成されたランダムな識別子にのみ紐づき、ライセンスとは無関係で、設定をオフにすると削除されます。IP は記録せず、エラーメッセージそのものも送信しません。既定でオンですが、初回起動時にお知らせし、「設定 → 情報」でいつでもオフにできます。権利行使は support@soma-agent.com までご連絡ください。</p>
     <p class="zh" lang="ko"><strong>한국어</strong>：수집하는 것은 주문 정보(이메일·구매 내역)와 인증 정보(기기 식별자의 단방향 해시)뿐입니다. AI와의 대화·음성·파일·API 키는 모두 사용자 기기에만 남으며 당사 서버로 전송되지 않습니다. 개인정보를 판매하거나 광고에 이용하지 않습니다. 또한 앱 실행 시 익명 실행 기록(성공·실패, app 버전, macOS 버전, 엔진 버전, 실패 시 대략적인 실패 분류)을 전송합니다. 이는 사용자의 Mac에서 생성된 임의 식별자에만 연결되며 라이선스와 무관하고, 설정을 끄면 삭제됩니다. IP는 기록하지 않고 오류 메시지 원문도 보내지 않습니다. 기본값은 켜짐이며 첫 실행 시 안내하고 「설정 → 정보」에서 언제든 끌 수 있습니다. 권리 행사는 support@soma-agent.com 으로 문의해 주세요.</p>
   </details>
+
+  <!-- ============================================================
+       iOS app privacy section (Soma Mobile, bundle com.rai.soma-mobile)
+       Drafted 2026-10-02 from soma-mobile @5c38a37 + soma-licensing @a3f0f92.
+       OWNER-CONFIRM items are marked with OWNER-CONFIRM comments below.
+       ============================================================ -->
+  <h2 id="privacy-ios">Privacy Policy — Soma for iOS <span class="zh">／隱私政策（iOS 版）</span></h2>
+  <p class="lang-jump">English ・ <a href="#privacy-ios-zh-tw">繁體中文</a> ・ <a href="#privacy-ios-zh-cn">简体中文</a> ・ <a href="#privacy-ios-ja">日本語</a> ・ <a href="#privacy-ios-ko">한국어</a></p>
+  <p class="governing">This section applies to the <strong>Soma app for iPhone and iPad</strong> distributed through the App Store (&ldquo;the iOS app&rdquo;). Unlike the desktop app, the iOS app does not ask you for your own API keys: replies and voices are provided through our server. That means <strong>the text of your conversations passes through our server</strong> on its way to our AI providers. Below is exactly what is sent, what we keep, and what we don't.</p>
+
+  <h3>1. No sign-up: no name, no email</h3>
+  <ul>
+    <li>The iOS app does not ask for your name, email address or phone number, and we never receive your Apple ID.</li>
+    <li>On first use, the app generates two random identifiers &mdash; an <strong>account identifier</strong> and a <strong>device identifier</strong> &mdash; and stores them in the iOS Keychain on your device (they are not synced to iCloud). They are sent to our server (license.soma-agent.com) so that we can keep track of your subscription, your remaining AI messages and the characters you have purchased, and to limit free trials to one per device.</li>
+    <li>The account identifier is also attached to your App Store purchases (Apple calls it <em>appAccountToken</em>), so that a purchase can be matched to your account.</li>
+  </ul>
+
+  <h3>2. What is sent when you talk to a character</h3>
+  <ul>
+    <li><strong>Replies &mdash; Anthropic (Claude).</strong> When you send a message, the app sends the text you typed or dictated, the recent conversation, the character's built-in persona instructions, the things you asked the character to remember and a short summary of earlier conversations to our server, which forwards it to Anthropic's Claude API to generate the reply. From time to time the app also sends recent conversation to the same service to produce a short summary, which is then stored on your device as the character's memory.</li>
+    <li><strong>Voice &mdash; Microsoft Azure.</strong> The text of the character's reply is sent through our server to Microsoft Azure AI Speech to synthesize the spoken voice.</li>
+    <li><strong>Speech input &mdash; Apple.</strong> When you hold the microphone button, your speech is converted to text by the speech recognition built into iOS. Your voice audio is <strong>not</strong> sent to our server, to Anthropic or to Microsoft; Apple may process it on your device or on Apple's servers under <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">Apple's Privacy Policy</a>. Only the resulting text is sent, as part of your message.</li>
+    <li><strong>Your consent first.</strong> Before the first AI request, the app explains this data flow and asks you to agree. If you decline, no conversation data is sent.</li>
+    <li>Motion-sensor data (used so the character can keep looking at you) is processed only on your device and is never transmitted.</li>
+  </ul>
+
+  <h3>3. What our server keeps</h3>
+  <ul>
+    <li><strong>Account record</strong> &mdash; an internal account number, the random account and device identifiers described above, the date the account was created, and your free-trial balance.</li>
+    <li><strong>Purchase records</strong> &mdash; Apple transaction identifiers, product identifiers, purchase and expiry dates and refund status, which we receive from Apple when you buy or restore a purchase and through Apple's server notifications.</li>
+    <li><strong>Usage records</strong> &mdash; for each AI request: the type of request (chat, memory summary or voice), whether it succeeded, the AI model used, the number of tokens or voice characters processed, which quota it counted against, and the time. We use these to enforce quotas, prevent abuse and monitor costs.</li>
+    <li><strong>We do not store the content of your conversations</strong> &mdash; not your messages, not the replies, not the memory summaries, and not the synthesized audio. Our server relays them to the provider and streams the result back to you without saving them.</li>
+    <li>We do not store your IP address in our database. Our hosting infrastructure processes it to deliver the connection and, briefly, to rate-limit abuse.</li>
+    <li>The sign-in token the app uses is not stored on our server; it expires after 90 days and the app obtains a new one automatically.</li>
+  </ul>
+
+  <h3>4. What stays on your device</h3>
+  <ul>
+    <li>Character memories &mdash; the things you asked a character to remember, conversation summaries and the recent conversation &mdash; are stored only in the app's storage on your device. You can view and delete remembered facts in the app's settings. Deleting the app deletes them.</li>
+    <li>iOS may keep the account and device identifiers in the Keychain after the app is deleted. If you reinstall, the app reconnects to the same account, so your purchases and remaining messages are preserved. To delete the account from our server, see section 8.</li>
+  </ul>
+
+  <h3>5. Payments</h3>
+  <p>Purchases and subscriptions are processed by Apple. We never receive your card details, billing address or Apple ID; Apple sends us a signed transaction record (transaction and product identifiers, dates, and the account identifier described above). Subscriptions are managed, cancelled and refunded through Apple.</p>
+
+  <h3>6. Service providers</h3>
+  <ul>
+    <li><strong>Anthropic, PBC</strong> (Claude API) &mdash; generates replies and memory summaries. Anthropic states that by default it does not use inputs or outputs from its API to train its models, and that it automatically deletes API inputs and outputs from its backend within 30 days, with limited exceptions such as enforcing its Usage Policy or complying with law. See <a href="https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training" target="_blank" rel="noopener">Is my data used for model training?</a> and <a href="https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data" target="_blank" rel="noopener">How long do you store my organization's data?</a></li>
+    <li><strong>Microsoft</strong> (Azure AI Speech) &mdash; synthesizes the character's voice. For real-time synthesis with prebuilt voices, which is what we use, Microsoft states that it does not retain or store the input text and does not store the generated audio. See <a href="https://learn.microsoft.com/en-us/azure/foundry/responsible-ai/speech-service/text-to-speech/data-privacy-security" target="_blank" rel="noopener">Data, privacy, and security for text to speech</a>.</li>
+    <li><strong>Apple</strong> &mdash; App Store payments and on-device / system speech recognition.</li>
+    <li><strong>Our cloud hosting provider</strong> &mdash; runs our server and database.</li>
+  </ul>
+  <p>Each provider receives only what it needs to perform its service. These providers may process data in the United States or other countries outside your own.</p>
+  <!-- OWNER-CONFIRM: if you want to name the hosting provider / region (Zeabur; Azure Speech region from AZURE_SPEECH_REGION), add it here. -->
+
+  <h3>7. No tracking, no ads</h3>
+  <ul>
+    <li>The iOS app contains no advertising and no third-party analytics or tracking SDKs. It does not track you across other companies' apps or websites and does not access the advertising identifier (IDFA).</li>
+    <li>We do not sell or rent your data, and we do not use your conversations for advertising.</li>
+    <li>The anonymous startup diagnostics described in the desktop section are not part of the iOS app. The Meta Pixel described above applies only when you visit soma-agent.com in a web browser.</li>
+  </ul>
+
+  <h3>8. Retention, deletion and your rights</h3>
+  <ul>
+    <!-- OWNER-CONFIRM (BLOCKER): the in-app "Delete account" feature does NOT exist yet (no UI in soma-mobile, no endpoint in soma-licensing).
+         Apple Guideline 5.1.1(v) requires it. Ship it before publishing this sentence, or remove this <li>. -->
+    <li><strong>Delete your account in the app:</strong> Settings &rarr; Plan &amp; credits &rarr; <em>Delete account</em>. This permanently deletes your account record, identifiers, remaining messages and character ownership from our server, and removes the identifiers from your device. Deleting your account does not cancel an App Store subscription &mdash; cancel it in your Apple ID settings. Purchases made with your Apple ID can be restored to a new account later with <em>Restore Purchases</em>.</li>
+    <li>You can also request access to, correction of, or deletion of your data by emailing <a href="mailto:support@soma-agent.com">support@soma-agent.com</a>.</li>
+    <!-- OWNER-CONFIRM: retention periods below are a draft commitment. The code currently has NO automatic deletion job. -->
+    <li>We keep account, purchase and usage records while your account exists. After you delete your account, we delete these records within 30 days, except transaction records we are required to keep under tax and accounting law, which are kept only for the legally required period and are no longer linked to your account identifiers.</li>
+    <li>Usage records are kept for up to 12 months and are then deleted or reduced to totals that cannot be linked to an account.</li>
+    <li>Depending on where you live, you may have additional rights (for example, to object to or restrict processing, or to lodge a complaint with a data protection authority). Contact us and we will respond within 30 days.</li>
+  </ul>
+
+  <h3>9. Children</h3>
+  <p>The iOS app is not directed to children under 13, and we do not knowingly collect personal data from children under 13. If you believe a child has used the app, contact us and we will delete the related account.</p>
+
+  <h3>10. Changes &amp; contact</h3>
+  <p>If we change how conversation data is handled &mdash; for example, by adding a new AI provider &mdash; we will update this section and ask for your consent again in the app before any data goes to the new provider. Questions: <a href="mailto:support@soma-agent.com">support@soma-agent.com</a>.</p>
+
+  <!-- ===== 繁體中文 ===== -->
+  <div class="ios-lang" id="privacy-ios-zh-tw" lang="zh-Hant">
+    <h3 class="lang-title">繁體中文｜隱私政策（iOS 版）</h3>
+    <p>本段適用於透過 App Store 發行的 <strong>Soma iPhone／iPad 版</strong>（以下稱「iOS 版」）。與桌面版不同，iOS 版不需要你自備 API 金鑰，回覆與語音由我們的伺服器代為提供。因此<strong>你的對話文字會經過我們的伺服器</strong>，再轉送給 AI 服務商。以下逐項說明送出什麼、我們保留什麼、不保留什麼。</p>
+    <h4>1. 不需註冊：不要姓名、不要 email</h4>
+    <ul>
+      <li>iOS 版不會要求你的姓名、email 或電話，我們也拿不到你的 Apple ID。</li>
+      <li>第一次使用時，App 會隨機產生兩組識別碼：<strong>帳號識別碼</strong>與<strong>裝置識別碼</strong>，存在你裝置上的 iOS 鑰匙圈（不會同步到 iCloud），並傳送到我們的伺服器（license.soma-agent.com），用來記錄你的訂閱狀態、剩餘 AI 訊息額度、已購買的角色，以及讓每台裝置只能領一次免費試用。</li>
+      <li>帳號識別碼也會附在你的 App Store 購買紀錄上（Apple 稱為 appAccountToken），讓購買能對應到你的帳號。</li>
+    </ul>
+    <h4>2. 和角色對話時會送出什麼</h4>
+    <ul>
+      <li><strong>回覆——Anthropic（Claude）。</strong>你送出訊息時，App 會把你輸入或說出的文字、最近的對話、角色的內建人設說明、你要她記住的事，以及先前對話的簡短摘要，送到我們的伺服器，再由伺服器轉送給 Anthropic 的 Claude API 產生回覆。App 也會不定期把最近的對話送到同一服務產生簡短摘要，摘要存回你的裝置，當作角色的記憶。</li>
+      <li><strong>語音——Microsoft Azure。</strong>角色回覆的文字會經我們的伺服器送到 Microsoft Azure AI 語音服務，合成成語音。</li>
+      <li><strong>語音輸入——Apple。</strong>按住麥克風說話時，由 iOS 內建的語音辨識把聲音轉成文字。你的聲音<strong>不會</strong>送到我們的伺服器、Anthropic 或 Microsoft；Apple 可能在你的裝置上或 Apple 的伺服器處理，適用 <a href="https://www.apple.com/tw/legal/privacy/" target="_blank" rel="noopener">Apple 隱私權政策</a>。只有辨識出的文字會隨訊息送出。</li>
+      <li><strong>先取得你的同意。</strong>第一次呼叫 AI 之前，App 會說明上述資料流向並請你按「同意」；不同意就不會送出任何對話資料。</li>
+      <li>動作感應資料（讓角色的視線能一直看著你）只在你的裝置上處理，不會傳出。</li>
+    </ul>
+    <h4>3. 我們的伺服器保留什麼</h4>
+    <ul>
+      <li><strong>帳號資料</strong>——內部帳號編號、上述隨機帳號與裝置識別碼、帳號建立日期、免費試用剩餘則數。</li>
+      <li><strong>購買紀錄</strong>——Apple 交易編號、商品編號、購買與到期日、退款狀態；於你購買或恢復購買時，以及透過 Apple 伺服器通知取得。</li>
+      <li><strong>用量紀錄</strong>——每次 AI 請求的種類（對話、記憶摘要或語音）、是否成功、使用的模型、處理的 token 數或語音字元數、扣的是哪一種額度、時間。用於控管額度、防止濫用與監控成本。</li>
+      <li><strong>我們不保存對話內容</strong>——包括你的訊息、角色的回覆、記憶摘要與合成的語音。伺服器只負責轉送給服務商、把結果串流回你的裝置，不會存下來。</li>
+      <li>我們的資料庫不保存你的 IP 位址；主機基礎設施會為了建立連線、以及短暫用於防止濫用的流量限制而處理 IP。</li>
+      <li>App 使用的登入權杖不存在我們的伺服器上，90 天後失效，App 會自動換發。</li>
+    </ul>
+    <h4>4. 只留在你裝置上的資料</h4>
+    <ul>
+      <li>角色記憶（你要她記住的事、對話摘要、最近對話）只存在你裝置上的 App 儲存空間。記住的事可以在 App 設定中檢視與刪除；刪除 App 就會一併刪除。</li>
+      <li>刪除 App 後，iOS 可能仍在鑰匙圈保留帳號與裝置識別碼；重新安裝時會連回同一個帳號，購買與剩餘額度都還在。要從我們的伺服器刪除帳號，請見第 8 點。</li>
+    </ul>
+    <h4>5. 付款</h4>
+    <p>購買與訂閱由 Apple 處理。我們不會取得你的信用卡資料、帳單地址或 Apple ID；Apple 只提供經簽章的交易紀錄（交易與商品編號、日期，以及上述帳號識別碼）。訂閱的管理、取消與退款都透過 Apple 進行。</p>
+    <h4>6. 服務提供者</h4>
+    <ul>
+      <li><strong>Anthropic, PBC</strong>（Claude API）——產生回覆與記憶摘要。Anthropic 表示，預設不會用 API 的輸入與輸出訓練模型，並會在 30 天內從其後端自動刪除 API 的輸入與輸出（執行使用政策、法律要求等少數情況除外）。詳見 <a href="https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training" target="_blank" rel="noopener">資料是否用於訓練</a>、<a href="https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data" target="_blank" rel="noopener">資料保存期間</a>。</li>
+      <li><strong>Microsoft</strong>（Azure AI 語音服務）——合成角色語音。我們使用的是預建聲線的即時合成，Microsoft 表示此情形下不保留、不儲存輸入文字，也不儲存產生的音訊。詳見 <a href="https://learn.microsoft.com/zh-tw/azure/foundry/responsible-ai/speech-service/text-to-speech/data-privacy-security" target="_blank" rel="noopener">文字轉語音的資料、隱私權與安全性</a>。</li>
+      <li><strong>Apple</strong>——App Store 付款與系統語音辨識。</li>
+      <li><strong>雲端主機服務商</strong>——執行我們的伺服器與資料庫。</li>
+    </ul>
+    <p>各服務商只取得提供服務所需的資料，並可能在美國或你所在地以外的國家處理。</p>
+    <h4>7. 不追蹤、不放廣告</h4>
+    <ul>
+      <li>iOS 版沒有廣告，也沒有任何第三方分析或追蹤 SDK；不會跨其他公司的 App 或網站追蹤你，也不讀取廣告識別碼（IDFA）。</li>
+      <li>我們不出售、不出租你的資料，也不把你的對話用於廣告。</li>
+      <li>桌面版段落提到的匿名啟動記錄不在 iOS 版中。上方提到的 Meta Pixel 只在你用瀏覽器造訪 soma-agent.com 時適用。</li>
+    </ul>
+    <h4>8. 保存期間、刪除與你的權利</h4>
+    <ul>
+      <li><strong>在 App 內刪除帳號：</strong>設定 → 方案與額度 → <em>刪除帳號</em>。這會從我們的伺服器永久刪除你的帳號資料、識別碼、剩餘額度與角色擁有紀錄，並清除裝置上的識別碼。刪除帳號不會取消 App Store 訂閱，請到 Apple ID 設定取消。用同一個 Apple ID 買過的項目，之後可在新帳號用「恢復購買」取回。</li>
+      <li>你也可以來信 <a href="mailto:support@soma-agent.com">support@soma-agent.com</a> 要求查閱、更正或刪除你的資料。</li>
+      <li>帳號存在期間，我們保留帳號、購買與用量紀錄。帳號刪除後 30 天內刪除這些紀錄；依稅務與會計法規必須保存的交易紀錄除外，僅在法定期間內保存，且不再與你的帳號識別碼連結。</li>
+      <li>用量紀錄最多保存 12 個月，之後刪除或彙整成無法對應到帳號的總數。</li>
+      <li>依你所在地法律，你可能還有其他權利（例如反對或限制處理、向個資主管機關申訴）。來信後我們會在 30 天內回覆。</li>
+    </ul>
+    <h4>9. 兒童</h4>
+    <p>iOS 版並非以未滿 13 歲的兒童為對象，我們也不會在知情的情況下收集未滿 13 歲兒童的個人資料。若你認為有兒童使用了本 App，請與我們聯絡，我們會刪除相關帳號。</p>
+    <h4>10. 變更與聯絡方式</h4>
+    <p>如果對話資料的處理方式有所改變（例如新增 AI 服務商），我們會更新本段，並在任何資料送往新服務商之前，於 App 內重新徵求你的同意。聯絡：<a href="mailto:support@soma-agent.com">support@soma-agent.com</a>。</p>
+  </div>
+
+  <!-- ===== 简体中文 ===== -->
+  <div class="ios-lang" id="privacy-ios-zh-cn" lang="zh-Hans">
+    <h3 class="lang-title">简体中文｜隐私政策（iOS 版）</h3>
+    <p>本段适用于通过 App Store 发行的 <strong>Soma iPhone／iPad 版</strong>（以下称“iOS 版”）。与桌面版不同，iOS 版无需你自备 API 密钥，回复与语音由我们的服务器代为提供。因此<strong>你的对话文字会经过我们的服务器</strong>，再转发给 AI 服务商。以下逐项说明发送什么、我们保留什么、不保留什么。</p>
+    <h4>1. 无需注册：不要姓名、不要邮箱</h4>
+    <ul>
+      <li>iOS 版不会要求你的姓名、邮箱或电话，我们也无法获取你的 Apple ID。</li>
+      <li>首次使用时，App 会随机生成两组标识符：<strong>账号标识符</strong>与<strong>设备标识符</strong>，保存在你设备上的 iOS 钥匙串中（不会同步到 iCloud），并发送到我们的服务器（license.soma-agent.com），用于记录订阅状态、剩余 AI 消息额度、已购买的角色，并确保每台设备只能领取一次免费试用。</li>
+      <li>账号标识符也会附在你的 App Store 购买记录上（Apple 称为 appAccountToken），以便将购买对应到你的账号。</li>
+    </ul>
+    <h4>2. 与角色对话时会发送什么</h4>
+    <ul>
+      <li><strong>回复——Anthropic（Claude）。</strong>你发送消息时，App 会把你输入或说出的文字、最近的对话、角色的内置人设说明、你让她记住的事以及之前对话的简短摘要发送到我们的服务器，再由服务器转发给 Anthropic 的 Claude API 生成回复。App 也会不定期把最近的对话发送到同一服务生成简短摘要，摘要保存回你的设备，作为角色的记忆。</li>
+      <li><strong>语音——Microsoft Azure。</strong>角色回复的文字会经我们的服务器发送到 Microsoft Azure AI 语音服务，合成为语音。</li>
+      <li><strong>语音输入——Apple。</strong>按住麦克风说话时，由 iOS 内置的语音识别把声音转成文字。你的声音<strong>不会</strong>发送到我们的服务器、Anthropic 或 Microsoft；Apple 可能在你的设备上或 Apple 的服务器上处理，适用 <a href="https://www.apple.com.cn/legal/privacy/" target="_blank" rel="noopener">Apple 隐私政策</a>。只有识别出的文字会随消息发送。</li>
+      <li><strong>先征得你的同意。</strong>首次调用 AI 之前，App 会说明上述数据流向并请你点击“同意”；不同意则不会发送任何对话数据。</li>
+      <li>动作传感器数据（让角色的视线一直看着你）只在你的设备上处理，不会传出。</li>
+    </ul>
+    <h4>3. 我们的服务器保留什么</h4>
+    <ul>
+      <li><strong>账号数据</strong>——内部账号编号、上述随机账号与设备标识符、账号创建日期、免费试用剩余条数。</li>
+      <li><strong>购买记录</strong>——Apple 交易编号、商品编号、购买与到期日期、退款状态；在你购买或恢复购买时，以及通过 Apple 服务器通知获取。</li>
+      <li><strong>用量记录</strong>——每次 AI 请求的类型（对话、记忆摘要或语音）、是否成功、使用的模型、处理的 token 数或语音字符数、扣除的是哪种额度、时间。用于控制额度、防止滥用和监控成本。</li>
+      <li><strong>我们不保存对话内容</strong>——包括你的消息、角色的回复、记忆摘要与合成的语音。服务器只负责转发给服务商、把结果流式传回你的设备，不会存储。</li>
+      <li>我们的数据库不保存你的 IP 地址；主机基础设施会为建立连接以及短暂用于防滥用的流量限制而处理 IP。</li>
+      <li>App 使用的登录令牌不存储在我们的服务器上，90 天后失效，App 会自动换发。</li>
+    </ul>
+    <h4>4. 只留在你设备上的数据</h4>
+    <ul>
+      <li>角色记忆（你让她记住的事、对话摘要、最近对话）只保存在你设备上的 App 存储空间中。记住的事可在 App 设置中查看与删除；删除 App 即一并删除。</li>
+      <li>删除 App 后，iOS 可能仍在钥匙串中保留账号与设备标识符；重新安装时会连回同一个账号，购买与剩余额度仍在。如需从我们的服务器删除账号，请见第 8 条。</li>
+    </ul>
+    <h4>5. 付款</h4>
+    <p>购买与订阅由 Apple 处理。我们不会获取你的银行卡信息、账单地址或 Apple ID；Apple 只提供经签名的交易记录（交易与商品编号、日期以及上述账号标识符）。订阅的管理、取消与退款均通过 Apple 进行。</p>
+    <h4>6. 服务提供者</h4>
+    <ul>
+      <li><strong>Anthropic, PBC</strong>（Claude API）——生成回复与记忆摘要。Anthropic 表示，默认不会使用 API 的输入与输出训练模型，并会在 30 天内从其后端自动删除 API 的输入与输出（执行使用政策、法律要求等少数情况除外）。详见 <a href="https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training" target="_blank" rel="noopener">数据是否用于训练</a>、<a href="https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data" target="_blank" rel="noopener">数据保存期限</a>。</li>
+      <li><strong>Microsoft</strong>（Azure AI 语音服务）——合成角色语音。我们使用的是预置声音的实时合成，Microsoft 表示此情况下不保留、不存储输入文字，也不存储生成的音频。详见 <a href="https://learn.microsoft.com/zh-cn/azure/foundry/responsible-ai/speech-service/text-to-speech/data-privacy-security" target="_blank" rel="noopener">文本转语音的数据、隐私和安全</a>。</li>
+      <li><strong>Apple</strong>——App Store 付款与系统语音识别。</li>
+      <li><strong>云主机服务商</strong>——运行我们的服务器与数据库。</li>
+    </ul>
+    <p>各服务商只获取提供服务所需的数据，并可能在美国或你所在地以外的国家处理。</p>
+    <h4>7. 不追踪、不投放广告</h4>
+    <ul>
+      <li>iOS 版没有广告，也没有任何第三方分析或追踪 SDK；不会跨其他公司的 App 或网站追踪你，也不读取广告标识符（IDFA）。</li>
+      <li>我们不出售、不出租你的数据，也不把你的对话用于广告。</li>
+      <li>桌面版段落提到的匿名启动记录不包含在 iOS 版中。上文提到的 Meta Pixel 仅在你用浏览器访问 soma-agent.com 时适用。</li>
+    </ul>
+    <h4>8. 保存期限、删除与你的权利</h4>
+    <ul>
+      <li><strong>在 App 内删除账号：</strong>设置 → 方案与额度 → <em>删除账号</em>。这会从我们的服务器永久删除你的账号数据、标识符、剩余额度与角色拥有记录，并清除设备上的标识符。删除账号不会取消 App Store 订阅，请到 Apple ID 设置中取消。用同一个 Apple ID 购买过的项目，之后可在新账号中通过“恢复购买”取回。</li>
+      <li>你也可以发邮件至 <a href="mailto:support@soma-agent.com">support@soma-agent.com</a> 要求查阅、更正或删除你的数据。</li>
+      <li>账号存续期间，我们保留账号、购买与用量记录。账号删除后 30 天内删除这些记录；依税务与会计法规必须保存的交易记录除外，仅在法定期限内保存，且不再与你的账号标识符关联。</li>
+      <li>用量记录最多保存 12 个月，之后删除或汇总为无法对应到账号的总数。</li>
+      <li>根据你所在地的法律，你可能还享有其他权利（例如反对或限制处理、向数据保护机构投诉）。来信后我们会在 30 天内回复。</li>
+    </ul>
+    <h4>9. 儿童</h4>
+    <p>iOS 版并非面向未满 13 岁的儿童，我们也不会在知情的情况下收集未满 13 岁儿童的个人信息。若你认为有儿童使用了本 App，请与我们联系，我们会删除相关账号。</p>
+    <h4>10. 变更与联系方式</h4>
+    <p>如果对话数据的处理方式发生变化（例如新增 AI 服务商），我们会更新本段，并在任何数据发送给新服务商之前，在 App 内重新征求你的同意。联系：<a href="mailto:support@soma-agent.com">support@soma-agent.com</a>。</p>
+  </div>
+
+  <!-- ===== 日本語 ===== -->
+  <div class="ios-lang" id="privacy-ios-ja" lang="ja">
+    <h3 class="lang-title">日本語｜プライバシーポリシー（iOS 版）</h3>
+    <p>本項は App Store で配信する <strong>Soma の iPhone／iPad 版</strong>（以下「iOS 版」）に適用されます。デスクトップ版と異なり、iOS 版ではご自身の API キーは不要で、返答と音声は当社サーバー経由で提供されます。そのため<strong>会話のテキストは当社サーバーを経由して</strong> AI 事業者に送信されます。何を送信し、何を保存し、何を保存しないかを以下に記載します。</p>
+    <h4>1. 登録不要：氏名・メールアドレスは不要</h4>
+    <ul>
+      <li>iOS 版は氏名、メールアドレス、電話番号を求めません。当社が Apple ID を受け取ることもありません。</li>
+      <li>初回利用時、アプリはランダムな 2 つの識別子（<strong>アカウント識別子</strong>と<strong>端末識別子</strong>）を生成し、端末の iOS キーチェーンに保存します（iCloud には同期されません）。これらは当社サーバー（license.soma-agent.com）に送信され、サブスクリプションの状態、AI メッセージの残り回数、購入済みキャラクターの管理、および無料トライアルを 1 台につき 1 回に制限するために使用されます。</li>
+      <li>アカウント識別子は App Store での購入にも付与され（Apple の appAccountToken）、購入とアカウントを対応付けるために使われます。</li>
+    </ul>
+    <h4>2. キャラクターと話すときに送信されるもの</h4>
+    <ul>
+      <li><strong>返答 — Anthropic（Claude）。</strong>メッセージを送信すると、入力または音声入力したテキスト、直近の会話、キャラクターの設定（ペルソナ指示）、覚えておくよう頼んだ内容、過去の会話の短い要約が当社サーバーに送られ、Anthropic の Claude API に転送されて返答が生成されます。また、アプリは定期的に直近の会話を同サービスに送って短い要約を作成し、その要約はキャラクターの記憶として端末に保存されます。</li>
+      <li><strong>音声 — Microsoft Azure。</strong>キャラクターの返答テキストは当社サーバー経由で Microsoft Azure AI Speech に送られ、音声に合成されます。</li>
+      <li><strong>音声入力 — Apple。</strong>マイクボタンを押して話すと、iOS 標準の音声認識が音声をテキストに変換します。音声データが当社サーバー、Anthropic、Microsoft に送信されることは<strong>ありません</strong>。Apple が端末上または Apple のサーバーで処理する場合があり、<a href="https://www.apple.com/jp/legal/privacy/" target="_blank" rel="noopener">Apple のプライバシーポリシー</a>が適用されます。送信されるのは認識結果のテキストのみです。</li>
+      <li><strong>事前の同意。</strong>最初の AI リクエストの前に、アプリはこのデータの流れを説明して同意を求めます。同意しない場合、会話データは送信されません。</li>
+      <li>モーションセンサーのデータ（キャラクターの視線をあなたに向けるため）は端末内でのみ処理され、送信されません。</li>
+    </ul>
+    <h4>3. 当社サーバーが保存するもの</h4>
+    <ul>
+      <li><strong>アカウント情報</strong> — 内部アカウント番号、上記のランダムなアカウント識別子と端末識別子、アカウント作成日、無料トライアルの残り回数。</li>
+      <li><strong>購入記録</strong> — Apple の取引 ID、商品 ID、購入日・有効期限、返金状況。購入・復元時および Apple のサーバー通知を通じて受け取ります。</li>
+      <li><strong>利用記録</strong> — AI リクエストごとの種類（会話・記憶の要約・音声）、成否、使用モデル、処理したトークン数または音声文字数、どの枠から消費したか、日時。利用枠の管理、不正利用の防止、コスト監視に使用します。</li>
+      <li><strong>会話の内容は保存しません</strong> — メッセージ、返答、記憶の要約、合成音声のいずれも保存しません。当社サーバーは事業者へ中継し、結果をそのまま端末へストリーミングするだけです。</li>
+      <li>当社のデータベースに IP アドレスは保存しません。ホスティング基盤は接続のため、また不正利用防止のレート制限のために一時的に IP アドレスを処理します。</li>
+      <li>アプリが使うサインイン用トークンは当社サーバーに保存されません。90 日で失効し、アプリが自動で再取得します。</li>
+    </ul>
+    <h4>4. 端末内にのみ保存されるもの</h4>
+    <ul>
+      <li>キャラクターの記憶（覚えておくよう頼んだ内容、会話の要約、直近の会話）は端末内のアプリ領域にのみ保存されます。覚えた内容はアプリの設定で確認・削除でき、アプリを削除すると消去されます。</li>
+      <li>アプリを削除しても、iOS がキーチェーン内のアカウント識別子と端末識別子を保持する場合があります。再インストールすると同じアカウントに再接続され、購入内容と残り回数は引き継がれます。当社サーバーからアカウントを削除する方法は第 8 項をご覧ください。</li>
+    </ul>
+    <h4>5. お支払い</h4>
+    <p>購入とサブスクリプションは Apple が処理します。当社がカード情報、請求先住所、Apple ID を受け取ることはありません。Apple から受け取るのは署名付きの取引記録（取引 ID・商品 ID、日付、上記のアカウント識別子）のみです。サブスクリプションの管理・解約・返金は Apple を通じて行われます。</p>
+    <h4>6. 委託先</h4>
+    <ul>
+      <li><strong>Anthropic, PBC</strong>（Claude API）— 返答と記憶の要約を生成します。Anthropic は、既定では API の入出力をモデルの学習に使用せず、API の入出力を 30 日以内にバックエンドから自動削除するとしています（利用ポリシーの執行や法令対応など限られた例外を除く）。<a href="https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training" target="_blank" rel="noopener">学習への利用について</a>・<a href="https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data" target="_blank" rel="noopener">保存期間について</a>をご覧ください。</li>
+      <li><strong>Microsoft</strong>（Azure AI Speech）— キャラクターの音声を合成します。当社が使用するプリセット音声のリアルタイム合成について、Microsoft は入力テキストを保持・保存せず、生成された音声も保存しないとしています。<a href="https://learn.microsoft.com/ja-jp/azure/foundry/responsible-ai/speech-service/text-to-speech/data-privacy-security" target="_blank" rel="noopener">テキスト読み上げのデータ、プライバシー、セキュリティ</a>をご覧ください。</li>
+      <li><strong>Apple</strong> — App Store の決済とシステムの音声認識。</li>
+      <li><strong>クラウドホスティング事業者</strong> — 当社のサーバーとデータベースを運用します。</li>
+    </ul>
+    <p>各委託先は、サービス提供に必要な範囲のデータのみを受け取ります。データは米国その他お住まいの国以外で処理される場合があります。</p>
+    <h4>7. トラッキング・広告なし</h4>
+    <ul>
+      <li>iOS 版には広告も第三者の分析・トラッキング SDK もありません。他社のアプリやウェブサイトをまたいだトラッキングは行わず、広告識別子（IDFA）にもアクセスしません。</li>
+      <li>データの販売・貸与は行わず、会話を広告に利用することもありません。</li>
+      <li>デスクトップ版の項に記載の匿名起動記録は iOS 版には含まれません。上記の Meta Pixel は、ブラウザで soma-agent.com を閲覧した場合にのみ適用されます。</li>
+    </ul>
+    <h4>8. 保存期間・削除・お客様の権利</h4>
+    <ul>
+      <li><strong>アプリ内でアカウントを削除：</strong>設定 → プランと利用枠 → <em>アカウントを削除</em>。当社サーバーからアカウント情報、識別子、残り回数、キャラクターの所有記録が完全に削除され、端末上の識別子も消去されます。アカウントを削除しても App Store のサブスクリプションは解約されないため、Apple ID の設定から解約してください。同じ Apple ID で購入したものは、後で新しいアカウントに「購入を復元」で戻せます。</li>
+      <li><a href="mailto:support@soma-agent.com">support@soma-agent.com</a> へのメールで、データの開示・訂正・削除を請求することもできます。</li>
+      <li>アカウント、購入、利用の各記録はアカウントが存在する間保存します。アカウント削除後 30 日以内にこれらを削除します。ただし税務・会計法令により保存が必要な取引記録は、法定期間に限り、アカウント識別子と切り離して保存します。</li>
+      <li>利用記録は最長 12 か月保存し、その後は削除するか、アカウントと結び付かない集計値にします。</li>
+      <li>お住まいの地域の法令により、処理への異議・制限、データ保護当局への申し立てなどの権利がある場合があります。ご連絡いただければ 30 日以内に回答します。</li>
+    </ul>
+    <h4>9. お子様について</h4>
+    <p>iOS 版は 13 歳未満のお子様を対象としておらず、13 歳未満のお子様の個人情報を故意に収集することはありません。お子様が利用したと思われる場合はご連絡ください。該当するアカウントを削除します。</p>
+    <h4>10. 変更・お問い合わせ</h4>
+    <p>会話データの取り扱いを変更する場合（新しい AI 事業者の追加など）は、本項を更新し、新しい事業者にデータを送る前にアプリ内で改めて同意を求めます。お問い合わせ：<a href="mailto:support@soma-agent.com">support@soma-agent.com</a></p>
+  </div>
+
+  <!-- ===== 한국어 ===== -->
+  <div class="ios-lang" id="privacy-ios-ko" lang="ko">
+    <h3 class="lang-title">한국어｜개인정보 처리방침 (iOS 앱)</h3>
+    <p>이 항목은 App Store를 통해 배포되는 <strong>Soma iPhone／iPad 앱</strong>(이하 'iOS 앱')에 적용됩니다. 데스크톱 앱과 달리 iOS 앱은 사용자 본인의 API 키가 필요 없으며, 답변과 음성은 당사 서버를 통해 제공됩니다. 따라서 <strong>대화 텍스트는 당사 서버를 거쳐</strong> AI 서비스 제공업체로 전송됩니다. 무엇을 보내고, 무엇을 보관하며, 무엇을 보관하지 않는지 아래에 설명합니다.</p>
+    <h4>1. 가입 불필요: 이름·이메일 없음</h4>
+    <ul>
+      <li>iOS 앱은 이름, 이메일 주소, 전화번호를 요구하지 않으며, 당사는 사용자의 Apple ID를 받지 않습니다.</li>
+      <li>처음 사용할 때 앱은 무작위 식별자 두 개(<strong>계정 식별자</strong>와 <strong>기기 식별자</strong>)를 생성해 기기의 iOS 키체인에 저장합니다(iCloud에 동기화되지 않음). 이 식별자는 당사 서버(license.soma-agent.com)로 전송되어 구독 상태, 남은 AI 메시지 수, 구매한 캐릭터를 관리하고 무료 체험을 기기당 1회로 제한하는 데 사용됩니다.</li>
+      <li>계정 식별자는 App Store 구매에도 첨부되어(Apple의 appAccountToken) 구매와 계정을 연결하는 데 쓰입니다.</li>
+    </ul>
+    <h4>2. 캐릭터와 대화할 때 전송되는 정보</h4>
+    <ul>
+      <li><strong>답변 — Anthropic(Claude).</strong> 메시지를 보내면 앱은 입력하거나 말한 텍스트, 최근 대화, 캐릭터의 기본 설정(페르소나 지시), 기억해 달라고 한 내용, 이전 대화의 짧은 요약을 당사 서버로 보내고, 서버는 이를 Anthropic의 Claude API로 전달해 답변을 생성합니다. 또한 앱은 주기적으로 최근 대화를 같은 서비스로 보내 짧은 요약을 만들며, 이 요약은 캐릭터의 기억으로 기기에 저장됩니다.</li>
+      <li><strong>음성 — Microsoft Azure.</strong> 캐릭터 답변의 텍스트는 당사 서버를 거쳐 Microsoft Azure AI Speech로 전송되어 음성으로 합성됩니다.</li>
+      <li><strong>음성 입력 — Apple.</strong> 마이크 버튼을 누르고 말하면 iOS에 내장된 음성 인식이 음성을 텍스트로 변환합니다. 음성 데이터는 당사 서버, Anthropic, Microsoft로 전송되지 <strong>않습니다</strong>. Apple이 기기에서 또는 Apple 서버에서 처리할 수 있으며 <a href="https://www.apple.com/kr/legal/privacy/" target="_blank" rel="noopener">Apple 개인정보 처리방침</a>이 적용됩니다. 인식된 텍스트만 메시지와 함께 전송됩니다.</li>
+      <li><strong>사전 동의.</strong> 첫 AI 요청 전에 앱이 이 데이터 흐름을 설명하고 동의를 요청합니다. 동의하지 않으면 대화 데이터는 전송되지 않습니다.</li>
+      <li>모션 센서 데이터(캐릭터가 사용자를 계속 바라보도록 하기 위함)는 기기에서만 처리되며 전송되지 않습니다.</li>
+    </ul>
+    <h4>3. 당사 서버에 보관되는 정보</h4>
+    <ul>
+      <li><strong>계정 정보</strong> — 내부 계정 번호, 위의 무작위 계정·기기 식별자, 계정 생성일, 무료 체험 잔여 횟수.</li>
+      <li><strong>구매 기록</strong> — Apple 거래 ID, 상품 ID, 구매일·만료일, 환불 상태. 구매·복원 시 및 Apple 서버 알림을 통해 받습니다.</li>
+      <li><strong>사용 기록</strong> — AI 요청별 유형(대화·기억 요약·음성), 성공 여부, 사용한 모델, 처리한 토큰 수 또는 음성 문자 수, 차감된 이용 한도의 종류, 시각. 이용 한도 관리, 남용 방지, 비용 모니터링에 사용합니다.</li>
+      <li><strong>대화 내용은 저장하지 않습니다</strong> — 메시지, 답변, 기억 요약, 합성된 음성 모두 저장하지 않습니다. 당사 서버는 제공업체로 중계하고 결과를 기기로 스트리밍할 뿐 저장하지 않습니다.</li>
+      <li>당사 데이터베이스에는 IP 주소를 저장하지 않습니다. 호스팅 인프라는 연결 제공과 남용 방지를 위한 요청 제한을 위해 IP 주소를 일시적으로 처리합니다.</li>
+      <li>앱이 사용하는 로그인 토큰은 당사 서버에 저장되지 않으며, 90일 후 만료되고 앱이 자동으로 새로 발급받습니다.</li>
+    </ul>
+    <h4>4. 기기에만 남는 정보</h4>
+    <ul>
+      <li>캐릭터의 기억(기억해 달라고 한 내용, 대화 요약, 최근 대화)은 기기 내 앱 저장 공간에만 저장됩니다. 기억한 내용은 앱 설정에서 확인·삭제할 수 있으며, 앱을 삭제하면 함께 삭제됩니다.</li>
+      <li>앱을 삭제해도 iOS가 키체인에 계정·기기 식별자를 보관할 수 있습니다. 다시 설치하면 같은 계정에 다시 연결되어 구매 내역과 남은 메시지 수가 유지됩니다. 당사 서버에서 계정을 삭제하는 방법은 8항을 참고하세요.</li>
+    </ul>
+    <h4>5. 결제</h4>
+    <p>구매와 구독은 Apple이 처리합니다. 당사는 카드 정보, 청구지 주소, Apple ID를 받지 않으며, Apple로부터 서명된 거래 기록(거래·상품 ID, 날짜, 위의 계정 식별자)만 받습니다. 구독의 관리·해지·환불은 Apple을 통해 이루어집니다.</p>
+    <h4>6. 수탁업체</h4>
+    <ul>
+      <li><strong>Anthropic, PBC</strong>(Claude API) — 답변과 기억 요약을 생성합니다. Anthropic은 기본적으로 API 입력·출력을 모델 학습에 사용하지 않으며, API 입력·출력을 30일 이내에 백엔드에서 자동 삭제한다고 밝히고 있습니다(이용 정책 집행, 법적 의무 등 제한적 예외 제외). <a href="https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training" target="_blank" rel="noopener">학습 사용 여부</a>, <a href="https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data" target="_blank" rel="noopener">보관 기간</a>을 참고하세요.</li>
+      <li><strong>Microsoft</strong>(Azure AI Speech) — 캐릭터의 음성을 합성합니다. 당사가 사용하는 기본 제공 음성의 실시간 합성에 대해 Microsoft는 입력 텍스트를 보존·저장하지 않으며 생성된 오디오도 저장하지 않는다고 밝히고 있습니다. <a href="https://learn.microsoft.com/ko-kr/azure/foundry/responsible-ai/speech-service/text-to-speech/data-privacy-security" target="_blank" rel="noopener">텍스트 음성 변환의 데이터, 개인 정보 보호 및 보안</a>을 참고하세요.</li>
+      <li><strong>Apple</strong> — App Store 결제와 시스템 음성 인식.</li>
+      <li><strong>클라우드 호스팅 업체</strong> — 당사 서버와 데이터베이스를 운영합니다.</li>
+    </ul>
+    <p>각 수탁업체는 서비스 제공에 필요한 정보만 받으며, 데이터는 미국 또는 사용자가 거주하는 국가 이외의 국가에서 처리될 수 있습니다.</p>
+    <h4>7. 추적·광고 없음</h4>
+    <ul>
+      <li>iOS 앱에는 광고도, 제3자 분석·추적 SDK도 없습니다. 다른 회사의 앱이나 웹사이트를 넘나드는 추적을 하지 않으며 광고 식별자(IDFA)에 접근하지 않습니다.</li>
+      <li>데이터를 판매하거나 대여하지 않으며, 대화를 광고에 이용하지 않습니다.</li>
+      <li>데스크톱 항목에 설명된 익명 실행 기록은 iOS 앱에 포함되지 않습니다. 위에서 설명한 Meta Pixel은 브라우저로 soma-agent.com을 방문할 때에만 적용됩니다.</li>
+    </ul>
+    <h4>8. 보관 기간, 삭제 및 사용자의 권리</h4>
+    <ul>
+      <li><strong>앱에서 계정 삭제:</strong> 설정 → 요금제 및 이용 한도 → <em>계정 삭제</em>. 당사 서버에서 계정 정보, 식별자, 남은 메시지 수, 캐릭터 소유 기록이 영구 삭제되고 기기의 식별자도 지워집니다. 계정을 삭제해도 App Store 구독은 해지되지 않으므로 Apple ID 설정에서 해지하세요. 같은 Apple ID로 구매한 항목은 나중에 새 계정에서 '구입 항목 복원'으로 되찾을 수 있습니다.</li>
+      <li><a href="mailto:support@soma-agent.com">support@soma-agent.com</a>으로 이메일을 보내 정보의 열람·정정·삭제를 요청할 수도 있습니다.</li>
+      <li>계정·구매·사용 기록은 계정이 존재하는 동안 보관합니다. 계정 삭제 후 30일 이내에 이 기록을 삭제합니다. 단, 세무·회계 법령에 따라 보관해야 하는 거래 기록은 법정 기간 동안만 계정 식별자와 분리하여 보관합니다.</li>
+      <li>사용 기록은 최대 12개월간 보관한 뒤 삭제하거나 계정과 연결할 수 없는 합계로 변환합니다.</li>
+      <li>거주 지역의 법률에 따라 처리에 대한 이의 제기·제한, 개인정보 보호 기관에 대한 민원 제기 등 추가 권리가 있을 수 있습니다. 연락 주시면 30일 이내에 답변드립니다.</li>
+    </ul>
+    <h4>9. 아동</h4>
+    <p>iOS 앱은 만 13세 미만 아동을 대상으로 하지 않으며, 당사는 만 13세 미만 아동의 개인정보를 고의로 수집하지 않습니다. 아동이 앱을 사용했다고 생각되면 연락해 주세요. 해당 계정을 삭제하겠습니다.</p>
+    <h4>10. 변경 및 문의</h4>
+    <p>대화 데이터의 처리 방식이 바뀌는 경우(예: 새로운 AI 제공업체 추가) 이 항목을 업데이트하고, 새 제공업체로 데이터를 보내기 전에 앱에서 다시 동의를 요청합니다. 문의: <a href="mailto:support@soma-agent.com">support@soma-agent.com</a></p>
+  </div>
 
   <h2 id="refund">Refund Policy <span class="zh">／退款政策</span></h2>
   <ul>
